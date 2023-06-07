@@ -1,0 +1,46 @@
+application {
+  config {
+    baseName lastbye
+    applicationType monolith
+    packageName com.origami
+    authenticationType jwt
+    prodDatabaseType mysql
+    clientFramework angularX
+  }
+  entities *
+}
+entity Profile {
+    surname String
+    phone Long
+    prefix String
+    burialMethod String
+    clothes String
+    placeOfCeremony String
+    photo String
+    graveInscription String
+    spotify String
+    guests String
+    notInvited String
+    obituary String
+    purchasedPlace Boolean
+    ifPurchasedOther String
+    flowers Boolean
+    ifFlowers String
+    farewellLetter String
+    speech String
+    videoSpeech String
+    testament String
+    accessesForRelatives String
+    other String
+    codeQR String
+
+}
+entity Personality {
+    relativeEmail String
+}
+relationship OneToMany {
+    Profile to Personality
+}
+relationship OneToOne {
+    Profile to User
+}

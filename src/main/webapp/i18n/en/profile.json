@@ -1,0 +1,48 @@
+{
+  "lastbyeApp": {
+    "profile": {
+      "home": {
+        "title": "Profiles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Profile",
+        "createOrEditLabel": "Create or edit a Profile",
+        "notFound": "No Profiles found"
+      },
+      "created": "A new Profile is created with identifier {{ param }}",
+      "updated": "A Profile is updated with identifier {{ param }}",
+      "deleted": "A Profile is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Profile {{ id }}?"
+      },
+      "detail": {
+        "title": "Profile"
+      },
+      "id": "ID",
+      "surname": "Surname",
+      "phone": "Phone",
+      "prefix": "Prefix",
+      "burialMethod": "Burial Method",
+      "clothes": "Clothes",
+      "placeOfCeremony": "Place Of Ceremony",
+      "photo": "Photo",
+      "graveInscription": "Grave Inscription",
+      "spotify": "Spotify",
+      "guests": "Guests",
+      "notInvited": "Not Invited",
+      "obituary": "Obituary",
+      "purchasedPlace": "Purchased Place",
+      "ifPurchasedOther": "If Purchased Other",
+      "flowers": "Flowers",
+      "ifFlowers": "If Flowers",
+      "farewellLetter": "Farewell Letter",
+      "speech": "Speech",
+      "videoSpeech": "Video Speech",
+      "testament": "Testament",
+      "accessesForRelatives": "Accesses For Relatives",
+      "other": "Other",
+      "codeQR": "Code QR",
+      "user": "User",
+      "personality": "Personality"
+    }
+  }
+}

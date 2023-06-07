@@ -1,0 +1,122 @@
+{
+  "applications": ["lastbye"],
+  "changelogDate": "20230607191059",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "profile",
+  "fields": [
+    {
+      "fieldName": "surname",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "prefix",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "burialMethod",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "clothes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "placeOfCeremony",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "photo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "graveInscription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "spotify",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "guests",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notInvited",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "obituary",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "purchasedPlace",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "ifPurchasedOther",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "flowers",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "ifFlowers",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "farewellLetter",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "speech",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "videoSpeech",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "testament",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accessesForRelatives",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "other",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codeQR",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Profile",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "profile",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "personality",
+      "otherEntityRelationshipName": "profile",
+      "relationshipName": "personality",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}
