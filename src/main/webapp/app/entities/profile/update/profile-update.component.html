@@ -1,0 +1,226 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-profile-heading" data-cy="ProfileCreateUpdateHeading" jhiTranslate="lastbyeApp.profile.home.createOrEditLabel">
+        Create or edit a Profile
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.surname" for="field_surname">Surname</label>
+          <input type="text" class="form-control" name="surname" id="field_surname" data-cy="surname" formControlName="surname" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.phone" for="field_phone">Phone</label>
+          <input type="number" class="form-control" name="phone" id="field_phone" data-cy="phone" formControlName="phone" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.prefix" for="field_prefix">Prefix</label>
+          <input type="text" class="form-control" name="prefix" id="field_prefix" data-cy="prefix" formControlName="prefix" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.burialMethod" for="field_burialMethod">Burial Method</label>
+          <input
+            type="text"
+            class="form-control"
+            name="burialMethod"
+            id="field_burialMethod"
+            data-cy="burialMethod"
+            formControlName="burialMethod"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.clothes" for="field_clothes">Clothes</label>
+          <input type="text" class="form-control" name="clothes" id="field_clothes" data-cy="clothes" formControlName="clothes" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.placeOfCeremony" for="field_placeOfCeremony">Place Of Ceremony</label>
+          <input
+            type="text"
+            class="form-control"
+            name="placeOfCeremony"
+            id="field_placeOfCeremony"
+            data-cy="placeOfCeremony"
+            formControlName="placeOfCeremony"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.photo" for="field_photo">Photo</label>
+          <input type="text" class="form-control" name="photo" id="field_photo" data-cy="photo" formControlName="photo" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.graveInscription" for="field_graveInscription"
+            >Grave Inscription</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="graveInscription"
+            id="field_graveInscription"
+            data-cy="graveInscription"
+            formControlName="graveInscription"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.spotify" for="field_spotify">Spotify</label>
+          <input type="text" class="form-control" name="spotify" id="field_spotify" data-cy="spotify" formControlName="spotify" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.guests" for="field_guests">Guests</label>
+          <input type="text" class="form-control" name="guests" id="field_guests" data-cy="guests" formControlName="guests" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.notInvited" for="field_notInvited">Not Invited</label>
+          <input
+            type="text"
+            class="form-control"
+            name="notInvited"
+            id="field_notInvited"
+            data-cy="notInvited"
+            formControlName="notInvited"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.obituary" for="field_obituary">Obituary</label>
+          <input type="text" class="form-control" name="obituary" id="field_obituary" data-cy="obituary" formControlName="obituary" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.purchasedPlace" for="field_purchasedPlace">Purchased Place</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="purchasedPlace"
+            id="field_purchasedPlace"
+            data-cy="purchasedPlace"
+            formControlName="purchasedPlace"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.ifPurchasedOther" for="field_ifPurchasedOther"
+            >If Purchased Other</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="ifPurchasedOther"
+            id="field_ifPurchasedOther"
+            data-cy="ifPurchasedOther"
+            formControlName="ifPurchasedOther"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.flowers" for="field_flowers">Flowers</label>
+          <input type="checkbox" class="form-check" name="flowers" id="field_flowers" data-cy="flowers" formControlName="flowers" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.ifFlowers" for="field_ifFlowers">If Flowers</label>
+          <input type="text" class="form-control" name="ifFlowers" id="field_ifFlowers" data-cy="ifFlowers" formControlName="ifFlowers" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.farewellLetter" for="field_farewellLetter">Farewell Letter</label>
+          <input
+            type="text"
+            class="form-control"
+            name="farewellLetter"
+            id="field_farewellLetter"
+            data-cy="farewellLetter"
+            formControlName="farewellLetter"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.speech" for="field_speech">Speech</label>
+          <input type="text" class="form-control" name="speech" id="field_speech" data-cy="speech" formControlName="speech" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.videoSpeech" for="field_videoSpeech">Video Speech</label>
+          <input
+            type="text"
+            class="form-control"
+            name="videoSpeech"
+            id="field_videoSpeech"
+            data-cy="videoSpeech"
+            formControlName="videoSpeech"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.testament" for="field_testament">Testament</label>
+          <input type="text" class="form-control" name="testament" id="field_testament" data-cy="testament" formControlName="testament" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.accessesForRelatives" for="field_accessesForRelatives"
+            >Accesses For Relatives</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="accessesForRelatives"
+            id="field_accessesForRelatives"
+            data-cy="accessesForRelatives"
+            formControlName="accessesForRelatives"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.other" for="field_other">Other</label>
+          <input type="text" class="form-control" name="other" id="field_other" data-cy="other" formControlName="other" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.codeQR" for="field_codeQR">Code QR</label>
+          <input type="text" class="form-control" name="codeQR" id="field_codeQR" data-cy="codeQR" formControlName="codeQR" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="lastbyeApp.profile.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

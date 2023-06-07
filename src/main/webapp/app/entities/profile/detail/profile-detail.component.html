@@ -1,0 +1,124 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="profile">
+      <h2 data-cy="profileDetailsHeading"><span jhiTranslate="lastbyeApp.profile.detail.title">Profile</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ profile.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.surname">Surname</span></dt>
+        <dd>
+          <span>{{ profile.surname }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.phone">Phone</span></dt>
+        <dd>
+          <span>{{ profile.phone }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.prefix">Prefix</span></dt>
+        <dd>
+          <span>{{ profile.prefix }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.burialMethod">Burial Method</span></dt>
+        <dd>
+          <span>{{ profile.burialMethod }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.clothes">Clothes</span></dt>
+        <dd>
+          <span>{{ profile.clothes }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.placeOfCeremony">Place Of Ceremony</span></dt>
+        <dd>
+          <span>{{ profile.placeOfCeremony }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.photo">Photo</span></dt>
+        <dd>
+          <span>{{ profile.photo }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.graveInscription">Grave Inscription</span></dt>
+        <dd>
+          <span>{{ profile.graveInscription }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.spotify">Spotify</span></dt>
+        <dd>
+          <span>{{ profile.spotify }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.guests">Guests</span></dt>
+        <dd>
+          <span>{{ profile.guests }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.notInvited">Not Invited</span></dt>
+        <dd>
+          <span>{{ profile.notInvited }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.obituary">Obituary</span></dt>
+        <dd>
+          <span>{{ profile.obituary }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.purchasedPlace">Purchased Place</span></dt>
+        <dd>
+          <span>{{ profile.purchasedPlace }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.ifPurchasedOther">If Purchased Other</span></dt>
+        <dd>
+          <span>{{ profile.ifPurchasedOther }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.flowers">Flowers</span></dt>
+        <dd>
+          <span>{{ profile.flowers }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.ifFlowers">If Flowers</span></dt>
+        <dd>
+          <span>{{ profile.ifFlowers }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.farewellLetter">Farewell Letter</span></dt>
+        <dd>
+          <span>{{ profile.farewellLetter }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.speech">Speech</span></dt>
+        <dd>
+          <span>{{ profile.speech }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.videoSpeech">Video Speech</span></dt>
+        <dd>
+          <span>{{ profile.videoSpeech }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.testament">Testament</span></dt>
+        <dd>
+          <span>{{ profile.testament }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.accessesForRelatives">Accesses For Relatives</span></dt>
+        <dd>
+          <span>{{ profile.accessesForRelatives }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.other">Other</span></dt>
+        <dd>
+          <span>{{ profile.other }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.codeQR">Code QR</span></dt>
+        <dd>
+          <span>{{ profile.codeQR }}</span>
+        </dd>
+        <dt><span jhiTranslate="lastbyeApp.profile.user">User</span></dt>
+        <dd>
+          <span>{{ profile.user?.id }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/profile', profile.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

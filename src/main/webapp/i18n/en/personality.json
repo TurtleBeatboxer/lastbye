@@ -1,0 +1,25 @@
+{
+  "lastbyeApp": {
+    "personality": {
+      "home": {
+        "title": "Personalities",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Personality",
+        "createOrEditLabel": "Create or edit a Personality",
+        "notFound": "No Personalities found"
+      },
+      "created": "A new Personality is created with identifier {{ param }}",
+      "updated": "A Personality is updated with identifier {{ param }}",
+      "deleted": "A Personality is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Personality {{ id }}?"
+      },
+      "detail": {
+        "title": "Personality"
+      },
+      "id": "ID",
+      "relativeEmail": "Relative Email",
+      "profile": "Profile"
+    }
+  }
+}

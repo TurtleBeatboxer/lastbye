@@ -1,0 +1,251 @@
+<div>
+  <h2 id="page-heading" data-cy="ProfileHeading">
+    <span jhiTranslate="lastbyeApp.profile.home.title">Profiles</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="lastbyeApp.profile.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-profile"
+        [routerLink]="['/profile/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="lastbyeApp.profile.home.createLabel"> Create a new Profile </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="profiles?.length === 0">
+    <span jhiTranslate="lastbyeApp.profile.home.notFound">No Profiles found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="profiles && profiles.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="surname">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.surname">Surname</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="phone">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.phone">Phone</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="prefix">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.prefix">Prefix</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="burialMethod">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.burialMethod">Burial Method</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="clothes">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.clothes">Clothes</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="placeOfCeremony">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.placeOfCeremony">Place Of Ceremony</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="photo">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.photo">Photo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="graveInscription">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.graveInscription">Grave Inscription</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="spotify">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.spotify">Spotify</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="guests">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.guests">Guests</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="notInvited">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.notInvited">Not Invited</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="obituary">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.obituary">Obituary</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="purchasedPlace">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.purchasedPlace">Purchased Place</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="ifPurchasedOther">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.ifPurchasedOther">If Purchased Other</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="flowers">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.flowers">Flowers</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="ifFlowers">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.ifFlowers">If Flowers</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="farewellLetter">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.farewellLetter">Farewell Letter</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="speech">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.speech">Speech</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="videoSpeech">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.videoSpeech">Video Speech</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="testament">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.testament">Testament</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="accessesForRelatives">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.accessesForRelatives">Accesses For Relatives</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="other">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.other">Other</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="codeQR">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.codeQR">Code QR</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="user.id">
+            <div class="d-flex">
+              <span jhiTranslate="lastbyeApp.profile.user">User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let profile of profiles; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/profile', profile.id, 'view']">{{ profile.id }}</a>
+          </td>
+          <td>{{ profile.surname }}</td>
+          <td>{{ profile.phone }}</td>
+          <td>{{ profile.prefix }}</td>
+          <td>{{ profile.burialMethod }}</td>
+          <td>{{ profile.clothes }}</td>
+          <td>{{ profile.placeOfCeremony }}</td>
+          <td>{{ profile.photo }}</td>
+          <td>{{ profile.graveInscription }}</td>
+          <td>{{ profile.spotify }}</td>
+          <td>{{ profile.guests }}</td>
+          <td>{{ profile.notInvited }}</td>
+          <td>{{ profile.obituary }}</td>
+          <td>{{ profile.purchasedPlace }}</td>
+          <td>{{ profile.ifPurchasedOther }}</td>
+          <td>{{ profile.flowers }}</td>
+          <td>{{ profile.ifFlowers }}</td>
+          <td>{{ profile.farewellLetter }}</td>
+          <td>{{ profile.speech }}</td>
+          <td>{{ profile.videoSpeech }}</td>
+          <td>{{ profile.testament }}</td>
+          <td>{{ profile.accessesForRelatives }}</td>
+          <td>{{ profile.other }}</td>
+          <td>{{ profile.codeQR }}</td>
+          <td>
+            {{ profile.user?.id }}
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/profile', profile.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/profile', profile.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(profile)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

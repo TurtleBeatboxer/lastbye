@@ -1,0 +1,27 @@
+{
+  "applications": ["lastbye"],
+  "changelogDate": "20230607191159",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "personality",
+  "fields": [
+    {
+      "fieldName": "relativeEmail",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Personality",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "profile",
+      "otherEntityRelationshipName": "personality",
+      "relationshipName": "profile",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}
