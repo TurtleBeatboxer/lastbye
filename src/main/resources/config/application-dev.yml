@@ -47,10 +47,18 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-    host: localhost
-    port: 25
-    username:
-    password:
+    host: outlook.office365.com
+    port: 587
+    username: origami-no-reply@outlook.com
+    password: KurwaPizda123Dupa123
+    properties.mail.smtp:
+      tls: true
+      ssl:
+        trust: outlook.office365.com
+      starttls:
+        enable: true
+      auth: true
+    protocol: smtp
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
@@ -90,7 +98,7 @@ jhipster:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://127.0.0.1:8080
+    base-url: http://127.0.0.1:9000
   logging:
     use-json-format: false # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
