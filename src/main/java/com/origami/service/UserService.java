@@ -2,13 +2,16 @@ package com.origami.service;
 
 import com.origami.config.Constants;
 import com.origami.domain.Authority;
+import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.AuthorityRepository;
+import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
 import com.origami.security.AuthoritiesConstants;
 import com.origami.security.SecurityUtils;
 import com.origami.service.dto.AdminUserDTO;
 import com.origami.service.dto.UserDTO;
+import com.origami.web.rest.vm.ManagedUserVM;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -35,6 +38,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final ProfileRepository profileRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
@@ -43,11 +48,13 @@ public class UserService {
 
     public UserService(
         UserRepository userRepository,
+        ProfileRepository profileRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
         CacheManager cacheManager
     ) {
         this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
@@ -93,7 +100,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(AdminUserDTO userDTO, String password) {
+    public User registerUser(ManagedUserVM userDTO, String password) {
         userRepository
             .findOneByLogin(userDTO.getLogin().toLowerCase())
             .ifPresent(existingUser -> {
@@ -110,6 +117,7 @@ public class UserService {
                     throw new EmailAlreadyUsedException();
                 }
             });
+        Profile newProfile = new Profile();
         User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
@@ -130,6 +138,35 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+        if (userRepository.findOneByLogin(userDTO.getLogin()).isPresent()) {
+            newProfile.setUserId((userRepository.findOneByLogin(userDTO.getLogin()).get().getId()));
+            newProfile.setPhone(userDTO.getPhone());
+            newProfile.setPrefix(userDTO.getPrefix());
+            newProfile.setBurialMethod(userDTO.getBurialMethod());
+            newProfile.setClothes(userDTO.getClothes());
+            newProfile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
+            newProfile.setPhoto(userDTO.getPhoto());
+            newProfile.setGraveInscription(userDTO.getGraveInscription());
+            newProfile.setSpotify(userDTO.getSpotify());
+            newProfile.setGuests(userDTO.getGuests());
+            newProfile.setNotInvited(userDTO.getNotInvited());
+            newProfile.setObituary(userDTO.getObituary());
+            newProfile.setPurchasedPlace(userDTO.isPurchasedPlace());
+            if (newProfile.getPurchasedPlace()) {
+                newProfile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
+            }
+            newProfile.setFlowers(userDTO.isFlowers());
+            if (newProfile.getFlowers()) {
+                newProfile.setIfFlowers(userDTO.getIfFlowers());
+            }
+            newProfile.setFarewellLetter(userDTO.getFarewellLetter());
+            newProfile.setSpeech(userDTO.getSpeech());
+            newProfile.setVideoSpeech(userDTO.getVideoSpeech());
+            newProfile.setTestament(userDTO.getTestament());
+            newProfile.setOther(userDTO.getOther());
+            newProfile.setCodeQR("");
+            profileRepository.save(newProfile);
+        }
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;

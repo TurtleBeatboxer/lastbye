@@ -1,4 +1,4 @@
-gitapplication {
+application {
   config {
     baseName lastbye
     applicationType monolith
@@ -10,6 +10,7 @@ gitapplication {
   entities *
 }
 entity Profile {
+    userId Long
     surname String
     phone Long
     prefix String
@@ -40,7 +41,4 @@ entity Personality {
 }
 relationship OneToMany {
     Profile to Personality
-}
-relationship OneToOne {
-    Profile to User
 }
