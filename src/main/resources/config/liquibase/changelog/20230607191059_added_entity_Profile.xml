@@ -10,6 +10,7 @@
         Added the entity Profile.
     -->
     <changeSet id="20230607191059-1" author="jhipster">
+        <validCheckSum>8:513b22062302fae938fa7c52888329b5</validCheckSum>
         <createTable tableName="profile">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -84,7 +85,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_profile__user_id" />
+                <constraints nullable="true" unique="true"/>
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -107,6 +108,7 @@
                   tableName="profile"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="user_id" type="numeric"/>
             <column name="surname" type="string"/>
             <column name="phone" type="numeric"/>
             <column name="prefix" type="string"/>
