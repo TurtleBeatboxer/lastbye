@@ -20,7 +20,6 @@ public class Profile implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -95,6 +94,7 @@ public class Profile implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
+    @MapsId
     private User user;
 
     @OneToMany(mappedBy = "profile")
