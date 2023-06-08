@@ -117,7 +117,7 @@ public class UserService {
                     throw new EmailAlreadyUsedException();
                 }
             });
-        Profile newProfile = new Profile();
+
         User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
@@ -138,38 +138,42 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
-        if (userRepository.findOneByLogin(userDTO.getLogin()).isPresent()) {
-            newProfile.setUserId((userRepository.findOneByLogin(userDTO.getLogin()).get().getId()));
-            newProfile.setPhone(userDTO.getPhone());
-            newProfile.setPrefix(userDTO.getPrefix());
-            newProfile.setBurialMethod(userDTO.getBurialMethod());
-            newProfile.setClothes(userDTO.getClothes());
-            newProfile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
-            newProfile.setPhoto(userDTO.getPhoto());
-            newProfile.setGraveInscription(userDTO.getGraveInscription());
-            newProfile.setSpotify(userDTO.getSpotify());
-            newProfile.setGuests(userDTO.getGuests());
-            newProfile.setNotInvited(userDTO.getNotInvited());
-            newProfile.setObituary(userDTO.getObituary());
-            newProfile.setPurchasedPlace(userDTO.isPurchasedPlace());
-            if (newProfile.getPurchasedPlace()) {
-                newProfile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
-            }
-            newProfile.setFlowers(userDTO.isFlowers());
-            if (newProfile.getFlowers()) {
-                newProfile.setIfFlowers(userDTO.getIfFlowers());
-            }
-            newProfile.setFarewellLetter(userDTO.getFarewellLetter());
-            newProfile.setSpeech(userDTO.getSpeech());
-            newProfile.setVideoSpeech(userDTO.getVideoSpeech());
-            newProfile.setTestament(userDTO.getTestament());
-            newProfile.setOther(userDTO.getOther());
-            newProfile.setCodeQR("");
-            profileRepository.save(newProfile);
-        }
+        createNewProfile(userDTO);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
+    }
+
+    private void createNewProfile(ManagedUserVM userDTO) {
+        Profile newProfile = new Profile();
+        newProfile.setPhone(userDTO.getPhone());
+        newProfile.setPrefix(userDTO.getPrefix());
+        newProfile.setBurialMethod(userDTO.getBurialMethod());
+        newProfile.setClothes(userDTO.getClothes());
+        newProfile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
+        newProfile.setPhoto(userDTO.getPhoto());
+        newProfile.setGraveInscription(userDTO.getGraveInscription());
+        newProfile.setSpotify(userDTO.getSpotify());
+        newProfile.setGuests(userDTO.getGuests());
+        newProfile.setNotInvited(userDTO.getNotInvited());
+        newProfile.setObituary(userDTO.getObituary());
+        newProfile.setPurchasedPlace(userDTO.isPurchasedPlace());
+        if (newProfile.getPurchasedPlace()) {
+            newProfile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
+        }
+        newProfile.setFlowers(userDTO.isFlowers());
+        if (newProfile.getFlowers()) {
+            newProfile.setIfFlowers(userDTO.getIfFlowers());
+        }
+        newProfile.setFarewellLetter(userDTO.getFarewellLetter());
+        newProfile.setSpeech(userDTO.getSpeech());
+        newProfile.setVideoSpeech(userDTO.getVideoSpeech());
+        newProfile.setTestament(userDTO.getTestament());
+        newProfile.setOther(userDTO.getOther());
+        newProfile.setCodeQR("");
+        Optional<User> user = userRepository.findOneByLogin(userDTO.getLogin());
+        newProfile.setUserId(user.get().getId());
+        profileRepository.save(newProfile);
     }
 
     private boolean removeNonActivatedUser(User existingUser) {
