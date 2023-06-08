@@ -20,8 +20,11 @@ public class Profile implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "surname")
     private String surname;
@@ -92,10 +95,10 @@ public class Profile implements Serializable {
     @Column(name = "code_qr")
     private String codeQR;
 
-    @OneToOne
+    /*    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JoinColumn(unique = true)
     @MapsId
-    private User user;
+    private User user;*/
 
     @OneToMany(mappedBy = "profile")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -106,6 +109,14 @@ public class Profile implements Serializable {
 
     public Long getId() {
         return this.id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Profile id(Long id) {
@@ -414,19 +425,6 @@ public class Profile implements Serializable {
 
     public void setCodeQR(String codeQR) {
         this.codeQR = codeQR;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Profile user(User user) {
-        this.setUser(user);
-        return this;
     }
 
     public Set<Personality> getPersonalities() {
