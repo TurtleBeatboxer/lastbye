@@ -21,7 +21,7 @@ export class RegisterComponent implements AfterViewInit {
   errorUserExists = false;
   success = false;
 
-  registerForm = new FormGroup({
+  registerFormDefault = new FormGroup({
     login: new FormControl('', {
       nonNullable: true,
       validators: [
@@ -59,11 +59,11 @@ export class RegisterComponent implements AfterViewInit {
     this.errorEmailExists = false;
     this.errorUserExists = false;
 
-    const { password, confirmPassword } = this.registerForm.getRawValue();
+    const { password, confirmPassword } = this.registerFormDefault.getRawValue();
     if (password !== confirmPassword) {
       this.doNotMatch = true;
     } else {
-      const { login, email } = this.registerForm.getRawValue();
+      const { login, email } = this.registerFormDefault.getRawValue();
       this.registerService.save({ login, email, password, langKey: this.translateService.currentLang }).subscribe({
         next: () => {
           this.router.navigate(['/login']);
