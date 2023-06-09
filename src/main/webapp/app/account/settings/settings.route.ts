@@ -4,7 +4,7 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
 import { SettingsComponent } from './settings.component';
 
 export const settingsRoute: Route = {
-  path: 'settings',
+  path: 'profile',
   component: SettingsComponent,
   data: {
     pageTitle: 'global.menu.account.settings',

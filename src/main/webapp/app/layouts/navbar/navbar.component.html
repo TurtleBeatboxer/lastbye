@@ -167,15 +167,9 @@
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
             <li *ngSwitchCase="true">
-              <a
-                class="dropdown-item"
-                routerLink="account/settings"
-                routerLinkActive="active"
-                (click)="collapseNavbar()"
-                data-cy="settings"
-              >
+              <a class="dropdown-item" routerLink="user/profile" routerLinkActive="active" (click)="collapseNavbar()" data-cy="settings">
                 <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.account.settings">Settings</span>
+                <span jhiTranslate="global.menu.account.settings">Profile</span>
               </a>
             </li>
             <li *ngSwitchCase="true">
@@ -203,13 +197,7 @@
               </a>
             </li>
             <li *ngSwitchCase="false">
-              <a
-                class="dropdown-item"
-                routerLink="account/register"
-                routerLinkActive="active"
-                (click)="collapseNavbar()"
-                data-cy="register"
-              >
+              <a class="dropdown-item" routerLink="user/register" routerLinkActive="active" (click)="collapseNavbar()" data-cy="register">
                 <fa-icon icon="user-plus" [fixedWidth]="true"></fa-icon>
                 <span jhiTranslate="global.menu.account.register">Register</span>
               </a>
