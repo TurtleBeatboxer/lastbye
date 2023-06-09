@@ -2,6 +2,7 @@ package com.origami.service;
 
 import com.origami.config.Constants;
 import com.origami.domain.Authority;
+import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.AuthorityRepository;
@@ -46,18 +47,22 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+    private final QRService qrService;
+
     public UserService(
         UserRepository userRepository,
         ProfileRepository profileRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+        CacheManager cacheManager,
+        QRService qrService
     ) {
         this.userRepository = userRepository;
         this.profileRepository = profileRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.qrService = qrService;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -170,8 +175,10 @@ public class UserService {
         newProfile.setVideoSpeech(userDTO.getVideoSpeech());
         newProfile.setTestament(userDTO.getTestament());
         newProfile.setOther(userDTO.getOther());
-        newProfile.setCodeQR("");
+        newProfile.setCodeQR("https://lastbye.com/QRCode/" + qrService.getAlphaNumericString(10));
+        newProfile.setPublicProfileLink("https://lastbye.com/account/profile" + qrService.getAlphaNumericString(5));
         newProfile.setUserId(userDTO.getUserId());
+        newProfile.setMembershipLevel(MembershipLevel.STANDARD);
         profileRepository.save(newProfile);
     }
 
