@@ -101,6 +101,9 @@ public class Profile implements Serializable {
     @Column(name = "membership_level")
     private MembershipLevel membershipLevel;
 
+    /*    @Column(name ="isAlive")
+    private boolean isAlive;*/
+
     @OneToMany(mappedBy = "profile")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "profile" }, allowSetters = true)
