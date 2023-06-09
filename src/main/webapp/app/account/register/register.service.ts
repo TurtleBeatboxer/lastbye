@@ -7,6 +7,7 @@ import { Registration } from './register.model';
 
 @Injectable({ providedIn: 'root' })
 export class RegisterService {
+  success = false;
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   save(registration: Registration): Observable<{}> {
