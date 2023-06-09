@@ -95,10 +95,14 @@ public class Profile implements Serializable {
     @Column(name = "code_qr")
     private String codeQR;
 
-    /*    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
-    @JoinColumn(unique = true)
-    @MapsId
-    private User user;*/
+    @Column(name = "public_profile_link")
+    private String publicProfileLink;
+
+    @Column(name = "membership_level")
+    private MembershipLevel membershipLevel;
+
+    /*    @Column(name ="isAlive")
+    private boolean isAlive;*/
 
     @OneToMany(mappedBy = "profile")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -122,6 +126,22 @@ public class Profile implements Serializable {
     public Profile id(Long id) {
         this.setId(id);
         return this;
+    }
+
+    public String getPublicProfileLink() {
+        return publicProfileLink;
+    }
+
+    public void setPublicProfileLink(String publicProfileLink) {
+        this.publicProfileLink = publicProfileLink;
+    }
+
+    public MembershipLevel getMembershipLevel() {
+        return membershipLevel;
+    }
+
+    public void setMembershipLevel(MembershipLevel membershipLevel) {
+        this.membershipLevel = membershipLevel;
     }
 
     public void setId(Long id) {

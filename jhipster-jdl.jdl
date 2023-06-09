@@ -34,7 +34,8 @@ entity Profile {
     accessesForRelatives String
     other String
     codeQR String
-}
+    publicProfileLink String
+
 entity Personality {
     relativeEmail String
 }
