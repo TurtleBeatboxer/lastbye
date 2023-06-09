@@ -10,10 +10,18 @@ import { PasswordResetInitComponent } from './password-reset/init/password-reset
 import { PasswordResetFinishComponent } from './password-reset/finish/password-reset-finish.component';
 import { SettingsComponent } from './settings/settings.component';
 import { accountState } from './account.route';
-import { NbButtonModule, NbLayoutModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbLayoutModule, NbStepperModule } from '@nebular/theme';
 import { MatButtonModule } from '@angular/material/button';
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(accountState), NbButtonModule, MatButtonModule, NbLayoutModule],
+  imports: [
+    SharedModule,
+    RouterModule.forChild(accountState),
+    NbButtonModule,
+    NbStepperModule,
+    NbCardModule,
+    MatButtonModule,
+    NbLayoutModule,
+  ],
   declarations: [
     ActivateComponent,
     RegisterComponent,
