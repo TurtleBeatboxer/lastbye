@@ -95,11 +95,6 @@ public class Profile implements Serializable {
     @Column(name = "code_qr")
     private String codeQR;
 
-    /*    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
-    @JoinColumn(unique = true)
-    @MapsId
-    private User user;*/
-
     @OneToMany(mappedBy = "profile")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "profile" }, allowSetters = true)

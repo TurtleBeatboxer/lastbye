@@ -87,6 +87,9 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="true" unique="true"/>
             </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="true" unique="true"/>
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
