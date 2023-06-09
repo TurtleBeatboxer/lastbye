@@ -90,6 +90,9 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="true" unique="true"/>
             </column>
+            <column name="public_profile_link" type="varchar(255)">
+                <constraints nullable="true" unique="true"/>
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -135,6 +138,7 @@
             <column name="accesses_for_relatives" type="string"/>
             <column name="other" type="string"/>
             <column name="code_qr" type="string"/>
+            <column name="public_profile_link" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

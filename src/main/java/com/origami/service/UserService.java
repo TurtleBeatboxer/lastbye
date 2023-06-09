@@ -2,6 +2,7 @@ package com.origami.service;
 
 import com.origami.config.Constants;
 import com.origami.domain.Authority;
+import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.AuthorityRepository;
@@ -172,6 +173,7 @@ public class UserService {
         newProfile.setOther(userDTO.getOther());
         newProfile.setCodeQR("");
         newProfile.setUserId(userDTO.getUserId());
+        newProfile.setMembershipLevel(MembershipLevel.STANDARD);
         profileRepository.save(newProfile);
     }
 
