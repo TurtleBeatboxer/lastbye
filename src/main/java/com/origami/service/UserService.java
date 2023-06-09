@@ -137,7 +137,7 @@ public class UserService {
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
+        userDTO.setUserId(userRepository.save(newUser).getId());
         createNewProfile(userDTO);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
@@ -171,8 +171,7 @@ public class UserService {
         newProfile.setTestament(userDTO.getTestament());
         newProfile.setOther(userDTO.getOther());
         newProfile.setCodeQR("");
-        Optional<User> user = userRepository.findOneByLogin(userDTO.getLogin());
-        newProfile.setUserId(user.get().getId());
+        newProfile.setUserId(userDTO.getUserId());
         profileRepository.save(newProfile);
     }
 

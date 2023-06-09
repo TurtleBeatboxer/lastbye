@@ -38,9 +38,19 @@ public class ManagedUserVM extends AdminUserDTO {
     private String accessesForRelatives;
     private String other;
     private String codeQR;
+    // Not obtainable from frontend needed for clarity of code later on when its invoked
+    private Long userId;
 
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {
