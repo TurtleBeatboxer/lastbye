@@ -37,7 +37,6 @@ public class ManagedUserVM extends AdminUserDTO {
     private String testament;
     private String accessesForRelatives;
     private String other;
-    private String codeQR;
     // Not obtainable from frontend needed for clarity of code later on when its invoked
     private Long userId;
 
@@ -241,13 +240,5 @@ public class ManagedUserVM extends AdminUserDTO {
 
     public void setOther(String other) {
         this.other = other;
-    }
-
-    public String getCodeQR() {
-        return codeQR;
-    }
-
-    public void setCodeQR(String codeQR) {
-        this.codeQR = codeQR;
     }
 }
