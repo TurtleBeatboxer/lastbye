@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
+import { RegisterService } from 'app/account/register/register.service';
 
 @Component({
   selector: 'jhi-login',
@@ -12,7 +13,7 @@ import { AccountService } from 'app/core/auth/account.service';
 export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('username', { static: false })
   username!: ElementRef;
-
+  success = false;
   authenticationError = false;
 
   loginForm = new FormGroup({
@@ -21,10 +22,24 @@ export class LoginComponent implements OnInit, AfterViewInit {
     rememberMe: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
   });
 
-  constructor(private accountService: AccountService, private loginService: LoginService, private router: Router) {}
+  constructor(
+    private accountService: AccountService,
+    private loginService: LoginService,
+    private router: Router,
+    private registerService: RegisterService
+  ) {}
+
+  // function: void(){
+
+  // }
 
   ngOnInit(): void {
     // if already authenticated then navigate to home page
+    // if (this.registerService.success === true) {
+    //   this.success = true;
+    //   wait;
+    // }
+    this.successRegister();
     this.accountService.identity().subscribe(() => {
       if (this.accountService.isAuthenticated()) {
         this.router.navigate(['']);
@@ -47,5 +62,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
       },
       error: () => (this.authenticationError = true),
     });
+  }
+  delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async successRegister(): Promise<void> {
+    if (this.registerService.success === true) {
+      this.success = true;
+      // eslint-disable-next-line no-console
+      console.log('test');
+
+      await this.delay(5000);
+      this.success = false;
+      // eslint-disable-next-line no-console
+      console.log('test');
+    }
   }
 }
