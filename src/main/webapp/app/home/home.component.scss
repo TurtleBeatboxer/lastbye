@@ -1,23 +1,176 @@
-/* ==========================================================================
-Main page styles
-========================================================================== */
-
-.hipster {
-  display: inline-block;
-  width: 347px;
-  height: 497px;
-  background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-  background-size: contain;
+.global {
+  color: gray;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 5%;
+  width: 90%;
+  height: 80px;
+  background-color: rgb(255, 255, 255);
+  color: #fff;
+  padding: 10px;
+  z-index: 1;
+  border: 1px solid gray;
+}
+.barcontent {
+  text-decoration: none;
+  color: gray;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+.barcontent:hover {
+  color: #000000;
+}
+.firstpanel {
+  position: relative;
+  top: 33px;
+  background-image: url('/content/images/black.png');
+  width: 100%;
+  height: 1000px;
+}
+p.coolsentence {
+  position: relative;
+  text-align: center;
+  top: 300px;
+  color: #fff;
+  font-size: 90px;
+}
+.signup {
+  position: relative;
+  top: 500px;
+  left: 34%;
+  text-transform: uppercase;
+  color: gray;
+  font-size: 40px;
+  width: 600px;
+  height: 120px;
+  border-radius: 60px;
+}
+h2 {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.howwork {
+  position: relative;
+  top: 100px;
+  text-align: center;
+}
+.threeheaders {
+  position: relative;
+  top: 30px;
+  left: 700px;
+}
+.threetexts {
+  position: relative;
+  overflow-wrap: break-word;
+  width: 550px;
+  top: 50px;
+  left: 700px;
 }
 
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-    background-size: contain;
-  }
+.fullimage {
+  margin: 0px auto;
+  width: 100%;
+  height: 300px;
+}
+.number {
+  width: 110px;
+  height: 110px;
+  position: relative;
+  top: 130px;
+  left: 550px;
+}
+.offer {
+  border: 1px solid black;
+  width: 300px;
+  height: 400px;
+  border-radius: 15%;
+}
+#free {
+  position: relative;
+  top: 200px;
+  left: 20%;
+}
+#firstlevel {
+  position: relative;
+  top: -200px;
+  left: 40%;
+}
+#secondlevel {
+  position: relative;
+  top: -600px;
+  left: 60%;
+}
+
+.buttondiv {
+  position: relative;
+  top: 70%;
+  left: 10%;
+  width: 80%;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+  border: 1px solid black;
+  border-radius: 13px;
+}
+
+.buttondiv:hover {
+  background-color: rgb(0, 0, 0);
+  color: #fff;
+}
+.badiv {
+  position: relative;
+  top: 5%;
+  left: 10%;
+  width: 80%;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+  border: 1px solid black;
+  border-radius: 13px;
+}
+#FAQ {
+  position: relative;
+  top: -500px;
+}
+.faq-item .answer {
+  display: none;
+}
+
+.faq-item.active .answer {
+  display: block;
+}
+.contact {
+  border: 1px solid gray;
+  width: 80%;
+  height: 500px;
+  position: relative;
+  left: 10%;
+  font-size: 40px;
+}
+#contactsegment1 {
+  position: relative;
+  left: 27%;
+  top: 10%;
+}
+#contactsegment2 {
+  position: relative;
+  left: 47%;
+  top: -22%;
+}
+#contactsegment3 {
+  position: relative;
+  left: 67%;
+  top: -66.5%;
+}
+.contactlink {
+  text-decoration: none;
+  color: gray;
+  font-size: 20px;
 }

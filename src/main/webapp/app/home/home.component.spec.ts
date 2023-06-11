@@ -110,3 +110,14 @@ describe('Home Component', () => {
     });
   });
 });
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach((item: Element) => {
+  const question = item.querySelector('.question');
+
+  if (question instanceof HTMLElement) {
+    question.addEventListener('click', () => {
+      item.classList.toggle('active');
+    });
+  }
+});
