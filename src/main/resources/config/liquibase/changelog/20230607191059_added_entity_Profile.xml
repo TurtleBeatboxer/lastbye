@@ -87,9 +87,6 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="true" unique="true"/>
             </column>
-            <column name="user_id" type="bigint">
-                <constraints nullable="true" unique="true"/>
-            </column>
             <column name="public_profile_link" type="varchar(255)">
                 <constraints nullable="true" unique="true"/>
             </column>
