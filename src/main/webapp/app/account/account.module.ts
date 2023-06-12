@@ -10,7 +10,7 @@ import { PasswordResetInitComponent } from './password-reset/init/password-reset
 import { PasswordResetFinishComponent } from './password-reset/finish/password-reset-finish.component';
 import { SettingsComponent } from './settings/settings.component';
 import { accountState } from './account.route';
-import { NbButtonModule, NbCardModule, NbLayoutModule, NbStepperModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbLayoutModule, NbRadioModule, NbStepperModule } from '@nebular/theme';
 import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   imports: [
@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
     NbCardModule,
     MatButtonModule,
     NbLayoutModule,
+    NbRadioModule,
   ],
   declarations: [
     ActivateComponent,

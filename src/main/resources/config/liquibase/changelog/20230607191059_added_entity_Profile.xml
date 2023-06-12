@@ -87,9 +87,6 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="true" unique="true"/>
             </column>
-            <column name="user_id" type="bigint">
-                <constraints nullable="true" unique="true"/>
-            </column>
             <column name="public_profile_link" type="varchar(255)">
                 <constraints nullable="true" unique="true"/>
             </column>
@@ -109,10 +106,10 @@
     -->
     <changeSet id="20230607191059-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/profile.csv"
-                  separator=";"
-                  tableName="profile"
-                  usePreparedStatements="true">
+            file="config/liquibase/fake-data/profile.csv"
+            separator=";"
+            tableName="profile"
+            usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="user_id" type="numeric"/>
             <column name="surname" type="string"/>
