@@ -33,10 +33,10 @@
 <div class="nb-theme-default">
   <nb-card>
     <nb-card-body>
-      <nb-stepper orientation="horizontal">
+      <nb-stepper orientation="horizontal" linear="disabled">
         <nb-step [label]="labelOne" [stepControl]="registerFormDefault">
           <ng-template #labelOne>First step</ng-template>
-          <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerFormDefault" *ngIf="!success">
+          <form name="form" role="form" (ngSubmit)="register1()" [formGroup]="registerFormDefault" *ngIf="!success">
             <div class="mb-3">
               <label class="form-label" for="login" jhiTranslate="global.form.username.label">Username</label>
               <input
@@ -249,7 +249,7 @@
         </nb-step>
         <nb-step [label]="labelTwo">
           <ng-template #labelTwo>Second step</ng-template>
-          <form name="form" role="form" [formGroup]="registerFormStep2" *ngIf="!success">
+          <form name="form" role="form" [formGroup]="registerFormStep2" (ngSubmit)="register2()" *ngIf="!success">
             <div class="mb-3">
               <label class="form-label" for="firstName">First Name</label>
               <input
@@ -405,7 +405,7 @@
           <button nbButton nbStepperNext>next</button>
         </nb-step>
         <nb-step label="Third step">
-          <form name="form" role="form" [formGroup]="registerFormStep3" *ngIf="!success">
+          <form name="form" role="form" [formGroup]="registerFormStep3" (ngSubmit)="register3()" *ngIf="!success">
             <div class="mb-3">
               <label class="form-label" for="burialMethod">Burial method</label>
               <input
@@ -590,7 +590,7 @@
               </div> -->
             </div>
             <div class="mb-3">
-              <label class="form-label" for="spotify" jhiTranslate="global.form.email.label">Spotify</label>
+              <label class="form-label" for="spotify">Spotify</label>
               <input
                 type="text"
                 class="form-control"
@@ -754,18 +754,30 @@
         </nb-step>
         <nb-step [label]="labelFour">
           <ng-template #labelFour>Fourth step</ng-template>
-          <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerFormStep4" *ngIf="!success">
+          <form name="form" role="form" (ngSubmit)="sendRegister()" [formGroup]="registerFormStep4" *ngIf="!success">
             <div class="mb-3">
-              <label class="form-label" for="purchasedPlace">Purchased place</label>
-              <input
-                type="text"
-                class="form-control"
-                id="purchasedPlace"
-                name="purchasedPlace"
-                placeholder="{{ 'Purchased place' }}"
-                formControlName="purchasedPlace"
-                data-cy="purchasedPlace"
-              />
+              <!-- <label class="form-label" for="purchasedPlace">Purchased place -->
+
+              <!-- <label for="purchasedPlace">
+                  Yes
+                  <input type="radio" value=true formControlName="purchasedPlace" id="purchasedPlace"
+                    name="purchasedPlace">
+                </label>
+                <label for="purchasedPlace">
+                  No
+                  <input type="radio" value=false formControlName="purchasedPlace" id="purchasedPlace"
+                    name="purchasedPlace">
+                </label>
+              </label> -->
+              <label for="purchasedPlace">
+                Did you purchase your place
+                <nb-radio-group formControlName="purchasedPlace" name="purchased">
+                  <nb-radio value="true" id="purchasedPlace" name="purchasedPlace">Yes</nb-radio>
+                  <nb-radio value="false" id="purchasedPlace" name="purchasedPlace">No</nb-radio>
+                </nb-radio-group>
+              </label>
+              <!-- <input type="text" class="form-control" id="purchasedPlace" name="purchasedPlace"
+                placeholder="{{ 'Purchased place' }}" formControlName="purchasedPlace" data-cy="purchasedPlace" /> -->
               <!--
               <div *ngIf="
                   registerFormDefault.get('login')!.invalid &&
@@ -832,16 +844,16 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label" for="flowers">Flowers</label>
-              <input
-                type="text"
-                class="form-control"
-                id="flowers"
-                name="flowers"
-                placeholder="{{ 'Flowers' }}"
-                formControlName="flowers"
-                data-cy="flowers"
-              />
+              <label for="flowers">
+                Do you want any flowers
+                <nb-radio-group formControlName="flowers" name="flowers">
+                  <nb-radio value="true" id="flowers" name="flowers">Yes</nb-radio>
+                  <nb-radio value="false" id="flowers" name="flowers">No</nb-radio>
+                </nb-radio-group>
+              </label>
+              <!-- <label class="form-label" for="flowers">Flowers</label>
+              <input type="text" class="form-control" id="flowers" name="flowers" placeholder="{{ 'Flowers' }}"
+                formControlName="flowers" data-cy="flowers" /> -->
 
               <!-- <div *ngIf="
                   registerFormDefault.get('password')!.invalid &&
@@ -1108,15 +1120,8 @@
                 </small>
               </div> -->
             </div>
-            <button
-              type="submit"
-              [disabled]="registerFormDefault.invalid"
-              class="btn btn-primary"
-              jhiTranslate="register.form.button"
-              data-cy="submit"
-            >
-              Register
-            </button>
+
+            <button type="submit" class="btn btn-primary" [disabled]="registerFormDefault.invalid" data-cy="submit">Register</button>
           </form>
           <button nbButton nbStepperPrevious>prev</button>
           <button nbButton disabled nbStepperNext>next</button>
