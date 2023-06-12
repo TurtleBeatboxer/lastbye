@@ -2,6 +2,7 @@ package com.origami.service;
 
 import com.origami.config.Constants;
 import com.origami.domain.Authority;
+import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.AuthorityRepository;
 import com.origami.repository.ProfileRepository;
@@ -45,6 +46,8 @@ public class UserService {
 
     private final ProfileService profileService;
 
+    private final ProfileRepository profileRepository;
+
     public UserService(
         UserRepository userRepository,
         ProfileRepository profileRepository,
@@ -52,13 +55,15 @@ public class UserService {
         AuthorityRepository authorityRepository,
         CacheManager cacheManager,
         QRService qrService,
-        ProfileService profileService
+        ProfileService profileService,
+        ProfileRepository profileRepository1
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
         this.profileService = profileService;
+        this.profileRepository = profileRepository1;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -241,24 +246,47 @@ public class UserService {
     /**
      * Update basic information (first name, last name, email, language) for the current user.
      *
-     * @param firstName first name of user.
-     * @param lastName  last name of user.
-     * @param email     email id of user.
-     * @param langKey   language key.
-     * @param imageUrl  image URL of user.
      */
-    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
+    public void updateUser(ManagedUserVM userDTO) {
         SecurityUtils
             .getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .ifPresent(user -> {
-                user.setFirstName(firstName);
-                user.setLastName(lastName);
-                if (email != null) {
-                    user.setEmail(email.toLowerCase());
+                user.setFirstName(userDTO.getFirstName());
+                user.setLastName(userDTO.getLastName());
+                if (userDTO.getEmail() != null) {
+                    user.setEmail(userDTO.getEmail().toLowerCase());
                 }
-                user.setLangKey(langKey);
-                user.setImageUrl(imageUrl);
+                user.setLangKey(userDTO.getLangKey());
+                user.setImageUrl(userDTO.getImageUrl());
+                Optional<Profile> profile = profileRepository.findOneByUserId(user.getId());
+                if (profile.isPresent()) {
+                    profile.get().setSpeech(userDTO.getSpeech());
+                    profile.get().placeOfCeremony(userDTO.getPlaceOfCeremony());
+                    profile.get().setFlowers(userDTO.isFlowers());
+                    if (profile.get().getFlowers()) {
+                        profile.get().setIfFlowers(userDTO.getIfFlowers());
+                    }
+                    profile.get().setPurchasedPlace(userDTO.isPurchasedPlace());
+                    if (profile.get().getPurchasedPlace()) {
+                        profile.get().setIfPurchasedOther(userDTO.getIsPurchasedOther());
+                    }
+                    profile.get().setOther(userDTO.getOther());
+                    profile.get().setNotInvited(userDTO.getNotInvited());
+                    profile.get().setVideoSpeech(userDTO.getVideoSpeech());
+                    profile.get().setPhone(userDTO.getPhone());
+                    profile.get().setPrefix(userDTO.getPrefix());
+                    profile.get().setGuests(userDTO.getGuests());
+                    profile.get().setTestament(userDTO.getTestament());
+                    profile.get().setObituary(userDTO.getObituary());
+                    profile.get().setSpotify(userDTO.getSpotify());
+                    profile.get().setAccessesForRelatives(userDTO.getAccessesForRelatives());
+                    profile.get().setGraveInscription(userDTO.getGraveInscription());
+                    profile.get().setPhoto(userDTO.getPhoto());
+                    profile.get().setClothes(userDTO.getClothes());
+                    profile.get().setBurialMethod(userDTO.getBurialMethod());
+                    profile.get().setFarewellLetter(userDTO.getFarewellLetter());
+                }
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
