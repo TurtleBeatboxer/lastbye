@@ -2,8 +2,6 @@ package com.origami.service;
 
 import com.origami.config.Constants;
 import com.origami.domain.Authority;
-import com.origami.domain.MembershipLevel;
-import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.AuthorityRepository;
 import com.origami.repository.ProfileRepository;
@@ -39,15 +37,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final ProfileRepository profileRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
 
-    private final QRService qrService;
+    private final ProfileService profileService;
 
     public UserService(
         UserRepository userRepository,
@@ -55,14 +51,14 @@ public class UserService {
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
         CacheManager cacheManager,
-        QRService qrService
+        QRService qrService,
+        ProfileService profileService
     ) {
         this.userRepository = userRepository;
-        this.profileRepository = profileRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
-        this.qrService = qrService;
+        this.profileService = profileService;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -143,43 +139,10 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userDTO.setUserId(userRepository.save(newUser).getId());
-        createNewProfile(userDTO);
+        profileService.createNewProfile(userDTO);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
-    }
-
-    private void createNewProfile(ManagedUserVM userDTO) {
-        Profile newProfile = new Profile();
-        newProfile.setPhone(userDTO.getPhone());
-        newProfile.setPrefix(userDTO.getPrefix());
-        newProfile.setBurialMethod(userDTO.getBurialMethod());
-        newProfile.setClothes(userDTO.getClothes());
-        newProfile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
-        newProfile.setPhoto(userDTO.getPhoto());
-        newProfile.setGraveInscription(userDTO.getGraveInscription());
-        newProfile.setSpotify(userDTO.getSpotify());
-        newProfile.setGuests(userDTO.getGuests());
-        newProfile.setNotInvited(userDTO.getNotInvited());
-        newProfile.setObituary(userDTO.getObituary());
-        newProfile.setPurchasedPlace(userDTO.isPurchasedPlace());
-        if (newProfile.getPurchasedPlace()) {
-            newProfile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
-        }
-        newProfile.setFlowers(userDTO.isFlowers());
-        if (newProfile.getFlowers()) {
-            newProfile.setIfFlowers(userDTO.getIfFlowers());
-        }
-        newProfile.setFarewellLetter(userDTO.getFarewellLetter());
-        newProfile.setSpeech(userDTO.getSpeech());
-        newProfile.setVideoSpeech(userDTO.getVideoSpeech());
-        newProfile.setTestament(userDTO.getTestament());
-        newProfile.setOther(userDTO.getOther());
-        newProfile.setCodeQR("https://lastbye.com/QRCode/" + qrService.getAlphaNumericString(10));
-        newProfile.setPublicProfileLink("https://lastbye.com/account/profile" + qrService.getAlphaNumericString(5));
-        newProfile.setUserId(userDTO.getUserId());
-        newProfile.setMembershipLevel(MembershipLevel.STANDARD);
-        profileRepository.save(newProfile);
     }
 
     private boolean removeNonActivatedUser(User existingUser) {
