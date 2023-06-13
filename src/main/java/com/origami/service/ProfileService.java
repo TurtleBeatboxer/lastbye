@@ -2,13 +2,9 @@ package com.origami.service;
 
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
-import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
-import com.origami.repository.UserRepository;
 import com.origami.web.rest.vm.ManagedUserVM;
-import org.apache.commons.logging.Log;
-import org.h2.expression.function.StringFunction1;
-import org.hibernate.loader.plan.exec.process.spi.ReturnReader;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -93,5 +89,40 @@ public class ProfileService {
         newProfile.setUserId(userDTO.getUserId());
         newProfile.setMembershipLevel(MembershipLevel.STANDARD);
         profileRepository.save(newProfile);
+    }
+
+    public Optional<Profile> getProfileByUserID(Long userId) {
+        return profileRepository.findOneByUserId(userId);
+    }
+
+    public void updateProfile(ManagedUserVM userDTO) {
+        Optional<Profile> profile = getProfileByUserID(userDTO.getUserId());
+        if (profile.isPresent()) {
+            profile.get().setSpeech(userDTO.getSpeech());
+            profile.get().placeOfCeremony(userDTO.getPlaceOfCeremony());
+            profile.get().setFlowers(userDTO.isFlowers());
+            if (profile.get().getFlowers()) {
+                profile.get().setIfFlowers(userDTO.getIfFlowers());
+            }
+            profile.get().setPurchasedPlace(userDTO.isPurchasedPlace());
+            if (profile.get().getPurchasedPlace()) {
+                profile.get().setIfPurchasedOther(userDTO.getIsPurchasedOther());
+            }
+            profile.get().setOther(userDTO.getOther());
+            profile.get().setNotInvited(userDTO.getNotInvited());
+            profile.get().setVideoSpeech(userDTO.getVideoSpeech());
+            profile.get().setPhone(userDTO.getPhone());
+            profile.get().setPrefix(userDTO.getPrefix());
+            profile.get().setGuests(userDTO.getGuests());
+            profile.get().setTestament(userDTO.getTestament());
+            profile.get().setObituary(userDTO.getObituary());
+            profile.get().setSpotify(userDTO.getSpotify());
+            profile.get().setAccessesForRelatives(userDTO.getAccessesForRelatives());
+            profile.get().setGraveInscription(userDTO.getGraveInscription());
+            profile.get().setPhoto(userDTO.getPhoto());
+            profile.get().setClothes(userDTO.getClothes());
+            profile.get().setBurialMethod(userDTO.getBurialMethod());
+            profile.get().setFarewellLetter(userDTO.getFarewellLetter());
+        }
     }
 }
