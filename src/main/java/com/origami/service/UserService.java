@@ -106,7 +106,6 @@ public class UserService {
     }
 
     public User registerUser(ManagedUserVM userDTO, String password) {
-        System.out.println(userDTO);
         userRepository
             .findOneByLogin(userDTO.getLogin().toLowerCase())
             .ifPresent(existingUser -> {
