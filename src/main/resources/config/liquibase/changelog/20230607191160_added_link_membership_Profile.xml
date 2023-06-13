@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="8:236bac0de0a1573f236d5cd00e9566e4" author="Michas">
+    <changeSet id="8:4937a7426ab7624637175f13baff9b88" author="Michas">
         <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="Profile" columnName="public_profile_link" />
@@ -14,15 +14,15 @@
             </not>
         </preConditions>
         <addColumn tableName="profile">
+            <column name="membership_level" type="number">
+                <constraints nullable="true" unique="false"/>
+            </column>
             <column name="public_profile_link" type="varchar(256)">
                 <constraints nullable="true" unique="true"/>
             </column>
         </addColumn>
-        <addColumn tableName="profile">
-            <column name="membership_level" type="number">
-                <constraints nullable="true" unique="false"/>
-            </column>
-        </addColumn>
+
+
 
     </changeSet>
 </databaseChangeLog>
