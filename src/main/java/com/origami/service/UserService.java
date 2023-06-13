@@ -2,6 +2,7 @@ package com.origami.service;
 
 import com.origami.config.Constants;
 import com.origami.domain.Authority;
+import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.AuthorityRepository;
 import com.origami.repository.ProfileRepository;
@@ -258,10 +259,58 @@ public class UserService {
                 }
                 user.setLangKey(userDTO.getLangKey());
                 user.setImageUrl(userDTO.getImageUrl());
+                userDTO.setUserId(user.getId());
                 profileService.updateProfile(userDTO);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
+    }
+
+    public ManagedUserVM getManagedUserVMFromUser(User user) {
+        ManagedUserVM managedUserVM = new ManagedUserVM();
+        managedUserVM.setUserId(user.getId());
+        managedUserVM.setFirstName(user.getFirstName());
+        managedUserVM.setLastName(user.getLastName());
+        managedUserVM.setLogin(user.getLogin());
+        managedUserVM.setActivated(user.isActivated());
+        managedUserVM.setAuthorities(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
+        managedUserVM.setCreatedBy(user.getCreatedBy());
+        managedUserVM.setCreatedDate(user.getCreatedDate());
+        managedUserVM.setEmail(user.getEmail());
+        managedUserVM.setImageUrl(user.getImageUrl());
+        managedUserVM.setLangKey(user.getLangKey());
+        managedUserVM.setPassword(user.getPassword());
+        managedUserVM.setLastModifiedBy(user.getLastModifiedBy());
+        managedUserVM.setLastModifiedDate(user.getLastModifiedDate());
+        Optional<Profile> profile = profileService.getProfileByUserID(user.getId());
+        if (profile.isPresent()) {
+            managedUserVM.setClothes(profile.get().getClothes());
+            managedUserVM.setAccessesForRelatives(profile.get().getAccessesForRelatives());
+            managedUserVM.setBurialMethod(profile.get().getBurialMethod());
+            managedUserVM.setFarewellLetter(profile.get().getFarewellLetter());
+            managedUserVM.setFlowers(profile.get().getFlowers());
+            if (managedUserVM.isFlowers()) {
+                managedUserVM.setIfFlowers(profile.get().getIfFlowers());
+            }
+            managedUserVM.setGraveInscription(profile.get().getGraveInscription());
+            managedUserVM.setGuests(profile.get().getGuests());
+            managedUserVM.setPurchasedPlace(profile.get().getPurchasedPlace());
+            if (managedUserVM.isPurchasedPlace()) {
+                managedUserVM.setIsPurchasedOther(profile.get().getIfPurchasedOther());
+            }
+            managedUserVM.setNotInvited(profile.get().getNotInvited());
+            managedUserVM.setObituary(profile.get().getObituary());
+            managedUserVM.setOther(profile.get().getOther());
+            managedUserVM.setPhone(profile.get().getPhone());
+            managedUserVM.setPrefix(profile.get().getPrefix());
+            managedUserVM.setPhoto(profile.get().getPhoto());
+            managedUserVM.setPlaceOfCeremony(profile.get().getPlaceOfCeremony());
+            managedUserVM.setSpeech(profile.get().getSpeech());
+            managedUserVM.setSpotify(profile.get().getSpotify());
+            managedUserVM.setTestament(profile.get().getTestament());
+            managedUserVM.setVideoSpeech(profile.get().getVideoSpeech());
+        }
+        return managedUserVM;
     }
 
     @Transactional

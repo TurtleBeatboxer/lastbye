@@ -96,33 +96,35 @@ public class ProfileService {
     }
 
     public void updateProfile(ManagedUserVM userDTO) {
-        Optional<Profile> profile = getProfileByUserID(userDTO.getUserId());
-        if (profile.isPresent()) {
-            profile.get().setSpeech(userDTO.getSpeech());
-            profile.get().placeOfCeremony(userDTO.getPlaceOfCeremony());
-            profile.get().setFlowers(userDTO.isFlowers());
-            if (profile.get().getFlowers()) {
-                profile.get().setIfFlowers(userDTO.getIfFlowers());
+        Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+            profile.setSpeech(userDTO.getSpeech());
+            profile.placeOfCeremony(userDTO.getPlaceOfCeremony());
+            profile.setFlowers(userDTO.isFlowers());
+            if (profile.getFlowers()) {
+                profile.setIfFlowers(userDTO.getIfFlowers());
             }
-            profile.get().setPurchasedPlace(userDTO.isPurchasedPlace());
-            if (profile.get().getPurchasedPlace()) {
-                profile.get().setIfPurchasedOther(userDTO.getIsPurchasedOther());
+            profile.setPurchasedPlace(userDTO.isPurchasedPlace());
+            if (profile.getPurchasedPlace()) {
+                profile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
             }
-            profile.get().setOther(userDTO.getOther());
-            profile.get().setNotInvited(userDTO.getNotInvited());
-            profile.get().setVideoSpeech(userDTO.getVideoSpeech());
-            profile.get().setPhone(userDTO.getPhone());
-            profile.get().setPrefix(userDTO.getPrefix());
-            profile.get().setGuests(userDTO.getGuests());
-            profile.get().setTestament(userDTO.getTestament());
-            profile.get().setObituary(userDTO.getObituary());
-            profile.get().setSpotify(userDTO.getSpotify());
-            profile.get().setAccessesForRelatives(userDTO.getAccessesForRelatives());
-            profile.get().setGraveInscription(userDTO.getGraveInscription());
-            profile.get().setPhoto(userDTO.getPhoto());
-            profile.get().setClothes(userDTO.getClothes());
-            profile.get().setBurialMethod(userDTO.getBurialMethod());
-            profile.get().setFarewellLetter(userDTO.getFarewellLetter());
+            profile.setOther(userDTO.getOther());
+            profile.setNotInvited(userDTO.getNotInvited());
+            profile.setVideoSpeech(userDTO.getVideoSpeech());
+            profile.setPhone(userDTO.getPhone());
+            profile.setPrefix(userDTO.getPrefix());
+            profile.setGuests(userDTO.getGuests());
+            profile.setTestament(userDTO.getTestament());
+            profile.setObituary(userDTO.getObituary());
+            profile.setSpotify(userDTO.getSpotify());
+            profile.setAccessesForRelatives(userDTO.getAccessesForRelatives());
+            profile.setGraveInscription(userDTO.getGraveInscription());
+            profile.setPhoto(userDTO.getPhoto());
+            profile.setClothes(userDTO.getClothes());
+            profile.setBurialMethod(userDTO.getBurialMethod());
+            profile.setFarewellLetter(userDTO.getFarewellLetter());
+            profileRepository.save(profile);
         }
     }
 }
