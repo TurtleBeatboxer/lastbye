@@ -2,7 +2,6 @@ package com.origami.service;
 
 import com.origami.config.Constants;
 import com.origami.domain.Authority;
-import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.AuthorityRepository;
@@ -39,15 +38,15 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final ProfileRepository profileRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
 
-    private final QRService qrService;
+    private final ProfileService profileService;
+
+    private final ProfileRepository profileRepository;
 
     public UserService(
         UserRepository userRepository,
@@ -55,14 +54,16 @@ public class UserService {
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
         CacheManager cacheManager,
-        QRService qrService
+        QRService qrService,
+        ProfileService profileService,
+        ProfileRepository profileRepository1
     ) {
         this.userRepository = userRepository;
-        this.profileRepository = profileRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
-        this.qrService = qrService;
+        this.profileService = profileService;
+        this.profileRepository = profileRepository1;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -143,43 +144,10 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userDTO.setUserId(userRepository.save(newUser).getId());
-        createNewProfile(userDTO);
+        profileService.createNewProfile(userDTO);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
-    }
-
-    private void createNewProfile(ManagedUserVM userDTO) {
-        Profile newProfile = new Profile();
-        newProfile.setPhone(userDTO.getPhone());
-        newProfile.setPrefix(userDTO.getPrefix());
-        newProfile.setBurialMethod(userDTO.getBurialMethod());
-        newProfile.setClothes(userDTO.getClothes());
-        newProfile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
-        newProfile.setPhoto(userDTO.getPhoto());
-        newProfile.setGraveInscription(userDTO.getGraveInscription());
-        newProfile.setSpotify(userDTO.getSpotify());
-        newProfile.setGuests(userDTO.getGuests());
-        newProfile.setNotInvited(userDTO.getNotInvited());
-        newProfile.setObituary(userDTO.getObituary());
-        newProfile.setPurchasedPlace(userDTO.isPurchasedPlace());
-        if (newProfile.getPurchasedPlace()) {
-            newProfile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
-        }
-        newProfile.setFlowers(userDTO.isFlowers());
-        if (newProfile.getFlowers()) {
-            newProfile.setIfFlowers(userDTO.getIfFlowers());
-        }
-        newProfile.setFarewellLetter(userDTO.getFarewellLetter());
-        newProfile.setSpeech(userDTO.getSpeech());
-        newProfile.setVideoSpeech(userDTO.getVideoSpeech());
-        newProfile.setTestament(userDTO.getTestament());
-        newProfile.setOther(userDTO.getOther());
-        newProfile.setCodeQR("https://lastbye.com/QRCode/" + qrService.getAlphaNumericString(10));
-        newProfile.setPublicProfileLink("https://lastbye.com/account/profile" + qrService.getAlphaNumericString(5));
-        newProfile.setUserId(userDTO.getUserId());
-        newProfile.setMembershipLevel(MembershipLevel.STANDARD);
-        profileRepository.save(newProfile);
     }
 
     private boolean removeNonActivatedUser(User existingUser) {
@@ -278,27 +246,71 @@ public class UserService {
     /**
      * Update basic information (first name, last name, email, language) for the current user.
      *
-     * @param firstName first name of user.
-     * @param lastName  last name of user.
-     * @param email     email id of user.
-     * @param langKey   language key.
-     * @param imageUrl  image URL of user.
      */
-    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
+    public void updateUser(ManagedUserVM userDTO) {
         SecurityUtils
             .getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .ifPresent(user -> {
-                user.setFirstName(firstName);
-                user.setLastName(lastName);
-                if (email != null) {
-                    user.setEmail(email.toLowerCase());
+                user.setFirstName(userDTO.getFirstName());
+                user.setLastName(userDTO.getLastName());
+                if (userDTO.getEmail() != null) {
+                    user.setEmail(userDTO.getEmail().toLowerCase());
                 }
-                user.setLangKey(langKey);
-                user.setImageUrl(imageUrl);
+                user.setLangKey(userDTO.getLangKey());
+                user.setImageUrl(userDTO.getImageUrl());
+                userDTO.setUserId(user.getId());
+                profileService.updateProfile(userDTO);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
             });
+    }
+
+    public ManagedUserVM getManagedUserVMFromUser(User user) {
+        ManagedUserVM managedUserVM = new ManagedUserVM();
+        managedUserVM.setUserId(user.getId());
+        managedUserVM.setFirstName(user.getFirstName());
+        managedUserVM.setLastName(user.getLastName());
+        managedUserVM.setLogin(user.getLogin());
+        managedUserVM.setActivated(user.isActivated());
+        managedUserVM.setAuthorities(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
+        managedUserVM.setCreatedBy(user.getCreatedBy());
+        managedUserVM.setCreatedDate(user.getCreatedDate());
+        managedUserVM.setEmail(user.getEmail());
+        managedUserVM.setImageUrl(user.getImageUrl());
+        managedUserVM.setLangKey(user.getLangKey());
+        managedUserVM.setPassword(user.getPassword());
+        managedUserVM.setLastModifiedBy(user.getLastModifiedBy());
+        managedUserVM.setLastModifiedDate(user.getLastModifiedDate());
+        Optional<Profile> profile = profileService.getProfileByUserID(user.getId());
+        if (profile.isPresent()) {
+            managedUserVM.setClothes(profile.get().getClothes());
+            managedUserVM.setAccessesForRelatives(profile.get().getAccessesForRelatives());
+            managedUserVM.setBurialMethod(profile.get().getBurialMethod());
+            managedUserVM.setFarewellLetter(profile.get().getFarewellLetter());
+            managedUserVM.setFlowers(profile.get().getFlowers());
+            if (managedUserVM.isFlowers()) {
+                managedUserVM.setIfFlowers(profile.get().getIfFlowers());
+            }
+            managedUserVM.setGraveInscription(profile.get().getGraveInscription());
+            managedUserVM.setGuests(profile.get().getGuests());
+            managedUserVM.setPurchasedPlace(profile.get().getPurchasedPlace());
+            if (managedUserVM.isPurchasedPlace()) {
+                managedUserVM.setIsPurchasedOther(profile.get().getIfPurchasedOther());
+            }
+            managedUserVM.setNotInvited(profile.get().getNotInvited());
+            managedUserVM.setObituary(profile.get().getObituary());
+            managedUserVM.setOther(profile.get().getOther());
+            managedUserVM.setPhone(profile.get().getPhone());
+            managedUserVM.setPrefix(profile.get().getPrefix());
+            managedUserVM.setPhoto(profile.get().getPhoto());
+            managedUserVM.setPlaceOfCeremony(profile.get().getPlaceOfCeremony());
+            managedUserVM.setSpeech(profile.get().getSpeech());
+            managedUserVM.setSpotify(profile.get().getSpotify());
+            managedUserVM.setTestament(profile.get().getTestament());
+            managedUserVM.setVideoSpeech(profile.get().getVideoSpeech());
+        }
+        return managedUserVM;
     }
 
     @Transactional

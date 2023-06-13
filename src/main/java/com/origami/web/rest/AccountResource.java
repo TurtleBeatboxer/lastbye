@@ -98,11 +98,14 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user couldn't be returned.
      */
     @GetMapping("/account")
-    public AdminUserDTO getAccount() {
-        return userService
-            .getUserWithAuthorities()
-            .map(AdminUserDTO::new)
-            .orElseThrow(() -> new AccountResourceException("User could not be found"));
+    public ManagedUserVM getAccount() {
+        Optional<User> userOptional = userService.getUserWithAuthorities();
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return userService.getManagedUserVMFromUser(user);
+        } else {
+            throw new AccountResourceException("User could not be found");
+        }
     }
 
     /**
@@ -113,7 +116,7 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user login wasn't found.
      */
     @PostMapping("/account")
-    public void saveAccount(@Valid @RequestBody AdminUserDTO userDTO) {
+    public void saveAccount(@Valid @RequestBody ManagedUserVM userDTO) {
         String userLogin = SecurityUtils
             .getCurrentUserLogin()
             .orElseThrow(() -> new AccountResourceException("Current user login not found"));
@@ -125,13 +128,7 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new AccountResourceException("User could not be found");
         }
-        userService.updateUser(
-            userDTO.getFirstName(),
-            userDTO.getLastName(),
-            userDTO.getEmail(),
-            userDTO.getLangKey(),
-            userDTO.getImageUrl()
-        );
+        userService.updateUser(userDTO);
     }
 
     /**
