@@ -3,6 +3,7 @@ package com.origami.service;
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
 import com.origami.repository.ProfileRepository;
+import com.origami.repository.UserRepository;
 import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,12 @@ public class ProfileService {
     private final QRService qrService;
 
     private final ProfileRepository profileRepository;
+    private final UserRepository userRepository;
 
-    public ProfileService(QRService qrService, ProfileRepository profileRepository) {
+    public ProfileService(QRService qrService, ProfileRepository profileRepository, UserRepository userRepository) {
         this.qrService = qrService;
         this.profileRepository = profileRepository;
+        this.userRepository = userRepository;
     }
 
     public boolean isQRValid(String qrCode) {
@@ -72,6 +75,7 @@ public class ProfileService {
         newProfile.setSpeech(userDTO.getSpeech());
         newProfile.setVideoSpeech(userDTO.getVideoSpeech());
         newProfile.setTestament(userDTO.getTestament());
+        newProfile.setAccessesForRelatives(userDTO.getAccessesForRelatives());
         newProfile.setOther(userDTO.getOther());
 
         String qrCode = qrService.getAlphaNumericString(10);
