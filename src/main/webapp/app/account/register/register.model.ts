@@ -49,7 +49,7 @@ export class registeration1 {
     public firstName: string,
     public lastName: string,
     public prefix: string,
-    public phoneNumber: string,
+    public phone: string,
     public burialMethod: string,
     public clothes: string,
     public placeOfCeremony: string,
@@ -63,11 +63,11 @@ export class registeration1 {
     public isPurchasedOther: string,
     public flowers: boolean,
     public ifFlowers: string,
-    public farwellLetter: string,
+    public farewellLetter: string,
     public speech: string,
     public videoSpeech: string,
     public testament: string,
-    public accessForRelatives: string,
+    public accessesForRelatives: string,
     public other: string
   ) {}
 }
