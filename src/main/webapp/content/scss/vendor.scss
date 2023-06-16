@@ -1,12 +1,13 @@
-/* after changing this file run 'npm run webapp:build' */
+/* after changing this file run 'npm run webapp:build' /
 
-/***************************
+/**
 put Sass variables here:
 eg $input-color: red;
-****************************/
+**/
 // Override Bootstrap variables
 @import 'bootstrap-variables';
 // Import Bootstrap source files from node_modules
 @import '~bootstrap/scss/bootstrap';
-
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@nebular/theme/styles/prebuilt/default.css';
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
