@@ -4,8 +4,8 @@ import com.origami.domain.User;
 import com.origami.repository.UserRepository;
 import com.origami.security.SecurityUtils;
 import com.origami.service.MailService;
+import com.origami.service.ProfileService;
 import com.origami.service.UserService;
-import com.origami.service.dto.AdminUserDTO;
 import com.origami.service.dto.PasswordChangeDTO;
 import com.origami.web.rest.errors.*;
 import com.origami.web.rest.vm.KeyAndPasswordVM;
@@ -41,10 +41,13 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    private final ProfileService profileService;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, ProfileService profileService) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.profileService = profileService;
     }
 
     /**
@@ -63,6 +66,39 @@ public class AccountResource {
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
         mailService.sendActivationEmail(user);
+    }
+
+    @PostMapping("/register/form/1")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) {
+        setUserIdIfUserWithThatLoginExists(userDTO);
+        profileService.registerFirstForm(userDTO);
+    }
+
+    @PostMapping("/register/form/2")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void registerAccountFormTwo(@Valid @RequestBody ManagedUserVM userDTO) {
+        setUserIdIfUserWithThatLoginExists(userDTO);
+        profileService.registerSecondForm(userDTO);
+    }
+
+    @PostMapping("/register/form/3")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void registerAccountFormThree(@Valid @RequestBody ManagedUserVM userDTO) {
+        setUserIdIfUserWithThatLoginExists(userDTO);
+        profileService.registerThirdForm(userDTO);
+    }
+
+    private void setUserIdIfUserWithThatLoginExists(ManagedUserVM userDTO) {
+        String userLogin = SecurityUtils
+            .getCurrentUserLogin()
+            .orElseThrow(() -> new AccountResourceException("Current user login not found"));
+        Optional<User> userOptional = userRepository.findOneByLogin(userLogin);
+        if (userOptional.isEmpty()) {
+            throw new AccountResourceException("User could not be found");
+        }
+        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        existingUser.ifPresent(user -> userDTO.setUserId(user.getId()));
     }
 
     /**

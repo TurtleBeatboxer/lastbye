@@ -6,6 +6,7 @@ import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
 import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.Optional;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -92,6 +93,9 @@ public class ProfileService {
 
         newProfile.setUserId(userDTO.getUserId());
         newProfile.setMembershipLevel(MembershipLevel.STANDARD);
+        newProfile.setEditsLeft(2L);
+        newProfile.setOpenCoffin(false);
+        newProfile.setFinishedEditing(true);
         profileRepository.save(newProfile);
     }
 
@@ -102,32 +106,82 @@ public class ProfileService {
     public void updateProfile(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         if (profileOptional.isPresent()) {
+            if (profileOptional.get().getEditsLeft() > 0) {
+                Profile profile = profileOptional.get();
+                profile.setEditsLeft(profile.getEditsLeft() - 1);
+                profile.setSpeech(userDTO.getSpeech());
+                profile.placeOfCeremony(userDTO.getPlaceOfCeremony());
+                profile.setFlowers(userDTO.isFlowers());
+                if (profile.getFlowers()) {
+                    profile.setIfFlowers(userDTO.getIfFlowers());
+                }
+                profile.setPurchasedPlace(userDTO.isPurchasedPlace());
+                if (profile.getPurchasedPlace()) {
+                    profile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
+                }
+                profile.setOther(userDTO.getOther());
+                profile.setNotInvited(userDTO.getNotInvited());
+                profile.setVideoSpeech(userDTO.getVideoSpeech());
+                profile.setPhone(userDTO.getPhone());
+                profile.setPrefix(userDTO.getPrefix());
+                profile.setGuests(userDTO.getGuests());
+                profile.setTestament(userDTO.getTestament());
+                profile.setObituary(userDTO.getObituary());
+                profile.setSpotify(userDTO.getSpotify());
+                profile.setAccessesForRelatives(userDTO.getAccessesForRelatives());
+                profile.setGraveInscription(userDTO.getGraveInscription());
+                profile.setPhoto(userDTO.getPhoto());
+                profile.setClothes(userDTO.getClothes());
+                profile.setBurialMethod(userDTO.getBurialMethod());
+                profile.setFarewellLetter(userDTO.getFarewellLetter());
+                profileRepository.save(profile);
+            } else {
+                //Tutaj coś w przyszlosci wyrzucimy
+            }
+        } else {
+            //tutaj raczej nic nie powinno sie wydarzyc, ale chuj wie
+        }
+    }
+
+    public void registerFirstForm(ManagedUserVM userDTO) {
+        Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
+        if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
-            profile.setSpeech(userDTO.getSpeech());
-            profile.placeOfCeremony(userDTO.getPlaceOfCeremony());
+            profile.setBurialMethod(userDTO.getBurialMethod());
+            profile.setGraveInscription(userDTO.getGraveInscription());
+            profile.setOpenCoffin(userDTO.isOpenCoffin());
+            if (userDTO.isOpenCoffin()) {
+                profile.setClothes(userDTO.getClothes());
+            }
+            profileRepository.save(profile);
+        }
+    }
+
+    public void registerSecondForm(ManagedUserVM userDTO) {
+        Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
             profile.setFlowers(userDTO.isFlowers());
-            if (profile.getFlowers()) {
+            if (userDTO.isFlowers()) {
                 profile.setIfFlowers(userDTO.getIfFlowers());
             }
-            profile.setPurchasedPlace(userDTO.isPurchasedPlace());
-            if (profile.getPurchasedPlace()) {
-                profile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
-            }
-            profile.setOther(userDTO.getOther());
-            profile.setNotInvited(userDTO.getNotInvited());
-            profile.setVideoSpeech(userDTO.getVideoSpeech());
-            profile.setPhone(userDTO.getPhone());
-            profile.setPrefix(userDTO.getPrefix());
-            profile.setGuests(userDTO.getGuests());
-            profile.setTestament(userDTO.getTestament());
             profile.setObituary(userDTO.getObituary());
             profile.setSpotify(userDTO.getSpotify());
-            profile.setAccessesForRelatives(userDTO.getAccessesForRelatives());
-            profile.setGraveInscription(userDTO.getGraveInscription());
-            profile.setPhoto(userDTO.getPhoto());
-            profile.setClothes(userDTO.getClothes());
-            profile.setBurialMethod(userDTO.getBurialMethod());
+            profile.setGuests(userDTO.getGuests());
+            profile.setNotInvited(userDTO.getNotInvited());
+            profile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
+            profileRepository.save(profile);
+        }
+    }
+
+    public void registerThirdForm(ManagedUserVM userDTO) {
+        Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
             profile.setFarewellLetter(userDTO.getFarewellLetter());
+            profile.setVideoSpeech(userDTO.getVideoSpeech());
+            profile.setTestament(userDTO.getTestament());
+            profile.setOther(userDTO.getOther());
             profileRepository.save(profile);
         }
     }
