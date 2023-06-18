@@ -6,19 +6,15 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="8:4937a7426ab7624637175f13baff9b88" author="Michas">
+    <changeSet id="8:3339214e6a9857681f2c901214aa7b73" author="Michas">
         <preConditions onFail="MARK_RAN">
             <not>
-                <columnExists tableName="Profile" columnName="public_profile_link" />
-                <columnExists tableName="Profile" columnName="membership-level" />
+                <columnExists tableName="Profile" columnName="is_open_coffin" />
             </not>
         </preConditions>
         <addColumn tableName="profile">
-            <column name="membership_level" type="number">
-                <constraints nullable="true" unique="false"/>
-            </column>
-            <column name="public_profile_link" type="varchar(256)">
-                <constraints nullable="true" unique="true"/>
+            <column name="is_open_coffin" type="boolean">
+                <constraints nullable="false" unique="false"/>
             </column>
         </addColumn>
 

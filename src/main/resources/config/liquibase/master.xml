@@ -19,10 +19,11 @@
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191059_added_entity_Profile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191159_added_entity_Personality.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230607191160_added_link_membership_Profile.xml" relativeToChangelogFile="false"/>
+    <include file="/config/liquibase/changelog/20230607191161_added_link_membership_Profile.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20230607191059_added_entity_constraints_Profile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191159_added_entity_constraints_Personality.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230607191160_added_is_open_coffin_Profile.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

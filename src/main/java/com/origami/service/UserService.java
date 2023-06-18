@@ -144,7 +144,10 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userDTO.setUserId(userRepository.save(newUser).getId());
+
+        /// Do zastąpienia jest ta linijka jak bedzie przygotowany już 3 etapowy formularz zamiast jednoetapowego
         profileService.createNewProfile(userDTO);
+
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;

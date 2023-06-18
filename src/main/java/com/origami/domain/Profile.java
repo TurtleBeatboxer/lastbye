@@ -101,8 +101,41 @@ public class Profile implements Serializable {
     @Column(name = "membership_level")
     private MembershipLevel membershipLevel;
 
+    @Column(name = "finished_editing")
+    private Boolean finishedEditing = false;
+
+    @Column(name = "edits_left")
+    private Long editsLeft;
+
+    @Column(name = "is_open_coffin")
+    private Boolean isOpenCoffin = false;
+
+    public Boolean isOpenCoffin() {
+        return isOpenCoffin;
+    }
+
+    public void setOpenCoffin(Boolean openCoffin) {
+        isOpenCoffin = openCoffin;
+    }
+
     /*    @Column(name ="isAlive")
     private boolean isAlive;*/
+
+    public Boolean isFinishedEditing() {
+        return finishedEditing;
+    }
+
+    public void setFinishedEditing(Boolean finishedEditing) {
+        this.finishedEditing = finishedEditing;
+    }
+
+    public Long getEditsLeft() {
+        return editsLeft;
+    }
+
+    public void setEditsLeft(Long editsLeft) {
+        this.editsLeft = editsLeft;
+    }
 
     @OneToMany(mappedBy = "profile")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
