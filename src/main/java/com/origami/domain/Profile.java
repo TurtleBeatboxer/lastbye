@@ -104,6 +104,9 @@ public class Profile implements Serializable {
     @Column(name = "finished_editing")
     private Boolean finishedEditing = false;
 
+    @Column(name = "level_of_form")
+    private Long levelOfForm = 1L;
+
     @Column(name = "edits_left")
     private Long editsLeft;
 
@@ -120,6 +123,14 @@ public class Profile implements Serializable {
 
     /*    @Column(name ="isAlive")
     private boolean isAlive;*/
+
+    public Long getLevelOfForm() {
+        return levelOfForm;
+    }
+
+    public void setLevelOfForm(Long levelOfForm) {
+        this.levelOfForm = levelOfForm;
+    }
 
     public Boolean isFinishedEditing() {
         return finishedEditing;
