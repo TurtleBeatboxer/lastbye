@@ -182,6 +182,7 @@ public class ProfileService {
             profile.setVideoSpeech(userDTO.getVideoSpeech());
             profile.setTestament(userDTO.getTestament());
             profile.setOther(userDTO.getOther());
+            profile.setFinishedEditing(true);
             profileRepository.save(profile);
         }
     }
