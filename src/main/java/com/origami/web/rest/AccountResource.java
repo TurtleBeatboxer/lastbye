@@ -1,5 +1,6 @@
 package com.origami.web.rest;
 
+import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.UserRepository;
 import com.origami.security.SecurityUtils;
@@ -68,25 +69,19 @@ public class AccountResource {
         mailService.sendActivationEmail(user);
     }
 
-    @PostMapping("/register/form/1")
+    @PostMapping("/register/form")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) {
         setUserIdIfUserWithThatLoginExists(userDTO);
-        profileService.registerFirstForm(userDTO);
-    }
-
-    @PostMapping("/register/form/2")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void registerAccountFormTwo(@Valid @RequestBody ManagedUserVM userDTO) {
-        setUserIdIfUserWithThatLoginExists(userDTO);
-        profileService.registerSecondForm(userDTO);
-    }
-
-    @PostMapping("/register/form/3")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void registerAccountFormThree(@Valid @RequestBody ManagedUserVM userDTO) {
-        setUserIdIfUserWithThatLoginExists(userDTO);
-        profileService.registerThirdForm(userDTO);
+        if (userDTO.getLevelOfForm() == 1) {
+            profileService.registerFirstForm(userDTO);
+        }
+        if (userDTO.getLevelOfForm() == 2) {
+            profileService.registerSecondForm(userDTO);
+        }
+        if (userDTO.getLevelOfForm() == 3) {
+            profileService.registerThirdForm(userDTO);
+        }
     }
 
     private void setUserIdIfUserWithThatLoginExists(ManagedUserVM userDTO) {
@@ -99,6 +94,8 @@ public class AccountResource {
         }
         Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
         existingUser.ifPresent(user -> userDTO.setUserId(user.getId()));
+        Optional<Profile> profile = profileService.getProfileByUserID(userDTO.getUserId());
+        profile.ifPresent(value -> userDTO.setLevelOfForm(value.getLevelOfForm()));
     }
 
     /**
@@ -110,7 +107,7 @@ public class AccountResource {
     @GetMapping("/activate")
     public void activateAccount(@RequestParam(value = "key") String key) {
         Optional<User> user = userService.activateRegistration(key);
-        if (!user.isPresent()) {
+        if (user.isEmpty()) {
             throw new AccountResourceException("No user was found for this activation key");
         }
     }
