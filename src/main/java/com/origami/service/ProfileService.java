@@ -153,6 +153,7 @@ public class ProfileService {
             if (userDTO.isOpenCoffin()) {
                 profile.setClothes(userDTO.getClothes());
             }
+            profile.setLevelOfForm(2L);
             profileRepository.save(profile);
         }
     }
@@ -170,6 +171,7 @@ public class ProfileService {
             profile.setGuests(userDTO.getGuests());
             profile.setNotInvited(userDTO.getNotInvited());
             profile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
+            profile.setLevelOfForm(3L);
             profileRepository.save(profile);
         }
     }

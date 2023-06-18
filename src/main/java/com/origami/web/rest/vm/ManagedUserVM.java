@@ -38,6 +38,7 @@ public class ManagedUserVM extends AdminUserDTO {
     private String testament;
     private String accessesForRelatives;
     private String other;
+    private Long levelOfForm;
     private boolean isOpenCoffin;
     // Not obtainable from frontend needed for clarity of code later on when its invoked
     private Long userId;
@@ -48,6 +49,14 @@ public class ManagedUserVM extends AdminUserDTO {
 
     public boolean isOpenCoffin() {
         return isOpenCoffin;
+    }
+
+    public Long getLevelOfForm() {
+        return levelOfForm;
+    }
+
+    public void setLevelOfForm(Long levelOfForm) {
+        this.levelOfForm = levelOfForm;
     }
 
     public void setOpenCoffin(boolean openCoffin) {
