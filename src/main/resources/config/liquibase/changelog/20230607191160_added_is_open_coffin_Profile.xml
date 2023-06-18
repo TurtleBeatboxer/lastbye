@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="8:3339214e6a9857681f2c901214aa7b73" author="Michas">
+    <changeSet id="8:b954c4dec08aa13b70e943d72984a2ba" author="Michas">
         <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="Profile" columnName="is_open_coffin" />
@@ -14,7 +14,7 @@
         </preConditions>
         <addColumn tableName="profile">
             <column name="is_open_coffin" type="boolean">
-                <constraints nullable="false" unique="false"/>
+                <constraints nullable="true" unique="false"/>
             </column>
         </addColumn>
 
