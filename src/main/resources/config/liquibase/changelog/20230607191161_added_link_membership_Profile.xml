@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="8:4ec3f0634e59b34bb78cf28a00625966" author="Michas">
+    <changeSet id="8:ca79252d5e129ff17992bce0ab72401c" author="Michas">
         <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="Profile" columnName="public_profile_link" />
@@ -23,7 +23,7 @@
                 <constraints nullable="true" unique="true"/>
             </column>
             <column name="finished_editing" type="boolean">
-                <constraints nullable="false" unique="false"/>
+                <constraints nullable="true" unique="false"/>
             </column>
             <column name="edits_left" type="number">
                 <constraints nullable="true" unique="false"/>
