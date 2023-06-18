@@ -38,11 +38,20 @@ public class ManagedUserVM extends AdminUserDTO {
     private String testament;
     private String accessesForRelatives;
     private String other;
+    private boolean isOpenCoffin;
     // Not obtainable from frontend needed for clarity of code later on when its invoked
     private Long userId;
 
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
+    }
+
+    public boolean isOpenCoffin() {
+        return isOpenCoffin;
+    }
+
+    public void setOpenCoffin(boolean openCoffin) {
+        isOpenCoffin = openCoffin;
     }
 
     public Long getUserId() {
