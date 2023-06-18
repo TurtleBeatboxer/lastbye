@@ -35,10 +35,19 @@ entity Profile {
     other String
     codeQR String
     publicProfileLink String
+    membershipLevel MembershipLevel
+    editsLeft Integer
+    finishedEditing Boolean
 
 entity Personality {
     relativeEmail String
 }
 relationship OneToMany {
     Profile to Personality
+}
+
+enum MembershipLevel {
+    STANDARD
+    PREMIUM
+    TOP
 }
