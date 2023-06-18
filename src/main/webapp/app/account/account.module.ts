@@ -10,8 +10,18 @@ import { PasswordResetInitComponent } from './password-reset/init/password-reset
 import { PasswordResetFinishComponent } from './password-reset/finish/password-reset-finish.component';
 import { SettingsComponent } from './settings/settings.component';
 import { accountState } from './account.route';
-import { NbButtonModule, NbCardModule, NbLayoutModule, NbRadioModule, NbStepperModule } from '@nebular/theme';
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbDatepickerModule,
+  NbInputModule,
+  NbLayoutModule,
+  NbRadioModule,
+  NbStepperModule,
+} from '@nebular/theme';
 import { MatButtonModule } from '@angular/material/button';
+
+import { ProfileFormComponent } from './profile-form/profile-form.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -22,6 +32,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     NbLayoutModule,
     NbRadioModule,
+    NbInputModule,
+    NbDatepickerModule,
   ],
   declarations: [
     ActivateComponent,
@@ -31,6 +43,7 @@ import { MatButtonModule } from '@angular/material/button';
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
     SettingsComponent,
+    ProfileFormComponent,
   ],
 })
 export class AccountModule {}

@@ -6,8 +6,17 @@ import { passwordResetFinishRoute } from './password-reset/finish/password-reset
 import { passwordResetInitRoute } from './password-reset/init/password-reset-init.route';
 import { registerRoute } from './register/register.route';
 import { settingsRoute } from './settings/settings.route';
+import { profileFormRoute } from './profile-form/profile-form.route';
 
-const ACCOUNT_ROUTES = [activateRoute, passwordRoute, passwordResetFinishRoute, passwordResetInitRoute, registerRoute, settingsRoute];
+const ACCOUNT_ROUTES = [
+  activateRoute,
+  passwordRoute,
+  passwordResetFinishRoute,
+  passwordResetInitRoute,
+  registerRoute,
+  settingsRoute,
+  profileFormRoute,
+];
 
 export const accountState: Routes = [
   {
