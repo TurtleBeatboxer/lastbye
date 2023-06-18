@@ -5,6 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { LANGUAGES } from 'app/config/language.constants';
+import { HttpClient } from '@angular/common/http';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
 
 const initialAccount: Account = {} as Account;
 
@@ -37,13 +39,25 @@ export class SettingsComponent implements OnInit {
     login: new FormControl(initialAccount.login, { nonNullable: true }),
   });
 
-  constructor(private accountService: AccountService, private translateService: TranslateService) {}
+  constructor(
+    private accountService: AccountService,
+    private translateService: TranslateService,
+    private http: HttpClient,
+    private applicationConfigService: ApplicationConfigService
+  ) {}
 
   ngOnInit(): void {
     this.accountService.identity().subscribe(account => {
       if (account) {
         this.settingsForm.patchValue(account);
       }
+    });
+  }
+
+  onClick(): void {
+    // eslint-disable-next-line no-console
+    this.http.get(this.applicationConfigService.getEndpointFor('/api/account')).subscribe(res => {
+      console.log(res);
     });
   }
 
