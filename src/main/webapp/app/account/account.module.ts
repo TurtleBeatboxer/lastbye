@@ -33,7 +33,7 @@ import { ProfileFormComponent } from './profile-form/profile-form.component';
     NbLayoutModule,
     NbRadioModule,
     NbInputModule,
-    NbDatepickerModule,
+    NbDatepickerModule.forRoot(),
   ],
   declarations: [
     ActivateComponent,

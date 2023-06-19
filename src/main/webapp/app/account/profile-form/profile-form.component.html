@@ -2,9 +2,9 @@
   <nb-card>
     <nb-card-body>
       <nb-stepper orientation="horizontal" linear="disabled">
-        <nb-step [label]="labelTwo">
-          <ng-template #labelTwo>Second step</ng-template>
-          <form name="form" role="form" [formGroup]="registerFormStep2" (ngSubmit)="register3()" *ngIf="!success">
+        <nb-step [label]="labelOne">
+          <ng-template #labelOne>First step</ng-template>
+          <form name="form" role="form" [formGroup]="profileForm1" (ngSubmit)="profile1()" *ngIf="!success">
             <div class="mb-3">
               <label class="form-label" for="firstName">First Name</label>
               <input
@@ -20,23 +20,22 @@
 
               <div
                 *ngIf="
-                  registerFormStep2.get('firstName')!.invalid &&
-                  (registerFormStep2.get('firstName')!.dirty || registerFormStep2.get('firstName')!.touched)
+                  profileForm1.get('firstName')!.invalid && (rofileForm1.get('firstName')!.dirty || profileForm1.get('firstName')!.touched)
                 "
               >
-                <small class="form-text text-danger" *ngIf="registerFormStep2.get('firstName')?.errors?.required">
+                <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.required">
                   Your username is required.
                 </small>
 
-                <small class="form-text text-danger" *ngIf="registerFormStep2.get('firstName')?.errors?.minlength">
+                <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.minlength">
                   Your username is required to be at least 1 character.
                 </small>
 
-                <small class="form-text text-danger" *ngIf="registerFormStep2.get('firstName')?.errors?.maxlength">
+                <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.maxlength">
                   Your username cannot be longer than 50 characters.
                 </small>
 
-                <small class="form-text text-danger" *ngIf="registerFormStep2.get('firstName')?.errors?.pattern">
+                <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.pattern">
                   Your username is invalid.
                 </small>
               </div>
@@ -80,8 +79,9 @@
             </div>
             <div class="mb-3">
               <!-- <label class="form-label" for="birthDate">Date Of Birth</label> -->
-              <input nbInput placeholder="Pick Date" [nbDatepicker]="dateTimePicker" />
-              <nb-datepicker #dateTimePicker></nb-datepicker>
+              <input placeholder="Pick Date" [nbDatepicker]="dateTimePicker" />
+              <nb-datepicker #dateTimePicker format="dd/MM/yyyy"></nb-datepicker>
+              <button (click)="onClick()"></button>
               <!-- <input [nbDatepicker]="datepicker" nbInput id="birthDate" name="birthDate" placeholder="pick date"
                 formControlName="birthDate" data-cy="birthDate" />
               <nb-datepicker #datepicker></nb-datepicker> -->

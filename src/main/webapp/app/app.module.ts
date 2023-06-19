@@ -25,7 +25,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
-import { NbThemeModule } from '@nebular/theme';
+import { NbDatepickerModule, NbThemeModule } from '@nebular/theme';
 
 @NgModule({
   imports: [
@@ -40,6 +40,7 @@ import { NbThemeModule } from '@nebular/theme';
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),
     TranslationModule,
     NbThemeModule.forRoot(),
+    NbDatepickerModule.forRoot(),
   ],
   providers: [
     Title,
