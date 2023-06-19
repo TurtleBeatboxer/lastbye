@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NbDatepickerComponent } from '@nebular/theme';
 
 @Component({
   selector: 'jhi-profile-form',
@@ -9,13 +10,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./profile-form.component.scss'],
 })
 export class ProfileFormComponent implements OnInit {
-  register3() {}
+  profile1() {}
   success: any;
   sendRegister() {}
+  @ViewChild(NbDatepickerComponent) datepicker;
   constructor() {}
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {}
+
+  onClick(): void {
+    this.datepicker.show();
+  }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   registerFormStep4 = new FormGroup({
@@ -187,7 +193,7 @@ export class ProfileFormComponent implements OnInit {
   });
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  registerFormStep2 = new FormGroup({
+  profileForm1 = new FormGroup({
     firstName: new FormControl('', {
       nonNullable: true,
       validators: [
