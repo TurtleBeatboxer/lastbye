@@ -10,6 +10,9 @@ import { NbDatepickerComponent } from '@nebular/theme';
   styleUrls: ['./profile-form.component.scss'],
 })
 export class ProfileFormComponent implements OnInit {
+  register3() {
+    throw new Error('Method not implemented.');
+  }
   profile1() {}
   success: any;
   sendRegister() {}
@@ -21,6 +24,8 @@ export class ProfileFormComponent implements OnInit {
 
   onClick(): void {
     this.datepicker.show();
+    // eslint-disable-next-line no-console
+    console.log('dsadasd');
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
