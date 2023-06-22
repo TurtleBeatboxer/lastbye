@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
     Optional<Profile> findOneByUserId(Long userId);
+    Optional<Profile> findProfileByPublicProfileLink(String publicProfileLink);
 }
