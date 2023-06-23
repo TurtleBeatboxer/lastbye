@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { RegisterService } from 'app/account/register/register.service';
+import { UserService } from 'app/user/user.service';
 
 @Component({
   selector: 'jhi-login',
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private accountService: AccountService,
     private loginService: LoginService,
     private router: Router,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private userService: UserService
   ) {}
 
   // function: void(){
@@ -58,6 +60,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         if (!this.router.getCurrentNavigation()) {
           // There were no routing during login (eg from navigationToStoredUrl)
           this.router.navigate(['/user/profile']);
+          // this.userService.user = this.accountService.getUser();
         }
       },
       error: () => (this.authenticationError = true),

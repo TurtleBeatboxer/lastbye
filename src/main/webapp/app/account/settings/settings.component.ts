@@ -37,6 +37,7 @@ export class SettingsComponent implements OnInit {
     authorities: new FormControl(initialAccount.authorities, { nonNullable: true }),
     imageUrl: new FormControl(initialAccount.imageUrl, { nonNullable: true }),
     login: new FormControl(initialAccount.login, { nonNullable: true }),
+    userId: new FormControl(initialAccount.userId, { nonNullable: true }),
   });
 
   constructor(
@@ -55,10 +56,10 @@ export class SettingsComponent implements OnInit {
   }
 
   onClick(): void {
-    // eslint-disable-next-line no-console
-    this.http.get(this.applicationConfigService.getEndpointFor('/api/account')).subscribe(res => {
-      console.log(res);
-    });
+    this.http
+      .get(this.applicationConfigService.getEndpointFor('/api/account'))
+      // eslint-disable-next-line no-console
+      .subscribe(res => console.log(res));
   }
 
   save(): void {
