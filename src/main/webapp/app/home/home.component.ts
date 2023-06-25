@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -5,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'jhi-home',
@@ -17,7 +19,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   constructor(private accountService: AccountService, private router: Router) {}
-
+  formControl = new FormControl(new Date());
+  ngModelDate = new Date();
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
