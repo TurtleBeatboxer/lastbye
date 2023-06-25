@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/member-ordering */
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbStepperComponent } from '@nebular/theme';
-import { AccountService } from 'app/core/auth/account.service';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { ProfileFormService } from './profile-form.service';
 import { Router } from '@angular/router';
@@ -16,15 +13,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileFormComponent {
   success: any;
-  sendRegister() {}
   @ViewChild(NbStepperComponent) nbStepper;
-
-  constructor(
-    private http: HttpClient,
-    private applicationConfigService: ApplicationConfigService,
-    private router: Router,
-    private profileFormService: ProfileFormService
-  ) {}
 
   profileForm1 = new FormGroup({
     firstName: new FormControl('', {
@@ -166,38 +155,45 @@ export class ProfileFormComponent {
     other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
-  secondStep() {
+  constructor(
+    private http: HttpClient,
+    private applicationConfigService: ApplicationConfigService,
+    private router: Router,
+    private profileFormService: ProfileFormService
+  ) {}
+
+  secondStep(): void {
     this.http
       .post(
         this.applicationConfigService.getEndpointFor('/api/register/form'),
         this.profileFormService.dataProfile2(this.profileForm2.getRawValue())
       )
-      .subscribe(() => console.info(this.profileForm2.getRawValue()));
+      .subscribe(() => console.warn(this.profileForm2.getRawValue()));
     this.nbStepper.next();
   }
 
-  thirdStep() {
+  thirdStep(): void {
     this.http
       .post(
         this.applicationConfigService.getEndpointFor('/api/register/form'),
         this.profileFormService.dataProfile3(this.profileForm3.getRawValue())
       )
-      .subscribe(() => console.info(this.profileForm3.getRawValue()));
+      .subscribe(() => console.warn(this.profileForm3.getRawValue()));
     this.nbStepper.next();
   }
 
-  fourthStep() {
+  fourthStep(): void {
     this.http
       .post(
         this.applicationConfigService.getEndpointFor('/api/register/form'),
         this.profileFormService.dataProfile4(this.profileForm4.getRawValue())
       )
-      .subscribe(() => console.info(this.profileForm4.getRawValue()));
+      .subscribe(() => console.warn(this.profileForm4.getRawValue()));
     this.nbStepper.next();
     this.router.navigate(['/']);
   }
 
-  firstStep() {
+  firstStep(): void {
     // if(!this.accountService.userIdentity){
     //   return
     // }
