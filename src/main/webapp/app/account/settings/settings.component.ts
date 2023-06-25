@@ -38,6 +38,7 @@ export class SettingsComponent implements OnInit {
     imageUrl: new FormControl(initialAccount.imageUrl, { nonNullable: true }),
     login: new FormControl(initialAccount.login, { nonNullable: true }),
     userId: new FormControl(initialAccount.userId, { nonNullable: true }),
+    levelOfForm: new FormControl(initialAccount.levelOfForm, { nonNullable: true }),
   });
 
   constructor(
@@ -56,6 +57,7 @@ export class SettingsComponent implements OnInit {
   }
 
   onClick(): void {
+    console.log(this.accountService.userIdentity);
     this.http
       .post(this.applicationConfigService.getEndpointFor('/api/profile/get/data'), '!TVzk')
       // eslint-disable-next-line no-console

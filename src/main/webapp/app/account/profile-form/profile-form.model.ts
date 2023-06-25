@@ -7,9 +7,8 @@ interface requestData {
 export interface profileFormData1 extends Partial<requestData> {
   firstName: string;
   lastName: string;
-  dateOfBirth: string;
-  prefix: number;
-  phoneNumber: number;
+  prefix: string;
+  phone: number;
 }
 
 export interface profileFormData2 extends Partial<requestData> {
