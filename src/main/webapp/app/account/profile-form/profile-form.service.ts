@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { profileFormData2, profileFormData3, profileFormData4 } from './profile-form.model';
+import { profileFormData1, profileFormData2, profileFormData3, profileFormData4 } from './profile-form.model';
 import { AccountService } from 'app/core/auth/account.service';
 
 @Injectable({
@@ -14,6 +14,11 @@ export class ProfileFormService {
     } else {
       return { userId: -1, login: '' };
     }
+  }
+
+  dataProfile1(form: profileFormData1): profileFormData1 {
+    console.log({ ...form, ...this.getUserId(), levelOfForm: 0 });
+    return { ...form, ...this.getUserId(), levelOfForm: 0 };
   }
 
   dataProfile2(form: profileFormData2): profileFormData2 {
