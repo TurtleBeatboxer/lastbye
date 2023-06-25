@@ -26,8 +26,9 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
       this.id = params['id']; // (+) converts string 'id' to a number
       console.log(this.id);
       this.http.post(this.applicationConfigService.getEndpointFor('/api/profile/get/data'), this.id).subscribe(
-        res => {
+        (res: publicProfile) => {
           console.log(res);
+          this.profile = res;
         },
         error => {
           this.profile = error.error;

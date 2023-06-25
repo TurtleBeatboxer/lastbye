@@ -9,5 +9,4 @@ export const publicProfileRoute: Route = {
   data: {
     pageTitle: 'global.menu.account.publicProfile',
   },
-  canActivate: [UserRouteAccessService],
 };
