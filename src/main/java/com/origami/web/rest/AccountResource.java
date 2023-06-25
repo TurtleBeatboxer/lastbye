@@ -73,13 +73,7 @@ public class AccountResource {
     @PostMapping("/register/form")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) {
-        System.out.println(userDTO.isOpenCoffin());
         setUserIdIfUserWithThatLoginExists(userDTO);
-        System.out.println(userDTO.getLevelOfForm() + "help");
-        System.out.println(userDTO.getUserId());
-        System.out.println(userDTO.getBurialMethod());
-        System.out.println(userDTO.isOpenCoffin());
-        System.out.println(userDTO.getClothes());
         if (userDTO.getLevelOfForm() == 1) {
             profileService.registerFirstForm(userDTO);
         }

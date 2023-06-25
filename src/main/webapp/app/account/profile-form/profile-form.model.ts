@@ -1,68 +1,37 @@
-export class profileForm1 {
-  constructor(
-    public firstName: string,
-    public lastName: string,
-    public dateOfBirth: string,
-    public prefix: number,
-    public phoneNumber: number
-  ) {}
+interface requestData {
+  userId: number;
+  levelOfForm: number;
+  login: string;
 }
 
-export class profileForm2 {
-  constructor(public burialMethod: string, public graveInscription: string, public openCoffin: boolean, public clothes: string) {}
+export interface profileFormData1 extends Partial<requestData> {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  prefix: number;
+  phoneNumber: number;
 }
 
-export class profileData2 {
-  constructor(
-    public burialMethod: string,
-    public graveInscription: string,
-    public openCoffin: boolean,
-    public clothes: string,
-    public userId: number,
-    public login: string,
-    public levelOfForm: number
-  ) {}
+export interface profileFormData2 extends Partial<requestData> {
+  burialMethod: string;
+  graveInscription: string;
+  openCoffin: boolean;
+  clothes: string;
 }
 
-export class profileForm3 {
-  constructor(
-    public flowers: boolean,
-    public ifFlowers: string,
-    public obituary: string,
-    public spotify: string,
-    public guests: string,
-    public notInvited: string,
-    public placeOfCeremony: string
-  ) {}
+export interface profileFormData3 extends Partial<requestData> {
+  flowers: boolean;
+  ifFlowers: string;
+  obituary: string;
+  spotify: string;
+  guests: string;
+  notInvited: string;
+  placeOfCeremony: string;
 }
 
-export class profileData3 {
-  constructor(
-    public flowers: boolean,
-    public ifFlowers: string,
-    public obituary: string,
-    public spotify: string,
-    public guests: string,
-    public notInvited: string,
-    public placeOfCeremony: string,
-    public userId: number,
-    public login: string,
-    public levelOfForm: number
-  ) {}
-}
-
-export class profileForm4 {
-  constructor(public farewellLetter: string, public videoSpeech: string, public testament: string, public other: string) {}
-}
-
-export class profileData4 {
-  constructor(
-    public farewellLetter: string,
-    public videoSpeech: string,
-    public testament: string,
-    public other: string,
-    public userId: number,
-    public login: string,
-    public levelOfForm: number
-  ) {}
+export interface profileFormData4 extends Partial<requestData> {
+  farewellLetter: string;
+  videoSpeech: string;
+  testament: string;
+  other: string;
 }
