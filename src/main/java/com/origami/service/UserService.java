@@ -318,6 +318,7 @@ public class UserService {
             managedUserVM.setSpotify(profile.get().getSpotify());
             managedUserVM.setTestament(profile.get().getTestament());
             managedUserVM.setVideoSpeech(profile.get().getVideoSpeech());
+            managedUserVM.setLevelOfForm(profile.get().getLevelOfForm());
         }
         return managedUserVM;
     }

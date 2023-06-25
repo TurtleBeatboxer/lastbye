@@ -102,7 +102,7 @@ public class Profile implements Serializable {
     private MembershipLevel membershipLevel;
 
     @Column(name = "finished_editing")
-    private Boolean finishedEditing = false;
+    private Boolean finishedEditing;
 
     @Column(name = "level_of_form")
     private Long levelOfForm;
@@ -111,7 +111,7 @@ public class Profile implements Serializable {
     private Long editsLeft;
 
     @Column(name = "is_open_coffin")
-    private Boolean isOpenCoffin = false;
+    private Boolean isOpenCoffin;
 
     public Boolean isOpenCoffin() {
         return isOpenCoffin;
