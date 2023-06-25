@@ -86,7 +86,7 @@ public class AccountResource {
     }
 
     @PostMapping("/profile/get/data")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public PublicProfileDTO getUserData(@Valid @RequestBody String publicId) {
         return profileService.getPublicDataByProfileLink(publicId);
     }

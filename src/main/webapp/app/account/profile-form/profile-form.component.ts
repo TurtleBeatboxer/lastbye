@@ -162,6 +162,10 @@ export class ProfileFormComponent {
     private profileFormService: ProfileFormService
   ) {}
 
+  onSkip(): void {
+    this.router.navigate(['/']);
+  }
+
   secondStep(): void {
     this.http
       .post(
