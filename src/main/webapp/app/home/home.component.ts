@@ -20,10 +20,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {
+    document.addEventListener('DOMContentLoaded', this.callback);
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
+  }
+
+  callback() {
+    let accordionHeaders = document.getElementsByClassName('accordion-header');
+    for (var i = 0; i < accordionHeaders.length; i++) {
+      accordionHeaders[i].addEventListener('click', event => {
+        let header = event.target as HTMLElement;
+        console.log(event);
+        console.log(typeof event);
+        var accordionContent = header.nextElementSibling as HTMLElement;
+        if (accordionContent) {
+          if (accordionContent.style.display === 'block') {
+            accordionContent.style.display = 'none';
+          } else {
+            accordionContent.style.display = 'block';
+          }
+        }
+      });
+    }
   }
 
   login(): void {
