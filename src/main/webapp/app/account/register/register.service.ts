@@ -4,14 +4,16 @@ import { Observable } from 'rxjs';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { Register, registeration } from './register.model';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class RegisterService {
   success = false;
 
-  constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
+  constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService, private router: Router) {}
 
   save(register: Register): Observable<{}> {
+    this.router.navigate(['/user/profile1']);
     return this.http.post(this.applicationConfigService.getEndpointFor('api/register'), register);
   }
 
