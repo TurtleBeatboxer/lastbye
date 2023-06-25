@@ -8,6 +8,7 @@ import com.origami.service.MailService;
 import com.origami.service.ProfileService;
 import com.origami.service.UserService;
 import com.origami.service.dto.PasswordChangeDTO;
+import com.origami.service.dto.PublicProfileDTO;
 import com.origami.web.rest.errors.*;
 import com.origami.web.rest.vm.KeyAndPasswordVM;
 import com.origami.web.rest.vm.ManagedUserVM;
@@ -88,6 +89,12 @@ public class AccountResource {
         if (userDTO.getLevelOfForm() == 3) {
             profileService.registerThirdForm(userDTO);
         }
+    }
+
+    @PostMapping("/profile/get/data")
+    @ResponseStatus(HttpStatus.FOUND)
+    public PublicProfileDTO getUserData(@Valid @RequestBody String publicId) {
+        return profileService.getPublicDataByProfileLink(publicId);
     }
 
     private void setUserIdIfUserWithThatLoginExists(ManagedUserVM userDTO) {

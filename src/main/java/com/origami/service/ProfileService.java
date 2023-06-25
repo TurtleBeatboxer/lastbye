@@ -2,8 +2,10 @@ package com.origami.service;
 
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
+import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
+import com.origami.service.dto.PublicProfileDTO;
 import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.Optional;
 import net.bytebuddy.implementation.bytecode.Throw;
@@ -187,5 +189,43 @@ public class ProfileService {
             profile.setFinishedEditing(true);
             profileRepository.save(profile);
         }
+    }
+
+    public PublicProfileDTO getPublicDataByProfileLink(String publicProfileLink) {
+        Optional<Profile> optionalProfile = profileRepository.findProfileByPublicProfileLink(publicProfileLink);
+        PublicProfileDTO publicProfileDTO = new PublicProfileDTO();
+        if (optionalProfile.isPresent()) {
+            Profile profile = optionalProfile.get();
+
+            publicProfileDTO.setFlowers(profile.getFlowers());
+            if (profile.getFlowers()) {
+                publicProfileDTO.setIfFlowers(profile.getIfFlowers());
+            }
+            publicProfileDTO.setPurchasedPlace(profile.getPurchasedPlace());
+            if (profile.getPurchasedPlace()) {
+                publicProfileDTO.setIsPurchasedOther(profile.getIfPurchasedOther());
+            }
+            publicProfileDTO.setClothes(profile.getClothes());
+            publicProfileDTO.setTestament(profile.getTestament());
+            publicProfileDTO.setVideoSpeech(profile.getVideoSpeech());
+            publicProfileDTO.setSpotify(profile.getSpotify());
+            publicProfileDTO.setPlaceOfCeremony(profile.getPlaceOfCeremony());
+            publicProfileDTO.setSpeech(profile.getSpeech());
+            publicProfileDTO.setPhoto(profile.getPhoto());
+            publicProfileDTO.setOther(profile.getOther());
+            publicProfileDTO.setObituary(profile.getObituary());
+            publicProfileDTO.setGuests(profile.getGuests());
+            publicProfileDTO.setNotInvited(profile.getNotInvited());
+            publicProfileDTO.setGraveInscription(profile.getGraveInscription());
+            publicProfileDTO.setFarewellLetter(profile.getFarewellLetter());
+            publicProfileDTO.setBurialMethod(profile.getBurialMethod());
+            publicProfileDTO.setOpenCoffin(profile.isOpenCoffin());
+            Optional<User> userOptional = userRepository.findOneById(profile.getUserId());
+            if (userOptional.isPresent()) {
+                publicProfileDTO.setFirstName(userOptional.get().getFirstName());
+                publicProfileDTO.setLastName(userOptional.get().getLastName());
+            }
+        }
+        return publicProfileDTO;
     }
 }
