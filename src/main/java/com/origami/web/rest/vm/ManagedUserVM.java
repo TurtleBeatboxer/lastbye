@@ -28,9 +28,9 @@ public class ManagedUserVM extends AdminUserDTO {
     private String guests;
     private String notInvited;
     private String obituary;
-    private boolean purchasedPlace;
+    private Boolean purchasedPlace;
     private String isPurchasedOther;
-    private boolean flowers;
+    private Boolean flowers;
     private String ifFlowers;
     private String farewellLetter;
     private String speech;
@@ -39,7 +39,7 @@ public class ManagedUserVM extends AdminUserDTO {
     private String accessesForRelatives;
     private String other;
     private Long levelOfForm;
-    private boolean isOpenCoffin;
+    private Boolean isOpenCoffin;
     // Not obtainable from frontend needed for clarity of code later on when its invoked
     private Long userId;
 
@@ -47,7 +47,7 @@ public class ManagedUserVM extends AdminUserDTO {
         // Empty constructor needed for Jackson.
     }
 
-    public boolean isOpenCoffin() {
+    public Boolean isOpenCoffin() {
         return isOpenCoffin;
     }
 
@@ -59,7 +59,7 @@ public class ManagedUserVM extends AdminUserDTO {
         this.levelOfForm = levelOfForm;
     }
 
-    public void setOpenCoffin(boolean openCoffin) {
+    public void setOpenCoffin(Boolean openCoffin) {
         isOpenCoffin = openCoffin;
     }
 
@@ -181,11 +181,11 @@ public class ManagedUserVM extends AdminUserDTO {
         this.obituary = obituary;
     }
 
-    public boolean isPurchasedPlace() {
+    public Boolean isPurchasedPlace() {
         return purchasedPlace;
     }
 
-    public void setPurchasedPlace(boolean purchasedPlace) {
+    public void setPurchasedPlace(Boolean purchasedPlace) {
         this.purchasedPlace = purchasedPlace;
     }
 
@@ -197,11 +197,11 @@ public class ManagedUserVM extends AdminUserDTO {
         this.isPurchasedOther = isPurchasedOther;
     }
 
-    public boolean isFlowers() {
+    public Boolean isFlowers() {
         return flowers;
     }
 
-    public void setFlowers(boolean flowers) {
+    public void setFlowers(Boolean flowers) {
         this.flowers = flowers;
     }
 

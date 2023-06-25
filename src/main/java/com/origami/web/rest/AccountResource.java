@@ -18,7 +18,9 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -71,17 +73,24 @@ public class AccountResource {
     }
 
     @PostMapping("/register/form")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) {
+    public HttpStatus registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) {
         setUserIdIfUserWithThatLoginExists(userDTO);
-        if (userDTO.getLevelOfForm() == 1) {
-            profileService.registerFirstForm(userDTO);
-        }
-        if (userDTO.getLevelOfForm() == 2) {
-            profileService.registerSecondForm(userDTO);
-        }
-        if (userDTO.getLevelOfForm() == 3) {
-            profileService.registerThirdForm(userDTO);
+        if (profileService.isEditingFinished(userDTO)) {
+            if (userDTO.getLevelOfForm() == 0L) {
+                userService.registerZeroForm(userDTO);
+            }
+            if (userDTO.getLevelOfForm() == 1L) {
+                profileService.registerFirstForm(userDTO);
+            }
+            if (userDTO.getLevelOfForm() == 2L) {
+                profileService.registerSecondForm(userDTO);
+            }
+            if (userDTO.getLevelOfForm() == 3L) {
+                profileService.registerThirdForm(userDTO);
+            }
+            return HttpStatus.OK;
+        } else {
+            return HttpStatus.FORBIDDEN;
         }
     }
 
