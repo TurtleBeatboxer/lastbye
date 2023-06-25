@@ -22,6 +22,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 
 import { ProfileFormComponent } from './profile-form/profile-form.component';
+import { PublicProfileComponent } from './public-profile/public-profile.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -44,6 +45,7 @@ import { ProfileFormComponent } from './profile-form/profile-form.component';
     PasswordResetFinishComponent,
     SettingsComponent,
     ProfileFormComponent,
+    PublicProfileComponent,
   ],
 })
 export class AccountModule {}
