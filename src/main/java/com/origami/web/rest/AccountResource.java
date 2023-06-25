@@ -75,7 +75,7 @@ public class AccountResource {
     @PostMapping("/register/form")
     public HttpStatus registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) {
         setUserIdIfUserWithThatLoginExists(userDTO);
-        if (profileService.isEditingFinished(userDTO)) {
+        if (!profileService.isEditingFinished(userDTO)) {
             if (userDTO.getLevelOfForm() == 0L) {
                 userService.registerZeroForm(userDTO);
             }
