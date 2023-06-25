@@ -153,6 +153,16 @@ public class UserService {
         return newUser;
     }
 
+    public void registerZeroForm(ManagedUserVM userDTO) {
+        Optional<User> userOptional = userRepository.findOneById(userDTO.getUserId());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setFirstName(userDTO.getFirstName());
+            user.setLastName(userDTO.getLastName());
+            profileService.registerZeroForm(userDTO);
+        }
+    }
+
     private boolean removeNonActivatedUser(User existingUser) {
         if (existingUser.isActivated()) {
             return false;
@@ -292,15 +302,11 @@ public class UserService {
             managedUserVM.setBurialMethod(profile.get().getBurialMethod());
             managedUserVM.setFarewellLetter(profile.get().getFarewellLetter());
             managedUserVM.setFlowers(profile.get().getFlowers());
-            if (managedUserVM.isFlowers()) {
-                managedUserVM.setIfFlowers(profile.get().getIfFlowers());
-            }
+            managedUserVM.setIfFlowers(profile.get().getIfFlowers());
             managedUserVM.setGraveInscription(profile.get().getGraveInscription());
             managedUserVM.setGuests(profile.get().getGuests());
             managedUserVM.setPurchasedPlace(profile.get().getPurchasedPlace());
-            if (managedUserVM.isPurchasedPlace()) {
-                managedUserVM.setIsPurchasedOther(profile.get().getIfPurchasedOther());
-            }
+            managedUserVM.setIsPurchasedOther(profile.get().getIfPurchasedOther());
             managedUserVM.setNotInvited(profile.get().getNotInvited());
             managedUserVM.setObituary(profile.get().getObituary());
             managedUserVM.setOther(profile.get().getOther());
