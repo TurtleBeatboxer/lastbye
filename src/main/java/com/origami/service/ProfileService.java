@@ -9,6 +9,7 @@ import com.origami.service.dto.PublicProfileDTO;
 import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.Optional;
 import net.bytebuddy.implementation.bytecode.Throw;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -55,54 +56,23 @@ public class ProfileService {
 
     public void createNewProfile(ManagedUserVM userDTO) {
         Profile newProfile = new Profile();
-        newProfile.setPhone(userDTO.getPhone());
-        newProfile.setPrefix(userDTO.getPrefix());
-        newProfile.setBurialMethod(userDTO.getBurialMethod());
-        newProfile.setClothes(userDTO.getClothes());
-        newProfile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
-        newProfile.setPhoto(userDTO.getPhoto());
-        newProfile.setGraveInscription(userDTO.getGraveInscription());
-        newProfile.setSpotify(userDTO.getSpotify());
-        newProfile.setGuests(userDTO.getGuests());
-        newProfile.setNotInvited(userDTO.getNotInvited());
-        newProfile.setObituary(userDTO.getObituary());
-        newProfile.setPurchasedPlace(userDTO.isPurchasedPlace());
-        if (newProfile.getPurchasedPlace()) {
-            newProfile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
-        }
-        newProfile.setFlowers(userDTO.isFlowers());
-        if (newProfile.getFlowers()) {
-            newProfile.setIfFlowers(userDTO.getIfFlowers());
-        }
-        newProfile.setFarewellLetter(userDTO.getFarewellLetter());
-        newProfile.setSpeech(userDTO.getSpeech());
-        newProfile.setVideoSpeech(userDTO.getVideoSpeech());
-        newProfile.setTestament(userDTO.getTestament());
-        newProfile.setAccessesForRelatives(userDTO.getAccessesForRelatives());
-        newProfile.setOther(userDTO.getOther());
-
-        String qrCode = qrService.getAlphaNumericString(10);
-        while (!isQRValid(qrCode)) {
-            qrCode = qrService.getAlphaNumericString(10);
-        }
-        newProfile.setCodeQR(qrCode);
-
-        String publicLink = qrService.getAlphaNumericString(5);
-        while (!isPublicLinkValid(publicLink)) {
-            publicLink = qrService.getAlphaNumericString(5);
-        }
-        newProfile.setPublicProfileLink(publicLink);
 
         newProfile.setUserId(userDTO.getUserId());
         newProfile.setMembershipLevel(MembershipLevel.STANDARD);
         newProfile.setEditsLeft(2L);
-        newProfile.setOpenCoffin(false);
-        newProfile.setFinishedEditing(true);
+        newProfile.setLevelOfForm(0L);
+        newProfile.setFinishedEditing(false);
         profileRepository.save(newProfile);
     }
 
     public Optional<Profile> getProfileByUserID(Long userId) {
         return profileRepository.findOneByUserId(userId);
+    }
+
+    public Boolean isEditingFinished(ManagedUserVM userDTO) {
+        Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
+        Profile profile = profileOptional.get();
+        return profile.isFinishedEditing();
     }
 
     public void updateProfile(ManagedUserVM userDTO) {
@@ -142,6 +112,16 @@ public class ProfileService {
             }
         } else {
             //tutaj raczej nic nie powinno sie wydarzyc, ale chuj wie
+        }
+    }
+
+    public void registerZeroForm(ManagedUserVM userDTO) {
+        Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+            profile.setPrefix(userDTO.getPrefix());
+            profile.setPhone(userDTO.getPhone());
+            profile.setLevelOfForm(1L);
         }
     }
 
@@ -187,6 +167,17 @@ public class ProfileService {
             profile.setTestament(userDTO.getTestament());
             profile.setOther(userDTO.getOther());
             profile.setFinishedEditing(true);
+            String qrCode = qrService.getAlphaNumericString(10);
+            while (!isQRValid(qrCode)) {
+                qrCode = qrService.getAlphaNumericString(10);
+            }
+            profile.setCodeQR(qrCode);
+
+            String publicLink = qrService.getAlphaNumericString(5);
+            while (!isPublicLinkValid(publicLink)) {
+                publicLink = qrService.getAlphaNumericString(5);
+            }
+            profile.setPublicProfileLink(publicLink);
             profileRepository.save(profile);
         }
     }

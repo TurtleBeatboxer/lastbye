@@ -105,7 +105,7 @@ public class Profile implements Serializable {
     private Boolean finishedEditing = false;
 
     @Column(name = "level_of_form")
-    private Long levelOfForm = 1L;
+    private Long levelOfForm;
 
     @Column(name = "edits_left")
     private Long editsLeft;
