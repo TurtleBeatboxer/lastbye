@@ -17,7 +17,6 @@ const ACCOUNT_ROUTES = [
   registerRoute,
   settingsRoute,
   profileFormRoute,
-  publicProfileRoute,
 ];
 
 export const accountState: Routes = [

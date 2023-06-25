@@ -26,7 +26,7 @@ export class UserRouteAccessService implements CanActivate {
           this.router.navigate(['accessdenied']);
           return false;
         }
-
+        console.log('user');
         this.stateStorageService.storeUrl(state.url);
         this.router.navigate(['/login']);
         return false;
