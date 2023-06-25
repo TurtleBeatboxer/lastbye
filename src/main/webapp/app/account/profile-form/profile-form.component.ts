@@ -43,7 +43,7 @@ export class ProfileFormComponent {
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     }),
-    phoneNumber: new FormControl('', {
+    phone: new FormControl(0, {
       nonNullable: true,
       validators: [
         Validators.required,
@@ -198,22 +198,12 @@ export class ProfileFormComponent {
   }
 
   firstStep(): void {
-    // if(!this.accountService.userIdentity){
-    //   return
-    // }
-    // const form = this.profileForm2.getRawValue();
-    // this.http
-    //   .post(this.applicationConfigService.getEndpointFor('/api/register/form'), {
-    //     userId: this.accountService.userIdentity.userId,
-    //     login: this.accountService.userIdentity.login,
-    //     burialMethod: form.burialMethod,
-    //     graveInscription: form.graveInscription,
-    //     isOpenCoffin: form.
-    //     clothes: 'dsad',
-    //     levelOfForm: 1,
-    //   })
-    //   // eslint-disable-next-line no-console
-    //   .subscribe(res => console.log(res));
+    this.http
+      .post(
+        this.applicationConfigService.getEndpointFor('/api/register/form'),
+        this.profileFormService.dataProfile1(this.profileForm1.getRawValue())
+      )
+      .subscribe(() => console.warn(this.profileForm1.getRawValue()));
     this.nbStepper.next();
   }
 }
