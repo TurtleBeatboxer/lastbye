@@ -192,6 +192,8 @@ public class ProfileService {
     }
 
     public PublicProfileDTO getPublicDataByProfileLink(String publicProfileLink) {
+        System.out.println("test");
+        System.out.println(publicProfileLink);
         Optional<Profile> optionalProfile = profileRepository.findProfileByPublicProfileLink(publicProfileLink);
         PublicProfileDTO publicProfileDTO = new PublicProfileDTO();
         if (optionalProfile.isPresent()) {

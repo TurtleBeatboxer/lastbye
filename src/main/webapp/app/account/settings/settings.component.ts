@@ -57,7 +57,7 @@ export class SettingsComponent implements OnInit {
 
   onClick(): void {
     this.http
-      .get(this.applicationConfigService.getEndpointFor('/api/account'))
+      .post(this.applicationConfigService.getEndpointFor('/api/profile/get/data'), '!TVzk')
       // eslint-disable-next-line no-console
       .subscribe(res => console.log(res));
   }
