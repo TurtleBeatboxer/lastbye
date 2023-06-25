@@ -147,7 +147,7 @@ export class ProfileFormComponent {
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     }),
-    placeOfCceremony: new FormControl('', {
+    placeOfCeremony: new FormControl('', {
       nonNullable: true,
       validators: [
         Validators.required,
@@ -158,30 +158,40 @@ export class ProfileFormComponent {
     }),
   });
 
+  profileForm4 = new FormGroup({
+    farewellLetter: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    videoSpeech: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    testament: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+  });
+
   secondStep() {
     this.http
       .post(
         this.applicationConfigService.getEndpointFor('/api/register/form'),
-        this.profileFormService.dataProfile1(this.profileForm2.getRawValue())
+        this.profileFormService.dataProfile2(this.profileForm2.getRawValue())
       )
       .subscribe(() => console.info('sent'));
     this.nbStepper.next();
   }
 
   thirdStep() {
-    if (!this.accountService.userIdentity) {
-      return;
-    }
-    const form = this.profileForm3.getRawValue();
-    const data = {
-      userId: this.accountService.userIdentity.userId,
-      login: this.accountService.userIdentity.login,
-      flowers: form.flowers,
-    };
     this.http
-      .post(this.applicationConfigService.getEndpointFor('/api/register/form'), data)
-      // eslint-disable-next-line no-console
-      .subscribe(res => console.log(res));
+      .post(
+        this.applicationConfigService.getEndpointFor('/api/register/form'),
+        this.profileFormService.dataProfile3(this.profileForm3.getRawValue())
+      )
+      .subscribe(() => console.info('sent'));
+    this.nbStepper.next();
+  }
+
+  fourthStep() {
+    this.http
+      .post(
+        this.applicationConfigService.getEndpointFor('/api/register/form'),
+        this.profileFormService.dataProfile4(this.profileForm4.getRawValue())
+      )
+      .subscribe(() => console.info('sent'));
     this.nbStepper.next();
   }
 
