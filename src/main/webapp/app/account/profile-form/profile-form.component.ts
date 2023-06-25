@@ -7,6 +7,7 @@ import { NbStepperComponent } from '@nebular/theme';
 import { AccountService } from 'app/core/auth/account.service';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { ProfileFormService } from './profile-form.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-profile-form',
@@ -21,7 +22,7 @@ export class ProfileFormComponent {
   constructor(
     private http: HttpClient,
     private applicationConfigService: ApplicationConfigService,
-    private accountService: AccountService,
+    private router: Router,
     private profileFormService: ProfileFormService
   ) {}
 
@@ -171,7 +172,7 @@ export class ProfileFormComponent {
         this.applicationConfigService.getEndpointFor('/api/register/form'),
         this.profileFormService.dataProfile2(this.profileForm2.getRawValue())
       )
-      .subscribe(() => console.info('sent'));
+      .subscribe(() => console.info(this.profileForm2.getRawValue()));
     this.nbStepper.next();
   }
 
@@ -181,7 +182,7 @@ export class ProfileFormComponent {
         this.applicationConfigService.getEndpointFor('/api/register/form'),
         this.profileFormService.dataProfile3(this.profileForm3.getRawValue())
       )
-      .subscribe(() => console.info('sent'));
+      .subscribe(() => console.info(this.profileForm3.getRawValue()));
     this.nbStepper.next();
   }
 
@@ -191,8 +192,9 @@ export class ProfileFormComponent {
         this.applicationConfigService.getEndpointFor('/api/register/form'),
         this.profileFormService.dataProfile4(this.profileForm4.getRawValue())
       )
-      .subscribe(() => console.info('sent'));
+      .subscribe(() => console.info(this.profileForm4.getRawValue()));
     this.nbStepper.next();
+    this.router.navigate(['/']);
   }
 
   firstStep() {

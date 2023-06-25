@@ -53,29 +53,6 @@
                 formControlName="lastName"
                 data-cy="lastName"
               />
-
-              <!-- <div
-                *ngIf="
-                  registerFormStep2.get('lastName')!.invalid &&
-                  (registerFormStep2.get('lastName')!.dirty || registerFormStep2.get('lastName')!.touched)
-                "
-              >
-                <small class="form-text text-danger" *ngIf="registerFormStep2.get('lastName')?.errors?.required">
-                  Your email is required.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormStep2.get('lastName')?.errors?.invalid">
-                  Your email is invalid.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormStep2.get('lastName')?.errors?.minlength">
-                  Your email is required to be at least 5 characters.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormStep2.get('lastName')?.errors?.maxlength">
-                  Your email cannot be longer than 50 characters.
-                </small>
-              </div> -->
             </div>
             <div class="mb-3">
               <!-- <label class="form-label" for="birthDate">Date Of Birth</label> -->
@@ -91,9 +68,6 @@
                 formControlName="lastName"
                 data-cy="lastName"
               />
-              <!-- <input [nbDatepicker]="datepicker" nbInput id="birthDate" name="birthDate" placeholder="pick date"
-                formControlName="birthDate" data-cy="birthDate" />
-              <nb-datepicker #datepicker></nb-datepicker> -->
             </div>
 
             <div class="mb-3">
@@ -109,37 +83,6 @@
                 formControlName="prefix"
                 data-cy="prefix"
               />
-
-              <!-- <div
-                *ngIf="
-                  registerFormStep2.get('prefix')!.invalid &&
-                  (registerFormStep2.get('prefix')!.dirty || registerFormStep2.get('prefix')!.touched)
-                "
-              >
-                <small
-                  class="form-text text-danger"
-                  *ngIf="registerFormStep2.get('prefix')?.errors?.required"
-                  jhiTranslate="global.messages.validate.newpassword.required"
-                >
-                  Your password is required.
-                </small>
-
-                <small
-                  class="form-text text-danger"
-                  *ngIf="registerFormStep2.get('prefix')?.errors?.minlength"
-                  jhiTranslate="global.messages.validate.newpassword.minlength"
-                >
-                  Your password is required to be at least 4 characters.
-                </small>
-
-                <small
-                  class="form-text text-danger"
-                  *ngIf="registerFormStep2.get('prefix')?.errors?.maxlength"
-                  jhiTranslate="global.messages.validate.newpassword.maxlength"
-                >
-                  Your password cannot be longer than 50 characters.
-                </small>
-              </div> -->
             </div>
             <div class="mb-3">
               <label class="form-label" for="phoneNumber">Phone number</label>
@@ -154,26 +97,6 @@
                 formControlName="phoneNumber"
                 data-cy="phoneNumber"
               />
-              <!--
-              <div *ngIf="
-                  registerFormDefault.get('phoneNumber')!.invalid &&
-                  (registerFormDefault.get('phoneNumber')!.dirty || registerFormDefault.get('phoneNumber')!.touched)
-                ">
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('phoneNumber')?.errors?.required"
-                  jhiTranslate="global.messages.validate.newpassword.required">
-                  Your password is required.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('password')?.errors?.minlength"
-                  jhiTranslate="global.messages.validate.newpassword.minlength">
-                  Your password is required to be at least 4 characters.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('password')?.errors?.maxlength"
-                  jhiTranslate="global.messages.validate.newpassword.maxlength">
-                  Your password cannot be longer than 50 characters.
-                </small> -->
-              <!-- </div> -->
             </div>
             <!-- <button type="submit" [disabled]="profileForm1.invalid" class="btn btn-primary"
               data-cy="submit">Register</button> -->
@@ -194,31 +117,6 @@
                 formControlName="burialMethod"
                 data-cy="burialMethod"
               />
-              <!--
-              <div *ngIf="
-                  registerFormDefault.get('login')!.invalid &&
-                  (registerFormDefault.get('login')!.dirty || registerFormDefault.get('login')!.touched)
-                ">
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('login')?.errors?.required"
-                  jhiTranslate="register.messages.validate.login.required">
-                  Your username is required.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('login')?.errors?.minlength"
-                  jhiTranslate="register.messages.validate.login.minlength">
-                  Your username is required to be at least 1 character.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('login')?.errors?.maxlength"
-                  jhiTranslate="register.messages.validate.login.maxlength">
-                  Your username cannot be longer than 50 characters.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('login')?.errors?.pattern"
-                  jhiTranslate="register.messages.validate.login.pattern">
-                  Your username is invalid.
-                </small>
-              </div>-->
             </div>
             <div class="mb-3">
               <label class="form-label" for="graveInscription">Grave inscription</label>
@@ -232,31 +130,6 @@
                 formControlName="graveInscription"
                 data-cy="graveInscription"
               />
-
-              <!-- <div *ngIf="
-                  registerFormDefault.get('email')!.invalid &&
-                  (registerFormDefault.get('email')!.dirty || registerFormDefault.get('email')!.touched)
-                ">
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('email')?.errors?.required"
-                  jhiTranslate="global.messages.validate.email.required">
-                  Your email is required.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('email')?.errors?.invalid"
-                  jhiTranslate="global.messages.validate.email.invalid">
-                  Your email is invalid.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('email')?.errors?.minlength"
-                  jhiTranslate="global.messages.validate.email.minlength">
-                  Your email is required to be at least 5 characters.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('email')?.errors?.maxlength"
-                  jhiTranslate="global.messages.validate.email.maxlength">
-                  Your email cannot be longer than 50 characters.
-                </small>
-              </div> -->
             </div>
             <div class="mb-3">
               <label for="openCoffin">
@@ -266,26 +139,6 @@
                   <nb-radio value="false" id="openCoffin" name="openCoffin">No</nb-radio>
                 </nb-radio-group>
               </label>
-              <!--
-              <div *ngIf="
-                  registerFormDefault.get('password')!.invalid &&
-                  (registerFormDefault.get('password')!.dirty || registerFormDefault.get('password')!.touched)
-                ">
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('password')?.errors?.required"
-                  jhiTranslate="global.messages.validate.newpassword.required">
-                  Your password is required.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('password')?.errors?.minlength"
-                  jhiTranslate="global.messages.validate.newpassword.minlength">
-                  Your password is required to be at least 4 characters.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('password')?.errors?.maxlength"
-                  jhiTranslate="global.messages.validate.newpassword.maxlength">
-                  Your password cannot be longer than 50 characters.
-                </small>
-              </div> -->
             </div>
             <div class="mb-3">
               <label class="form-label" for="clothes">Clothes</label>
@@ -299,35 +152,10 @@
                 formControlName="clothes"
                 data-cy="clothes"
               />
-
-              <!-- <div *ngIf="
-                  registerFormDefault.get('email')!.invalid &&
-                  (registerFormDefault.get('email')!.dirty || registerFormDefault.get('email')!.touched)
-                ">
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('email')?.errors?.required"
-                  jhiTranslate="global.messages.validate.email.required">
-                  Your email is required.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('email')?.errors?.invalid"
-                  jhiTranslate="global.messages.validate.email.invalid">
-                  Your email is invalid.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('email')?.errors?.minlength"
-                  jhiTranslate="global.messages.validate.email.minlength">
-                  Your email is required to be at least 5 characters.
-                </small>
-
-                <small class="form-text text-danger" *ngIf="registerFormDefault.get('email')?.errors?.maxlength"
-                  jhiTranslate="global.messages.validate.email.maxlength">
-                  Your email cannot be longer than 50 characters.
-                </small>
-              </div>-->
             </div>
 
             <button nbButton nbStepperPrevious>Prev</button>
-            <button nbButton type="submit" data-cy="submit">Next</button>
+            <button nbButton [disabled]="!profileForm2.valid" type="submit" data-cy="submit">Next</button>
           </form>
         </nb-step>
         <nb-step [label]="labelThree">
@@ -423,9 +251,8 @@
               />
             </div>
             <button nbButton nbStepperPrevious>Prev</button>
-            <button nbButton type="submit" class="btn btn-primary" data-cy="submit">Next</button>
+            <button nbButton [disabled]="!profileForm3.valid" type="submit" class="btn btn-primary" data-cy="submit">Next</button>
           </form>
-          ]
         </nb-step>
         <nb-step label="fourthStep">
           <form name="form" role="form" [formGroup]="profileForm4" (ngSubmit)="fourthStep()" *ngIf="!success">
@@ -483,7 +310,7 @@
             </div>
 
             <button nbButton nbStepperPrevious>Prev</button>
-            <button nbButton type="submit" data-cy="submit">Next</button>
+            <button nbButton [disabled]="!profileForm4.valid" type="submit" data-cy="submit">Next</button>
           </form>
         </nb-step>
       </nb-stepper>
