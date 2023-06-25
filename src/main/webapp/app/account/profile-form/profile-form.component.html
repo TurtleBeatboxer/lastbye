@@ -259,11 +259,11 @@
               </div> -->
             </div>
             <div class="mb-3">
-              <label for="isOpenCoffin">
+              <label for="openCoffin">
                 Do you want your coffin open?
-                <nb-radio-group formControlName="isOpenCoffin" name="isOpenCoffin">
-                  <nb-radio value="true" id="isOpenCoffin" name="isOpenCoffin">Yes</nb-radio>
-                  <nb-radio value="false" id="isOpenCoffin" name="isOpenCoffin">No</nb-radio>
+                <nb-radio-group formControlName="openCoffin" name="openCoffin">
+                  <nb-radio value="true" id="openCoffin" name="openCoffin">Yes</nb-radio>
+                  <nb-radio value="false" id="openCoffin" name="openCoffin">No</nb-radio>
                 </nb-radio-group>
               </label>
               <!--
@@ -410,22 +410,81 @@
               />
             </div>
             <div class="mb-3">
-              <label class="form-label" for="placeOfCceremony">placeOfCceremony </label>
+              <label class="form-label" for="placeOfCeremony">placeOfCeremony </label>
               <input
                 nbInput
                 type="text"
                 class="form-control"
-                id="placeOfCceremony"
-                name="placeOfCceremony"
-                placeholder="{{ 'placeOfCceremony ' }}"
-                formControlName="placeOfCceremony"
-                data-cy="placeOfCceremony"
+                id="placeOfCeremony"
+                name="placeOfCeremony"
+                placeholder="{{ 'placeOfCeremony ' }}"
+                formControlName="placeOfCeremony"
+                data-cy="placeOfCeremony"
               />
             </div>
             <button nbButton nbStepperPrevious>Prev</button>
             <button nbButton type="submit" class="btn btn-primary" data-cy="submit">Next</button>
           </form>
           ]
+        </nb-step>
+        <nb-step label="fourthStep">
+          <form name="form" role="form" [formGroup]="profileForm4" (ngSubmit)="fourthStep()" *ngIf="!success">
+            <div class="mb-3">
+              <label class="form-label" for="farewellLetter">Farwell Letter</label>
+              <input
+                nbInput
+                type="text"
+                class="form-control"
+                id="farewellLetter"
+                name="farewellLetter"
+                placeholder="{{ 'farewellLetter ' }}"
+                formControlName="farewellLetter"
+                data-cy="farewellLetter"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="videoSpeech">videoSpeech</label>
+              <input
+                nbInput
+                type="text"
+                class="form-control"
+                id="videoSpeech"
+                name="videoSpeech"
+                placeholder="{{ 'videoSpeech' }}"
+                formControlName="videoSpeech"
+                data-cy="videoSpeech"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="testament">testament</label>
+              <input
+                nbInput
+                type="text"
+                class="form-control"
+                id="testament"
+                name="testament"
+                placeholder="{{ 'testament' }}"
+                formControlName="testament"
+                data-cy="testament"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="other">other</label>
+              <input
+                nbInput
+                type="text"
+                class="form-control"
+                id="other"
+                name="other"
+                placeholder="{{ 'other' }}"
+                formControlName="other"
+                data-cy="other"
+              />
+            </div>
+
+            <button nbButton nbStepperPrevious>Prev</button>
+            <button nbButton type="submit" data-cy="submit">Next</button>
+          </form>
         </nb-step>
       </nb-stepper>
     </nb-card-body>
