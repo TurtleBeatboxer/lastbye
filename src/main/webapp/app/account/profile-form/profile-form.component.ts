@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NbStepComponent, NbStepperComponent } from '@nebular/theme';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -12,7 +12,7 @@ import { AccountService } from 'app/core/auth/account.service';
   templateUrl: './profile-form.component.html',
   styleUrls: ['./profile-form.component.scss'],
 })
-export class ProfileFormComponent implements OnInit, AfterViewInit, AfterContentInit {
+export class ProfileFormComponent implements AfterViewInit {
   success: any;
   @ViewChild(NbStepperComponent) nbStepper;
   @ViewChildren(NbStepComponent) nbSteps;
@@ -162,35 +162,23 @@ export class ProfileFormComponent implements OnInit, AfterViewInit, AfterContent
     private applicationConfigService: ApplicationConfigService,
     private router: Router,
     private profileFormService: ProfileFormService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private cd: ChangeDetectorRef
   ) {}
-  ngOnInit(): void {}
-  ngAfterViewInit() {
-    // if (this.accountService.userIdentity) {
-    //   for (let i = 0; i <= this.accountService.userIdentity.levelOfForm; i++) {
-    //     const currentStep = this.nbSteps._results[i];
-    //     if (i === this.accountService.userIdentity.levelOfForm) {
-    //       this.nbStepper.changeStep(currentStep);
-    //     } else {
-    //       currentStep._completed = true;
-    //     }
-    //   }
-    // }
-  }
 
-  ngAfterContentInit() {
+  ngAfterViewInit(): void {
+    const results = this.nbSteps._results;
     if (this.accountService.userIdentity) {
-      for (let i = 0; i <= 3; i++) {
-        console.log(this.accountService.userIdentity);
-        console.log(i);
-        const currentStep = this.nbSteps._results[i];
-        if (i === 3) {
+      for (let i = 0; i <= this.accountService.userIdentity.levelOfForm; i++) {
+        const currentStep = results[i];
+        if (i === this.accountService.userIdentity.levelOfForm) {
           this.nbStepper.changeStep(currentStep);
         } else {
           currentStep._completed = true;
         }
       }
     }
+    this.cd.detectChanges();
   }
 
   onTest(): void {}
