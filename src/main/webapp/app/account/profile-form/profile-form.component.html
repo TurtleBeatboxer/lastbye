@@ -155,7 +155,6 @@
               />
             </div>
 
-            <button nbButton nbStepperPrevious>Prev</button>
             <button nbButton [disabled]="!profileForm2.valid" type="submit" data-cy="submit">Next</button>
           </form>
         </nb-step>
@@ -251,7 +250,6 @@
                 data-cy="placeOfCeremony"
               />
             </div>
-            <button nbButton nbStepperPrevious>Prev</button>
             <button nbButton [disabled]="!profileForm3.valid" type="submit" class="btn btn-primary" data-cy="submit">Next</button>
           </form>
         </nb-step>
@@ -310,7 +308,6 @@
               />
             </div>
 
-            <button nbButton nbStepperPrevious>Prev</button>
             <button nbButton [disabled]="!profileForm4.valid" type="submit" data-cy="submit">Next</button>
           </form>
         </nb-step>
@@ -318,3 +315,4 @@
     </nb-card-body>
   </nb-card>
 </div>
+<button (click)="onTest()">test</button>
