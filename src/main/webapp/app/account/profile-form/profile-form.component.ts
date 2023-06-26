@@ -1,19 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NbStepperComponent } from '@nebular/theme';
+import { NbStepComponent, NbStepperComponent } from '@nebular/theme';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { ProfileFormService } from './profile-form.service';
 import { Router } from '@angular/router';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-profile-form',
   templateUrl: './profile-form.component.html',
   styleUrls: ['./profile-form.component.scss'],
 })
-export class ProfileFormComponent {
+export class ProfileFormComponent implements AfterViewInit {
   success: any;
   @ViewChild(NbStepperComponent) nbStepper;
+  @ViewChildren(NbStepComponent) nbSteps;
 
   profileForm1 = new FormGroup({
     firstName: new FormControl('', {
@@ -43,7 +45,7 @@ export class ProfileFormComponent {
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     }),
-    phone: new FormControl(0, {
+    phone: new FormControl<number>(null!, {
       nonNullable: true,
       validators: [
         Validators.required,
@@ -159,8 +161,27 @@ export class ProfileFormComponent {
     private http: HttpClient,
     private applicationConfigService: ApplicationConfigService,
     private router: Router,
-    private profileFormService: ProfileFormService
+    private profileFormService: ProfileFormService,
+    private accountService: AccountService,
+    private cd: ChangeDetectorRef
   ) {}
+
+  ngAfterViewInit(): void {
+    const results = this.nbSteps._results;
+    if (this.accountService.userIdentity) {
+      for (let i = 0; i <= this.accountService.userIdentity.levelOfForm; i++) {
+        const currentStep = results[i];
+        if (i === this.accountService.userIdentity.levelOfForm) {
+          this.nbStepper.changeStep(currentStep);
+        } else {
+          currentStep._completed = true;
+        }
+      }
+    }
+    this.cd.detectChanges();
+  }
+
+  onTest(): void {}
 
   onSkip(): void {
     this.router.navigate(['/']);
