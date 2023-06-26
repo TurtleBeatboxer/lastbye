@@ -132,9 +132,7 @@ public class ProfileService {
             profile.setBurialMethod(userDTO.getBurialMethod());
             profile.setGraveInscription(userDTO.getGraveInscription());
             profile.setOpenCoffin(userDTO.isOpenCoffin());
-            if (userDTO.isOpenCoffin()) {
-                profile.setClothes(userDTO.getClothes());
-            }
+            profile.setClothes(userDTO.getClothes());
             profile.setLevelOfForm(2L);
             profileRepository.save(profile);
         }
@@ -145,9 +143,7 @@ public class ProfileService {
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
             profile.setFlowers(userDTO.isFlowers());
-            if (userDTO.isFlowers()) {
-                profile.setIfFlowers(userDTO.getIfFlowers());
-            }
+            profile.setIfFlowers(userDTO.getIfFlowers());
             profile.setObituary(userDTO.getObituary());
             profile.setSpotify(userDTO.getSpotify());
             profile.setGuests(userDTO.getGuests());
