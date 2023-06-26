@@ -38,6 +38,7 @@ export class SettingsComponent implements OnInit {
     imageUrl: new FormControl(initialAccount.imageUrl, { nonNullable: true }),
     login: new FormControl(initialAccount.login, { nonNullable: true }),
     userId: new FormControl(initialAccount.userId, { nonNullable: true }),
+    levelOfForm: new FormControl(initialAccount.levelOfForm, { nonNullable: true }),
   });
 
   constructor(
