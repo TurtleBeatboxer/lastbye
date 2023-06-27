@@ -31,14 +31,118 @@ export class SettingsComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email],
     }),
-    langKey: new FormControl(initialAccount.langKey, { nonNullable: true }),
-
-    activated: new FormControl(initialAccount.activated, { nonNullable: true }),
+    prefix: new FormControl(initialAccount, {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    phone: new FormControl<number>(null!, {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    burialMethod: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    graveInscription: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    openCoffin: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
+    clothes: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    flowers: new FormControl(false, {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    ifFlowers: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    obituary: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    spotify: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    guests: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    notInvited: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    placeOfCeremony: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    farewellLetter: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    videoSpeech: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    testament: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     authorities: new FormControl(initialAccount.authorities, { nonNullable: true }),
     imageUrl: new FormControl(initialAccount.imageUrl, { nonNullable: true }),
     login: new FormControl(initialAccount.login, { nonNullable: true }),
     userId: new FormControl(initialAccount.userId, { nonNullable: true }),
-    levelOfForm: new FormControl(initialAccount.levelOfForm, { nonNullable: true }),
   });
 
   constructor(
