@@ -13,16 +13,16 @@ public class PublicProfileDTO {
     private String guests;
     private String notInvited;
     private String obituary;
-    private boolean purchasedPlace;
+    private Boolean purchasedPlace;
     private String isPurchasedOther;
-    private boolean flowers;
+    private Boolean flowers;
     private String ifFlowers;
     private String farewellLetter;
     private String speech;
     private String videoSpeech;
     private String testament;
     private String other;
-    private boolean isOpenCoffin;
+    private Boolean isOpenCoffin;
 
     public String getFirstName() {
         return firstName;
@@ -112,11 +112,11 @@ public class PublicProfileDTO {
         this.obituary = obituary;
     }
 
-    public boolean isPurchasedPlace() {
+    public Boolean isPurchasedPlace() {
         return purchasedPlace;
     }
 
-    public void setPurchasedPlace(boolean purchasedPlace) {
+    public void setPurchasedPlace(Boolean purchasedPlace) {
         this.purchasedPlace = purchasedPlace;
     }
 
@@ -128,11 +128,11 @@ public class PublicProfileDTO {
         this.isPurchasedOther = isPurchasedOther;
     }
 
-    public boolean isFlowers() {
+    public Boolean isFlowers() {
         return flowers;
     }
 
-    public void setFlowers(boolean flowers) {
+    public void setFlowers(Boolean flowers) {
         this.flowers = flowers;
     }
 
@@ -184,11 +184,11 @@ public class PublicProfileDTO {
         this.other = other;
     }
 
-    public boolean isOpenCoffin() {
+    public Boolean isOpenCoffin() {
         return isOpenCoffin;
     }
 
-    public void setOpenCoffin(boolean openCoffin) {
+    public void setOpenCoffin(Boolean openCoffin) {
         isOpenCoffin = openCoffin;
     }
 }
