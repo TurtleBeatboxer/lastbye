@@ -7,8 +7,6 @@
         <strong>Settings saved!</strong>
       </div>
 
-      <jhi-alert-error></jhi-alert-error>
-
       <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="settingsForm.value.login" novalidate>
         <div class="mb-3">
           <label class="form-label" for="firstName" jhiTranslate="settings.form.firstname">First Name</label>
