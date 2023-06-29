@@ -8,7 +8,10 @@ import com.origami.repository.UserRepository;
 import com.origami.service.dto.PublicProfileDTO;
 import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.Optional;
+import javax.transaction.Transactional;
 import net.bytebuddy.implementation.bytecode.Throw;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
@@ -75,22 +78,19 @@ public class ProfileService {
         return profile.isFinishedEditing();
     }
 
-    public void updateProfile(ManagedUserVM userDTO) {
+    public Boolean updateProfile(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         if (profileOptional.isPresent()) {
             if (profileOptional.get().getEditsLeft() > 0) {
                 Profile profile = profileOptional.get();
+                userDTO.setEditsLeft(profile.getEditsLeft() - 1);
                 profile.setEditsLeft(profile.getEditsLeft() - 1);
                 profile.setSpeech(userDTO.getSpeech());
                 profile.placeOfCeremony(userDTO.getPlaceOfCeremony());
-                profile.setFlowers(userDTO.isFlowers());
-                if (profile.getFlowers()) {
-                    profile.setIfFlowers(userDTO.getIfFlowers());
-                }
-                profile.setPurchasedPlace(userDTO.isPurchasedPlace());
-                if (profile.getPurchasedPlace()) {
-                    profile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
-                }
+                /* profile.setFlowers(userDTO.isFlowers());*/
+                profile.setIfFlowers(userDTO.getIfFlowers());
+                /*   profile.setPurchasedPlace(userDTO.isPurchasedPlace());*/
+                profile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
                 profile.setOther(userDTO.getOther());
                 profile.setNotInvited(userDTO.getNotInvited());
                 profile.setVideoSpeech(userDTO.getVideoSpeech());
@@ -107,11 +107,12 @@ public class ProfileService {
                 profile.setBurialMethod(userDTO.getBurialMethod());
                 profile.setFarewellLetter(userDTO.getFarewellLetter());
                 profileRepository.save(profile);
+                return true;
             } else {
-                //Tutaj coś w przyszlosci wyrzucimy
+                return false;
             }
         } else {
-            //tutaj raczej nic nie powinno sie wydarzyc, ale chuj wie
+            return false;
         }
     }
 
@@ -122,6 +123,7 @@ public class ProfileService {
             profile.setPrefix(userDTO.getPrefix());
             profile.setPhone(userDTO.getPhone());
             profile.setLevelOfForm(1L);
+            profileRepository.save(profile);
         }
     }
 
@@ -168,7 +170,6 @@ public class ProfileService {
                 qrCode = qrService.getAlphaNumericString(10);
             }
             profile.setCodeQR(qrCode);
-
             String publicLink = qrService.getAlphaNumericString(5);
             while (!isPublicLinkValid(publicLink)) {
                 publicLink = qrService.getAlphaNumericString(5);
@@ -185,15 +186,10 @@ public class ProfileService {
         PublicProfileDTO publicProfileDTO = new PublicProfileDTO();
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
-
             publicProfileDTO.setFlowers(profile.getFlowers());
-            if (profile.getFlowers()) {
-                publicProfileDTO.setIfFlowers(profile.getIfFlowers());
-            }
+            publicProfileDTO.setIfFlowers(profile.getIfFlowers());
             publicProfileDTO.setPurchasedPlace(profile.getPurchasedPlace());
-            if (profile.getPurchasedPlace()) {
-                publicProfileDTO.setIsPurchasedOther(profile.getIfPurchasedOther());
-            }
+            publicProfileDTO.setIsPurchasedOther(profile.getIfPurchasedOther());
             publicProfileDTO.setClothes(profile.getClothes());
             publicProfileDTO.setTestament(profile.getTestament());
             publicProfileDTO.setVideoSpeech(profile.getVideoSpeech());
