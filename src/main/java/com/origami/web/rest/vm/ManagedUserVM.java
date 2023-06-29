@@ -42,6 +42,7 @@ public class ManagedUserVM extends AdminUserDTO {
     private Boolean isOpenCoffin;
     // Not obtainable from frontend needed for clarity of code later on when its invoked
     private Long userId;
+    private Long editsLeft;
 
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
@@ -53,6 +54,14 @@ public class ManagedUserVM extends AdminUserDTO {
 
     public Long getLevelOfForm() {
         return levelOfForm;
+    }
+
+    public Long getEditsLeft() {
+        return editsLeft;
+    }
+
+    public void setEditsLeft(Long editsLeft) {
+        this.editsLeft = editsLeft;
     }
 
     public void setLevelOfForm(Long levelOfForm) {
