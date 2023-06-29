@@ -123,6 +123,7 @@ public class ProfileService {
             profile.setPrefix(userDTO.getPrefix());
             profile.setPhone(userDTO.getPhone());
             profile.setLevelOfForm(1L);
+            profileRepository.save(profile);
         }
     }
 
@@ -169,7 +170,6 @@ public class ProfileService {
                 qrCode = qrService.getAlphaNumericString(10);
             }
             profile.setCodeQR(qrCode);
-
             String publicLink = qrService.getAlphaNumericString(5);
             while (!isPublicLinkValid(publicLink)) {
                 publicLink = qrService.getAlphaNumericString(5);
@@ -186,15 +186,10 @@ public class ProfileService {
         PublicProfileDTO publicProfileDTO = new PublicProfileDTO();
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
-
             publicProfileDTO.setFlowers(profile.getFlowers());
-            if (profile.getFlowers()) {
-                publicProfileDTO.setIfFlowers(profile.getIfFlowers());
-            }
+            publicProfileDTO.setIfFlowers(profile.getIfFlowers());
             publicProfileDTO.setPurchasedPlace(profile.getPurchasedPlace());
-            if (profile.getPurchasedPlace()) {
-                publicProfileDTO.setIsPurchasedOther(profile.getIfPurchasedOther());
-            }
+            publicProfileDTO.setIsPurchasedOther(profile.getIfPurchasedOther());
             publicProfileDTO.setClothes(profile.getClothes());
             publicProfileDTO.setTestament(profile.getTestament());
             publicProfileDTO.setVideoSpeech(profile.getVideoSpeech());
