@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -260,11 +261,12 @@ public class UserService {
      * Update basic information (first name, last name, email, language) for the current user.
      *
      */
-    public void updateUser(ManagedUserVM userDTO) {
-        SecurityUtils
-            .getCurrentUserLogin()
-            .flatMap(userRepository::findOneByLogin)
-            .ifPresent(user -> {
+    public HttpStatus updateUser(ManagedUserVM userDTO) {
+        Optional<User> optionalUser = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            userDTO.setUserId(user.getId());
+            if (profileService.updateProfile(userDTO)) {
                 user.setFirstName(userDTO.getFirstName());
                 user.setLastName(userDTO.getLastName());
                 if (userDTO.getEmail() != null) {
@@ -272,11 +274,13 @@ public class UserService {
                 }
                 user.setLangKey(userDTO.getLangKey());
                 user.setImageUrl(userDTO.getImageUrl());
-                userDTO.setUserId(user.getId());
-                profileService.updateProfile(userDTO);
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
-            });
+                return HttpStatus.OK;
+            } else {
+                return HttpStatus.FORBIDDEN;
+            }
+        } else return HttpStatus.FORBIDDEN;
     }
 
     public ManagedUserVM getManagedUserVMFromUser(User user) {
@@ -319,6 +323,7 @@ public class UserService {
             managedUserVM.setTestament(profile.get().getTestament());
             managedUserVM.setVideoSpeech(profile.get().getVideoSpeech());
             managedUserVM.setLevelOfForm(profile.get().getLevelOfForm());
+            managedUserVM.setEditsLeft(profile.get().getEditsLeft());
         }
         return managedUserVM;
     }
