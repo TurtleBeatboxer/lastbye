@@ -1,7 +1,7 @@
 <div class="nb-theme-default">
   <nb-card>
     <nb-card-body>
-      <nb-stepper orientation="horizontal" linear="disabled">
+      <nb-stepper orientation="horizontal" [linear]="true" disableStepNavigation="">
         <nb-step [label]="labelOne">
           <ng-template #labelOne>First step</ng-template>
           <form name="form" role="form" [formGroup]="profileForm1" (ngSubmit)="firstStep()" *ngIf="!success">
