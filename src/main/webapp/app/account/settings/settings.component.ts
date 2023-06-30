@@ -17,6 +17,7 @@ const initialAccount: Account = {} as Account;
 export class SettingsComponent implements OnInit {
   success = false;
   languages = LANGUAGES;
+  isTrueCoffin: boolean;
 
   settingsForm = new FormGroup({
     firstName: new FormControl(initialAccount.firstName, {
@@ -77,7 +78,7 @@ export class SettingsComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     }),
-    flowers: new FormControl(initialAccount.flowers, {
+    flowers: new FormControl('true', {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -160,11 +161,15 @@ export class SettingsComponent implements OnInit {
     this.accountService.identity().subscribe(account => {
       if (account) {
         this.settingsForm.patchValue(account);
+        this.isTrueCoffin = true;
+        console.log(this.isTrueCoffin);
+        console.log(initialAccount);
       }
     });
   }
 
   onClick(): void {
+    console.log(initialAccount);
     console.log(this.accountService.userIdentity);
     this.http
       .post(this.applicationConfigService.getEndpointFor('/api/profile/get/data'), '!TVzk')
