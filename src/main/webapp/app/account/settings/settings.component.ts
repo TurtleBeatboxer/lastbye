@@ -78,7 +78,7 @@ export class SettingsComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     }),
-    flowers: new FormControl('true', {
+    flowers: new FormControl(initialAccount.flowers, {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -181,14 +181,23 @@ export class SettingsComponent implements OnInit {
     this.success = false;
 
     const account = this.settingsForm.getRawValue();
-    this.accountService.save(account).subscribe(() => {
-      this.success = true;
+    this.accountService.save(account).subscribe(
+      res => {
+        if (res == 'FORBIDDEN') {
+          console.log('chujjj');
+        } else {
+          this.success = true;
 
-      this.accountService.authenticate(account);
+          this.accountService.authenticate(account);
 
-      if (account.langKey !== this.translateService.currentLang) {
-        this.translateService.use(account.langKey);
+          if (account.langKey !== this.translateService.currentLang) {
+            this.translateService.use(account.langKey);
+          }
+        }
+      },
+      error => {
+        console.log(error);
       }
-    });
+    );
   }
 }
