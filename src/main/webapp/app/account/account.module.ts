@@ -22,7 +22,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 
 import { ProfileFormComponent } from './profile-form/profile-form.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
 @NgModule({
   imports: [
