@@ -78,7 +78,7 @@ export class SettingsComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     }),
-    flowers: new FormControl('true', {
+    flowers: new FormControl(initialAccount.flowers, {
       nonNullable: true,
       validators: [Validators.required],
     }),
