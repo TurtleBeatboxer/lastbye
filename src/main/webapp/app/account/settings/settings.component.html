@@ -86,15 +86,15 @@
             data-cy="graveInscription"
           />
         </div>
-        <!-- <div class="mb-3">
+        <div class="mb-3">
           <label for="openCoffin">
             Do you want your coffin open?
             <nb-radio-group formControlName="openCoffin" name="openCoffin">
-              <nb-radio value="true" id="openCoffin" name="openCoffin">Yes</nb-radio>
-              <nb-radio value="false" id="openCoffin" name="openCoffin">No</nb-radio>
+              <nb-radio [value]="true" id="openCoffin" name="openCoffin" [checked]="isTrueCoffin">Yes</nb-radio>
+              <nb-radio [value]="false" id="openCoffin" name="openCoffin">No</nb-radio>
             </nb-radio-group>
           </label>
-        </div> -->
+        </div>
         <div class="mb-3">
           <label class="form-label" for="clothes">Clothes</label>
           <input
@@ -108,15 +108,15 @@
             data-cy="clothes"
           />
         </div>
-        <!-- <div class="mb-3">
+        <div class="mb-3">
           <label for="flowers">
             Do you want any flowers?
             <nb-radio-group formControlName="flowers" name="flowers">
-              <nb-radio value="true" id="flowers" name="flowers">Yes</nb-radio>
-              <nb-radio value="false" id="flowers" name="flowers">No</nb-radio>
+              <nb-radio [value]="true" id="flowers" name="flowers">Yes</nb-radio>
+              <nb-radio [value]="false" id="flowers" name="flowers">No</nb-radio>
             </nb-radio-group>
           </label>
-        </div> -->
+        </div>
 
         <div class="mb-3">
           <label class="form-label" for="ifFlowers">What type of flowers do you want?</label>
