@@ -1,6 +1,23 @@
 <p>public-profile works!</p>
 
 <div *ngIf="profile">
+  <div class="header">
+    <div class="img"></div>
+    <p>{{ profile.firstName || 'error' }} {{ profile.lastName || 'error' }}</p>
+    <button class="button-header">Share</button>
+    <button class="button-header">Edit</button>
+    <button class="button-header">Generate pdf</button>
+  </div>
+  <br />
+  <h2 class="title-body">My burial</h2>
+  <p>Method: {{ profile.burialMethod || 'error' }}</p>
+  <p>Place: {{ profile.placeOfCeremony || 'error' }}</p>
+  <p>Inscription: {{ profile.graveInscription || 'error' }}</p>
+  <p>Casket: {{ profile.openCoffin || 'error' }}</p>
+  <p>Clothes: {{ profile.clothes || 'error' }}</p>
+  <h2 class="title-body">My funeral</h2>
+  <p>{{ profile.flowers || 'error' }}</p>
+  <p>{{ profile.ifFlowers || 'error' }}</p>
   <p>{{ profile.firstName || 'error' }}</p>
   <p>{{ profile.lastName || 'error' }}</p>
   <p>{{ profile.burialMethod || 'error' }}</p>
