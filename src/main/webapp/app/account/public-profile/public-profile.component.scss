@@ -1,6 +1,47 @@
 .button-header {
+  width: 317px;
+  height: 71px;
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #707070;
   border-radius: 102px;
   opacity: 1;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.img {
+  border: 1px solid #707070;
+  border-radius: 50%;
+  width: 277px;
+  height: 277px;
+}
+
+.header-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header-paragraph {
+  display: block;
+  font-size: 55px;
+  font-weight: bold;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pdf {
+  display: block;
+}
+
+.title-body {
+  font-size: 55px;
+  font-weight: bold;
+}
+
+.text {
+  font-size: 30px;
 }
