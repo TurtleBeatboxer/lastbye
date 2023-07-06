@@ -1,24 +1,31 @@
-<p>public-profile works!</p>
-
-<div *ngIf="profile">
-  <p>{{ profile.firstName || 'error' }}</p>
-  <p>{{ profile.lastName || 'error' }}</p>
-  <p>{{ profile.burialMethod || 'error' }}</p>
-  <p>{{ profile.clothes || 'error' }}</p>
-  <p>{{ profile.placeOfCeremony || 'error' }}</p>
-  <p>{{ profile.photo || 'error' }}</p>
-  <p>{{ profile.graveInscription || 'error' }}</p>
-  <p>{{ profile.spotify || 'error' }}</p>
-  <p>{{ profile.guests || 'error' }}</p>
-  <p>{{ profile.obituary || 'error' }}</p>
-  <p>{{ profile.purchasedPlace || 'error' }}</p>
-  <p>{{ profile.isPurchasedOther || 'error' }}</p>
-  <p>{{ profile.flowers || 'error' }}</p>
-  <p>{{ profile.ifFlowers || 'error' }}</p>
-  <p>{{ profile.farewellLetter || 'error' }}</p>
-  <p>{{ profile.speech || 'error' }}</p>
-  <p>{{ profile.videoSpeech || 'error' }}</p>
-  <p>{{ profile.testament || 'error' }}</p>
-  <p>{{ profile.other || 'error' }}</p>
-  <p>{{ profile.openCoffin || 'error' }}</p>
+<div class="container" *ngIf="profile">
+  <div class="header">
+    <div>
+      <div class="img"></div>
+    </div>
+    <div class="header-text">
+      <p class="header-paragraph">{{ profile.firstName || 'error' }}</p>
+      <p class="header-paragraph">{{ profile.lastName || 'error' }}</p>
+    </div>
+    <div class="header-buttons">
+      <button class="button-header">Share</button>
+      <button class="button-header">Edit</button>
+      <button class="button-header pdf">Generate pdf</button>
+    </div>
+  </div>
+  <br />
+  <h2 class="title-body">My burial</h2>
+  <p class="text">Method: {{ profile.burialMethod || 'error' }}</p>
+  <p class="text">Place: {{ profile.placeOfCeremony || 'error' }}</p>
+  <p class="text">Inscription: {{ profile.graveInscription || 'error' }}</p>
+  <p class="text">Casket: {{ profile.openCoffin || 'error' }}</p>
+  <p class="text">Clothes: {{ profile.clothes || 'error' }}</p>
+  <h2 class="title-body">My funeral</h2>
+  <p class="text">Flowers: {{ profile.flowers || 'error' }}</p>
+  <p class="text">Type of flowers{{ profile.ifFlowers || 'error' }}</p>
+  <p class="text">Obituray: {{ profile.obituary || 'error' }}</p>
+  <p class="text">Place: {{ profile.placeOfCeremony || 'error' }}</p>
+  <p class="text">Music: {{ profile.spotify || 'error' }}</p>
+  <p class="text">Guests: {{ profile.guests || 'error' }}</p>
+  <p class="text">Not invited: {{ profile.notInvited || 'error' }}</p>
 </div>

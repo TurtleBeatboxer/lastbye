@@ -16,6 +16,7 @@ export class ProfileFormComponent implements AfterViewInit {
   success: any;
   @ViewChild(NbStepperComponent) nbStepper;
   @ViewChildren(NbStepComponent) nbSteps;
+  burialMethod: any;
 
   profileForm1 = new FormGroup({
     firstName: new FormControl('', {
