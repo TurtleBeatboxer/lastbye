@@ -16,6 +16,7 @@ export class ProfileFormComponent implements AfterViewInit {
   success: any;
   @ViewChild(NbStepperComponent) nbStepper;
   @ViewChildren(NbStepComponent) nbSteps;
+  burialMethod: any;
 
   profileForm1 = new FormGroup({
     firstName: new FormControl('', {
@@ -47,45 +48,25 @@ export class ProfileFormComponent implements AfterViewInit {
     }),
     phone: new FormControl<number>(null!, {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
     }),
   });
 
   profileForm2 = new FormGroup({
     burialMethod: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
     }),
 
     graveInscription: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
     }),
     openCoffin: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
 
     clothes: new FormControl('', {
       nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
     }),
   });
 

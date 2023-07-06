@@ -1,318 +1,333 @@
 <div class="nb-theme-default">
-  <nb-card>
-    <nb-card-body>
-      <nb-stepper orientation="horizontal" linear="disabled">
-        <nb-step [label]="labelOne">
-          <ng-template #labelOne>First step</ng-template>
-          <form name="form" role="form" [formGroup]="profileForm1" (ngSubmit)="firstStep()" *ngIf="!success">
-            <div class="mb-3">
-              <label class="form-label" for="firstName">First Name</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="firstName"
-                name="firstName"
-                placeholder="{{ 'Type in your first name' }}"
-                formControlName="firstName"
-                data-cy="firstName"
-              />
+  <h1 class="profileForm-header">Tell us about yourself</h1>
+  <nb-stepper orientation="horizontal" [linear]="true" disableStepNavigation="">
+    <nb-step [label]="labelOne">
+      <ng-template #labelOne></ng-template>
+      <form name="form" class="profileForm-1" role="form" [formGroup]="profileForm1" (ngSubmit)="firstStep()" *ngIf="!success">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="firstName"
+            name="firstName"
+            placeholder="Name"
+            formControlName="firstName"
+            data-cy="firstName"
+          />
 
-              <div
-                *ngIf="
-                  profileForm1.get('firstName')!.invalid && (profileForm1.get('firstName')!.dirty || profileForm1.get('firstName')!.touched)
-                "
-              >
-                <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.required">
-                  Your username is required.
-                </small>
+          <div
+            *ngIf="
+              profileForm1.get('firstName')!.invalid && (profileForm1.get('firstName')!.dirty || profileForm1.get('firstName')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.required">
+              Your username is required.
+            </small>
 
-                <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.minlength">
-                  Your username is required to be at least 1 character.
-                </small>
+            <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.minlength">
+              Your username is required to be at least 1 character.
+            </small>
 
-                <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.maxlength">
-                  Your username cannot be longer than 50 characters.
-                </small>
+            <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.maxlength">
+              Your username cannot be longer than 50 characters.
+            </small>
 
-                <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.pattern">
-                  Your username is invalid.
-                </small>
-              </div>
-            </div>
+            <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.pattern"> Your username is invalid. </small>
+          </div>
+        </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="lastName">Last Name</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="lastName"
-                name="lastName"
-                placeholder="{{ 'Type in your last name' }}"
-                formControlName="lastName"
-                data-cy="lastName"
-              />
-            </div>
-            <div class="mb-3">
-              <!-- <label class="form-label" for="birthDate">Date Of Birth</label> -->
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="lastName"
+            name="lastName"
+            placeholder="Surname"
+            formControlName="lastName"
+            data-cy="lastName"
+          />
+        </div>
+        <div class="mb-3">
+          <!-- <label class="form-label" for="birthDate">Date Of Birth</label> -->
 
-              <label class="form-label" for="lastName">DOB</label>
-              <input
-                nbInput
-                type="date"
-                class="form-control"
-                id="lastName"
-                name="lastName"
-                placeholder="{{ 'Type in your last name' }}"
-                formControlName="lastName"
-                data-cy="lastName"
-              />
-            </div>
+          <input
+            type="text"
+            class="profileForm-input"
+            id="lastName"
+            name="lastName"
+            placeholder="Date of Birth dd/mm/yyyy"
+            formControlName="lastName"
+            data-cy="lastName"
+          />
+        </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="prefix">Prefix</label>
-
-              <input
-                nbInput
-                type="number"
-                class="form-control"
-                id="prefix"
-                name="prefix"
-                placeholder="{{ 'Prefix' }}"
-                formControlName="prefix"
-                data-cy="prefix"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="phone">Phone number</label>
-
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="phone"
-                name="phone"
-                placeholder="{{ 'phone number' }}"
-                formControlName="phone"
-                data-cy="phone"
-              />
-            </div>
-            <!-- <button type="submit" [disabled]="profileForm1.invalid" class="btn btn-primary"
+        <div class="mb-3">
+          <input type="number" class="profileForm-input" id="prefix" name="prefix" placeholder="{{ 'Prefix' }}" formControlName="prefix" />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="phone"
+            name="phone"
+            placeholder="{{ 'Phone number' }}"
+            formControlName="phone"
+            data-cy="phone"
+          />
+        </div>
+        <!-- <button type="submit" [disabled]="profileForm1.invalid" class="btn btn-primary"
               data-cy="submit">Register</button> -->
-            <button nbButton type="submit" class="btn btn-primary" data-cy="submit">Next</button>
-            <button nbButton type="button" (click)="onSkip()">Skip formularz</button>
-          </form>
-        </nb-step>
-        <nb-step label="Secondstep">
-          <form name="form" role="form" [formGroup]="profileForm2" (ngSubmit)="secondStep()" *ngIf="!success">
-            <div class="mb-3">
-              <label class="form-label" for="burialMethod">Burial method</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="burialMethod"
-                name="burialMethod"
-                placeholder="{{ 'Burial Method' }}"
-                formControlName="burialMethod"
-                data-cy="burialMethod"
-              />
+        <button type="submit" class="profileForm-button" data-cy="submit">Save and continue</button>
+        <button type="button" class="profileForm-button" (click)="onSkip()">Skip formularz</button>
+      </form>
+    </nb-step>
+    <nb-step label="">
+      <!--   ██╗    ██╗███████╗██████╗ ███████╗     ██╗ █████╗     ██████╗ ███████╗██╗   ██╗███████╗██╗      ██████╗ ██████╗
+                ██║    ██║██╔════╝██╔══██╗██╔════╝     ██║██╔══██╗    ██╔══██╗██╔════╝██║   ██║██╔════╝██║     ██╔═══██╗██╔══██╗
+                ██║ █╗ ██║█████╗  ██████╔╝███████╗     ██║███████║    ██║  ██║█████╗  ██║   ██║█████╗  ██║     ██║   ██║██████╔╝
+                ██║███╗██║██╔══╝  ██╔══██╗╚════██║██   ██║██╔══██║    ██║  ██║██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║     ██║   ██║██╔═══╝
+                ╚███╔███╔╝███████╗██║  ██║███████║╚█████╔╝██║  ██║    ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
+                 ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚══════╝ ╚════╝ ╚═╝  ╚═╝    ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝     -->
+      <!-- <form name="form" role="form" class="profileForm-1" *ngIf="!success">
+        <div class="radioInputs">
+          <div>
+            <label class="radio-label" for="burialMethod"> Coffin </label>
+            <input class="radio" type="radio" name="burialMethod" value="coffin" [(ngModel)]="burialMethod" />
+          </div>
+          <div>
+            <label class="radio-label" for="burialMethod"> Cremation </label>
+            <input class="radio" type="radio" name="burialMethod" value="cremation" [(ngModel)]="burialMethod" />
+          </div>
+          <div>
+            <label class="radio-label" for="burialMethod"> Other </label>
+            <input class="radio" type="radio" name="burialMethod" value="other" [(ngModel)]="burialMethod" />
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="burialMethod === 'other'">
+          <input type="text" class="profileForm-input" id="burialMethod" name="burialMethod"
+            placeholder="{{ 'Other burial method' }}" formControlName="burialMethod" data-cy="burialMethod" />
+        </div>
+        <div *ngIf="burialMethod === 'cremation'">
+          <h1 class="cremation-text">If cremation choosen - what will happen with your ashes?</h1>
+          <div class="cremation">
+            <div>
+              <label class="radio-label" for="burialMethod"> Scatter them at sea </label>
+              <input class="radio" type="radio" name="burialMethod" value="sea" [(ngModel)]="burialMethod" />
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="graveInscription">Grave inscription</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="graveInscription"
-                name="graveInscription"
-                placeholder="{{ 'Grave inscription' }}"
-                formControlName="graveInscription"
-                data-cy="graveInscription"
-              />
+            <div>
+              <label class="radio-label" for="burialMethod"> Make vinyl record </label>
+              <input class="radio" type="radio" name="burialMethod" value="vinyl" [(ngModel)]="burialMethod" />
             </div>
-            <div class="mb-3">
-              <label for="openCoffin">
-                Do you want your coffin open?
-                <nb-radio-group formControlName="openCoffin" name="openCoffin">
-                  <nb-radio value="true" id="openCoffin" name="openCoffin">Yes</nb-radio>
-                  <nb-radio value="false" id="openCoffin" name="openCoffin">No</nb-radio>
-                </nb-radio-group>
-              </label>
+            <div>
+              <label class="radio-label" for="burialMethod"> Urn </label>
+              <input class="radio" type="radio" name="burialMethod" value="urn" [(ngModel)]="burialMethod" />
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="clothes">Clothes</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="clothes"
-                name="clothes"
-                placeholder="{{ 'Clothes' }}"
-                formControlName="clothes"
-                data-cy="clothes"
-              />
+            <div>
+              <label class="radio-label" for="burialMethod"> Make jewellery </label>
+              <input class="radio" type="radio" name="burialMethod" value="jewellery" [(ngModel)]="burialMethod" />
             </div>
+            <div>
+              <label class="radio-label" for="burialMethod"> Other </label>
+              <input class="radio" type="radio" name="burialMethod" value="cremationOther" [(ngModel)]="burialMethod" />
+            </div>
+          </div>
+        </div>
+        <div *ngIf="burialMethod === 'cremationOther'">
+          <input type="text" class="profileForm-input" id="burialMethod" name="burialMethod"
+            placeholder="{{ 'Other burial method' }}" formControlName="burialMethod" data-cy="burialMethod" />
+        </div>
 
-            <button nbButton [disabled]="!profileForm2.valid" type="submit" data-cy="submit">Next</button>
-          </form>
-        </nb-step>
-        <nb-step [label]="labelThree">
-          <ng-template #labelThree>Thrid step</ng-template>
-          <form name="form" role="form" (ngSubmit)="thirdStep()" [formGroup]="profileForm3" *ngIf="!success">
-            <div class="mb-3">
-              <label for="flowers">
-                Do you want any flowers?
-                <nb-radio-group formControlName="flowers" name="flowers">
-                  <nb-radio value="true" id="flowers" name="flowers">Yes</nb-radio>
-                  <nb-radio value="false" id="flowers" name="flowers">No</nb-radio>
-                </nb-radio-group>
-              </label>
-            </div>
+        <button type="submit" class="profileForm-button" data-cy="submit">Next</button>
+      </form> -->
 
-            <div class="mb-3">
-              <label class="form-label" for="ifFlowers">What type of flowers do you want?</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="ifFlowers"
-                name="ifFlowers"
-                placeholder="{{ 'Type of flowers' }}"
-                formControlName="ifFlowers"
-                data-cy="ifFlowers"
-              />
-            </div>
+      <!--      ██╗    ██╗███████╗██████╗ ███████╗     ██╗ █████╗      ██████╗ ██╗████████╗
+                ██║    ██║██╔════╝██╔══██╗██╔════╝     ██║██╔══██╗    ██╔════╝ ██║╚══██╔══╝
+                ██║ █╗ ██║█████╗  ██████╔╝███████╗     ██║███████║    ██║  ███╗██║   ██║
+                ██║███╗██║██╔══╝  ██╔══██╗╚════██║██   ██║██╔══██║    ██║   ██║██║   ██║
+                ╚███╔███╔╝███████╗██║  ██║███████║╚█████╔╝██║  ██║    ╚██████╔╝██║   ██║
+                 ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚══════╝ ╚════╝ ╚═╝  ╚═╝     ╚═════╝ ╚═╝   ╚═╝
+-->
+      <form name="form" role="form" class="profileForm-1" [formGroup]="profileForm2" (ngSubmit)="secondStep()" *ngIf="!success">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="burialMethod"
+            name="burialMethod"
+            placeholder="{{ 'Burial Method' }}"
+            formControlName="burialMethod"
+            data-cy="burialMethod"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="graveInscription"
+            name="graveInscription"
+            placeholder="{{ 'Grave inscription' }}"
+            formControlName="graveInscription"
+            data-cy="graveInscription"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="openCoffin">
+            Do you want your coffin open?
+            <nb-radio-group formControlName="openCoffin" name="openCoffin">
+              <nb-radio value="true" id="openCoffin" name="openCoffin">Yes</nb-radio>
+              <nb-radio value="false" id="openCoffin" name="openCoffin">No</nb-radio>
+            </nb-radio-group>
+          </label>
+        </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="obituary">Write your obituary</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="obituary"
-                name="obituary"
-                placeholder="{{ 'obituary' }}"
-                formControlName="obituary"
-                data-cy="obituary"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="spotify">Do you want any music?</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="spotify"
-                name="spotify"
-                placeholder="{{ 'Link your spotify playlist' }}"
-                formControlName="spotify"
-                data-cy="spotify"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="guests">guests</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="guests"
-                name="guests"
-                placeholder="{{ 'guests' }}"
-                formControlName="guests"
-                data-cy="guests"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="notInvited">notInvited</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="notInvited"
-                name="notInvited"
-                placeholder="{{ 'notInvited' }}"
-                formControlName="notInvited"
-                data-cy="notInvited"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="placeOfCeremony">placeOfCeremony </label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="placeOfCeremony"
-                name="placeOfCeremony"
-                placeholder="{{ 'placeOfCeremony ' }}"
-                formControlName="placeOfCeremony"
-                data-cy="placeOfCeremony"
-              />
-            </div>
-            <button nbButton [disabled]="!profileForm3.valid" type="submit" class="btn btn-primary" data-cy="submit">Next</button>
-          </form>
-        </nb-step>
-        <nb-step label="fourthStep">
-          <form name="form" role="form" [formGroup]="profileForm4" (ngSubmit)="fourthStep()" *ngIf="!success">
-            <div class="mb-3">
-              <label class="form-label" for="farewellLetter">Farwell Letter</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="farewellLetter"
-                name="farewellLetter"
-                placeholder="{{ 'farewellLetter ' }}"
-                formControlName="farewellLetter"
-                data-cy="farewellLetter"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="videoSpeech">videoSpeech</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="videoSpeech"
-                name="videoSpeech"
-                placeholder="{{ 'videoSpeech' }}"
-                formControlName="videoSpeech"
-                data-cy="videoSpeech"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="testament">testament</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="testament"
-                name="testament"
-                placeholder="{{ 'testament' }}"
-                formControlName="testament"
-                data-cy="testament"
-              />
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="other">other</label>
-              <input
-                nbInput
-                type="text"
-                class="form-control"
-                id="other"
-                name="other"
-                placeholder="{{ 'other' }}"
-                formControlName="other"
-                data-cy="other"
-              />
-            </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="clothes"
+            name="clothes"
+            placeholder="{{ 'Clothes' }}"
+            formControlName="clothes"
+            data-cy="clothes"
+          />
+        </div>
 
-            <button nbButton [disabled]="!profileForm4.valid" type="submit" data-cy="submit">Next</button>
-          </form>
-        </nb-step>
-      </nb-stepper>
-    </nb-card-body>
-  </nb-card>
+        <button [disabled]="!profileForm2.valid" type="submit" class="profileForm-button" data-cy="submit">Next</button>
+      </form>
+    </nb-step>
+    <nb-step [label]="labelThree">
+      <ng-template #labelThree></ng-template>
+      <form name="form" role="form" (ngSubmit)="thirdStep()" [formGroup]="profileForm3" class="profileForm-1" *ngIf="!success">
+        <div class="mb-3">
+          <label for="flowers">
+            Do you want any flowers?
+            <nb-radio-group formControlName="flowers" name="flowers">
+              <nb-radio value="true" id="flowers" name="flowers">Yes</nb-radio>
+              <nb-radio value="false" id="flowers" name="flowers">No</nb-radio>
+            </nb-radio-group>
+          </label>
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="ifFlowers"
+            name="ifFlowers"
+            placeholder="{{ 'Type of flowers' }}"
+            formControlName="ifFlowers"
+            data-cy="ifFlowers"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="obituary"
+            name="obituary"
+            placeholder="{{ 'obituary' }}"
+            formControlName="obituary"
+            data-cy="obituary"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="spotify"
+            name="spotify"
+            placeholder="{{ 'Link your spotify playlist' }}"
+            formControlName="spotify"
+            data-cy="spotify"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="guests"
+            name="guests"
+            placeholder="{{ 'guests' }}"
+            formControlName="guests"
+            data-cy="guests"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="notInvited"
+            name="notInvited"
+            placeholder="{{ 'notInvited' }}"
+            formControlName="notInvited"
+            data-cy="notInvited"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="placeOfCeremony"
+            name="placeOfCeremony"
+            placeholder="{{ 'placeOfCeremony ' }}"
+            formControlName="placeOfCeremony"
+            data-cy="placeOfCeremony"
+          />
+        </div>
+        <button [disabled]="!profileForm3.valid" type="submit" class="profileForm-button" data-cy="submit">Next</button>
+      </form>
+    </nb-step>
+    <nb-step label="">
+      <form name="form" role="form" [formGroup]="profileForm4" (ngSubmit)="fourthStep()" *ngIf="!success" class="profileForm-1">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="farewellLetter"
+            name="farewellLetter"
+            placeholder="{{ 'farewellLetter ' }}"
+            formControlName="farewellLetter"
+            data-cy="farewellLetter"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="videoSpeech"
+            name="videoSpeech"
+            placeholder="{{ 'videoSpeech' }}"
+            formControlName="videoSpeech"
+            data-cy="videoSpeech"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="testament"
+            name="testament"
+            placeholder="{{ 'testament' }}"
+            formControlName="testament"
+            data-cy="testament"
+          />
+        </div>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="other"
+            name="other"
+            placeholder="{{ 'other' }}"
+            formControlName="other"
+            data-cy="other"
+          />
+        </div>
+
+        <button [disabled]="!profileForm4.valid" type="submit" class="profileForm-button" data-cy="submit">Next</button>
+      </form>
+    </nb-step>
+  </nb-stepper>
 </div>
 <button (click)="onTest()">test</button>
