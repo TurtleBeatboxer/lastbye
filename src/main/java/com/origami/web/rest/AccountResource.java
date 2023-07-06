@@ -2,6 +2,7 @@ package com.origami.web.rest;
 
 import com.origami.domain.Profile;
 import com.origami.domain.User;
+import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
 import com.origami.security.SecurityUtils;
 import com.origami.service.MailService;
@@ -18,9 +19,7 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -41,14 +40,23 @@ public class AccountResource {
 
     private final UserRepository userRepository;
 
+    private final ProfileRepository profileRepository;
+
     private final UserService userService;
 
     private final MailService mailService;
 
     private final ProfileService profileService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, ProfileService profileService) {
+    public AccountResource(
+        UserRepository userRepository,
+        ProfileRepository profileRepository,
+        UserService userService,
+        MailService mailService,
+        ProfileService profileService
+    ) {
         this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.profileService = profileService;
@@ -92,6 +100,14 @@ public class AccountResource {
         } else {
             return HttpStatus.FORBIDDEN;
         }
+    }
+
+    @PostMapping("/qr")
+    public Profile getProfileFromQRCode(@Valid @RequestBody String codeQR) {
+        Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(codeQR);
+        if (profileOptional.isEmpty()) throw new IllegalArgumentException("QR Code is not valid");
+
+        return profileOptional.get();
     }
 
     @PostMapping("/profile/get/data")

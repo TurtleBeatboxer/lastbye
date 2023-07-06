@@ -1,5 +1,6 @@
 package com.origami.service;
 
+import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
@@ -57,9 +58,15 @@ public class ProfileService {
         return true;
     }
 
+    public void updateLifeStatus(LifeStatus lifeStatus, Profile profile) {
+        profile.setLifeStatus(lifeStatus);
+        profileRepository.save(profile);
+    }
+
     public void createNewProfile(ManagedUserVM userDTO) {
         Profile newProfile = new Profile();
 
+        newProfile.setLifeStatus(LifeStatus.ALIVE);
         newProfile.setUserId(userDTO.getUserId());
         newProfile.setMembershipLevel(MembershipLevel.STANDARD);
         newProfile.setEditsLeft(2L);
