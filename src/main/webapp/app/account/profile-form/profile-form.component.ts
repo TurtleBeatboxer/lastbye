@@ -52,23 +52,23 @@ export class ProfileFormComponent implements AfterViewInit {
     }),
   });
 
-  // profileForm2 = new FormGroup({
-  //   burialMethod: new FormControl('', {
-  //     nonNullable: true,
-  //     validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
-  //   }),
+  profileForm2 = new FormGroup({
+    burialMethod: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+    }),
 
-  //   graveInscription: new FormControl('', {
-  //     nonNullable: true,
-  //     validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
-  //   }),
-  //   openCoffin: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
+    graveInscription: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+    }),
+    openCoffin: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
 
-  //   clothes: new FormControl('', {
-  //     nonNullable: true,
-  //     validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
-  //   }),
-  // });
+    clothes: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+    }),
+  });
 
   profileForm3 = new FormGroup({
     flowers: new FormControl(false, {
@@ -168,15 +168,15 @@ export class ProfileFormComponent implements AfterViewInit {
     this.router.navigate(['/']);
   }
 
-  // secondStep(): void {
-  //   this.http
-  //     .post(
-  //       this.applicationConfigService.getEndpointFor('/api/register/form'),
-  //       this.profileFormService.dataProfile2(this.profileForm2.getRawValue())
-  //     )
-  //     .subscribe(() => console.warn(this.profileForm2.getRawValue()));
-  //   this.nbStepper.next();
-  // }
+  secondStep(): void {
+    this.http
+      .post(
+        this.applicationConfigService.getEndpointFor('/api/register/form'),
+        this.profileFormService.dataProfile2(this.profileForm2.getRawValue())
+      )
+      .subscribe(() => console.warn(this.profileForm2.getRawValue()));
+    this.nbStepper.next();
+  }
 
   thirdStep(): void {
     this.http
