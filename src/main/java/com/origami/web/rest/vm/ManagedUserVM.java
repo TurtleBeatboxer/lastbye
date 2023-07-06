@@ -1,5 +1,6 @@
 package com.origami.web.rest.vm;
 
+import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
 import com.origami.service.dto.AdminUserDTO;
 import javax.validation.constraints.Size;

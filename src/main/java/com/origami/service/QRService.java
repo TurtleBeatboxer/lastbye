@@ -1,12 +1,21 @@
 package com.origami.service;
 
-import com.origami.repository.ProfileRepository;
-import com.origami.repository.UserRepository;
-import org.springframework.stereotype.Repository;
+import com.origami.domain.LifeStatus;
+import com.origami.domain.Profile;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QRService {
+
+    private final MailService mailService;
+    private final ProfileService profileService;
+
+    public QRService(MailService mailService, ProfileService profileService) {
+        this.mailService = mailService;
+        this.profileService = profileService;
+    }
 
     public String getAlphaNumericString(int n) {
         // -_.~
@@ -22,5 +31,17 @@ public class QRService {
             sb.append(AlphaNumericString.charAt(index));
         }
         return sb.toString();
+    }
+
+    public void startQRCountdown(Profile profile) {
+        profileService.updateLifeStatus(LifeStatus.UNKNOWN, profile);
+        qRCountdown(profile);
+    }
+
+    @Async
+    @Scheduled(initialDelay = 86400000)
+    public void qRCountdown(Profile profile) {
+        profileService.updateLifeStatus(LifeStatus.DEAD, profile);
+        //calosc funkcjonalnosci - blokowanie editow + do ustalenia
     }
 }
