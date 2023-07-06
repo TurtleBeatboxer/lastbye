@@ -42,8 +42,28 @@
   transform: scale(3.5);
   background-color: black;
   accent-color: black;
+  margin-right: 50px;
 }
 
 .radio-label {
   font-size: 35px;
+  display: inline !important;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.radioInputs {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+}
+
+.cremation {
+  display: grid;
+  row-gap: 30px;
+  grid-template-columns: 50% 50%;
+}
+
+.cremation-text {
+  margin-bottom: 50px;
 }

@@ -82,61 +82,85 @@
       </form>
     </nb-step>
     <nb-step label="">
-      <form name="form" role="form" class="profileForm-1" [formGroup]="profileForm2" (ngSubmit)="secondStep()" *ngIf="!success">
-        <div class="mb-3">
+      <!--   ██╗    ██╗███████╗██████╗ ███████╗     ██╗ █████╗     ██████╗ ███████╗██╗   ██╗███████╗██╗      ██████╗ ██████╗
+                ██║    ██║██╔════╝██╔══██╗██╔════╝     ██║██╔══██╗    ██╔══██╗██╔════╝██║   ██║██╔════╝██║     ██╔═══██╗██╔══██╗
+                ██║ █╗ ██║█████╗  ██████╔╝███████╗     ██║███████║    ██║  ██║█████╗  ██║   ██║█████╗  ██║     ██║   ██║██████╔╝
+                ██║███╗██║██╔══╝  ██╔══██╗╚════██║██   ██║██╔══██║    ██║  ██║██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║     ██║   ██║██╔═══╝
+                ╚███╔███╔╝███████╗██║  ██║███████║╚█████╔╝██║  ██║    ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
+                 ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚══════╝ ╚════╝ ╚═╝  ╚═╝    ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝     -->
+      <form name="form" role="form" class="profileForm-1" *ngIf="!success">
+        <div class="radioInputs">
+          <div>
+            <label class="radio-label" for="burialMethod"> Coffin </label>
+            <input class="radio" type="radio" name="burialMethod" value="coffin" [(ngModel)]="burialMethod" />
+          </div>
+          <div>
+            <label class="radio-label" for="burialMethod"> Cremation </label>
+            <input class="radio" type="radio" name="burialMethod" value="cremation" [(ngModel)]="burialMethod" />
+          </div>
+          <div>
+            <label class="radio-label" for="burialMethod"> Other </label>
+            <input class="radio" type="radio" name="burialMethod" value="other" [(ngModel)]="burialMethod" />
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="burialMethod === 'other'">
           <input
             type="text"
             class="profileForm-input"
             id="burialMethod"
             name="burialMethod"
-            placeholder="{{ 'Burial Method' }}"
+            placeholder="{{ 'Other burial method' }}"
             formControlName="burialMethod"
             data-cy="burialMethod"
           />
         </div>
-        <div class="mb-3">
+        <div *ngIf="burialMethod === 'cremation'">
+          <h1 class="cremation-text">If cremation choosen - what will happen with your ashes?</h1>
+          <div class="cremation">
+            <div>
+              <label class="radio-label" for="burialMethod"> Scatter them at sea </label>
+              <input class="radio" type="radio" name="burialMethod" value="sea" [(ngModel)]="burialMethod" />
+            </div>
+            <div>
+              <label class="radio-label" for="burialMethod"> Make vinyl record </label>
+              <input class="radio" type="radio" name="burialMethod" value="vinyl" [(ngModel)]="burialMethod" />
+            </div>
+            <div>
+              <label class="radio-label" for="burialMethod"> Urn </label>
+              <input class="radio" type="radio" name="burialMethod" value="urn" [(ngModel)]="burialMethod" />
+            </div>
+            <div>
+              <label class="radio-label" for="burialMethod"> Make jewellery </label>
+              <input class="radio" type="radio" name="burialMethod" value="jewellery" [(ngModel)]="burialMethod" />
+            </div>
+            <div>
+              <label class="radio-label" for="burialMethod"> Other </label>
+              <input class="radio" type="radio" name="burialMethod" value="cremationOther" [(ngModel)]="burialMethod" />
+            </div>
+          </div>
+        </div>
+        <div *ngIf="burialMethod === 'cremationOther'">
           <input
             type="text"
             class="profileForm-input"
-            id="graveInscription"
-            name="graveInscription"
-            placeholder="{{ 'Grave inscription' }}"
-            formControlName="graveInscription"
-            data-cy="graveInscription"
-          />
-        </div>
-        <div class="mb-3">
-          <!-- <label for="openCoffin">
-                Do you want your coffin open?
-                <nb-radio-group formControlName="openCoffin" name="openCoffin">
-                  
-                  <nb-radio value="true" id="openCoffin" name="openCoffin">Yes</nb-radio>
-                  <nb-radio value="false" id="openCoffin" name="openCoffin">No</nb-radio>
-                </nb-radio-group>
-              </label> -->
-        </div>
-        <label class="radio-label" for="">
-          <input class="radio" type="radio" name="openCoffin" id="openCoffin" />
-          chuj
-        </label>
-        <label class="radio-label" for="openCoffin">
-          <input class="radio" type="radio" name="openCoffin" id="openCoffin" />
-          chuj
-        </label>
-        <div class="mb-3">
-          <input
-            type="text"
-            class="profileForm-input"
-            id="clothes"
-            name="clothes"
-            placeholder="{{ 'Clothes' }}"
-            formControlName="clothes"
-            data-cy="clothes"
+            id="burialMethod"
+            name="burialMethod"
+            placeholder="{{ 'Other burial method' }}"
+            formControlName="burialMethod"
+            data-cy="burialMethod"
           />
         </div>
 
-        <button [disabled]="!profileForm2.valid" type="submit" class="profileForm-button" data-cy="submit">Next</button>
+        <button type="submit" class="profileForm-button" data-cy="submit">Next</button>
       </form>
+
+      <!--      ██╗    ██╗███████╗██████╗ ███████╗     ██╗ █████╗      ██████╗ ██╗████████╗
+                ██║    ██║██╔════╝██╔══██╗██╔════╝     ██║██╔══██╗    ██╔════╝ ██║╚══██╔══╝
+                ██║ █╗ ██║█████╗  ██████╔╝███████╗     ██║███████║    ██║  ███╗██║   ██║
+                ██║███╗██║██╔══╝  ██╔══██╗╚════██║██   ██║██╔══██║    ██║   ██║██║   ██║
+                ╚███╔███╔╝███████╗██║  ██║███████║╚█████╔╝██║  ██║    ╚██████╔╝██║   ██║
+                 ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚══════╝ ╚════╝ ╚═╝  ╚═╝     ╚═════╝ ╚═╝   ╚═╝
+-->
     </nb-step>
     <nb-step [label]="labelThree">
       <ng-template #labelThree></ng-template>
