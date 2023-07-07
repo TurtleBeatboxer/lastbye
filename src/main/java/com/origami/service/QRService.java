@@ -2,19 +2,25 @@ package com.origami.service;
 
 import com.origami.domain.LifeStatus;
 import com.origami.domain.Profile;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
+import com.origami.repository.ProfileRepository;
+import com.origami.service.dto.LifeStatusChangeDTO;
+import com.origami.web.rest.vm.ManagedUserVM;
+import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.spi.AbstractResourceBundleProvider;
+import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QRService {
 
     private final MailService mailService;
-    private final ProfileService profileService;
+    private final ProfileRepository profileRepository;
 
-    public QRService(MailService mailService, ProfileService profileService) {
+    public QRService(MailService mailService, ProfileRepository profileRepository) {
         this.mailService = mailService;
-        this.profileService = profileService;
+        this.profileRepository = profileRepository;
     }
 
     public String getAlphaNumericString(int n) {
@@ -33,15 +39,37 @@ public class QRService {
         return sb.toString();
     }
 
-    public void startQRCountdown(Profile profile) {
-        profileService.updateLifeStatus(LifeStatus.UNKNOWN, profile);
-        qRCountdown(profile);
-    }
+    /*@PostConstruct*/
+    public void qRCountdown(LifeStatusChangeDTO lifeStatusChangeDTO) {
+        final Integer[] i = { 11 };
+        Timer timer = new Timer();
+        int initialDelay = 0; //delay startu
+        int cooldown = 1000/*7200000*/; //2h w ms - period miedzy wywolaniami "run"
 
-    @Async
-    @Scheduled(initialDelay = 86400000)
-    public void qRCountdown(Profile profile) {
-        profileService.updateLifeStatus(LifeStatus.DEAD, profile);
-        //calosc funkcjonalnosci - blokowanie editow + do ustalenia
+        /*ManagedUserVM userVM = new ManagedUserVM();*/
+
+        timer.scheduleAtFixedRate(
+            new TimerTask() {
+                public void run() {
+                    Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(lifeStatusChangeDTO.getCodeQR());
+                    if (profileOptional.isPresent() && profileOptional.get().getLifeStatus().equals(LifeStatus.UNKNOWN)) {
+                        if (i[0] == 0) {
+                            System.out.println("final mail");
+                            timer.cancel();
+                            return;
+                        }
+
+                        System.out.println(i[0]);
+                        System.out.println("michal chyba ma w planach jutrto zwymiotowac hm?");
+                        i[0]--;
+                    } else {
+                        timer.cancel();
+                        return;
+                    }
+                }
+            },
+            initialDelay,
+            cooldown
+        );
     }
 }
