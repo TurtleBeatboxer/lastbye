@@ -59,22 +59,6 @@ public class MailService {
         this.profileRepository = profileRepository;
     }
 
-    @Scheduled(cron = "* 0 */2 * * *")
-    public void sendPeriodicMail() {
-        //profileRepository.findAllBy
-
-        //dodac: failsafe w przypadku resetu
-        //tresc maila
-        //final warning
-        //usunac stary boolean zastapiony enumem
-
-        /*Optional<User> userOptional = userRepository.findOneById(profileOptional.get().getId());
-        if (userOptional.isEmpty())
-            throw new IllegalArgumentException("QR Code is not valid");
-
-        return userOptional.get().getEmail();*/
-    }
-
     @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
         log.debug(

@@ -1,5 +1,6 @@
 package com.origami.web.rest;
 
+import com.origami.domain.LifeStatus;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
@@ -8,6 +9,7 @@ import com.origami.security.SecurityUtils;
 import com.origami.service.MailService;
 import com.origami.service.ProfileService;
 import com.origami.service.UserService;
+import com.origami.service.dto.LifeStatusChangeDTO;
 import com.origami.service.dto.PasswordChangeDTO;
 import com.origami.service.dto.PublicProfileDTO;
 import com.origami.web.rest.errors.*;
@@ -103,11 +105,16 @@ public class AccountResource {
     }
 
     @PostMapping("/qr")
-    public Profile getProfileFromQRCode(@Valid @RequestBody String codeQR) {
+    public HttpStatus getProfileFromQRCode(@Valid @RequestBody String codeQR) {
         Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(codeQR);
-        if (profileOptional.isEmpty()) throw new IllegalArgumentException("QR Code is not valid");
+        if (profileOptional.isEmpty()) return HttpStatus.BAD_REQUEST;
+        if (profileOptional.get().getLifeStatus().equals(LifeStatus.UNKNOWN)) return HttpStatus.BAD_REQUEST;
 
-        return profileOptional.get();
+        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
+        lifeStatusChangeDTO.setCodeQR(codeQR);
+        lifeStatusChangeDTO.setLifeStatus(LifeStatus.UNKNOWN);
+        profileService.startQRCountdown(lifeStatusChangeDTO);
+        return HttpStatus.ACCEPTED;
     }
 
     @PostMapping("/profile/get/data")

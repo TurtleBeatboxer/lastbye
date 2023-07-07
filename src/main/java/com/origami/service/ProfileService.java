@@ -1,11 +1,15 @@
 package com.origami.service;
 
+import static com.origami.domain.Profile_.codeQR;
+import static com.origami.domain.Profile_.lifeStatus;
+
 import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
+import com.origami.service.dto.LifeStatusChangeDTO;
 import com.origami.service.dto.PublicProfileDTO;
 import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.Optional;
@@ -58,9 +62,38 @@ public class ProfileService {
         return true;
     }
 
-    public void updateLifeStatus(LifeStatus lifeStatus, Profile profile) {
-        profile.setLifeStatus(lifeStatus);
-        profileRepository.save(profile);
+    //UWAGA!!!!!
+    //ta metoda wcale nie zmienia lifeStatus trzeba to zaimplementowac
+    public void updateLifeStatus(LifeStatusChangeDTO lifeStatusChangeDTO) {
+        switch (lifeStatusChangeDTO.getLifeStatus()) {
+            case UNKNOWN:
+                startQRCountdown(lifeStatusChangeDTO);
+                break;
+            case DEAD:
+                //cos kiedys bedzie funkcjonalnosc jak zmienic na dead
+                //nalezy to zmienic najperwdopoodobniej w skurialej metodzie z timerem
+                break;
+            case ALIVE:
+                //funkcjonalnosc z maila ktory pyta czy napewno dead
+                //jak to czytasz to trzeba jeszcze sie upewnic zeby nei dalo sie tego nullowac
+                //enuma w db
+                break;
+        }
+    }
+
+    //reszta funkcjonalnosci do zrobienia po odpaleniu countdown
+
+    public void startQRCountdown(LifeStatusChangeDTO lifeStatusChangeDTO) {
+        Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(lifeStatusChangeDTO.getCodeQR());
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+            lifeStatusChangeDTO.setEmailAddress(prepareMailForDTO(profile.getUserId()));
+
+            profile.setLifeStatus(LifeStatus.UNKNOWN);
+            profileRepository.save(profile);
+
+            qrService.qRCountdown(lifeStatusChangeDTO);
+        }
     }
 
     public void createNewProfile(ManagedUserVM userDTO) {
@@ -219,5 +252,11 @@ public class ProfileService {
             }
         }
         return publicProfileDTO;
+    }
+
+    private String prepareMailForDTO(Long userID) {
+        Optional<User> userOptional = userRepository.findOneById(userID);
+        if (userOptional.isPresent()) return userOptional.get().getEmail();
+        return null;
     }
 }
