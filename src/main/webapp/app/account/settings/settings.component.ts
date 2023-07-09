@@ -13,11 +13,13 @@ const initialAccount: Account = {} as Account;
 @Component({
   selector: 'jhi-settings',
   templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
   success = false;
   languages = LANGUAGES;
   isTrueCoffin: boolean;
+  editsError = false;
 
   settingsForm = new FormGroup({
     firstName: new FormControl(initialAccount.firstName, {
@@ -168,22 +170,18 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  onClick(): void {
-    console.log(initialAccount);
-    console.log(this.accountService.userIdentity);
-    this.http
-      .post(this.applicationConfigService.getEndpointFor('/api/profile/get/data'), '!TVzk')
-      // eslint-disable-next-line no-console
-      .subscribe(res => console.log(res));
-  }
-
   save(): void {
     this.success = false;
 
     const account = this.settingsForm.getRawValue();
-    this.accountService.save(account).subscribe(() => {
-      this.success = true;
-
+    this.accountService.save(account).subscribe(res => {
+      if (res === 'OK') {
+        this.success = true;
+        this.editsError = false;
+      } else {
+        this.success = false;
+        this.editsError = true;
+      }
       this.accountService.authenticate(account);
 
       if (account.langKey !== this.translateService.currentLang) {
