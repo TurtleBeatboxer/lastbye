@@ -252,9 +252,8 @@
         </div>
 
         <button type="submit" class="btn btn-primary" data-cy="submit">Save</button>
+        <div class="alert alert-danger error" *ngIf="editsError"><strong>No edits left</strong> checkout our premium plans</div>
       </form>
     </div>
   </div>
 </div>
-
-<button (click)="onClick()">Text</button>
