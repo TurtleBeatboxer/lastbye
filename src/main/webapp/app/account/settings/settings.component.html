@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center">
     <div class="col-md-8">
       <h2>Here is your profile</h2>
-
+      <h5>Here are your edits left: {{ edits }}</h5>
       <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
         <strong>Settings saved!</strong>
       </div>
@@ -252,9 +252,12 @@
         </div>
 
         <button type="submit" class="btn btn-primary" data-cy="submit">Save</button>
+        <div class="alert alert-danger error" *ngIf="editsError">
+          <strong>No edits left</strong> checkout our premium plans. Your changes won't apply
+        </div>
       </form>
     </div>
   </div>
 </div>
 
-<button (click)="onClick()">Text</button>
+<button (click)="onClick()">text</button>
