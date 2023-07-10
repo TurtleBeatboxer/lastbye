@@ -1,16 +1,17 @@
 <div class="global">
-  <div class="navbar">
+  <!-- <div class="navbar">
     <a href="" class="barcontent" id="bar1">Bye.com</a>
     <a href="#Howitworks" class="barcontent" id="bar2">Guide</a>
     <a href="#Pricing" class="barcontent" id="bar3">Pricing</a>
     <a href="#questions" class="barcontent" id="bar4">FAQ</a>
     <a href="#contact" class="barcontent" id="bar5">Contact</a>
     <a href="" class="barcontent" id="bar6">Login</a>
-  </div>
+  </div> -->
+
   <div class="firstpanel">
     <p class="coolsentence">Celebrating life,</p>
     <p class="coolsentence">Honoring memories</p>
-    <button class="signup">Sign up for free</button>
+    <button [routerLink]="['/user/register']" class="signup">Sign up for free</button>
   </div>
   <div class="steps" id="Howitworks">
     <h2 class="howwork">How it works?</h2>
@@ -35,7 +36,7 @@
       This is the stage you will answer questions that will allow you to determine how your last goodbye should look like.
     </p>
 
-    <!-- 
+    <!--
       Pricing będzie na innej stronie
       <div class="pricing" id="Pricing">
       <h2 class="howwork">Pricing</h2>
@@ -88,7 +89,7 @@
       </div> -->
     <h2 class="howwork">Idea</h2>
 
-    <div class="contact" id="contact">
+    <!-- <div class="contact" id="contact">
       <div id="contactsegment1">
         <h3><strong>Company</strong></h3>
         <a href="" class="contactlink">About as</a><br />
@@ -104,7 +105,7 @@
         <h3><strong>Pricing</strong></h3>
         <a href="" class="contactlink">Support</a>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
