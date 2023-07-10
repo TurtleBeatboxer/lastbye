@@ -1,16 +1,11 @@
-<div>
+<div class="nb-theme-default">
   <div class="d-flex justify-content-center">
     <div class="col-md-8">
-      <h2 jhiTranslate="settings.title" [translateValues]="{ username: settingsForm.value.login }" *ngIf="settingsForm.value.login">
-        User settings for [<strong>{{ settingsForm.value.login }}</strong
-        >]
-      </h2>
+      <h2>Here is your profile</h2>
 
       <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
         <strong>Settings saved!</strong>
       </div>
-
-      <jhi-alert-error></jhi-alert-error>
 
       <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="settingsForm.value.login" novalidate>
         <div class="mb-3">
@@ -24,36 +19,6 @@
             formControlName="firstName"
             data-cy="firstname"
           />
-
-          <div
-            *ngIf="
-              settingsForm.get('firstName')!.invalid && (settingsForm.get('firstName')!.dirty || settingsForm.get('firstName')!.touched)
-            "
-          >
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('firstName')?.errors?.required"
-              jhiTranslate="settings.messages.validate.firstname.required"
-            >
-              Your first name is required.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('firstName')?.errors?.minlength"
-              jhiTranslate="settings.messages.validate.firstname.minlength"
-            >
-              Your first name is required to be at least 1 character
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('firstName')?.errors?.maxlength"
-              jhiTranslate="settings.messages.validate.firstname.maxlength"
-            >
-              Your first name cannot be longer than 50 characters
-            </small>
-          </div>
         </div>
 
         <div class="mb-3">
@@ -67,100 +32,229 @@
             formControlName="lastName"
             data-cy="lastname"
           />
-
-          <div
-            *ngIf="settingsForm.get('lastName')!.invalid && (settingsForm.get('lastName')!.dirty || settingsForm.get('lastName')!.touched)"
-          >
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('lastName')?.errors?.required"
-              jhiTranslate="settings.messages.validate.lastname.required"
-            >
-              Your last name is required.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('lastName')?.errors?.minlength"
-              jhiTranslate="settings.messages.validate.lastname.minlength"
-            >
-              Your last name is required to be at least 1 character
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('lastName')?.errors?.maxlength"
-              jhiTranslate="settings.messages.validate.lastname.maxlength"
-            >
-              Your last name cannot be longer than 50 characters
-            </small>
-          </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="email" jhiTranslate="global.form.email.label">Email</label>
+          <label class="form-label" for="prefix">Prefix</label>
           <input
-            type="email"
+            nbInput
+            type="number"
             class="form-control"
-            id="email"
-            name="email"
-            placeholder="{{ 'global.form.email.placeholder' | translate }}"
-            formControlName="email"
-            data-cy="email"
+            id="prefix"
+            name="prefix"
+            placeholder="{{ 'Prefix' }}"
+            formControlName="prefix"
+            data-cy="prefix"
           />
-
-          <div *ngIf="settingsForm.get('email')!.invalid && (settingsForm.get('email')!.dirty || settingsForm.get('email')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('email')?.errors?.required"
-              jhiTranslate="global.messages.validate.email.required"
-            >
-              Your email is required.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('email')?.errors?.email"
-              jhiTranslate="global.messages.validate.email.invalid"
-            >
-              Your email is invalid.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('email')?.errors?.minlength"
-              jhiTranslate="global.messages.validate.email.minlength"
-            >
-              Your email is required to be at least 5 characters.
-            </small>
-
-            <small
-              class="form-text text-danger"
-              *ngIf="settingsForm.get('email')?.errors?.maxlength"
-              jhiTranslate="global.messages.validate.email.maxlength"
-            >
-              Your email cannot be longer than 50 characters.
-            </small>
-          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="phone">Phone number</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="phone"
+            name="phone"
+            placeholder="{{ 'phone number' }}"
+            formControlName="phone"
+            data-cy="phone"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="burialMethod">Burial method</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="burialMethod"
+            name="burialMethod"
+            placeholder="{{ 'Burial Method' }}"
+            formControlName="burialMethod"
+            data-cy="burialMethod"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="graveInscription">Grave inscription</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="graveInscription"
+            name="graveInscription"
+            placeholder="{{ 'Grave inscription' }}"
+            formControlName="graveInscription"
+            data-cy="graveInscription"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="openCoffin">
+            Do you want your coffin open?
+            <nb-radio-group formControlName="openCoffin" name="openCoffin">
+              <nb-radio [value]="true" id="openCoffin" name="openCoffin" [checked]="isTrueCoffin">Yes</nb-radio>
+              <nb-radio [value]="false" id="openCoffin" name="openCoffin">No</nb-radio>
+            </nb-radio-group>
+          </label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="clothes">Clothes</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="clothes"
+            name="clothes"
+            placeholder="{{ 'Clothes' }}"
+            formControlName="clothes"
+            data-cy="clothes"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="flowers">
+            Do you want any flowers?
+            <nb-radio-group formControlName="flowers" name="flowers">
+              <nb-radio [value]="true" id="flowers" name="flowers">Yes</nb-radio>
+              <nb-radio [value]="false" id="flowers" name="flowers">No</nb-radio>
+            </nb-radio-group>
+          </label>
         </div>
 
-        <div class="mb-3" *ngIf="languages && languages.length > 0">
-          <label for="langKey" jhiTranslate="settings.form.language">Language</label>
-          <select class="form-control" id="langKey" name="langKey" formControlName="langKey" data-cy="langKey">
-            <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}</option>
-          </select>
+        <div class="mb-3">
+          <label class="form-label" for="ifFlowers">What type of flowers do you want?</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="ifFlowers"
+            name="ifFlowers"
+            placeholder="{{ 'Type of flowers' }}"
+            formControlName="ifFlowers"
+            data-cy="ifFlowers"
+          />
         </div>
 
-        <button
-          type="submit"
-          [disabled]="settingsForm.invalid"
-          class="btn btn-primary"
-          jhiTranslate="settings.form.button"
-          data-cy="submit"
-        >
-          Save
-        </button>
+        <div class="mb-3">
+          <label class="form-label" for="obituary">Write your obituary</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="obituary"
+            name="obituary"
+            placeholder="{{ 'obituary' }}"
+            formControlName="obituary"
+            data-cy="obituary"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="spotify">Do you want any music?</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="spotify"
+            name="spotify"
+            placeholder="{{ 'Link your spotify playlist' }}"
+            formControlName="spotify"
+            data-cy="spotify"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="guests">guests</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="guests"
+            name="guests"
+            placeholder="{{ 'guests' }}"
+            formControlName="guests"
+            data-cy="guests"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="notInvited">notInvited</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="notInvited"
+            name="notInvited"
+            placeholder="{{ 'notInvited' }}"
+            formControlName="notInvited"
+            data-cy="notInvited"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="placeOfCeremony">placeOfCeremony </label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="placeOfCeremony"
+            name="placeOfCeremony"
+            placeholder="{{ 'placeOfCeremony ' }}"
+            formControlName="placeOfCeremony"
+            data-cy="placeOfCeremony"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="farewellLetter">Farwell Letter</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="farewellLetter"
+            name="farewellLetter"
+            placeholder="{{ 'farewellLetter ' }}"
+            formControlName="farewellLetter"
+            data-cy="farewellLetter"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="videoSpeech">videoSpeech</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="videoSpeech"
+            name="videoSpeech"
+            placeholder="{{ 'videoSpeech' }}"
+            formControlName="videoSpeech"
+            data-cy="videoSpeech"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="testament">testament</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="testament"
+            name="testament"
+            placeholder="{{ 'testament' }}"
+            formControlName="testament"
+            data-cy="testament"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="other">other</label>
+          <input
+            nbInput
+            type="text"
+            class="form-control"
+            id="other"
+            name="other"
+            placeholder="{{ 'other' }}"
+            formControlName="other"
+            data-cy="other"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary" data-cy="submit">Save</button>
       </form>
     </div>
   </div>
 </div>
+
+<button (click)="onClick()">Text</button>

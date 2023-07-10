@@ -1,5 +1,6 @@
 package com.origami.web.rest.vm;
 
+import com.origami.domain.MembershipLevel;
 import com.origami.service.dto.AdminUserDTO;
 import javax.validation.constraints.Size;
 
@@ -27,9 +28,9 @@ public class ManagedUserVM extends AdminUserDTO {
     private String guests;
     private String notInvited;
     private String obituary;
-    private boolean purchasedPlace;
+    private Boolean purchasedPlace;
     private String isPurchasedOther;
-    private boolean flowers;
+    private Boolean flowers;
     private String ifFlowers;
     private String farewellLetter;
     private String speech;
@@ -37,10 +38,46 @@ public class ManagedUserVM extends AdminUserDTO {
     private String testament;
     private String accessesForRelatives;
     private String other;
-    private String codeQR;
+    private Long levelOfForm;
+    private Boolean isOpenCoffin;
+    // Not obtainable from frontend needed for clarity of code later on when its invoked
+    private Long userId;
+    private Long editsLeft;
 
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
+    }
+
+    public Boolean isOpenCoffin() {
+        return isOpenCoffin;
+    }
+
+    public Long getLevelOfForm() {
+        return levelOfForm;
+    }
+
+    public Long getEditsLeft() {
+        return editsLeft;
+    }
+
+    public void setEditsLeft(Long editsLeft) {
+        this.editsLeft = editsLeft;
+    }
+
+    public void setLevelOfForm(Long levelOfForm) {
+        this.levelOfForm = levelOfForm;
+    }
+
+    public void setOpenCoffin(Boolean openCoffin) {
+        isOpenCoffin = openCoffin;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {
@@ -153,11 +190,11 @@ public class ManagedUserVM extends AdminUserDTO {
         this.obituary = obituary;
     }
 
-    public boolean isPurchasedPlace() {
+    public Boolean isPurchasedPlace() {
         return purchasedPlace;
     }
 
-    public void setPurchasedPlace(boolean purchasedPlace) {
+    public void setPurchasedPlace(Boolean purchasedPlace) {
         this.purchasedPlace = purchasedPlace;
     }
 
@@ -169,11 +206,11 @@ public class ManagedUserVM extends AdminUserDTO {
         this.isPurchasedOther = isPurchasedOther;
     }
 
-    public boolean isFlowers() {
+    public Boolean isFlowers() {
         return flowers;
     }
 
-    public void setFlowers(boolean flowers) {
+    public void setFlowers(Boolean flowers) {
         this.flowers = flowers;
     }
 
@@ -231,13 +268,5 @@ public class ManagedUserVM extends AdminUserDTO {
 
     public void setOther(String other) {
         this.other = other;
-    }
-
-    public String getCodeQR() {
-        return codeQR;
-    }
-
-    public void setCodeQR(String codeQR) {
-        this.codeQR = codeQR;
     }
 }

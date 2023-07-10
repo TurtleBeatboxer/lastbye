@@ -95,10 +95,58 @@ public class Profile implements Serializable {
     @Column(name = "code_qr")
     private String codeQR;
 
-    /*    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
-    @JoinColumn(unique = true)
-    @MapsId
-    private User user;*/
+    @Column(name = "public_profile_link")
+    private String publicProfileLink;
+
+    @Column(name = "membership_level")
+    private MembershipLevel membershipLevel;
+
+    @Column(name = "finished_editing")
+    private Boolean finishedEditing;
+
+    @Column(name = "level_of_form")
+    private Long levelOfForm;
+
+    @Column(name = "edits_left")
+    private Long editsLeft;
+
+    @Column(name = "is_open_coffin")
+    private Boolean isOpenCoffin;
+
+    public Boolean isOpenCoffin() {
+        return isOpenCoffin;
+    }
+
+    public void setOpenCoffin(Boolean openCoffin) {
+        isOpenCoffin = openCoffin;
+    }
+
+    /*    @Column(name ="isAlive")
+    private boolean isAlive;*/
+
+    public Long getLevelOfForm() {
+        return levelOfForm;
+    }
+
+    public void setLevelOfForm(Long levelOfForm) {
+        this.levelOfForm = levelOfForm;
+    }
+
+    public Boolean isFinishedEditing() {
+        return finishedEditing;
+    }
+
+    public void setFinishedEditing(Boolean finishedEditing) {
+        this.finishedEditing = finishedEditing;
+    }
+
+    public Long getEditsLeft() {
+        return editsLeft;
+    }
+
+    public void setEditsLeft(Long editsLeft) {
+        this.editsLeft = editsLeft;
+    }
 
     @OneToMany(mappedBy = "profile")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -122,6 +170,22 @@ public class Profile implements Serializable {
     public Profile id(Long id) {
         this.setId(id);
         return this;
+    }
+
+    public String getPublicProfileLink() {
+        return publicProfileLink;
+    }
+
+    public void setPublicProfileLink(String publicProfileLink) {
+        this.publicProfileLink = publicProfileLink;
+    }
+
+    public MembershipLevel getMembershipLevel() {
+        return membershipLevel;
+    }
+
+    public void setMembershipLevel(MembershipLevel membershipLevel) {
+        this.membershipLevel = membershipLevel;
     }
 
     public void setId(Long id) {

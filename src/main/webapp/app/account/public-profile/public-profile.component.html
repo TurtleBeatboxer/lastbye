@@ -1,0 +1,31 @@
+<div class="container" *ngIf="profile">
+  <div class="header">
+    <div>
+      <div class="img"></div>
+    </div>
+    <div class="header-text">
+      <p class="header-paragraph">{{ profile.firstName || 'error' }}</p>
+      <p class="header-paragraph">{{ profile.lastName || 'error' }}</p>
+    </div>
+    <div class="header-buttons">
+      <button class="button-header">Share</button>
+      <button class="button-header">Edit</button>
+      <button class="button-header pdf">Generate pdf</button>
+    </div>
+  </div>
+  <br />
+  <h2 class="title-body">My burial</h2>
+  <p class="text">Method: {{ profile.burialMethod || 'error' }}</p>
+  <p class="text">Place: {{ profile.placeOfCeremony || 'error' }}</p>
+  <p class="text">Inscription: {{ profile.graveInscription || 'error' }}</p>
+  <p class="text">Casket: {{ profile.openCoffin || 'error' }}</p>
+  <p class="text">Clothes: {{ profile.clothes || 'error' }}</p>
+  <h2 class="title-body">My funeral</h2>
+  <p class="text">Flowers: {{ profile.flowers || 'error' }}</p>
+  <p class="text">Type of flowers{{ profile.ifFlowers || 'error' }}</p>
+  <p class="text">Obituray: {{ profile.obituary || 'error' }}</p>
+  <p class="text">Place: {{ profile.placeOfCeremony || 'error' }}</p>
+  <p class="text">Music: {{ profile.spotify || 'error' }}</p>
+  <p class="text">Guests: {{ profile.guests || 'error' }}</p>
+  <p class="text">Not invited: {{ profile.notInvited || 'error' }}</p>
+</div>

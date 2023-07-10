@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="8:4ec3f0634e59b34bb78cf28a00625966" author="Michas">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="Profile" columnName="level_of_form" />
+            </not>
+        </preConditions>
+        <addColumn tableName="profile">
+            <column name="level_of_form" type="number">
+                <constraints nullable="true" unique="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
