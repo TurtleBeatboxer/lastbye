@@ -1,23 +1,239 @@
-/* ==========================================================================
-Main page styles
-========================================================================== */
-
-.hipster {
-  display: inline-block;
-  width: 347px;
-  height: 497px;
-  background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-  background-size: contain;
+.global {
+  color: #707070;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background-color: rgb(255, 255, 255);
+  color: #fff;
+  padding: 10px;
+  z-index: 1;
+  border: 1px solid gray;
 }
 
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-    background-size: contain;
-  }
+.barcontent {
+  text-decoration: none;
+  color: #707070;
+  font-size: 30px;
+  text-transform: uppercase;
+  font: normal normal normal 30px/36px Helvetica Neue;
+}
+
+.barcontent:hover {
+  color: #000000;
+}
+#bar1 {
+  position: relative;
+  left: 4%;
+}
+#bar2 {
+  position: relative;
+  left: 5%;
+}
+#bar3 {
+  position: relative;
+  left: 3%;
+}
+#bar4 {
+  position: relative;
+  left: 0%;
+}
+#bar5 {
+  position: relative;
+  left: -4%;
+}
+#bar6 {
+  position: relative;
+  right: 4%;
+}
+.firstpanel {
+  position: relative;
+  top: 33px;
+  background-image: url('/content/images/black.png');
+  width: 100%;
+  height: 1000px;
+}
+p.coolsentence {
+  position: relative;
+  text-align: center;
+  top: 300px;
+  color: #fff;
+  font-size: 90px;
+}
+.signup {
+  position: relative;
+  top: 500px;
+  left: 34%;
+  text-transform: uppercase;
+  color: gray;
+  font-size: 40px;
+  width: 600px;
+  height: 120px;
+  border-radius: 60px;
+}
+h2 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font: normal normal normal 60px/72px Helvetica Neue;
+}
+.howwork {
+  position: relative;
+  top: 100px;
+  text-align: center;
+}
+h4 {
+  font: normal normal normal 25px/30px Helvetica Neue;
+  text-transform: uppercase;
+}
+.threeheaders {
+  position: relative;
+  top: -122px;
+  left: 25%;
+  text-transform: uppercase;
+  font: normal normal 40px/48px Helvetica Neue;
+}
+.threetexts {
+  position: relative;
+  left: 25%;
+  top: -50px;
+  font: normal normal normal 30px/36px Helvetica Neue;
+  word-wrap: break-word;
+  width: 33%;
+}
+.fullimage {
+  margin: 0px auto;
+  width: 100%;
+  height: 300px;
+}
+.number {
+  width: 110px;
+  height: 110px;
+  position: relative;
+  top: 130px;
+  left: 15%;
+  margin-bottom: 10%;
+}
+// .offer {
+//   border: 1px solid #707070;
+//   width: 500px;
+//   height: 630px;
+//   border-radius: 70px;
+// }
+// #free {
+//   position: relative;
+//   top: 140px;
+//   left: 3%;
+// }
+// #firstlevel {
+//   position: relative;
+//   top: -485px;
+//   left: 36%;
+// }
+// #secondlevel {
+//   position: relative;
+//   top: -1110px;
+//   left: 69%;
+// }
+
+// .buttondiv {
+//   position: relative;
+//   top: 70%;
+//   left: 10%;
+//   width: 80%;
+//   height: 12%;
+//   text-align: center;
+//   cursor: pointer;
+//   background-color: rgb(255, 255, 255);
+//   color: gray;
+//   padding: 10px 20px;
+//   transition: background-color 0.3s;
+//   border: 1px solid gray;
+//   border-radius: 20px;
+//   font: normal normal normal 40px/48px Helvetica Neue;
+// }
+
+// .buttondiv:hover {
+//   background-color: rgb(0, 0, 0);
+//   color: #fff;
+// }
+// .aspects {
+//   text-align: center;
+//   font: normal normal normal 35px/43px Helvetica Neue;
+// }
+// .badiv {
+//   position: relative;
+//   top: 5%;
+//   left: 10%;
+//   width: 80%;
+//   height: 12%;
+//   text-align: center;
+//   background-color: rgb(255, 255, 255);
+//   color: gray;
+//   padding: 10px 20px;
+//   transition: background-color 0.3s;
+//   border: 1px solid gray;
+//   border-radius: 20px;
+//   font: normal normal normal 40px/48px Helvetica Neue;
+// }
+#questions {
+  position: relative;
+  top: -1100px;
+}
+#FAQ {
+  position: relative;
+  top: 100px;
+}
+.nb-theme-default {
+  position: relative;
+  top: 200px;
+}
+
+.contact {
+  border: 1px solid gray;
+  width: 80%;
+  height: 500px;
+  position: relative;
+  top: 200px;
+  left: 10%;
+  font-size: 40px;
+}
+#contactsegment1 {
+  position: relative;
+  left: 27%;
+  top: 10%;
+}
+#contactsegment2 {
+  position: relative;
+  left: 47%;
+  top: -22%;
+}
+#contactsegment3 {
+  position: relative;
+  left: 67%;
+  top: -66.5%;
+}
+.contactlink {
+  text-decoration: none;
+  color: gray;
+  font-size: 20px;
+}
+.accordion {
+  width: 100%;
+}
+
+.accordion-item {
+  border-bottom: 1px solid #ccc;
+}
+
+.accordion-header {
+  background-color: #f4f4f4;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.accordion-content {
+  padding: 10px;
+  display: none;
 }
