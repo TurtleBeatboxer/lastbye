@@ -9,10 +9,11 @@ import { shareReplay, tap, catchError } from 'rxjs/operators';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { ApplicationConfigService } from '../config/application-config.service';
 import { Account } from 'app/core/auth/account.model';
+import { UserService } from 'app/user/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-  private userIdentity: Account | null = null;
+  userIdentity: Account | null = null;
   private authenticationState = new ReplaySubject<Account | null>(1);
   private accountCache$?: Observable<Account> | null;
 
@@ -22,7 +23,8 @@ export class AccountService {
     private http: HttpClient,
     private stateStorageService: StateStorageService,
     private router: Router,
-    private applicationConfigService: ApplicationConfigService
+    private applicationConfigService: ApplicationConfigService,
+    private userService: UserService
   ) {}
 
   save(account: Account): Observable<{}> {
@@ -51,6 +53,7 @@ export class AccountService {
     if (!this.accountCache$ || force) {
       this.accountCache$ = this.fetch().pipe(
         tap((account: Account) => {
+          console.log(account);
           this.authenticate(account);
 
           // After retrieve the account info, the language will be changed to
@@ -75,6 +78,9 @@ export class AccountService {
   getAuthenticationState(): Observable<Account | null> {
     return this.authenticationState.asObservable();
   }
+  // getUser(): Observable<{ id: number; login: string; firstName: string; lastName: string; email: string }> {
+  //   return this.http.get < this.applicationConfigService.getEndpointFor('api/account');
+  // }
 
   private fetch(): Observable<Account> {
     return this.http.get<Account>(this.applicationConfigService.getEndpointFor('api/account'));

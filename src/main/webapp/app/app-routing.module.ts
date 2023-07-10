@@ -7,6 +7,7 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { publicProfileRoute } from './account/public-profile/public-profile.route';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
           loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
         },
         {
-          path: 'account',
+          path: 'user',
           loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
         },
         {
@@ -33,6 +34,7 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
           loadChildren: () => import(`./entities/entity-routing.module`).then(m => m.EntityRoutingModule),
         },
         navbarRoute,
+        publicProfileRoute,
         ...errorRoute,
       ],
       { enableTracing: DEBUG_INFO_ENABLED }

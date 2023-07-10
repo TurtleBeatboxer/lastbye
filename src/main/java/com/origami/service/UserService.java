@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,26 +39,32 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final ProfileRepository profileRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
 
+    private final ProfileService profileService;
+
+    private final ProfileRepository profileRepository;
+
     public UserService(
         UserRepository userRepository,
         ProfileRepository profileRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+        CacheManager cacheManager,
+        QRService qrService,
+        ProfileService profileService,
+        ProfileRepository profileRepository1
     ) {
         this.userRepository = userRepository;
-        this.profileRepository = profileRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.profileService = profileService;
+        this.profileRepository = profileRepository1;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -137,43 +144,24 @@ public class UserService {
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
-        userRepository.save(newUser);
-        createNewProfile(userDTO);
+        userDTO.setUserId(userRepository.save(newUser).getId());
+
+        /// Do zastąpienia jest ta linijka jak bedzie przygotowany już 3 etapowy formularz zamiast jednoetapowego
+        profileService.createNewProfile(userDTO);
+
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
 
-    private void createNewProfile(ManagedUserVM userDTO) {
-        Profile newProfile = new Profile();
-        newProfile.setPhone(userDTO.getPhone());
-        newProfile.setPrefix(userDTO.getPrefix());
-        newProfile.setBurialMethod(userDTO.getBurialMethod());
-        newProfile.setClothes(userDTO.getClothes());
-        newProfile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
-        newProfile.setPhoto(userDTO.getPhoto());
-        newProfile.setGraveInscription(userDTO.getGraveInscription());
-        newProfile.setSpotify(userDTO.getSpotify());
-        newProfile.setGuests(userDTO.getGuests());
-        newProfile.setNotInvited(userDTO.getNotInvited());
-        newProfile.setObituary(userDTO.getObituary());
-        newProfile.setPurchasedPlace(userDTO.isPurchasedPlace());
-        if (newProfile.getPurchasedPlace()) {
-            newProfile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
+    public void registerZeroForm(ManagedUserVM userDTO) {
+        Optional<User> userOptional = userRepository.findOneById(userDTO.getUserId());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setFirstName(userDTO.getFirstName());
+            user.setLastName(userDTO.getLastName());
+            profileService.registerZeroForm(userDTO);
         }
-        newProfile.setFlowers(userDTO.isFlowers());
-        if (newProfile.getFlowers()) {
-            newProfile.setIfFlowers(userDTO.getIfFlowers());
-        }
-        newProfile.setFarewellLetter(userDTO.getFarewellLetter());
-        newProfile.setSpeech(userDTO.getSpeech());
-        newProfile.setVideoSpeech(userDTO.getVideoSpeech());
-        newProfile.setTestament(userDTO.getTestament());
-        newProfile.setOther(userDTO.getOther());
-        newProfile.setCodeQR("");
-        Optional<User> user = userRepository.findOneByLogin(userDTO.getLogin());
-        newProfile.setUserId(user.get().getId());
-        profileRepository.save(newProfile);
     }
 
     private boolean removeNonActivatedUser(User existingUser) {
@@ -272,27 +260,72 @@ public class UserService {
     /**
      * Update basic information (first name, last name, email, language) for the current user.
      *
-     * @param firstName first name of user.
-     * @param lastName  last name of user.
-     * @param email     email id of user.
-     * @param langKey   language key.
-     * @param imageUrl  image URL of user.
      */
-    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
-        SecurityUtils
-            .getCurrentUserLogin()
-            .flatMap(userRepository::findOneByLogin)
-            .ifPresent(user -> {
-                user.setFirstName(firstName);
-                user.setLastName(lastName);
-                if (email != null) {
-                    user.setEmail(email.toLowerCase());
+    public HttpStatus updateUser(ManagedUserVM userDTO) {
+        Optional<User> optionalUser = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin().get());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            userDTO.setUserId(user.getId());
+            if (profileService.updateProfile(userDTO)) {
+                user.setFirstName(userDTO.getFirstName());
+                user.setLastName(userDTO.getLastName());
+                if (userDTO.getEmail() != null) {
+                    user.setEmail(userDTO.getEmail().toLowerCase());
                 }
-                user.setLangKey(langKey);
-                user.setImageUrl(imageUrl);
+                user.setLangKey(userDTO.getLangKey());
+                user.setImageUrl(userDTO.getImageUrl());
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
-            });
+                return HttpStatus.OK;
+            } else {
+                return HttpStatus.FORBIDDEN;
+            }
+        } else return HttpStatus.FORBIDDEN;
+    }
+
+    public ManagedUserVM getManagedUserVMFromUser(User user) {
+        ManagedUserVM managedUserVM = new ManagedUserVM();
+        managedUserVM.setUserId(user.getId());
+        managedUserVM.setFirstName(user.getFirstName());
+        managedUserVM.setLastName(user.getLastName());
+        managedUserVM.setLogin(user.getLogin());
+        managedUserVM.setActivated(user.isActivated());
+        managedUserVM.setAuthorities(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
+        managedUserVM.setCreatedBy(user.getCreatedBy());
+        managedUserVM.setCreatedDate(user.getCreatedDate());
+        managedUserVM.setEmail(user.getEmail());
+        managedUserVM.setImageUrl(user.getImageUrl());
+        managedUserVM.setLangKey(user.getLangKey());
+        managedUserVM.setPassword(user.getPassword());
+        managedUserVM.setLastModifiedBy(user.getLastModifiedBy());
+        managedUserVM.setLastModifiedDate(user.getLastModifiedDate());
+        Optional<Profile> profile = profileService.getProfileByUserID(user.getId());
+        if (profile.isPresent()) {
+            managedUserVM.setClothes(profile.get().getClothes());
+            managedUserVM.setAccessesForRelatives(profile.get().getAccessesForRelatives());
+            managedUserVM.setBurialMethod(profile.get().getBurialMethod());
+            managedUserVM.setFarewellLetter(profile.get().getFarewellLetter());
+            managedUserVM.setFlowers(profile.get().getFlowers());
+            managedUserVM.setIfFlowers(profile.get().getIfFlowers());
+            managedUserVM.setGraveInscription(profile.get().getGraveInscription());
+            managedUserVM.setGuests(profile.get().getGuests());
+            managedUserVM.setPurchasedPlace(profile.get().getPurchasedPlace());
+            managedUserVM.setIsPurchasedOther(profile.get().getIfPurchasedOther());
+            managedUserVM.setNotInvited(profile.get().getNotInvited());
+            managedUserVM.setObituary(profile.get().getObituary());
+            managedUserVM.setOther(profile.get().getOther());
+            managedUserVM.setPhone(profile.get().getPhone());
+            managedUserVM.setPrefix(profile.get().getPrefix());
+            managedUserVM.setPhoto(profile.get().getPhoto());
+            managedUserVM.setPlaceOfCeremony(profile.get().getPlaceOfCeremony());
+            managedUserVM.setSpeech(profile.get().getSpeech());
+            managedUserVM.setSpotify(profile.get().getSpotify());
+            managedUserVM.setTestament(profile.get().getTestament());
+            managedUserVM.setVideoSpeech(profile.get().getVideoSpeech());
+            managedUserVM.setLevelOfForm(profile.get().getLevelOfForm());
+            managedUserVM.setEditsLeft(profile.get().getEditsLeft());
+        }
+        return managedUserVM;
     }
 
     @Transactional
