@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {
-    document.addEventListener('DOMContentLoaded', this.callback);
+    this.callback();
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
