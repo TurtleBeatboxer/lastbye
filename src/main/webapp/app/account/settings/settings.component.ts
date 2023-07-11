@@ -164,6 +164,7 @@ export class SettingsComponent implements OnInit {
     this.accountService.identity().subscribe(account => {
       if (account) {
         this.edits = account.editsLeft;
+        console.log(account.openCoffin);
         this.settingsForm.patchValue(account);
 
         console.log(this.isTrueCoffin);
