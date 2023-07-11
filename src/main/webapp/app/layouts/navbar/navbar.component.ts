@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
   version = '';
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
-
+  logged: boolean;
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,
@@ -47,6 +47,13 @@ export class NavbarComponent implements OnInit {
 
     this.accountService.getAuthenticationState().subscribe(account => {
       this.account = account;
+      if (account) {
+        if (account.authorities[0] === 'ROLE_USER') {
+          this.logged = true;
+        } else {
+          this.logged = false;
+        }
+      }
     });
   }
 

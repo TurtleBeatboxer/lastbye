@@ -53,8 +53,9 @@ export class AccountService {
     if (!this.accountCache$ || force) {
       this.accountCache$ = this.fetch().pipe(
         tap((account: Account) => {
-          console.log(account);
+          console.log('test');
           this.authenticate(account);
+          console.log(account);
 
           // After retrieve the account info, the language will be changed to
           // the user's preferred language configured in the account setting
