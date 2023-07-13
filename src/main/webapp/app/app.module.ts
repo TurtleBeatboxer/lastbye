@@ -26,6 +26,8 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { NbDatepickerModule, NbThemeModule } from '@nebular/theme';
+import { IdeaComponent } from './pages/idea/idea.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 
 @NgModule({
   imports: [
@@ -48,7 +50,16 @@ import { NbDatepickerModule, NbThemeModule } from '@nebular/theme';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    IdeaComponent,
+    AboutUsComponent,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {

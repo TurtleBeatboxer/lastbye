@@ -8,6 +8,8 @@ import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { publicProfileRoute } from './account/public-profile/public-profile.route';
+import { aboutUsRoute } from './pages/about-us/about-us.route';
+import { ideaRoute } from './pages/idea/idea.route';
 
 @NgModule({
   imports: [
@@ -35,6 +37,8 @@ import { publicProfileRoute } from './account/public-profile/public-profile.rout
         },
         navbarRoute,
         publicProfileRoute,
+        ideaRoute,
+        aboutUsRoute,
         ...errorRoute,
       ],
       { enableTracing: DEBUG_INFO_ENABLED }
