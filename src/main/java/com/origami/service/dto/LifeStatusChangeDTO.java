@@ -8,6 +8,15 @@ public class LifeStatusChangeDTO {
     private String codeQR;
     private LifeStatus lifeStatus;
     private String emailAddress;
+    private String lifeLink;
+
+    public String getLifeLink() {
+        return lifeLink;
+    }
+
+    public void setLifeLink(String lifeLink) {
+        this.lifeLink = lifeLink;
+    }
 
     public String getEmailAddress() {
         return emailAddress;

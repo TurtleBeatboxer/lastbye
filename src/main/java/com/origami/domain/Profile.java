@@ -116,6 +116,17 @@ public class Profile implements Serializable {
     @Column(name = "life_status")
     private LifeStatus lifeStatus;
 
+    @Column(name = "life_link")
+    private String lifeLink;
+
+    public String getLifeLink() {
+        return lifeLink;
+    }
+
+    public void setLifeLink(String lifeLink) {
+        this.lifeLink = lifeLink;
+    }
+
     public LifeStatus getLifeStatus() {
         return lifeStatus;
     }

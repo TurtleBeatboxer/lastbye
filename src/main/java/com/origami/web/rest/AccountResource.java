@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -104,6 +105,14 @@ public class AccountResource {
         }
     }
 
+    @PostMapping("/profile/lifestatus/alive")
+    public void makeUserAliveAgain(@Valid @RequestBody String link) {
+        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
+        lifeStatusChangeDTO.setLifeLink(link);
+        lifeStatusChangeDTO.setLifeStatus(LifeStatus.ALIVE);
+        profileService.updateLifeStatus(lifeStatusChangeDTO);
+    }
+
     @PostMapping("/qr")
     public HttpStatus getProfileFromQRCode(@Valid @RequestBody String codeQR) {
         Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(codeQR);
@@ -113,7 +122,7 @@ public class AccountResource {
         LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
         lifeStatusChangeDTO.setCodeQR(codeQR);
         lifeStatusChangeDTO.setLifeStatus(LifeStatus.UNKNOWN);
-        profileService.startQRCountdown(lifeStatusChangeDTO);
+        profileService.updateLifeStatus(lifeStatusChangeDTO);
         return HttpStatus.ACCEPTED;
     }
 
