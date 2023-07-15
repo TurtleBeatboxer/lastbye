@@ -4,12 +4,9 @@ import com.origami.domain.LifeStatus;
 import com.origami.domain.Profile;
 import com.origami.repository.ProfileRepository;
 import com.origami.service.dto.LifeStatusChangeDTO;
-import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.spi.AbstractResourceBundleProvider;
-import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -54,11 +51,15 @@ public class QRService {
                     Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(lifeStatusChangeDTO.getCodeQR());
                     if (profileOptional.isPresent() && profileOptional.get().getLifeStatus().equals(LifeStatus.UNKNOWN)) {
                         if (i[0] == 0) {
+                            //prawdziwy mail
                             System.out.println("final mail");
+                            profileOptional.get().setLifeStatus(LifeStatus.DEAD);
+                            profileRepository.save(profileOptional.get());
                             timer.cancel();
                             return;
                         }
 
+                        //prawdziwy mail
                         System.out.println(i[0]);
                         System.out.println("michal chyba ma w planach jutrto zwymiotowac hm?");
                         i[0]--;

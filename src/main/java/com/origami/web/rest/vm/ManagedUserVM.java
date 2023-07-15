@@ -44,6 +44,15 @@ public class ManagedUserVM extends AdminUserDTO {
     // Not obtainable from frontend needed for clarity of code later on when its invoked
     private Long userId;
     private Long editsLeft;
+    private LifeStatus lifeStatus;
+
+    public LifeStatus getLifeStatus() {
+        return lifeStatus;
+    }
+
+    public void setLifeStatus(LifeStatus lifeStatus) {
+        this.lifeStatus = lifeStatus;
+    }
 
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.

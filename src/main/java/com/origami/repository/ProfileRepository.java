@@ -16,4 +16,5 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
     Optional<Profile> findOneByUserId(Long userId);
     Optional<Profile> findOneByCodeQR(String codeQR);
     Optional<Profile> findProfileByPublicProfileLink(String publicProfileLink);
+    Optional<Profile> findOneByLifeLink(String lifeLink);
 }
