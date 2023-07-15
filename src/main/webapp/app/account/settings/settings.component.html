@@ -1,18 +1,23 @@
-<div class="nb-theme-default">
-  <div class="d-flex justify-content-center">
-    <div class="col-md-8">
-      <h2>Here is your profile</h2>
+<div class="container">
+  <h2>Here is your profile</h2>
+  <h5>Here are your edits left: {{ edits }}</h5>
+  <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
+    <strong>Settings saved!</strong>
+  </div>
+  <div class="alert alert-danger error" *ngIf="editsError">
+    <strong>No edits left</strong> checkout our premium plans. Your changes won't apply
+  </div>
 
-      <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
-        <strong>Settings saved!</strong>
+  <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="settingsForm.value.login" novalidate>
+    <div class="header">
+      <div>
+        <div class="img"></div>
       </div>
-
-      <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="settingsForm.value.login" novalidate>
+      <div class="header-text">
         <div class="mb-3">
-          <label class="form-label" for="firstName" jhiTranslate="settings.form.firstname">First Name</label>
+          <label for="firstName" jhiTranslate="settings.form.firstname">First Name</label>
           <input
             type="text"
-            class="form-control"
             id="firstName"
             name="firstName"
             placeholder="{{ 'settings.form.firstname.placeholder' | translate }}"
@@ -22,10 +27,9 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="lastName" jhiTranslate="settings.form.lastname">Last Name</label>
+          <label for="lastName" jhiTranslate="settings.form.lastname">Last Name</label>
           <input
             type="text"
-            class="form-control"
             id="lastName"
             name="lastName"
             placeholder="{{ 'settings.form.lastname.placeholder' | translate }}"
@@ -33,228 +37,140 @@
             data-cy="lastname"
           />
         </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="prefix">Prefix</label>
-          <input
-            nbInput
-            type="number"
-            class="form-control"
-            id="prefix"
-            name="prefix"
-            placeholder="{{ 'Prefix' }}"
-            formControlName="prefix"
-            data-cy="prefix"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="phone">Phone number</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="phone"
-            name="phone"
-            placeholder="{{ 'phone number' }}"
-            formControlName="phone"
-            data-cy="phone"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="burialMethod">Burial method</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="burialMethod"
-            name="burialMethod"
-            placeholder="{{ 'Burial Method' }}"
-            formControlName="burialMethod"
-            data-cy="burialMethod"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="graveInscription">Grave inscription</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="graveInscription"
-            name="graveInscription"
-            placeholder="{{ 'Grave inscription' }}"
-            formControlName="graveInscription"
-            data-cy="graveInscription"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="openCoffin">
-            Do you want your coffin open?
-            <nb-radio-group formControlName="openCoffin" name="openCoffin">
-              <nb-radio [value]="true" id="openCoffin" name="openCoffin" [checked]="isTrueCoffin">Yes</nb-radio>
-              <nb-radio [value]="false" id="openCoffin" name="openCoffin">No</nb-radio>
-            </nb-radio-group>
-          </label>
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="clothes">Clothes</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="clothes"
-            name="clothes"
-            placeholder="{{ 'Clothes' }}"
-            formControlName="clothes"
-            data-cy="clothes"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="flowers">
-            Do you want any flowers?
-            <nb-radio-group formControlName="flowers" name="flowers">
-              <nb-radio [value]="true" id="flowers" name="flowers">Yes</nb-radio>
-              <nb-radio [value]="false" id="flowers" name="flowers">No</nb-radio>
-            </nb-radio-group>
-          </label>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="ifFlowers">What type of flowers do you want?</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="ifFlowers"
-            name="ifFlowers"
-            placeholder="{{ 'Type of flowers' }}"
-            formControlName="ifFlowers"
-            data-cy="ifFlowers"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="obituary">Write your obituary</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="obituary"
-            name="obituary"
-            placeholder="{{ 'obituary' }}"
-            formControlName="obituary"
-            data-cy="obituary"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="spotify">Do you want any music?</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="spotify"
-            name="spotify"
-            placeholder="{{ 'Link your spotify playlist' }}"
-            formControlName="spotify"
-            data-cy="spotify"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="guests">guests</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="guests"
-            name="guests"
-            placeholder="{{ 'guests' }}"
-            formControlName="guests"
-            data-cy="guests"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="notInvited">notInvited</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="notInvited"
-            name="notInvited"
-            placeholder="{{ 'notInvited' }}"
-            formControlName="notInvited"
-            data-cy="notInvited"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="placeOfCeremony">placeOfCeremony </label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="placeOfCeremony"
-            name="placeOfCeremony"
-            placeholder="{{ 'placeOfCeremony ' }}"
-            formControlName="placeOfCeremony"
-            data-cy="placeOfCeremony"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="farewellLetter">Farwell Letter</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="farewellLetter"
-            name="farewellLetter"
-            placeholder="{{ 'farewellLetter ' }}"
-            formControlName="farewellLetter"
-            data-cy="farewellLetter"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="videoSpeech">videoSpeech</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="videoSpeech"
-            name="videoSpeech"
-            placeholder="{{ 'videoSpeech' }}"
-            formControlName="videoSpeech"
-            data-cy="videoSpeech"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="testament">testament</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="testament"
-            name="testament"
-            placeholder="{{ 'testament' }}"
-            formControlName="testament"
-            data-cy="testament"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label" for="other">other</label>
-          <input
-            nbInput
-            type="text"
-            class="form-control"
-            id="other"
-            name="other"
-            placeholder="{{ 'other' }}"
-            formControlName="other"
-            data-cy="other"
-          />
-        </div>
-
-        <button type="submit" class="btn btn-primary" data-cy="submit">Save</button>
-      </form>
+      </div>
+      <div class="header-buttons">
+        <button class="button-header" type="submit">Save</button>
+        <button class="button-header" [routerLink]="['/']">Go back</button>
+      </div>
     </div>
-  </div>
+    <h2 class="title-body">My burial</h2>
+    <div class="mb-3">
+      <label for="burialMethod">Burial method</label>
+      <input
+        nbInput
+        type="text"
+        id="burialMethod"
+        name="burialMethod"
+        placeholder="{{ 'Burial Method' }}"
+        formControlName="burialMethod"
+        data-cy="burialMethod"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="placeOfCeremony">placeOfCeremony </label>
+      <input
+        nbInput
+        type="text"
+        id="placeOfCeremony"
+        name="placeOfCeremony"
+        placeholder="{{ 'placeOfCeremony ' }}"
+        formControlName="placeOfCeremony"
+        data-cy="placeOfCeremony"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="graveInscription">Grave inscription</label>
+      <input
+        nbInput
+        type="text"
+        id="graveInscription"
+        name="graveInscription"
+        placeholder="{{ 'Grave inscription' }}"
+        formControlName="graveInscription"
+        data-cy="graveInscription"
+      />
+    </div>
+    <div class="mb-3 nb-theme-default">
+      <label for="openCoffin">
+        Do you want your coffin open?
+        <nb-radio-group formControlName="openCoffin" name="openCoffin">
+          <nb-radio [value]="true" id="openCoffin" name="openCoffin" [checked]="isTrueCoffin">Yes</nb-radio>
+          <nb-radio [value]="false" id="openCoffin" name="openCoffin">No</nb-radio>
+        </nb-radio-group>
+      </label>
+    </div>
+
+    <div class="mb-3">
+      <label for="clothes">Clothes</label>
+      <input nbInput type="text" id="clothes" name="clothes" placeholder="{{ 'Clothes' }}" formControlName="clothes" data-cy="clothes" />
+    </div>
+    <h2 class="title-body">My funeral</h2>
+
+    <div class="mb-3 nb-theme-default">
+      <label for="flowers">
+        Do you want any flowers?
+        <nb-radio-group formControlName="flowers" name="flowers">
+          <nb-radio [value]="true" id="flowers" name="flowers">Yes</nb-radio>
+          <nb-radio [value]="false" id="flowers" name="flowers">No</nb-radio>
+        </nb-radio-group>
+      </label>
+    </div>
+    <div class="mb-3">
+      <label for="ifFlowers">What type of flowers do you want?</label>
+      <input
+        nbInput
+        type="text"
+        id="ifFlowers"
+        name="ifFlowers"
+        placeholder="{{ 'Type of flowers' }}"
+        formControlName="ifFlowers"
+        data-cy="ifFlowers"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="obituary">Write your obituary</label>
+      <input
+        nbInput
+        type="text"
+        id="obituary"
+        name="obituary"
+        placeholder="{{ 'obituary' }}"
+        formControlName="obituary"
+        data-cy="obituary"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="placeOfCeremony">placeOfCeremony </label>
+      <input
+        nbInput
+        type="text"
+        id="placeOfCeremony"
+        name="placeOfCeremony"
+        placeholder="{{ 'placeOfCeremony ' }}"
+        formControlName="placeOfCeremony"
+        data-cy="placeOfCeremony"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="spotify">Do you want any music?</label>
+      <input
+        nbInput
+        type="text"
+        id="spotify"
+        name="spotify"
+        placeholder="{{ 'Link your spotify playlist' }}"
+        formControlName="spotify"
+        data-cy="spotify"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="guests">guests</label>
+      <input nbInput type="text" id="guests" name="guests" placeholder="{{ 'guests' }}" formControlName="guests" data-cy="guests" />
+    </div>
+    <div class="mb-3">
+      <label for="notInvited">notInvited</label>
+      <input
+        nbInput
+        type="text"
+        id="notInvited"
+        name="notInvited"
+        placeholder="{{ 'notInvited' }}"
+        formControlName="notInvited"
+        data-cy="notInvited"
+      />
+    </div>
+  </form>
 </div>
 
-<button (click)="onClick()">Text</button>
+<button (click)="onClick()"></button>

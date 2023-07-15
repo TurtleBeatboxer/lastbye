@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/member-ordering */
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,6 +11,7 @@ import { FormControl } from '@angular/forms';
   selector: 'jhi-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
@@ -22,10 +22,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   formControl = new FormControl(new Date());
   ngModelDate = new Date();
   ngOnInit(): void {
+    this.callback();
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
+  }
+
+  callback() {
+    let accordionHeaders = document.getElementsByClassName('accordion-header');
+    for (var i = 0; i < accordionHeaders.length; i++) {
+      accordionHeaders[i].addEventListener('click', event => {
+        let header = event.target as HTMLElement;
+        console.log(event);
+        console.log(typeof event);
+        var accordionContent = header.nextElementSibling as HTMLElement;
+        if (accordionContent) {
+          if (accordionContent.style.display === 'block') {
+            accordionContent.style.display = 'none';
+          } else {
+            accordionContent.style.display = 'block';
+          }
+        }
+      });
+    }
   }
 
   login(): void {
