@@ -316,6 +316,7 @@ public class UserService {
             managedUserVM.setObituary(profile.get().getObituary());
             managedUserVM.setOther(profile.get().getOther());
             managedUserVM.setPhone(profile.get().getPhone());
+            managedUserVM.setOpenCoffin(profile.get().isOpenCoffin());
             managedUserVM.setPrefix(profile.get().getPrefix());
             managedUserVM.setPhoto(profile.get().getPhoto());
             managedUserVM.setPlaceOfCeremony(profile.get().getPlaceOfCeremony());

@@ -1,0 +1,29 @@
+.contact {
+  border: 1px solid gray;
+  width: 80%;
+  height: 500px;
+  position: relative;
+  top: 200px;
+  left: 10%;
+  font-size: 40px;
+}
+#contactsegment1 {
+  position: relative;
+  left: 27%;
+  top: 10%;
+}
+#contactsegment2 {
+  position: relative;
+  left: 47%;
+  top: -22%;
+}
+#contactsegment3 {
+  position: relative;
+  left: 67%;
+  top: -66.5%;
+}
+.contactlink {
+  text-decoration: none;
+  color: gray;
+  font-size: 20px;
+}
