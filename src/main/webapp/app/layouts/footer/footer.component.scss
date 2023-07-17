@@ -1,5 +1,5 @@
 .contact {
-  border: 1px solid gray;
+  border: 1px solid black;
   width: 80%;
   height: 500px;
   position: relative;
@@ -24,6 +24,19 @@
 }
 .contactlink {
   text-decoration: none;
-  color: gray;
+  color: black;
   font-size: 20px;
+}
+#newsletter {
+  position: relative;
+  bottom: 30%;
+  left: 10%;
+  width: 80%;
+  height: 15%;
+  border: 1px solid black;
+  font-size: 30px;
+  color: black;
+  border-radius: 40px;
+  text-align: left;
+  padding-left: 40px;
 }
