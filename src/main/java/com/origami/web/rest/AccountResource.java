@@ -12,6 +12,7 @@ import com.origami.service.UserService;
 import com.origami.service.dto.LifeStatusChangeDTO;
 import com.origami.service.dto.PasswordChangeDTO;
 import com.origami.service.dto.PublicProfileDTO;
+import com.origami.service.dto.QRStartProcessDTO;
 import com.origami.web.rest.errors.*;
 import com.origami.web.rest.vm.KeyAndPasswordVM;
 import com.origami.web.rest.vm.ManagedUserVM;
@@ -22,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.parameters.P;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -107,23 +108,36 @@ public class AccountResource {
 
     @PostMapping("/profile/lifestatus/alive")
     public void makeUserAliveAgain(@Valid @RequestBody String link) {
-        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
+        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO(LifeStatus.ALIVE);
         lifeStatusChangeDTO.setLifeLink(link);
-        lifeStatusChangeDTO.setLifeStatus(LifeStatus.ALIVE);
-        profileService.updateLifeStatus(lifeStatusChangeDTO);
+        profileService.updateUserStatusAlive(lifeStatusChangeDTO);
     }
 
-    @PostMapping("/qr")
-    public HttpStatus getProfileFromQRCode(@Valid @RequestBody String codeQR) {
+    @PostMapping("profile/qr/getQuestion")
+    public ResponseEntity<String> getQuestionFromQRCode(@Valid @RequestBody String codeQR) {
         Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(codeQR);
-        if (profileOptional.isEmpty()) return HttpStatus.BAD_REQUEST;
-        if (profileOptional.get().getLifeStatus().equals(LifeStatus.UNKNOWN)) return HttpStatus.BAD_REQUEST;
+        if (profileOptional.isPresent()) {
+            String question = profileOptional.get().getQuestion();
+            return new ResponseEntity<>(question, HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>("Make sure that your given QRCode is correct or else contact with support", HttpStatus.FORBIDDEN);
+    }
 
-        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
-        lifeStatusChangeDTO.setCodeQR(codeQR);
-        lifeStatusChangeDTO.setLifeStatus(LifeStatus.UNKNOWN);
-        profileService.updateLifeStatus(lifeStatusChangeDTO);
-        return HttpStatus.ACCEPTED;
+    @PostMapping("profile/qr/qrDTO")
+    public HttpStatus getProfileFromQRCode(@Valid @RequestBody QRStartProcessDTO qrStartProcessDTO) {
+        Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(qrStartProcessDTO.getCodeQR());
+        if (profileOptional.isEmpty()) return HttpStatus.BAD_REQUEST;
+        Profile profile = profileOptional.get();
+        if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) return HttpStatus.BAD_REQUEST;
+        if (profile.getLifeStatus().equals(LifeStatus.DEAD)) return HttpStatus.BAD_REQUEST;
+        if (profile.getQuestionAnswer().equals(qrStartProcessDTO.getAnswer())) {
+            LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO(LifeStatus.UNKNOWN);
+            lifeStatusChangeDTO.setCodeQR(qrStartProcessDTO.getCodeQR());
+            lifeStatusChangeDTO.setFriendAddress(qrStartProcessDTO.getEmailAddress());
+            profileService.startQRCountdown(lifeStatusChangeDTO);
+            return HttpStatus.ACCEPTED;
+        }
+        return HttpStatus.BAD_REQUEST;
     }
 
     @PostMapping("/profile/get/data")

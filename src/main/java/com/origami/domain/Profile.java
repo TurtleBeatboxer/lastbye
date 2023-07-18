@@ -119,6 +119,47 @@ public class Profile implements Serializable {
     @Column(name = "life_link")
     private String lifeLink;
 
+    @Column(name = "friends_email")
+    private String friendsEmail;
+
+    @Column(name = "question")
+    private String question;
+
+    @Column(name = "question_answer")
+    private String questionAnswer;
+
+    public Boolean getFinishedEditing() {
+        return finishedEditing;
+    }
+
+    public Boolean getOpenCoffin() {
+        return isOpenCoffin;
+    }
+
+    public String getFriendsEmail() {
+        return friendsEmail;
+    }
+
+    public void setFriendsEmail(String friendsEmail) {
+        this.friendsEmail = friendsEmail;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getQuestionAnswer() {
+        return questionAnswer;
+    }
+
+    public void setQuestionAnswer(String questionAnswer) {
+        this.questionAnswer = questionAnswer;
+    }
+
     public String getLifeLink() {
         return lifeLink;
     }
@@ -143,9 +184,6 @@ public class Profile implements Serializable {
         isOpenCoffin = openCoffin;
     }
 
-    /*    @Column(name ="isAlive")
-    private boolean isAlive;*/
-
     public Long getLevelOfForm() {
         return levelOfForm;
     }
@@ -169,11 +207,6 @@ public class Profile implements Serializable {
     public void setEditsLeft(Long editsLeft) {
         this.editsLeft = editsLeft;
     }
-
-    @OneToMany(mappedBy = "profile")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "profile" }, allowSetters = true)
-    private Set<Personality> personalities = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -511,37 +544,6 @@ public class Profile implements Serializable {
 
     public void setCodeQR(String codeQR) {
         this.codeQR = codeQR;
-    }
-
-    public Set<Personality> getPersonalities() {
-        return this.personalities;
-    }
-
-    public void setPersonalities(Set<Personality> personalities) {
-        if (this.personalities != null) {
-            this.personalities.forEach(i -> i.setProfile(null));
-        }
-        if (personalities != null) {
-            personalities.forEach(i -> i.setProfile(this));
-        }
-        this.personalities = personalities;
-    }
-
-    public Profile personalities(Set<Personality> personalities) {
-        this.setPersonalities(personalities);
-        return this;
-    }
-
-    public Profile addPersonality(Personality personality) {
-        this.personalities.add(personality);
-        personality.setProfile(this);
-        return this;
-    }
-
-    public Profile removePersonality(Personality personality) {
-        this.personalities.remove(personality);
-        personality.setProfile(null);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -92,7 +92,10 @@ public class SecurityConfiguration {
             .antMatchers("/management/info").permitAll()
             .antMatchers("/management/prometheus").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-        .and()
+            .antMatchers("/api/profile/lifestatus/alive/**").permitAll()
+            .antMatchers("/api/profile/qr/getQuestion/**").permitAll()
+            .antMatchers("/api/profile/qr/qrDTO/**").permitAll()
+            .and()
             .httpBasic()
         .and()
             .apply(securityConfigurerAdapter());
