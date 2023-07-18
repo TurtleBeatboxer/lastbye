@@ -28,9 +28,9 @@
     <include file="config/liquibase/changelog/20230607191160_added_is_open_coffin_Profile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191164_added_conformation_mail.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191165_changed_datatype.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230607191166_added_column_friends_email_Profile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191167_added_column_question_Profile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191168_added_column_question_answer_Profile.xml" relativeToChangelogFile="false"/>
+    <include file="/config/liquibase/changelog/20230607191169_added_column_friends_email_Profile.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
