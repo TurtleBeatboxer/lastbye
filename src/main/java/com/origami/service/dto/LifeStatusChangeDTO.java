@@ -9,6 +9,24 @@ public class LifeStatusChangeDTO {
     private LifeStatus lifeStatus;
     private String emailAddress;
     private String lifeLink;
+    private String tempPassword;
+    private String friendAddress;
+
+    public String getTempPassword() {
+        return tempPassword;
+    }
+
+    public void setTempPassword(String tempPassword) {
+        this.tempPassword = tempPassword;
+    }
+
+    public String getFriendAddress() {
+        return friendAddress;
+    }
+
+    public void setFriendAddress(String friendAddress) {
+        this.friendAddress = friendAddress;
+    }
 
     public String getLifeLink() {
         return lifeLink;
@@ -49,4 +67,10 @@ public class LifeStatusChangeDTO {
     public void setLifeStatus(LifeStatus lifeStatus) {
         this.lifeStatus = lifeStatus;
     }
+
+    public LifeStatusChangeDTO(LifeStatus lifeStatus) {
+        this.lifeStatus = lifeStatus;
+    }
+
+    public LifeStatusChangeDTO() {}
 }
