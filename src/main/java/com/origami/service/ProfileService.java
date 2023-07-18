@@ -1,13 +1,20 @@
 package com.origami.service;
 
+import static com.origami.domain.Profile_.codeQR;
+import static com.origami.domain.Profile_.lifeStatus;
+
+import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
+import com.origami.service.dto.LifeStatusChangeDTO;
 import com.origami.service.dto.PublicProfileDTO;
 import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.Optional;
+import javax.annotation.PostConstruct;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.http.HttpStatus;
@@ -57,9 +64,90 @@ public class ProfileService {
         return true;
     }
 
+    public boolean isLifeLinkValid(String lifeLink) {
+        int size = profileRepository.findAll().size() - 1;
+        while (size >= 0) {
+            String string = profileRepository.findAll().get(size).getLifeLink();
+            if (string != null) {
+                if (string.equals(lifeLink)) {
+                    return false;
+                }
+            }
+            size -= 1;
+        }
+        return true;
+    }
+
+    //UWAGA!!!!!
+    //ta metoda wcale nie zmienia lifeStatus trzeba to zaimplementowac
+    public void updateLifeStatus(LifeStatusChangeDTO lifeStatusChangeDTO) {
+        switch (lifeStatusChangeDTO.getLifeStatus()) {
+            case UNKNOWN:
+                startQRCountdown(lifeStatusChangeDTO);
+                break;
+            case DEAD:
+                //cos kiedys bedzie funkcjonalnosc jak zmienic na dead
+                //nalezy to zmienic najperwdopoodobniej w skurialej metodzie z timerem
+                break;
+            case ALIVE:
+                uptadeUserStatusAlive(lifeStatusChangeDTO.getLifeLink());
+                //funkcjonalnosc z maila ktory pyta czy napewno dead
+                //jak to czytasz to trzeba jeszcze sie upewnic zeby nei dalo sie tego nullowac
+                //enuma w db
+                break;
+        }
+    }
+
+    //reszta funkcjonalnosci do zrobienia po odpaleniu countdown
+    //generuje tez tego linka na mail zeby wybac cd
+    /*    @PostConstruct*/
+    public void startQRCountdown(LifeStatusChangeDTO lifeStatusChangeDTO) {
+        /*        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();*/
+
+        /*       Profile profile1 = profileRepository.findAll().get(10);
+        lifeStatusChangeDTO.setCodeQR(profile1.getCodeQR());
+        lifeStatusChangeDTO.setLifeStatus(LifeStatus.UNKNOWN);
+
+*/
+        Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(lifeStatusChangeDTO.getCodeQR());
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+            lifeStatusChangeDTO.setEmailAddress(prepareMailForDTO(profile.getUserId()));
+
+            profile.setLifeStatus(LifeStatus.UNKNOWN);
+            String lifeLink = qrService.getAlphaNumericString(15);
+            while (!isLifeLinkValid(lifeLink)) {
+                lifeLink = qrService.getAlphaNumericString(15);
+            }
+
+            profile.setLifeLink(lifeLink);
+            profileRepository.save(profile);
+
+            qrService.qRCountdown(lifeStatusChangeDTO);
+        }
+    }
+
+    public HttpStatus uptadeUserStatusAlive(String lifeLink) {
+        if (!lifeLink.isEmpty() && !lifeLink.isBlank() && !lifeLink.equals("")) {
+            Optional<Profile> profileOptional = profileRepository.findOneByLifeLink(lifeLink);
+            if (profileOptional.isPresent()) {
+                Profile profile = profileOptional.get();
+                if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) {
+                    profile.setLifeStatus(LifeStatus.ALIVE);
+                    profile.setLifeLink(null);
+                    profileRepository.save(profile);
+                    return HttpStatus.OK;
+                }
+            }
+        }
+
+        return HttpStatus.BAD_REQUEST;
+    }
+
     public void createNewProfile(ManagedUserVM userDTO) {
         Profile newProfile = new Profile();
 
+        newProfile.setLifeStatus(LifeStatus.ALIVE);
         newProfile.setUserId(userDTO.getUserId());
         newProfile.setMembershipLevel(MembershipLevel.STANDARD);
         newProfile.setEditsLeft(2L);
@@ -81,7 +169,7 @@ public class ProfileService {
     public Boolean updateProfile(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         if (profileOptional.isPresent()) {
-            if (profileOptional.get().getEditsLeft() > 0) {
+            if (profileOptional.get().getEditsLeft() > 0 && profileOptional.get().getLifeStatus().equals(LifeStatus.ALIVE)) {
                 Profile profile = profileOptional.get();
                 userDTO.setEditsLeft(profile.getEditsLeft() - 1);
                 profile.setEditsLeft(profile.getEditsLeft() - 1);
@@ -212,5 +300,11 @@ public class ProfileService {
             }
         }
         return publicProfileDTO;
+    }
+
+    private String prepareMailForDTO(Long userID) {
+        Optional<User> userOptional = userRepository.findOneById(userID);
+        if (userOptional.isPresent()) return userOptional.get().getEmail();
+        return null;
     }
 }

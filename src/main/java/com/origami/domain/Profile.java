@@ -113,6 +113,28 @@ public class Profile implements Serializable {
     @Column(name = "is_open_coffin")
     private Boolean isOpenCoffin;
 
+    @Column(name = "life_status")
+    private LifeStatus lifeStatus;
+
+    @Column(name = "life_link")
+    private String lifeLink;
+
+    public String getLifeLink() {
+        return lifeLink;
+    }
+
+    public void setLifeLink(String lifeLink) {
+        this.lifeLink = lifeLink;
+    }
+
+    public LifeStatus getLifeStatus() {
+        return lifeStatus;
+    }
+
+    public void setLifeStatus(LifeStatus lifeStatus) {
+        this.lifeStatus = lifeStatus;
+    }
+
     public Boolean isOpenCoffin() {
         return isOpenCoffin;
     }

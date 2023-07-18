@@ -1,7 +1,10 @@
 package com.origami.service;
 
+import com.origami.domain.Profile;
 import com.origami.domain.User;
+import com.origami.repository.ProfileRepository;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Locale;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -12,6 +15,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -39,16 +43,20 @@ public class MailService {
 
     private final SpringTemplateEngine templateEngine;
 
+    private final ProfileRepository profileRepository;
+
     public MailService(
         JHipsterProperties jHipsterProperties,
         JavaMailSender javaMailSender,
         MessageSource messageSource,
-        SpringTemplateEngine templateEngine
+        SpringTemplateEngine templateEngine,
+        ProfileRepository profileRepository
     ) {
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
         this.messageSource = messageSource;
         this.templateEngine = templateEngine;
+        this.profileRepository = profileRepository;
     }
 
     @Async

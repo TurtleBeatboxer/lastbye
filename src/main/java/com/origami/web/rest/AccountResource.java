@@ -1,12 +1,15 @@
 package com.origami.web.rest;
 
+import com.origami.domain.LifeStatus;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
+import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
 import com.origami.security.SecurityUtils;
 import com.origami.service.MailService;
 import com.origami.service.ProfileService;
 import com.origami.service.UserService;
+import com.origami.service.dto.LifeStatusChangeDTO;
 import com.origami.service.dto.PasswordChangeDTO;
 import com.origami.service.dto.PublicProfileDTO;
 import com.origami.web.rest.errors.*;
@@ -18,9 +21,8 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -41,14 +43,23 @@ public class AccountResource {
 
     private final UserRepository userRepository;
 
+    private final ProfileRepository profileRepository;
+
     private final UserService userService;
 
     private final MailService mailService;
 
     private final ProfileService profileService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, ProfileService profileService) {
+    public AccountResource(
+        UserRepository userRepository,
+        ProfileRepository profileRepository,
+        UserService userService,
+        MailService mailService,
+        ProfileService profileService
+    ) {
         this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.profileService = profileService;
@@ -92,6 +103,27 @@ public class AccountResource {
         } else {
             return HttpStatus.FORBIDDEN;
         }
+    }
+
+    @PostMapping("/profile/lifestatus/alive")
+    public void makeUserAliveAgain(@Valid @RequestBody String link) {
+        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
+        lifeStatusChangeDTO.setLifeLink(link);
+        lifeStatusChangeDTO.setLifeStatus(LifeStatus.ALIVE);
+        profileService.updateLifeStatus(lifeStatusChangeDTO);
+    }
+
+    @PostMapping("/qr")
+    public HttpStatus getProfileFromQRCode(@Valid @RequestBody String codeQR) {
+        Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(codeQR);
+        if (profileOptional.isEmpty()) return HttpStatus.BAD_REQUEST;
+        if (profileOptional.get().getLifeStatus().equals(LifeStatus.UNKNOWN)) return HttpStatus.BAD_REQUEST;
+
+        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
+        lifeStatusChangeDTO.setCodeQR(codeQR);
+        lifeStatusChangeDTO.setLifeStatus(LifeStatus.UNKNOWN);
+        profileService.updateLifeStatus(lifeStatusChangeDTO);
+        return HttpStatus.ACCEPTED;
     }
 
     @PostMapping("/profile/get/data")
