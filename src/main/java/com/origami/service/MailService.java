@@ -3,6 +3,7 @@ package com.origami.service;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
+import com.origami.service.dto.LifeStatusChangeDTO;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -116,5 +117,45 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendRevivalMail(LifeStatusChangeDTO lifeStatusChangeDTO) {
+        //XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD trzeba to poprawić
+        StringBuilder stringBuilder = new StringBuilder("Hello, are u still there?");
+        stringBuilder
+            .append("\n")
+            .append(
+                "If that is so, then copy link from below and paste it into your browser so you can notify your family that u aren't dead"
+            )
+            .append("\n")
+            .append(jHipsterProperties.getMail().getBaseUrl() + "/iamalive/recover/" + lifeStatusChangeDTO.getLifeLink());
+        sendEmail(lifeStatusChangeDTO.getEmailAddress(), "Important account notification", stringBuilder.toString(), false, false);
+    }
+
+    @Async
+    public void sendAfterDeadTemporaryPassword(LifeStatusChangeDTO lifeStatusChangeDTO) {
+        //XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD trzeba to poprawić
+        StringBuilder stringBuilder = new StringBuilder("We're sorry for your loss");
+        stringBuilder
+            .append("\n")
+            .append("Your friend/relative account has been permanently blocked")
+            .append("\n")
+            .append("\n")
+            .append("Here are your friends credentials and temporary password")
+            .append("\n")
+            .append("So you can login and gain access to fields that he/she hidden from public profile")
+            .append("\n")
+            .append("His/Her email" + lifeStatusChangeDTO.getEmailAddress())
+            .append("\n")
+            .append("Temp password" + lifeStatusChangeDTO.getTempPassword());
+        sendEmail(lifeStatusChangeDTO.getFriendAddress(), "Important account notification", stringBuilder.toString(), false, false);
+    }
+
+    @Async
+    public void sendWereGladYoureBack(String emailReceiver) {
+        StringBuilder stringBuilder = new StringBuilder("We're glad that you're alive");
+        stringBuilder.append("\n").append("Your accounts status has been updated from Unknown to Alive ").append("\n").append("\n");
+        sendEmail(emailReceiver, "We're glad that you're alive", stringBuilder.toString(), false, false);
     }
 }
