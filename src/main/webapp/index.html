@@ -128,6 +128,18 @@
     <style>
       body {
         background-color: white;
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+
+      .scrollbar-hidden::-webkit-scrollbar {
+        display: none;
+      }
+
+      .scrollbar-hidden {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        /* Firefox */
       }
     </style>
   </body>
