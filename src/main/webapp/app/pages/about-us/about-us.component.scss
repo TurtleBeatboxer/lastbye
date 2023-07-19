@@ -1,34 +1,55 @@
 .global {
-  font-family: Helvetica;
   color: black;
 }
 
 .header {
   color: #3d648c;
   text-transform: uppercase;
-  font-size: 45px;
+  font: normal normal normal 65px/78px Helvetica;
 }
 #history_header {
   position: relative;
   top: 160px;
   left: 15.5%;
 }
+.contents {
+  display: flex;
+  flex-direction: row;
+}
 .description {
-  font-size: 25px;
-  width: 47.5%;
+  font: normal normal normal 32px/40px Helvetica;
+  width: 38%;
 }
 #desc_history {
   position: relative;
   left: 15.5%;
 }
-.left_image {
-  width: 27%;
-  height: 330px;
-  position: relative;
-  bottom: 300px;
-  left: 64%;
+#right_image {
+  width: 20%;
+  height: 450px;
+  position: absolute;
+  right: 10%;
+  top: 32%;
 }
-
+#left_image {
+  width: 20%;
+  height: 450px;
+  position: absolute;
+  left: 15.5%;
+  top: 120%;
+}
 p {
   margin-top: 150px;
+}
+#mission_header {
+  position: absolute;
+  right: 10%;
+}
+#desc_mission {
+  text-align: right;
+  position: relative;
+  left: 52%;
+}
+span {
+  color: #6a9fb4;
 }
