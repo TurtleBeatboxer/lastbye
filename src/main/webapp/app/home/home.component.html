@@ -1,71 +1,64 @@
 <div class="global">
-  <!-- <div class="navbar">
-    <a href="" class="barcontent" id="bar1">Bye.com</a>
-    <a href="#Howitworks" class="barcontent" id="bar2">Guide</a>
-    <a href="#Pricing" class="barcontent" id="bar3">Pricing</a>
-    <a href="#questions" class="barcontent" id="bar4">FAQ</a>
-    <a href="#contact" class="barcontent" id="bar5">Contact</a>
-    <a href="" class="barcontent" id="bar6">Login</a>
-  </div> -->
-
   <div class="firstpanel">
-    <p class="coolsentence">Celebrating life,</p>
-    <p class="coolsentence">Honoring memories</p>
+    <p class="coolsentence">From You</p>
+    <p class="coolsentence">for your loved ones</p>
     <button [routerLink]="['/user/register']" class="signup">Sign up for free</button>
   </div>
+
+  <div id="terrible_idea">
+    <h2 class="howwork">Welcome to farewelly</h2>
+    <br /><br />
+    <p class="idea_description">
+      an innovative start-up that empowers you to create personalized farewell films for your loved ones when you’re no longer here. Say
+      goodbye in a unique and heartfelt way by sharing your life stories, expressing love, gratitude, and capturing the essence of your
+      relationships.
+      <br /><br /><a href="#Pricing" id="read_more" [routerLink]="['/idea']">Read more</a>
+    </p>
+  </div>
+  <br />
+  <br />
   <div class="steps" id="Howitworks">
     <h2 class="howwork">How it works?</h2>
     <h4 class="howwork">Create your last goodbye with us</h4>
 
-    <div>
-      <img src="/content/images/jeden.png" alt="" class="number" />
+    <div class="cont">
+      <img src="/content/images/jeden.png" class="number" />
       <h3 class="threeheaders">SING UP FOR FREE</h3>
-      <p class="threetexts">log in, create an account, enter your name, surname, phone number, e-mail address</p>
-      <img src="/content/images/black.png" class="left_image" />
+      <p class="threetexts" id="first_text">Log in, create an account, enter your name, surname, phone number, e-mail address</p>
+      <img src="/content/images/black.png" class="left_image" id="first_img" />
     </div>
-
-    <div id="container_2">
-      <img src="/content/images/dwa.png" alt="" class="number" />
+    <br />
+    <div class="cont">
+      <img src="/content/images/dwa.png" class="number" />
       <h3 class="threeheaders">FILL UP THE SURVEY</h3>
-      <p class="threetexts">
+      <p class="threetexts" id="second_text">
         This is the stage you will answer questions that will allow you to determine how your last goodbye should look like.
       </p>
-      <img src="/content/images/black.png" class="left_image" />
+      <img src="/content/images/black.png" class="left_image" id="second_img" />
     </div>
-
-    <div id="container_3">
-      <img src="/content/images/trzy.png" alt="" class="number" />
-      <h3 class="threeheaders">NOTIFY YOUR LOVED ONES</h3>
-      <p class="threetexts">
-        This is the stage you will answer questions that will allow you to determine how your last goodbye should look like.
+    <br />
+    <div class="cont">
+      <img src="/content/images/trzy.png" class="number" />
+      <h3 class="threeheaders">LOGIN AND ACCES THE FEATURES</h3>
+      <p class="threetexts" id="third_text">
+        Once logged in, the user has access to the full functionality and features offered by the startup like: creating a video & adding
+        photos.
       </p>
-      <img src="/content/images/black.png" class="left_image" />
+      <img src="/content/images/black.png" class="left_image" id="third_img" />
     </div>
-
-    <div id="container_4">
-      <img src="/content/images/trzy.png" alt="" class="number" />
-      <h3 class="threeheaders">WHAT YOU CAN DO NEXT?</h3>
-      <p class="threetexts">
-        This is the stage you will answer questions that will allow you to determine how your last goodbye should look like.
-      </p>
-      <img src="/content/images/black.png" class="left_image" />
-      <h3 class="threeheaders" id="desc1">WHAT YOUR LOVED ONES CAN DO?</h3>
-      <p class="threetexts" id="desc2">
-        This is the stage you will answer questions that will allow you to determine how your last goodbye should look like.
-      </p>
-    </div>
-
-    <div id="terrible_idea">
-      <h2 class="howwork">Idea</h2>
-      <p class="idea_description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Malesuada fames ac turpis egestas. Sit amet consectetur adipiscing elit duis tristique sollicitudin nibh sit. Faucibus vitae aliquet
-        nec ullamcorper. Augue eget arcu dictum varius duis at consectetur. Tincidunt augue interdum velit euismod. Elit eget gravida cum
-        sociis natoque penatibus et magnis. Nam at lectus urna duis convallis. Quis hendrerit dolor magna eget est. Tellus integer feugiat
-        scelerisque varius. Faucibus purus in massa tempor nec feugiat. Praesent semper feugiat nibh sed pulvinar proin gravida hendrerit.
-        <br /><a href="#Pricing" id="read_more" [routerLink]="['/idea']">Read more</a>
-      </p>
-    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <a href="#Pricing" id="read_more2" [routerLink]="['/idea']">Read more</a>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </div>
 
@@ -103,20 +96,5 @@
           Create photo presentation<br />
           Add videos<br />
           Discord access
-        </div>
-      </div> -->
-
-<!-- <div class="accordion">
-        <div class="accordion-item">
-          <div class="accordion-header">Pytanie 1</div>
-          <div class="accordion-content">Odpowiedź 1</div>
-        </div>
-        <div class="accordion-item">
-          <div class="accordion-header">Pytanie 2</div>
-          <div class="accordion-content">Odpowiedź 2</div>
-        </div>
-        <div class="accordion-item">
-          <div class="accordion-header">Pytanie 3</div>
-          <div class="accordion-content">Odpowiedź 3</div>
         </div>
       </div> -->
