@@ -1,11 +1,12 @@
 .contact {
-  border: 1px solid gray;
-  width: 80%;
+  border: 1px solid black;
+  width: 100%;
   height: 500px;
   position: relative;
-  top: 200px;
-  left: 10%;
   font-size: 40px;
+  margin-top: 10%;
+  padding: 0%;
+  bottom: 0px;
 }
 #contactsegment1 {
   position: relative;
@@ -15,15 +16,32 @@
 #contactsegment2 {
   position: relative;
   left: 47%;
-  top: -22%;
+  top: -26.5%;
 }
 #contactsegment3 {
   position: relative;
   left: 67%;
-  top: -66.5%;
+  top: -75.5%;
 }
+h3 {
+  font: normal normal normal 40px/50px Helvetica;
+}
+
 .contactlink {
   text-decoration: none;
-  color: gray;
-  font-size: 20px;
+  color: black;
+  font: normal normal normal 30px/50px Helvetica;
+}
+#newsletter {
+  position: relative;
+  bottom: 40%;
+  left: 10%;
+  width: 80%;
+  height: 18%;
+  border: 1px solid black;
+  font-size: 30px;
+  color: black;
+  border-radius: 45px;
+  text-align: left;
+  padding-left: 40px;
 }
