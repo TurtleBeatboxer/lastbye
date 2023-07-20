@@ -31,7 +31,7 @@ p.coolsentence {
 h2 {
   text-transform: uppercase;
   font-weight: bold;
-  font: regular;
+  font: normal normal normal 60px/72px Helvetica;
   font-size: 60px;
 }
 .howwork {
@@ -114,7 +114,9 @@ h4 {
   color: #6a9fb4;
   font: normal normal normal 40px/60px Helvetica;
   position: relative;
-  left: 46%;
+  left: 44%;
+  padding-top: 100px;
+  margin-top: 500px;
 }
 // .offer {
 //   border: 1px solid #707070;
