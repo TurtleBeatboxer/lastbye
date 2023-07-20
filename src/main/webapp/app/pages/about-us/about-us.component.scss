@@ -1,0 +1,123 @@
+.global {
+  color: black;
+}
+
+.header {
+  color: #3d648c;
+  text-transform: uppercase;
+  font: normal normal normal 65px/78px Helvetica;
+}
+#history_header {
+  position: relative;
+  top: 160px;
+  left: 15.5%;
+}
+.contents {
+  display: flex;
+  flex-direction: row;
+}
+.description {
+  font: normal normal normal 32px/40px Helvetica;
+  width: 38%;
+}
+#desc_history {
+  position: relative;
+  left: 15.5%;
+}
+#right_image {
+  width: 20%;
+  height: 450px;
+  position: absolute;
+  right: 10%;
+  top: 32%;
+}
+#left_image {
+  width: 20%;
+  height: 450px;
+  position: absolute;
+  left: 15.5%;
+  top: 120%;
+}
+p {
+  margin-top: 150px;
+}
+#mission_header {
+  position: absolute;
+  right: 10%;
+}
+#desc_mission {
+  text-align: right;
+  position: relative;
+  left: 52%;
+}
+span {
+  color: #6a9fb4;
+}
+
+.cont {
+  display: flex;
+  margin-bottom: 30%;
+}
+.lcont {
+  display: flex;
+  flex-direction: column;
+}
+
+#team_header {
+  position: absolute;
+  left: 41%;
+}
+.picture {
+  border: solid black 1px;
+  width: 324px;
+  height: 324px;
+  border-radius: 162px;
+}
+h4 {
+  text-align: center;
+  font: normal normal normal 40px/60px Helvetica;
+}
+h5 {
+  text-align: center;
+  color: #6a9fb4;
+  font: oblique normal normal 35px/60px Helvetica;
+}
+#pic1 {
+  position: absolute;
+  left: 27%;
+}
+#pic2 {
+  position: absolute;
+  right: 27%;
+}
+#pic3 {
+  position: absolute;
+  left: 12%;
+}
+#pic4 {
+  position: absolute;
+  left: 41.5%;
+}
+#pic5 {
+  position: absolute;
+  right: 7%;
+}
+#xd {
+  position: relative;
+  right: 8%;
+}
+#pic6 {
+  position: absolute;
+  left: 12%;
+}
+#pic7 {
+  position: absolute;
+  left: 41.5%;
+}
+#pic8 {
+  position: absolute;
+  right: 12%;
+}
+#last_cont {
+  margin-bottom: 40%;
+}
