@@ -2,27 +2,22 @@
   border: 1px solid black;
   width: 100%;
   height: 500px;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
   font-size: 40px;
   margin-top: 10%;
   padding: 0%;
   bottom: 0px;
 }
-#contactsegment1 {
-  position: relative;
-  left: 27%;
-  top: 10%;
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 30px;
 }
-#contactsegment2 {
-  position: relative;
-  left: 47%;
-  top: -26.5%;
-}
-#contactsegment3 {
-  position: relative;
-  left: 67%;
-  top: -75.5%;
-}
+
 h3 {
   font: normal normal normal 40px/50px Helvetica;
 }
@@ -33,9 +28,8 @@ h3 {
   font: normal normal normal 30px/50px Helvetica;
 }
 #newsletter {
-  position: relative;
-  bottom: 40%;
-  left: 10%;
+  margin: 50px 0px 50px 0px;
+
   width: 80%;
   height: 18%;
   border: 1px solid black;
