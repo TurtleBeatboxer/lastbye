@@ -126,20 +126,25 @@
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>-->
     <style>
-      body {
-        background-color: white;
-        overflow-x: hidden;
+      * {
+        scroll-behavior: smooth;
       }
 
-      .scrollbar-hidden::-webkit-scrollbar {
+      body::-webkit-scrollbar {
         display: none;
       }
 
-      .scrollbar-hidden {
+      body {
+        background-color: white;
         -ms-overflow-style: none;
+        /* IE and Edge */
         scrollbar-width: none;
-        /* Firefox */
       }
+
+      .container-fluid {
+        padding: 0px;
+      }
+     
     </style>
   </body>
 </html>
