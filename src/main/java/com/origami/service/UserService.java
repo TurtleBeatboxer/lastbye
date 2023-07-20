@@ -301,6 +301,7 @@ public class UserService {
         managedUserVM.setLastModifiedDate(user.getLastModifiedDate());
         Optional<Profile> profile = profileService.getProfileByUserID(user.getId());
         if (profile.isPresent()) {
+            managedUserVM.setLifeStatus(profile.get().getLifeStatus());
             managedUserVM.setClothes(profile.get().getClothes());
             managedUserVM.setAccessesForRelatives(profile.get().getAccessesForRelatives());
             managedUserVM.setBurialMethod(profile.get().getBurialMethod());
