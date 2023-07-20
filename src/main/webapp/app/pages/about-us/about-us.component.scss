@@ -53,3 +53,71 @@ p {
 span {
   color: #6a9fb4;
 }
+
+.cont {
+  display: flex;
+  margin-bottom: 30%;
+}
+.lcont {
+  display: flex;
+  flex-direction: column;
+}
+
+#team_header {
+  position: absolute;
+  left: 41%;
+}
+.picture {
+  border: solid black 1px;
+  width: 324px;
+  height: 324px;
+  border-radius: 162px;
+}
+h4 {
+  text-align: center;
+  font: normal normal normal 40px/60px Helvetica;
+}
+h5 {
+  text-align: center;
+  color: #6a9fb4;
+  font: oblique normal normal 35px/60px Helvetica;
+}
+#pic1 {
+  position: absolute;
+  left: 27%;
+}
+#pic2 {
+  position: absolute;
+  right: 27%;
+}
+#pic3 {
+  position: absolute;
+  left: 12%;
+}
+#pic4 {
+  position: absolute;
+  left: 41.5%;
+}
+#pic5 {
+  position: absolute;
+  right: 7%;
+}
+#xd {
+  position: relative;
+  right: 8%;
+}
+#pic6 {
+  position: absolute;
+  left: 12%;
+}
+#pic7 {
+  position: absolute;
+  left: 41.5%;
+}
+#pic8 {
+  position: absolute;
+  right: 12%;
+}
+#last_cont {
+  margin-bottom: 40%;
+}
