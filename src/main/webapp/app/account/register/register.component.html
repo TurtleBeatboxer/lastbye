@@ -203,7 +203,16 @@
             </small>
           </div> -->
         </div>
-
+        <div class="news">
+          <input type="checkbox" name="news" class="checkbox" /><label for="news" class="news-label"
+            >I agree to receive news and updates via email</label
+          >
+        </div>
+        <div class="policy">
+          <input type="checkbox" name="policy" class="checkbox" /><label for="policy" class="policy-label"
+            >I agree to <a href="" class="policy-a">Terms and Conditions</a> and <a href="" class="policy-a">Privacy Notice</a></label
+          >
+        </div>
         <button
           type="submit"
           [disabled]="registerForm.invalid"
@@ -215,7 +224,7 @@
         </button>
       </form>
       <p class="login">
-        Already have an account? <a [routerLink]="['/login']"><u>Log in!</u></a>
+        Already have an account? <a class="login-a" [routerLink]="['/login']"><u>Log in!</u></a>
       </p>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <div class="nb-theme-default profile">
   <h1 class="profileForm-header">Tell us about yourself</h1>
-  <nb-stepper orientation="horizontal" [linear]="true" disableStepNavigation="">
+  <nb-stepper orientation="horizontal" disableStepNavigation="true">
     <nb-step [label]="labelOne">
       <ng-template #labelOne></ng-template>
       <form name="form" class="profileForm-1" role="form" [formGroup]="profileForm1" (ngSubmit)="firstStep()" *ngIf="!success">
@@ -47,19 +47,11 @@
             data-cy="lastName"
           />
         </div>
-        <div class="mb-3">
-          <!-- <label class="form-label" for="birthDate">Date Of Birth</label> -->
+        <!-- <div class="mb-3">
 
-          <input
-            type="text"
-            class="profileForm-input"
-            id="lastName"
-            name="lastName"
-            placeholder="Date of Birth dd/mm/yyyy"
-            formControlName="lastName"
-            data-cy="lastName"
-          />
-        </div>
+          <input type="text" class="profileForm-input" id="" name="" placeholder="Date of Birth dd/mm/yyyy"
+            formControlName="" data-cy="lastName" />
+        </div> -->
 
         <div class="mb-3">
           <input type="number" class="profileForm-input" id="prefix" name="prefix" placeholder="{{ 'Prefix' }}" formControlName="prefix" />
