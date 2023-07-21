@@ -6,16 +6,12 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="8:efd5c887c9a23202b020070106cc84d3" author="Michas">
-        <preConditions onFail="MARK_RAN">
+    <changeSet id="increase-password-length" author="martin">
+        <!--<preConditions onFail="MARK_RAN">
             <not>
-                <columnExists tableName="Profile" columnName="life_status" />
+                <columnExists tableName="Profile" columnName="life_link" />
             </not>
-        </preConditions>
-        <addColumn tableName="profile">
-            <column name="life_status" type="number">
-                <constraints nullable="true" unique="false"/>
-            </column>
-        </addColumn>
+        </preConditions>-->
+        <modifyDataType tableName="profile" columnName="life_link" newDataType="varchar(256)"/>
     </changeSet>
 </databaseChangeLog>
