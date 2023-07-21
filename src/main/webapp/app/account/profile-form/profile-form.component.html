@@ -74,71 +74,63 @@
       </form>
     </nb-step>
     <nb-step label="">
-      <!--   ██╗    ██╗███████╗██████╗ ███████╗     ██╗ █████╗     ██████╗ ███████╗██╗   ██╗███████╗██╗      ██████╗ ██████╗
+      <!-- ██╗    ██╗███████╗██████╗ ███████╗     ██╗ █████╗     ██████╗ ███████╗██╗   ██╗███████╗██╗      ██████╗ ██████╗
                 ██║    ██║██╔════╝██╔══██╗██╔════╝     ██║██╔══██╗    ██╔══██╗██╔════╝██║   ██║██╔════╝██║     ██╔═══██╗██╔══██╗
                 ██║ █╗ ██║█████╗  ██████╔╝███████╗     ██║███████║    ██║  ██║█████╗  ██║   ██║█████╗  ██║     ██║   ██║██████╔╝
                 ██║███╗██║██╔══╝  ██╔══██╗╚════██║██   ██║██╔══██║    ██║  ██║██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║     ██║   ██║██╔═══╝
                 ╚███╔███╔╝███████╗██║  ██║███████║╚█████╔╝██║  ██║    ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
                  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚══════╝ ╚════╝ ╚═╝  ╚═╝    ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝     -->
-      <!-- <form name="form" role="form" class="profileForm-1" *ngIf="!success">
+      <form name="form" role="form" class="profileForm-1" (ngSubmit)="submit()" [formGroup]="test" *ngIf="!success">
         <div class="radioInputs">
           <div>
-            <label class="radio-label" for="burialMethod"> Coffin </label>
-            <input class="radio" type="radio" name="burialMethod" value="coffin" [(ngModel)]="burialMethod" />
+            <label class="radio-label" for="burial"> Coffin </label>
+            <input class="radio" type="radio" name="burial" (click)="onCoffinClick()" value="coffin" formControlName="burial" />
           </div>
           <div>
             <label class="radio-label" for="burialMethod"> Cremation </label>
-            <input class="radio" type="radio" name="burialMethod" value="cremation" [(ngModel)]="burialMethod" />
+            <input class="radio" type="radio" name="burial" (click)="onCremationClick()" />
           </div>
           <div>
-            <label class="radio-label" for="burialMethod"> Other </label>
-            <input class="radio" type="radio" name="burialMethod" value="other" [(ngModel)]="burialMethod" />
+            <label class="radio-label" for="burialMethod" disabled> Other </label>
+            <input class="radio" type="radio" name="burial" (click)="onOtherClicked()" value=" other" formControlName="burial" />
           </div>
         </div>
-        <div class="mb-3" *ngIf="burialMethod === 'other'">
-          <input type="text" class="profileForm-input" id="burialMethod" name="burialMethod"
-            placeholder="{{ 'Other burial method' }}" formControlName="burialMethod" data-cy="burialMethod" />
+        <div class="mb-3" *ngIf="burialType === 'other'">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="burial"
+            name="burial"
+            placeholder="{{ 'Other burial method' }}"
+            data-cy="burial"
+            formControlName="burial"
+          />
         </div>
-        <div *ngIf="burialMethod === 'cremation'">
+        <div *ngIf="burialType === 'cremation'">
           <h1 class="cremation-text">If cremation choosen - what will happen with your ashes?</h1>
           <div class="cremation">
             <div>
-              <label class="radio-label" for="burialMethod"> Scatter them at sea </label>
-              <input class="radio" type="radio" name="burialMethod" value="sea" [(ngModel)]="burialMethod" />
+              <label class="radio-label" for="burial"> Scatter them at sea </label>
+              <input class="radio" type="radio" name="burial" formControlName="burial" value="sea" />
             </div>
             <div>
-              <label class="radio-label" for="burialMethod"> Make vinyl record </label>
-              <input class="radio" type="radio" name="burialMethod" value="vinyl" [(ngModel)]="burialMethod" />
+              <label class="radio-label" for="burial"> Make vinyl record </label>
+              <input class="radio" type="radio" name="burial" formControlName="burial" value="vinyl" />
             </div>
             <div>
-              <label class="radio-label" for="burialMethod"> Urn </label>
-              <input class="radio" type="radio" name="burialMethod" value="urn" [(ngModel)]="burialMethod" />
+              <label class="radio-label" for="burial"> Urn </label>
+              <input class="radio" type="radio" name="burial" formControlName="burial" value="urn" />
             </div>
             <div>
-              <label class="radio-label" for="burialMethod"> Make jewellery </label>
-              <input class="radio" type="radio" name="burialMethod" value="jewellery" [(ngModel)]="burialMethod" />
-            </div>
-            <div>
-              <label class="radio-label" for="burialMethod"> Other </label>
-              <input class="radio" type="radio" name="burialMethod" value="cremationOther" [(ngModel)]="burialMethod" />
+              <label class="radio-label" for="burial"> Make jewellery </label>
+              <input class="radio" type="radio" name="burial" formControlName="burial" value="jewellery" />
             </div>
           </div>
         </div>
-        <div *ngIf="burialMethod === 'cremationOther'">
-          <input type="text" class="profileForm-input" id="burialMethod" name="burialMethod"
-            placeholder="{{ 'Other burial method' }}" formControlName="burialMethod" data-cy="burialMethod" />
-        </div>
 
         <button type="submit" class="profileForm-button" data-cy="submit">Next</button>
-      </form> -->
+      </form>
 
-      <!--      ██╗    ██╗███████╗██████╗ ███████╗     ██╗ █████╗      ██████╗ ██╗████████╗
-                ██║    ██║██╔════╝██╔══██╗██╔════╝     ██║██╔══██╗    ██╔════╝ ██║╚══██╔══╝
-                ██║ █╗ ██║█████╗  ██████╔╝███████╗     ██║███████║    ██║  ███╗██║   ██║
-                ██║███╗██║██╔══╝  ██╔══██╗╚════██║██   ██║██╔══██║    ██║   ██║██║   ██║
-                ╚███╔███╔╝███████╗██║  ██║███████║╚█████╔╝██║  ██║    ╚██████╔╝██║   ██║
-                 ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚══════╝ ╚════╝ ╚═╝  ╚═╝     ╚═════╝ ╚═╝   ╚═╝
--->
       <form name="form" role="form" class="profileForm-1" [formGroup]="profileForm2" (ngSubmit)="secondStep()" *ngIf="!success">
         <div class="mb-3">
           <input

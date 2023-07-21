@@ -20,6 +20,8 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   @ViewChildren(NbStepComponent) nbSteps;
   burialMethod: any;
   user: Account | null = null;
+  burialType;
+
   profileForm1 = new FormGroup({
     firstName: new FormControl(this.user?.firstName ?? 'hello', {
       nonNullable: true,
@@ -132,6 +134,10 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     }),
   });
 
+  test = new FormGroup({
+    burial: new FormControl(''),
+  });
+
   profileForm4 = new FormGroup({
     farewellLetter: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     videoSpeech: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -176,6 +182,23 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
 
   onSkip(): void {
     this.router.navigate(['/']);
+  }
+
+  onCoffinClick() {
+    this.burialType = 'coffin';
+  }
+
+  onOtherClicked() {
+    this.burialType = 'other';
+    this.test.setValue({ burial: '' });
+  }
+
+  onCremationClick() {
+    this.burialType = 'cremation';
+  }
+
+  submit() {
+    console.log(this.test.getRawValue());
   }
 
   secondStep(): void {
