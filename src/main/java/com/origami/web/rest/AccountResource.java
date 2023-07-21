@@ -1,14 +1,18 @@
 package com.origami.web.rest;
 
+import com.origami.domain.LifeStatus;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
+import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
 import com.origami.security.SecurityUtils;
 import com.origami.service.MailService;
 import com.origami.service.ProfileService;
 import com.origami.service.UserService;
+import com.origami.service.dto.LifeStatusChangeDTO;
 import com.origami.service.dto.PasswordChangeDTO;
 import com.origami.service.dto.PublicProfileDTO;
+import com.origami.service.dto.QRStartProcessDTO;
 import com.origami.web.rest.errors.*;
 import com.origami.web.rest.vm.KeyAndPasswordVM;
 import com.origami.web.rest.vm.ManagedUserVM;
@@ -18,7 +22,6 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,14 +44,23 @@ public class AccountResource {
 
     private final UserRepository userRepository;
 
+    private final ProfileRepository profileRepository;
+
     private final UserService userService;
 
     private final MailService mailService;
 
     private final ProfileService profileService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, ProfileService profileService) {
+    public AccountResource(
+        UserRepository userRepository,
+        ProfileRepository profileRepository,
+        UserService userService,
+        MailService mailService,
+        ProfileService profileService
+    ) {
         this.userRepository = userRepository;
+        this.profileRepository = profileRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.profileService = profileService;
@@ -92,6 +104,40 @@ public class AccountResource {
         } else {
             return HttpStatus.FORBIDDEN;
         }
+    }
+
+    @PostMapping("/profile/lifestatus/alive")
+    public void makeUserAliveAgain(@Valid @RequestBody String link) {
+        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO(LifeStatus.ALIVE);
+        lifeStatusChangeDTO.setLifeLink(link);
+        profileService.updateUserStatusAlive(lifeStatusChangeDTO);
+    }
+
+    @PostMapping("profile/qr/getQuestion")
+    public ResponseEntity<String> getQuestionFromQRCode(@Valid @RequestBody String codeQR) {
+        Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(codeQR);
+        if (profileOptional.isPresent()) {
+            String question = profileOptional.get().getQuestion();
+            return new ResponseEntity<>(question, HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>("Make sure that your given QRCode is correct or else contact with support", HttpStatus.FORBIDDEN);
+    }
+
+    @PostMapping("profile/qr/qrDTO")
+    public HttpStatus getProfileFromQRCode(@Valid @RequestBody QRStartProcessDTO qrStartProcessDTO) {
+        Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(qrStartProcessDTO.getCodeQR());
+        if (profileOptional.isEmpty()) return HttpStatus.BAD_REQUEST;
+        Profile profile = profileOptional.get();
+        if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) return HttpStatus.BAD_REQUEST;
+        if (profile.getLifeStatus().equals(LifeStatus.DEAD)) return HttpStatus.BAD_REQUEST;
+        if (profile.getQuestionAnswer().equals(qrStartProcessDTO.getAnswer())) {
+            LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO(LifeStatus.UNKNOWN);
+            lifeStatusChangeDTO.setCodeQR(qrStartProcessDTO.getCodeQR());
+            lifeStatusChangeDTO.setFriendAddress(qrStartProcessDTO.getEmailAddress());
+            profileService.startQRCountdown(lifeStatusChangeDTO);
+            return HttpStatus.ACCEPTED;
+        }
+        return HttpStatus.BAD_REQUEST;
     }
 
     @PostMapping("/profile/get/data")
