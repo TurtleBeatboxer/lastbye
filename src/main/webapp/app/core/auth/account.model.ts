@@ -16,7 +16,7 @@ export class Account {
     public notInvited: string,
     public obituary: string,
     public editsLeft: number,
-    public flowers: string,
+    public flowers: boolean,
     public ifFlowers: string,
     public farewellLetter: string,
     public openCoffin: boolean,

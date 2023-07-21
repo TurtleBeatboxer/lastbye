@@ -6,20 +6,22 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { ProfileFormService } from './profile-form.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/auth/account.model';
+import { profileFormData1 } from './profile-form.model';
 
 @Component({
   selector: 'jhi-profile-form',
   templateUrl: './profile-form.component.html',
   styleUrls: ['./profile-form.component.scss'],
 })
-export class ProfileFormComponent implements AfterViewInit {
+export class ProfileFormComponent implements AfterViewInit, OnInit {
   success: any;
   @ViewChild(NbStepperComponent) nbStepper;
   @ViewChildren(NbStepComponent) nbSteps;
   burialMethod: any;
-
+  user: Account | null = null;
   profileForm1 = new FormGroup({
-    firstName: new FormControl('', {
+    firstName: new FormControl(this.user?.firstName ?? 'hello', {
       nonNullable: true,
       validators: [
         Validators.required,
@@ -51,7 +53,6 @@ export class ProfileFormComponent implements AfterViewInit {
       validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
     }),
   });
-
   profileForm2 = new FormGroup({
     burialMethod: new FormControl('', {
       nonNullable: true,
@@ -146,23 +147,32 @@ export class ProfileFormComponent implements AfterViewInit {
     private accountService: AccountService,
     private cd: ChangeDetectorRef
   ) {}
-
+  ngOnInit(): void {
+    if (this.accountService.userIdentity) {
+      this.user = this.accountService.userIdentity;
+    }
+  }
   ngAfterViewInit(): void {
     const results = this.nbSteps._results;
+
     if (this.accountService.userIdentity) {
       for (let i = 0; i <= this.accountService.userIdentity.levelOfForm; i++) {
         const currentStep = results[i];
+        console.log(results[i]);
         if (i === this.accountService.userIdentity.levelOfForm) {
-          this.nbStepper.changeStep(currentStep);
+          results[i].select();
         } else {
           currentStep._completed = true;
         }
       }
     }
+
     this.cd.detectChanges();
   }
 
-  onTest(): void {}
+  onTest(): void {
+    console.log(this.user);
+  }
 
   onSkip(): void {
     this.router.navigate(['/']);

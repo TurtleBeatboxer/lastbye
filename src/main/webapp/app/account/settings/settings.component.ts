@@ -22,6 +22,7 @@ export class SettingsComponent implements OnInit {
   editsError = false;
   initialAccount: Account = {} as Account;
   edits: number;
+  fileName = '';
   settingsForm = new FormGroup({
     firstName: new FormControl(this.initialAccount.firstName, {
       nonNullable: true,
@@ -156,7 +157,7 @@ export class SettingsComponent implements OnInit {
   constructor(
     public accountService: AccountService,
     private translateService: TranslateService,
-
+    private http: HttpClient,
     private applicationConfigService: ApplicationConfigService
   ) {}
 
@@ -171,6 +172,21 @@ export class SettingsComponent implements OnInit {
         console.log(this.initialAccount);
       }
     });
+  }
+  onFileSelected(event) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+
+      const formData = new FormData();
+
+      formData.append('thumbnail', file);
+
+      const upload$ = this.http.post('/api/thumbnail-upload', formData);
+
+      upload$.subscribe();
+    }
   }
 
   save(): void {

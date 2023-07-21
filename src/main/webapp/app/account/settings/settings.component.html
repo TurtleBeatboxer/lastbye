@@ -11,7 +11,8 @@
   <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="settingsForm.value.login" novalidate>
     <div class="header">
       <div>
-        <div class="img"></div>
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload />
+        <div class="img" (click)="fileUpload.click()"></div>
       </div>
       <div class="header-text">
         <div class="mb-3">
