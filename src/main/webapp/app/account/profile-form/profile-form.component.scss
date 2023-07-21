@@ -56,6 +56,10 @@
   margin-top: 150px;
 }
 
+.nb-theme-default nb-stepper .header .connector {
+  flex-basis: 100px;
+}
+
 .radioInputs {
   display: flex;
   flex-direction: row;

@@ -236,4 +236,20 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
     }
   }
 }
+.nb-theme-default nb-stepper .header .connector {
+  flex: 0 0 100px !important;
+  background-color: #000;
+  margin-top: 1.4rem !important;
+}
+.nb-theme-default nb-stepper .header {
+  justify-content: center !important;
+}
+
+.nb-theme-default nb-stepper .header .label-index {
+  border-color: #000 !important;
+  color: #000;
+  width: 3rem;
+  height: 3rem;
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */
