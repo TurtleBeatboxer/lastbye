@@ -197,6 +197,11 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.burialType = 'cremation';
   }
 
+  onOtherCremationClick() {
+    this.burialType = 'cremation-other';
+    this.test.setValue({ burial: '' });
+  }
+
   submit() {
     console.log(this.test.getRawValue());
   }
