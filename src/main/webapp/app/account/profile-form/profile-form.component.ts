@@ -186,6 +186,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
 
   onCoffinClick() {
     this.burialType = 'coffin';
+    this.test.setValue({ burial: 'coffin' });
   }
 
   onOtherClicked() {

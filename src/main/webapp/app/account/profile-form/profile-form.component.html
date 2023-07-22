@@ -84,15 +84,15 @@
         <div class="radioInputs">
           <div>
             <label class="radio-label" for="burial"> Coffin </label>
-            <input class="radio" type="radio" name="burial" (click)="onCoffinClick()" value="coffin" formControlName="burial" />
+            <input class="radio" type="radio" name="burial" (click)="onCoffinClick()" value="coffin" [(ngModel)]="burialType" />
           </div>
           <div>
             <label class="radio-label" for="burialMethod"> Cremation </label>
-            <input class="radio" type="radio" name="burial" (click)="onCremationClick()" />
+            <input class="radio" type="radio" name="burial" (click)="onCremationClick()" value="cremation" [(ngModel)]="burialType" />
           </div>
           <div>
             <label class="radio-label" for="burialMethod" disabled> Other </label>
-            <input class="radio" type="radio" name="burial" (click)="onOtherClicked()" />
+            <input class="radio" type="radio" name="burial" (click)="onOtherClicked()" value="other" [(ngModel)]="burialType" />
           </div>
         </div>
         <div class="mb-3" *ngIf="burialType === 'other'">
