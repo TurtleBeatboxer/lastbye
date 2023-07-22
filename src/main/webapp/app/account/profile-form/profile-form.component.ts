@@ -18,9 +18,10 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   success: any;
   @ViewChild(NbStepperComponent) nbStepper;
   @ViewChildren(NbStepComponent) nbSteps;
-  burialMethod: any;
+  otherCremation = false;
   user: Account | null = null;
   burialType;
+  otherCremationInput;
 
   profileForm1 = new FormGroup({
     firstName: new FormControl(this.user?.firstName ?? 'hello', {
@@ -178,6 +179,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
 
   onTest(): void {
     console.log(this.user);
+    console.log(this.burialType);
   }
 
   onSkip(): void {
@@ -185,21 +187,28 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   }
 
   onCoffinClick() {
-    this.burialType = 'coffin';
     this.test.setValue({ burial: 'coffin' });
+    this.otherCremation = false;
   }
 
   onOtherClicked() {
-    this.burialType = 'other';
     this.test.setValue({ burial: '' });
+    this.otherCremation = false;
+    this.otherCremationInput = '';
   }
 
   onCremationClick() {
-    this.burialType = 'cremation';
+    this.otherCremation = false;
+    this.otherCremationInput = '';
+  }
+
+  otherCremationFalse() {
+    this.otherCremation = false;
+
+    this.otherCremationInput = '';
   }
 
   onOtherCremationClick() {
-    this.burialType = 'cremation-other';
     this.test.setValue({ burial: '' });
   }
 

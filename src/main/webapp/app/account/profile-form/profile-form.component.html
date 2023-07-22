@@ -80,21 +80,22 @@
                 ██║███╗██║██╔══╝  ██╔══██╗╚════██║██   ██║██╔══██║    ██║  ██║██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║     ██║   ██║██╔═══╝
                 ╚███╔███╔╝███████╗██║  ██║███████║╚█████╔╝██║  ██║    ██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║
                  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚══════╝ ╚════╝ ╚═╝  ╚═╝    ╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝     -->
-      <form name="form" role="form" class="profileForm-1" (ngSubmit)="submit()" [formGroup]="test" *ngIf="!success">
-        <div class="radioInputs">
-          <div>
-            <label class="radio-label" for="burial"> Coffin </label>
-            <input class="radio" type="radio" name="burial" (click)="onCoffinClick()" value="coffin" [(ngModel)]="burialType" />
-          </div>
-          <div>
-            <label class="radio-label" for="burialMethod"> Cremation </label>
-            <input class="radio" type="radio" name="burial" (click)="onCremationClick()" value="cremation" [(ngModel)]="burialType" />
-          </div>
-          <div>
-            <label class="radio-label" for="burialMethod" disabled> Other </label>
-            <input class="radio" type="radio" name="burial" (click)="onOtherClicked()" value="other" [(ngModel)]="burialType" />
-          </div>
+
+      <div class="radioInputs">
+        <div>
+          <label class="radio-label" for="burialType"> Coffin </label>
+          <input class="radio" type="radio" name="burialType" (click)="onCoffinClick()" value="coffin" [(ngModel)]="burialType" />
         </div>
+        <div>
+          <label class="radio-label" for="burialType"> Cremation </label>
+          <input class="radio" type="radio" name="burialType" (click)="onCremationClick()" value="cremation" [(ngModel)]="burialType" />
+        </div>
+        <div>
+          <label class="radio-label" for="burialType" disabled> Other </label>
+          <input class="radio" type="radio" name="burialType" (click)="onOtherClicked()" value="other" [(ngModel)]="burialType" />
+        </div>
+      </div>
+      <form name="form" role="form" class="profileForm-1" (ngSubmit)="submit()" [formGroup]="test" *ngIf="!success">
         <div class="mb-3" *ngIf="burialType === 'other'">
           <input
             type="text"
@@ -111,34 +112,35 @@
           <div class="cremation">
             <div>
               <label class="radio-label" for="burial"> Scatter them at sea </label>
-              <input (click)="burialType = 'cremation'" class="radio" type="radio" name="burial" formControlName="burial" value="sea" />
+              <input (click)="otherCremationFalse()" class="radio" type="radio" name="burial" formControlName="burial" value="sea" />
             </div>
             <div>
               <label class="radio-label" for="burial"> Make vinyl record </label>
-              <input (click)="burialType = 'cremation'" class="radio" type="radio" name="burial" formControlName="burial" value="vinyl" />
+              <input (click)="otherCremationFalse()" class="radio" type="radio" name="burial" formControlName="burial" value="vinyl" />
             </div>
             <div>
               <label class="radio-label" for="burial"> Urn </label>
-              <input (click)="burialType = 'cremation'" class="radio" type="radio" name="burial" formControlName="burial" value="urn" />
+              <input (click)="otherCremationFalse()" class="radio" type="radio" name="burial" formControlName="burial" value="urn" />
             </div>
             <div>
               <label class="radio-label" for="burial"> Make jewellery </label>
+              <input class="radio" type="radio" name="burial" formControlName="burial" (click)="otherCremationFalse()" value="jewellery" />
+            </div>
+            <div>
+              <label class="radio-label" for="otherCremation"> Other </label>
               <input
                 class="radio"
                 type="radio"
-                name="burial"
-                formControlName="burial"
-                (click)="burialType = 'cremation'"
-                value="jewellery"
+                name="otherCremationInput"
+                (click)="onOtherCremationClick()"
+                value="cremation-other"
+                [(ngModel)]="otherCremationInput"
+                [ngModelOptions]="{ standalone: true }"
               />
-            </div>
-            <div>
-              <label class="radio-label" for="burial"> Other </label>
-              <input class="radio" type="radio" name="burial" (click)="onOtherCremationClick()" />
             </div>
           </div>
         </div>
-        <div *ngIf="burialType === 'cremation-other'">
+        <div *ngIf="otherCremationInput === 'cremation-other'">
           <input
             type="text"
             class="profileForm-input"
