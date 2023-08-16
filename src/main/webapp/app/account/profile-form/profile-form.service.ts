@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { profileFormData1, profileFormData2, profileFormData3, profileFormData4 } from './profile-form.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -17,39 +18,139 @@ export class ProfileFormService {
     }
   }
 
-  // patchProfile1(user: Account): profileFormData1 {
-  //   if (user.firstName && user.lastName) {
-  //     return { firstName: user.firstName, lastName: user.lastName, prefix: user.prefix, phone: user.phone };
-  //   }
-  //   return { firstName: '', lastName: '', prefix: '', phone: 0 };
-  // }
+  buildForm1() {
+    return new FormGroup({
+      firstName: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+        ],
+      }),
+      lastName: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+        ],
+      }),
+      prefix: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+        ],
+      }),
+      phone: new FormControl<number>(null!, {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+      }),
+    });
+  }
 
-  // patchProfile2(user: Account): profileFormData2 {
-  //   return {
-  //     burialMethod: user.burialMethod,
-  //     graveInscription: user.graveInscription,
-  //     openCoffin: user.openCoffin,
-  //     clothes: user.clothes,
-  //   };
-  // }
-  // patchProfile3(user: Account): profileFormData3 {
-  //   return {
-  //     flowers: user.flowers,
-  //     ifFlowers: user.ifFlowers,
-  //     obituary: user.obituary,
-  //     spotify: user.spotify,
-  //     guests: user.guests,
-  //     notInvited: user.notInvited,
-  //     placeOfCeremony: user.placeOfCeremony,
-  //   };
-  // }
-  // patchProfile4(user: Account): profileFormData4 {
-  //   return {
-  //     farewellLetter: user.farewellLetter,
-  //     videoSpeech: user.videoSpeech,
-  //     testament: user.testament,
-  //     other: user.other,
-  //   };
+  buildForm2() {
+    return new FormGroup({
+      burialMethod: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+      }),
+      burialPlace: new FormControl('', {
+        nonNullable: true,
+      }),
+      ifGraveInscription: new FormControl(null),
+      graveInscription: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+      }),
+      ifPhoto: new FormControl(null),
+      photoGrave: new FormControl(''),
+      openCoffin: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
+
+      clothes: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+      }),
+    });
+  }
+
+  buildForm3() {
+    return new FormGroup({
+      flowers: new FormControl(null, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      ifFlowers: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+        ],
+      }),
+      obituary: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+        ],
+      }),
+      obituaryText: new FormControl(''),
+      spotify: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+        ],
+      }),
+      guests: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+        ],
+      }),
+      notInvited: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+        ],
+      }),
+      placeOfCeremony: new FormControl('', {
+        nonNullable: true,
+        validators: [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+        ],
+      }),
+    });
+  }
+
+  buildForm4() {
+    return new FormGroup({
+      farewellLetter: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      videoSpeech: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      testament: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    });
+  }
   // }
 
   dataProfile1(form: profileFormData1): profileFormData1 {

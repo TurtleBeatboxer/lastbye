@@ -22,129 +22,12 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   user: Account | null = null;
   burialType;
   otherCremationInput;
+  urn;
 
-  profileForm1 = new FormGroup({
-    firstName: new FormControl(this.user?.firstName ?? 'hello', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    }),
-    lastName: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    }),
-    prefix: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    }),
-    phone: new FormControl<number>(null!, {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
-    }),
-  });
-  profileForm2 = new FormGroup({
-    burialMethod: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
-    }),
-
-    graveInscription: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
-    }),
-    openCoffin: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
-
-    clothes: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
-    }),
-  });
-
-  profileForm3 = new FormGroup({
-    flowers: new FormControl(false, {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-    ifFlowers: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    }),
-    obituary: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    }),
-    spotify: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    }),
-    guests: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    }),
-    notInvited: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    }),
-    placeOfCeremony: new FormControl('', {
-      nonNullable: true,
-      validators: [
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-      ],
-    }),
-  });
-
-  test = new FormGroup({
-    burial: new FormControl(''),
-  });
-
-  profileForm4 = new FormGroup({
-    farewellLetter: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    videoSpeech: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    testament: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-  });
+  profileForm1 = this.profileFormService.buildForm1();
+  profileForm2 = this.profileFormService.buildForm2();
+  profileForm3 = this.profileFormService.buildForm3();
+  profileForm4 = this.profileFormService.buildForm4();
 
   constructor(
     private http: HttpClient,
@@ -180,6 +63,8 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   onTest(): void {
     console.log(this.user);
     console.log(this.burialType);
+    console.log(this.urn);
+    console.log(this.profileForm2.getRawValue());
   }
 
   onSkip(): void {
@@ -187,13 +72,13 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   }
 
   onCoffinClick() {
-    this.test.setValue({ burial: 'coffin' });
+    this.profileForm2.patchValue({ burialMethod: 'coffin' });
     this.otherCremation = false;
     this.otherCremationInput = '';
   }
 
   onOtherClicked() {
-    this.test.setValue({ burial: '' });
+    this.profileForm2.patchValue({ burialMethod: '' });
     this.otherCremation = false;
     this.otherCremationInput = '';
   }
@@ -210,11 +95,11 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   }
 
   onOtherCremationClick() {
-    this.test.setValue({ burial: '' });
+    this.profileForm2.patchValue({ burialMethod: '' });
   }
 
   submit() {
-    console.log(this.test.getRawValue());
+    console.log(this.profileForm2.getRawValue());
   }
 
   secondStep(): void {
@@ -255,6 +140,6 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
         this.profileFormService.dataProfile1(this.profileForm1.getRawValue())
       )
       .subscribe(() => console.warn(this.profileForm1.getRawValue()));
-    this.nbStepper.next();
+    this.router.navigate(['user/picture'], { skipLocationChange: true });
   }
 }
