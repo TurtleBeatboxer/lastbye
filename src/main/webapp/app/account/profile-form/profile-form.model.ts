@@ -14,12 +14,12 @@ export interface profileFormData1 extends Partial<requestData> {
 export interface profileFormData2 extends Partial<requestData> {
   burialMethod: string;
   graveInscription: string;
-  openCoffin: boolean;
+  openCoffin: boolean | null;
   clothes: string;
 }
 
 export interface profileFormData3 extends Partial<requestData> {
-  flowers: boolean;
+  flowers: boolean | null;
   ifFlowers: string;
   obituary: string;
   spotify: string;
