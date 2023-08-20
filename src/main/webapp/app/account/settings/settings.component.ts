@@ -181,11 +181,14 @@ export class SettingsComponent implements OnInit {
 
       const formData = new FormData();
 
-      formData.append('thumbnail', file);
+      formData.append('file', file);
+      formData.append('type', 'profile');
 
-      const upload$ = this.http.post('/api/thumbnail-upload', formData);
+      const upload$ = this.http.post(this.applicationConfigService.getEndpointFor('/api/profile/pictures'), formData);
 
-      upload$.subscribe();
+      upload$.subscribe(res => {
+        console.log(res);
+      });
     }
   }
 
