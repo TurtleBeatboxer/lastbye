@@ -190,9 +190,12 @@ public class FilesResource {
     }
 
     @PostMapping("/profile/pictures")
-    public ResponseEntity<?> uploadImageToFIleSystem(@RequestParam("file") MultipartFile file, @RequestParam("type") String type)
-        throws IOException {
-        String uploadImage = fileService.uploadImage(file, type);
+    public ResponseEntity<?> uploadImageToFIleSystem(
+        @RequestParam("file") MultipartFile file,
+        @RequestParam("type") String type,
+        @RequestParam("user") String userId
+    ) throws IOException {
+        String uploadImage = fileService.uploadImage(file, type, userId);
         return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
     }
 }

@@ -11,6 +11,10 @@ h1 {
   position: relative;
 }
 
+.div {
+  position: relative;
+}
+
 .plus {
   position: absolute;
   right: 10px;
@@ -70,4 +74,8 @@ button {
   flex-direction: row;
   width: 100%;
   justify-content: space-around;
+}
+
+.file-input {
+  display: none;
 }
