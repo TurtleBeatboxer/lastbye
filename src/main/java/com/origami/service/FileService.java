@@ -34,7 +34,6 @@ public class FileService {
         fileData.setProfile(profile);
         filesRepository.save(fileData);
         file.transferTo(new File(filePath));
-
         if (fileData != null) {
             return "file uploaded successfully : " + filePath;
         }

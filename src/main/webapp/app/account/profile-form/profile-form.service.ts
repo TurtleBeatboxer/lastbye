@@ -104,6 +104,7 @@ export class ProfileFormService {
         ],
       }),
       obituaryText: new FormControl(''),
+      musicType: new FormControl(''),
       spotify: new FormControl('', {
         nonNullable: true,
         validators: [
@@ -113,6 +114,7 @@ export class ProfileFormService {
           Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
         ],
       }),
+      ifGuests: new FormControl(null),
       guests: new FormControl('', {
         nonNullable: true,
         validators: [
@@ -145,7 +147,9 @@ export class ProfileFormService {
 
   buildForm4() {
     return new FormGroup({
+      ifFarewell: new FormControl(null),
       farewellLetter: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      farewellReader: new FormControl(''),
       videoSpeech: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       testament: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
