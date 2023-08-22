@@ -362,12 +362,17 @@
         </div>
         <div class="mb-3">
           <h1 class="stepLabel">Music</h1>
-          <label class="radio-label" for="flowers">Live</label>
-          <input class="radio" type="radio" name="flowers" formControlName="flowers" [value]="true" />
-          <label class="radio-label" for="flowers">Your playlist</label>
-          <input class="radio" type="radio" name="flowers" formControlName="flowers" [value]="false" />
-          <label class="radio-label" for="flowers">No music</label>
-          <input class="radio" type="radio" name="flowers" formControlName="flowers" [value]="true" />
+          <label class="radio-label" for="musicType">Live</label>
+          <input class="radio" type="radio" name="musicType" formControlName="musicType" value="live" />
+          <label class="radio-label" for="musicType">Your playlist</label>
+          <input class="radio" type="radio" name="musicType" formControlName="musicType" value="playlist" />
+          <label class="radio-label" for="musicType">No music</label>
+          <input class="radio" type="radio" name="musicType" formControlName="musicType" value="noMusic" />
+          <label class="radio-label" for="musicType">Other</label>
+          <input class="radio" type="radio" name="musicType" formControlName="musicType" value="other" />
+        </div>
+
+        <div class="mb-3" *ngIf="profileForm3.controls['musicType'].value === 'noMusic'">
           <input
             type="text"
             class="profileForm-input"
@@ -378,7 +383,28 @@
             data-cy="spotify"
           />
         </div>
-        <div class="mb-3">
+
+        <div class="mb-3" *ngIf="profileForm3.controls['musicType'].value === 'other'">
+          <input
+            type="text"
+            class="profileForm-input"
+            id="spotify"
+            name="spotify"
+            placeholder="{{ 'Other' }}"
+            formControlName="spotify"
+            data-cy="spotify"
+          />
+        </div>
+        <div>
+          <h1 class="stepLabel">Guests</h1>
+          <div class="radioInputs">
+            <label class="radio-label" for="ifGuests">Yes</label>
+            <input class="radio" type="radio" name="ifGuests" formControlName="ifGuests" [value]="true" />
+            <label class="radio-label" for="ifGuests">No</label>
+            <input class="radio" type="radio" name="ifGuests" formControlName="ifGuests" [value]="false" />
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="profileForm3.controls['ifGuests'].value == true">
           <input
             type="text"
             class="profileForm-input"
@@ -389,9 +415,9 @@
             data-cy="guests"
           />
         </div>
-        <div class="mb-3">
+        <div class="mb-3" *ngIf="profileForm3.controls['ifGuests'].value == true">
           <input
-            type="text"
+            type="textarea"
             class="profileForm-input"
             id="notInvited"
             name="notInvited"
@@ -417,15 +443,33 @@
     <nb-step label="">
       <form name="form" role="form" [formGroup]="profileForm4" (ngSubmit)="fourthStep()" *ngIf="!success" class="profileForm-1">
         <div class="mb-3">
-          <input
-            type="text"
-            class="profileForm-input"
-            id="farewellLetter"
-            name="farewellLetter"
-            placeholder="{{ 'farewellLetter ' }}"
-            formControlName="farewellLetter"
-            data-cy="farewellLetter"
-          />
+          <h1 class="stepLabel">Farewell letter</h1>
+          <div class="radioInputs">
+            <label class="radio-label" for="ifFarewell">Yes</label>
+            <input class="radio" type="radio" name="ifFarewell" formControlName="ifFarewell" [value]="true" />
+            <label class="radio-label" for="ifFarewell">No</label>
+            <input class="radio" type="radio" name="ifFarewell" formControlName="ifFarewell" [value]="false" />
+          </div>
+          <div class="farewell-inputs" *ngIf="profileForm4.controls['ifFarewell'].value == true">
+            <input
+              type="text"
+              class="profileForm-input"
+              id="farewellLetter"
+              name="farewellLetter"
+              placeholder="{{ 'farewellLetter ' }}"
+              formControlName="farewellLetter"
+              data-cy="farewellLetter"
+            />
+            <input
+              type="text"
+              class="profileForm-input"
+              id="farewellReader"
+              name="farewellReader"
+              placeholder="{{ 'farewellReader ' }}"
+              formControlName="farewellReader"
+              data-cy="farewellReader"
+            />
+          </div>
         </div>
         <div class="mb-3">
           <input
