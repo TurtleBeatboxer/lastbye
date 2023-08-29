@@ -211,6 +211,8 @@ public class ProfileService {
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
             profile.setBurialMethod(userDTO.getBurialMethod());
+            System.out.println(userDTO.getIsPurchasedOther());
+            profile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
             profile.setGraveInscription(userDTO.getGraveInscription());
             profile.setOpenCoffin(userDTO.isOpenCoffin());
             profile.setClothes(userDTO.getClothes());

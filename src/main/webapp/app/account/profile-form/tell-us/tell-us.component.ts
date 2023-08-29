@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-tell-us',
@@ -7,9 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./tell-us.component.scss'],
 })
 export class TellUsComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private accountService: AccountService) {}
 
   redirect() {
-    this.router.navigate(['user/profile1']);
+    if (this.accountService.userIdentity) {
+      this.accountService.userIdentity.levelOfForm = 1;
+      this.router.navigate(['user/profile1']);
+    }
   }
 }

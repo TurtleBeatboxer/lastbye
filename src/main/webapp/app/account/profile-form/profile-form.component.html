@@ -252,7 +252,10 @@
             <input class="radio" type="radio" name="ifPhoto" formControlName="ifPhoto" [value]="false" />
           </div>
         </div>
-
+        <div *ngIf="profileForm2.controls['ifPhoto'].value === true" class="profileForm-input fileDiv" (click)="fileUpload.click()">
+          <p class="" style="margin-bottom: 0px">Insert your file</p>
+        </div>
+        <input type="file" class="file-input" #fileUpload />
         <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
           <h1 class="stepLabel">Open casket?</h1>
           <div class="radioInputs">
@@ -421,7 +424,7 @@
             class="profileForm-input"
             id="notInvited"
             name="notInvited"
-            placeholder="{{ 'notInvited' }}"
+            placeholder="{{ 'Not invite' }}"
             formControlName="notInvited"
             data-cy="notInvited"
           />
@@ -456,23 +459,32 @@
               class="profileForm-input"
               id="farewellLetter"
               name="farewellLetter"
-              placeholder="{{ 'farewellLetter ' }}"
+              placeholder="{{ 'enter ' }}"
               formControlName="farewellLetter"
               data-cy="farewellLetter"
             />
+            <h1 class="stepLabel">Who will read it?</h1>
             <input
               type="text"
               class="profileForm-input"
               id="farewellReader"
               name="farewellReader"
-              placeholder="{{ 'farewellReader ' }}"
+              placeholder="{{ '' }}"
               formControlName="farewellReader"
               data-cy="farewellReader"
             />
           </div>
         </div>
+        <h1 class="stepLabel">Video speech</h1>
         <div class="mb-3">
+          <div class="radioInputs">
+            <label class="radio-label" for="ifVideoSpeech">Yes</label>
+            <input class="radio" type="radio" name="ifVideoSpeech" formControlName="ifVideoSpeech" [value]="true" />
+            <label class="radio-label" for="ifVideoSpeech">No</label>
+            <input class="radio" type="radio" name="ifVideoSpeech" formControlName="ifVideoSpeech" [value]="false" />
+          </div>
           <input
+            *ngIf="profileForm4.controls['ifVideoSpeech'].value == true"
             type="text"
             class="profileForm-input"
             id="videoSpeech"
@@ -482,8 +494,16 @@
             data-cy="videoSpeech"
           />
         </div>
+        <h1 class="stepLabel">Will</h1>
         <div class="mb-3">
+          <div class="radioInputs">
+            <label class="radio-label" for="ifTestament">Yes</label>
+            <input class="radio" type="radio" name="ifTestament" formControlName="ifTestament" [value]="true" />
+            <label class="radio-label" for="ifTestament">No</label>
+            <input class="radio" type="radio" name="ifTestament" formControlName="ifTestament" [value]="false" />
+          </div>
           <input
+            *ngIf="profileForm4.controls['ifTestament'].value == true"
             type="text"
             class="profileForm-input"
             id="testament"
@@ -494,8 +514,16 @@
           />
         </div>
         <div class="mb-3">
+          <h1 class="stepLabel">Other</h1>
+          <div class="radioInputs">
+            <label class="radio-label" for="ifOther">Yes</label>
+            <input class="radio" type="radio" name="ifOther" formControlName="ifOther" [value]="true" />
+            <label class="radio-label" for="ifOther">No</label>
+            <input class="radio" type="radio" name="ifOther" formControlName="ifOther" [value]="false" />
+          </div>
           <input
             type="text"
+            *ngIf="profileForm4.controls['ifOther'].value == true"
             class="profileForm-input"
             id="other"
             name="other"
@@ -505,8 +533,54 @@
           />
         </div>
 
-        <button [disabled]="!profileForm4.valid" type="submit" class="profileForm-button" data-cy="submit">Next</button>
+        <button type="submit" class="profileForm-button" data-cy="submit">Next</button>
       </form>
+    </nb-step>
+    <nb-step label="">
+      <h1 class="stepLabel">
+        Enter people who will be notified after your pass.<br />
+        Enter their name, surname email address and phone number
+      </h1>
+      <div>
+        <form action="" [formGroup]="profileForm5" (ngSubmit)="fiveStep()">
+          <div class="relatives">
+            <input
+              type="text"
+              class="profileForm-input fiveStep-input"
+              id="name"
+              name="name"
+              placeholder="{{ 'Name and surname' }}"
+              formControlName="name"
+              data-cy="name"
+            />
+            <input
+              type="text"
+              class="profileForm-input fiveStep-input"
+              id="email"
+              name="name"
+              placeholder="{{ 'name' }}"
+              formControlName="email"
+              data-cy="email"
+            />
+            <input
+              type="phone"
+              class="profileForm-input fiveStep-input"
+              id="phone"
+              name="phone"
+              placeholder="{{ 'phone' }}"
+              formControlName="phone"
+              data-cy="phone"
+            />
+          </div>
+          <div *ngIf="this.relatives.length > 0" class="relative-list">
+            <jhi-relative *ngFor="let relativ of relatives" [data]="relativ"></jhi-relative>
+          </div>
+          <div class="relatives-button">
+            <button type="button" (click)="submitStep5()" class="profileForm-button" data-cy="submit">Continue</button>
+            <button type="submit" class="profileForm-button" data-cy="submit">Add Person</button>
+          </div>
+        </form>
+      </div>
     </nb-step>
   </nb-stepper>
 </div>

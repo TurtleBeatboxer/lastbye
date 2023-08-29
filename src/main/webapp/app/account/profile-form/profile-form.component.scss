@@ -18,6 +18,19 @@
   font-family: Helvetica, sans-serif;
 }
 
+.fiveStep-input {
+  width: 600.8px;
+  height: 70.8px;
+  font-size: 18px;
+}
+
+.relatives {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+
 .profileForm-1 {
   display: flex;
   flex-direction: column;
@@ -25,6 +38,26 @@
   align-items: center;
   gap: 25px;
   margin: 30px 0px 30px 0px;
+}
+
+.file-input {
+  display: none;
+}
+
+.fileDiv {
+  padding: auto 0px auto 0px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  align-items: center;
+}
+
+.relatives-button {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-top: 80px;
+  flex-direction: row;
 }
 
 .profileForm-button {
@@ -96,6 +129,12 @@
   min-height: 300px;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.farewell-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .check:checked {
