@@ -34,3 +34,7 @@ export interface profileFormData4 extends Partial<requestData> {
   testament: string;
   other: string;
 }
+
+export class Relative {
+  constructor(public email: string, public name: string, public phone: string) {}
+}

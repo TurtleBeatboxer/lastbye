@@ -26,6 +26,7 @@ import { PublicProfileComponent } from './public-profile/public-profile.componen
 import { CodeQrComponent } from './codeQR/code-qr/code-qr.component';
 import { TellUsComponent } from './profile-form/tell-us/tell-us.component';
 import { ProfileFormPictureComponent } from './profile-form/profile-form-picture/profile-form-picture.component';
+import { RelativeComponent } from './profile-form/relative/relative.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -52,6 +53,7 @@ import { ProfileFormPictureComponent } from './profile-form/profile-form-picture
     CodeQrComponent,
     TellUsComponent,
     ProfileFormPictureComponent,
+    RelativeComponent,
   ],
 })
 export class AccountModule {}

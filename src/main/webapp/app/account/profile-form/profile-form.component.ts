@@ -7,7 +7,7 @@ import { ProfileFormService } from './profile-form.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
-import { profileFormData1 } from './profile-form.model';
+import { Relative, profileFormData1 } from './profile-form.model';
 
 @Component({
   selector: 'jhi-profile-form',
@@ -23,11 +23,13 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   burialType;
   otherCremationInput;
   urn;
+  relatives: Relative[] = [];
 
   profileForm1 = this.profileFormService.buildForm1();
   profileForm2 = this.profileFormService.buildForm2();
   profileForm3 = this.profileFormService.buildForm3();
   profileForm4 = this.profileFormService.buildForm4();
+  profileForm5 = this.profileFormService.buildForm5();
 
   constructor(
     private http: HttpClient,
@@ -122,6 +124,15 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.nbStepper.next();
   }
 
+  fiveStep(): void {
+    console.log(this.relatives);
+    let data = this.profileForm5.getRawValue();
+    const relative = new Relative(data.email, data.name, data.phone);
+    this.relatives.push(relative);
+  }
+
+  submitStep5() {}
+
   fourthStep(): void {
     this.http
       .post(
@@ -130,7 +141,6 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
       )
       .subscribe(() => console.warn(this.profileForm4.getRawValue()));
     this.nbStepper.next();
-    this.router.navigate(['/']);
   }
 
   firstStep(): void {
@@ -140,6 +150,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
         this.profileFormService.dataProfile1(this.profileForm1.getRawValue())
       )
       .subscribe(() => console.warn(this.profileForm1.getRawValue()));
+
     this.router.navigate(['user/picture'], { skipLocationChange: true });
   }
 }

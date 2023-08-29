@@ -150,9 +150,20 @@ export class ProfileFormService {
       ifFarewell: new FormControl(null),
       farewellLetter: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
       farewellReader: new FormControl(''),
+      ifVideoSpeech: new FormControl(null),
       videoSpeech: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      ifTestament: new FormControl(null),
       testament: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      ifOther: new FormControl(null),
       other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    });
+  }
+
+  buildForm5() {
+    return new FormGroup({
+      name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      email: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      phone: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     });
   }
   // }
