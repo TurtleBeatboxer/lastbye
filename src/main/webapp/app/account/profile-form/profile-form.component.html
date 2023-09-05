@@ -24,26 +24,6 @@
             formControlName="firstName"
             data-cy="firstName"
           />
-
-          <div
-            *ngIf="
-              profileForm1.get('firstName')!.invalid && (profileForm1.get('firstName')!.dirty || profileForm1.get('firstName')!.touched)
-            "
-          >
-            <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.required">
-              Your username is required.
-            </small>
-
-            <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.minlength">
-              Your username is required to be at least 1 character.
-            </small>
-
-            <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.maxlength">
-              Your username cannot be longer than 50 characters.
-            </small>
-
-            <small class="form-text text-danger" *ngIf="profileForm1.get('firstName')?.errors?.pattern"> Your username is invalid. </small>
-          </div>
         </div>
 
         <div class="mb-3">
@@ -246,13 +226,13 @@
         <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
           <h1 class="stepLabel">Photo on the grave/urn</h1>
           <div class="radioInputs">
-            <label class="radio-label" for="ifPhoto">Yes</label>
-            <input class="radio" type="radio" name="ifPhoto" formControlName="ifPhoto" [value]="true" />
-            <label class="radio-label" for="ifPhoto">No</label>
-            <input class="radio" type="radio" name="ifPhoto" formControlName="ifPhoto" [value]="false" />
+            <label class="radio-label" for="photo">Yes</label>
+            <input class="radio" type="radio" name="photo" formControlName="photo" [value]="true" />
+            <label class="radio-label" for="photo">No</label>
+            <input class="radio" type="radio" name="photo" formControlName="photo" [value]="false" />
           </div>
         </div>
-        <div *ngIf="profileForm2.controls['ifPhoto'].value === true" class="profileForm-input fileDiv" (click)="fileUpload.click()">
+        <div *ngIf="profileForm2.controls['photo'].value === true" class="profileForm-input fileDiv" (click)="fileUpload.click()">
           <p class="" *ngIf="!this.photoName" style="margin-bottom: 0px">Insert your file</p>
           <p *ngIf="this.photoName" style="margin-bottom: 0px">{{ this.photoName }}</p>
         </div>
@@ -280,7 +260,7 @@
           />
         </div>
 
-        <button [disabled]="!profileForm2.valid" type="submit" class="profileForm-button mt-4" data-cy="submit">Next</button>
+        <button type="submit" class="profileForm-button mt-4" data-cy="submit">Next</button>
       </form>
     </nb-step>
 
@@ -316,7 +296,7 @@
           />
         </div>
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <h1 class="stepLabel">Obituary - wielokrotnego wyboru</h1>
           <div class="obituary">
             <div class="checkboxes">
@@ -331,26 +311,12 @@
               <input type="checkbox" class="radio check" name="press" id="press" />
             </div>
 
-            <input
-              type="text"
-              class="profileForm-input"
-              id="obituary"
-              name="obituary"
-              placeholder="{{ 'Other' }}"
-              formControlName="obituary"
-              data-cy="obituary"
-            />
-            <input
-              type="text"
-              class="profileForm-input"
-              id="obituary"
-              name="obituary"
-              placeholder="{{ 'Text for your obituary' }}"
-              formControlName="obituary"
-              data-cy="obituary"
-            />
+            <input type="text" class="profileForm-input" id="obituary" name="obituary" placeholder="{{ 'Other' }}"
+              formControlName="obituary" data-cy="obituary" />
+            <input type="text" class="profileForm-input" id="obituary" name="obituary"
+              placeholder="{{ 'Text for your obituary' }}" formControlName="obituary" data-cy="obituary" />
           </div>
-        </div>
+        </div> -->
 
         <div class="mb-3">
           <h1 class="stepLabel">What will be your place of ceremony?</h1>
@@ -376,7 +342,10 @@
           <input class="radio" type="radio" name="musicType" formControlName="musicType" value="other" />
         </div>
 
-        <div class="mb-3" *ngIf="profileForm3.controls['musicType'].value === 'noMusic'">
+        <div
+          class="mb-3"
+          *ngIf="profileForm3.controls['musicType'].value === 'live' || profileForm3.controls['musicType'].value === 'playlist'"
+        >
           <input
             type="text"
             class="profileForm-input"

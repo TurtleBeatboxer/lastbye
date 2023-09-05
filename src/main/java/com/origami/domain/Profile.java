@@ -128,6 +128,28 @@ public class Profile implements Serializable {
     @Column(name = "question_answer")
     private String questionAnswer;
 
+    @Column(name = "burial_place")
+    private String burialPlace;
+
+    @Column(name = "farewell_reader")
+    private String farewellReader;
+
+    public String getBurialPlace() {
+        return burialPlace;
+    }
+
+    public void setBurialPlace(String burialPlace) {
+        this.burialPlace = burialPlace;
+    }
+
+    public String getFarewellReader() {
+        return farewellReader;
+    }
+
+    public void setFarewellReader(String farewellReader) {
+        this.farewellReader = farewellReader;
+    }
+
     public Boolean getFinishedEditing() {
         return finishedEditing;
     }

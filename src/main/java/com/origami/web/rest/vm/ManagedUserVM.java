@@ -45,6 +45,8 @@ public class ManagedUserVM extends AdminUserDTO {
     private Long userId;
     private Long editsLeft;
     private LifeStatus lifeStatus;
+    private String burialPlace;
+    private String farewellReader;
 
     public LifeStatus getLifeStatus() {
         return lifeStatus;
@@ -56,6 +58,26 @@ public class ManagedUserVM extends AdminUserDTO {
 
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
+    }
+
+    public Boolean getPurchasedPlace() {
+        return purchasedPlace;
+    }
+
+    public String getBurialPlace() {
+        return burialPlace;
+    }
+
+    public void setBurialPlace(String burialPlace) {
+        this.burialPlace = burialPlace;
+    }
+
+    public String getFarewellReader() {
+        return farewellReader;
+    }
+
+    public void setFarewellReader(String farewellReader) {
+        this.farewellReader = farewellReader;
     }
 
     public Boolean isOpenCoffin() {

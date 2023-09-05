@@ -77,6 +77,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.otherCremation = false;
     this.otherCremationInput = '';
     this.profileForm2.reset();
+    this.profileForm2.patchValue({ burialMethod: 'coffin' });
   }
 
   onOtherClicked() {
@@ -90,6 +91,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.otherCremation = false;
     this.otherCremationInput = '';
     this.profileForm2.reset();
+    this.profileForm2.patchValue({ burialMethod: 'cremation' });
   }
 
   otherCremationFalse() {
@@ -113,6 +115,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
         this.profileFormService.dataProfile2(this.profileForm2.getRawValue())
       )
       .subscribe(() => console.warn(this.profileForm2.getRawValue()));
+    this.profileFormService.savePhoto(this.file);
     this.nbStepper.next();
   }
 

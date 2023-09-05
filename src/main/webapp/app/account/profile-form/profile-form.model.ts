@@ -21,7 +21,7 @@ export interface profileFormData2 extends Partial<requestData> {
 export interface profileFormData3 extends Partial<requestData> {
   flowers: boolean | null;
   ifFlowers: string;
-  obituary: string;
+  // obituary: string;
   spotify: string;
   guests: string;
   notInvited: string;

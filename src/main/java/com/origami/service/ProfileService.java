@@ -201,6 +201,7 @@ public class ProfileService {
             Profile profile = profileOptional.get();
             profile.setPrefix(userDTO.getPrefix());
             profile.setPhone(userDTO.getPhone());
+
             profile.setLevelOfForm(1L);
             profileRepository.save(profile);
         }
@@ -216,6 +217,7 @@ public class ProfileService {
             profile.setGraveInscription(userDTO.getGraveInscription());
             profile.setOpenCoffin(userDTO.isOpenCoffin());
             profile.setClothes(userDTO.getClothes());
+            profile.setBurialPlace(userDTO.getBurialPlace());
             profile.setLevelOfForm(2L);
             profileRepository.save(profile);
         }

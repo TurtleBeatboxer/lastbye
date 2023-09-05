@@ -3,12 +3,18 @@ import { profileFormData1, profileFormData2, profileFormData3, profileFormData4 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileFormService {
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private applicationConfigService: ApplicationConfigService,
+    private http: HttpClient
+  ) {}
 
   getUserId(): { userId: number; login: string } {
     if (this.accountService.userIdentity) {
@@ -68,8 +74,7 @@ export class ProfileFormService {
         nonNullable: true,
         validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
       }),
-      ifPhoto: new FormControl(null),
-      photoGrave: new FormControl(''),
+      photo: new FormControl(null),
       openCoffin: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
 
       clothes: new FormControl('', {
@@ -94,16 +99,16 @@ export class ProfileFormService {
           Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
         ],
       }),
-      obituary: new FormControl('', {
-        nonNullable: true,
-        validators: [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(50),
-          Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
-        ],
-      }),
-      obituaryText: new FormControl(''),
+      // obituary: new FormControl('', {
+      //   nonNullable: true,
+      //   validators: [
+      //     Validators.required,
+      //     Validators.minLength(1),
+      //     Validators.maxLength(50),
+      //     Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      //   ],
+      // }),
+      // obituaryText: new FormControl(''),
       musicType: new FormControl(''),
       spotify: new FormControl('', {
         nonNullable: true,
@@ -183,5 +188,20 @@ export class ProfileFormService {
 
   dataProfile4(form: profileFormData4): profileFormData4 {
     return { ...form, ...this.getUserId(), levelOfForm: 3 };
+  }
+
+  savePhoto(file: File) {
+    const formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('type', 'graveProfilePicture');
+    if (this.accountService.userIdentity) {
+      formData.append('user', this.accountService.userIdentity.userId.toString());
+    }
+    const upload$ = this.http.post(this.applicationConfigService.getEndpointFor('/api/profile/pictures'), formData);
+
+    upload$.subscribe(res => {
+      console.log(res);
+    });
   }
 }
