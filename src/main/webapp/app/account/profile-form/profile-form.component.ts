@@ -24,6 +24,8 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   otherCremationInput;
   urn;
   relatives: Relative[] = [];
+  photoName: any;
+  file: File;
 
   profileForm1 = this.profileFormService.buildForm1();
   profileForm2 = this.profileFormService.buildForm2();
@@ -63,10 +65,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   }
 
   onTest(): void {
-    console.log(this.user);
-    console.log(this.burialType);
-    console.log(this.urn);
-    console.log(this.profileForm2.getRawValue());
+    console.log(this.photoName);
   }
 
   onSkip(): void {
@@ -77,17 +76,20 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.profileForm2.patchValue({ burialMethod: 'coffin' });
     this.otherCremation = false;
     this.otherCremationInput = '';
+    this.profileForm2.reset();
   }
 
   onOtherClicked() {
     this.profileForm2.patchValue({ burialMethod: '' });
     this.otherCremation = false;
     this.otherCremationInput = '';
+    this.profileForm2.reset();
   }
 
   onCremationClick() {
     this.otherCremation = false;
     this.otherCremationInput = '';
+    this.profileForm2.reset();
   }
 
   otherCremationFalse() {
@@ -152,5 +154,13 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
       .subscribe(() => console.warn(this.profileForm1.getRawValue()));
 
     this.router.navigate(['user/picture'], { skipLocationChange: true });
+  }
+
+  onFileSelected(event) {
+    this.file = event.target.files[0];
+    console.log(this.file.name);
+    const reader = new FileReader();
+    this.photoName = this.file.name;
+    reader.readAsDataURL(event.target.files[0]);
   }
 }
