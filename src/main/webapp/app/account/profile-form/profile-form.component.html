@@ -253,9 +253,10 @@
           </div>
         </div>
         <div *ngIf="profileForm2.controls['ifPhoto'].value === true" class="profileForm-input fileDiv" (click)="fileUpload.click()">
-          <p class="" style="margin-bottom: 0px">Insert your file</p>
+          <p class="" *ngIf="!this.photoName" style="margin-bottom: 0px">Insert your file</p>
+          <p *ngIf="this.photoName" style="margin-bottom: 0px">{{ this.photoName }}</p>
         </div>
-        <input type="file" class="file-input" #fileUpload />
+        <input type="file" class="file-input" #fileUpload (change)="onFileSelected($event)" />
         <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
           <h1 class="stepLabel">Open casket?</h1>
           <div class="radioInputs">
