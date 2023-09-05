@@ -23,6 +23,10 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
+import { CodeQrComponent } from './codeQR/code-qr/code-qr.component';
+import { TellUsComponent } from './profile-form/tell-us/tell-us.component';
+import { ProfileFormPictureComponent } from './profile-form/profile-form-picture/profile-form-picture.component';
+import { RelativeComponent } from './profile-form/relative/relative.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -46,6 +50,10 @@ import { PublicProfileComponent } from './public-profile/public-profile.componen
     SettingsComponent,
     ProfileFormComponent,
     PublicProfileComponent,
+    CodeQrComponent,
+    TellUsComponent,
+    ProfileFormPictureComponent,
+    RelativeComponent,
   ],
 })
 export class AccountModule {}

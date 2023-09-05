@@ -2,7 +2,7 @@
   <div class="firstpanel">
     <p class="coolsentence">From You</p>
     <p class="coolsentence">for your loved ones</p>
-    <button [routerLink]="['/user/register']" class="signup">Sign up for free</button>
+    <button *ngIf="!(accountService.isAuthenticatedObs | async)" [routerLink]="['/user/register']" class="signup">Sign up for free</button>
   </div>
 
   <div id="terrible_idea">
