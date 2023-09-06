@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { profileFormData1, profileFormData2, profileFormData3, profileFormData4 } from './profile-form.model';
+import { Files, profileFormData1, profileFormData2, profileFormData3, profileFormData4, smallFile } from './profile-form.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -152,13 +152,10 @@ export class ProfileFormService {
 
   buildForm4() {
     return new FormGroup({
-      ifFarewell: new FormControl(null),
-      farewellLetter: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      farewellLetter: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
       farewellReader: new FormControl(''),
-      ifVideoSpeech: new FormControl(null),
-      videoSpeech: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-      ifTestament: new FormControl(null),
-      testament: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      videoSpeech: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
+      testament: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
       ifOther: new FormControl(null),
       other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     });
@@ -190,18 +187,45 @@ export class ProfileFormService {
     return { ...form, ...this.getUserId(), levelOfForm: 3 };
   }
 
-  savePhoto(file: File) {
-    const formData = new FormData();
+  savePhoto(file: smallFile | null): void {
+    if (file) {
+      const formData = new FormData();
 
-    formData.append('file', file);
-    formData.append('type', 'graveProfilePicture');
-    if (this.accountService.userIdentity) {
-      formData.append('user', this.accountService.userIdentity.userId.toString());
+      formData.append('file', file.file);
+      formData.append('type', file.name);
+      if (this.accountService.userIdentity) {
+        formData.append('user', this.accountService.userIdentity.userId.toString());
+      }
+      const upload$ = this.http.post(this.applicationConfigService.getEndpointFor('/api/profile/pictures'), formData);
+
+      upload$.subscribe(res => {
+        console.log(res);
+      });
     }
-    const upload$ = this.http.post(this.applicationConfigService.getEndpointFor('/api/profile/pictures'), formData);
+  }
 
-    upload$.subscribe(res => {
-      console.log(res);
-    });
+  onFileSelected(event: Event, files: Files): Files {
+    const target = event.target as HTMLInputElement;
+    const fileList: FileList | null = target.files;
+    if (fileList) {
+      switch (target.name) {
+        case 'graveProfilePicture':
+          files.graveProfilePicture = new smallFile(fileList[0], target.name);
+          return files;
+
+        case 'farewellLetter':
+          files.farewellLetter = new smallFile(fileList[0], target.name);
+          return files;
+        case 'videoSpeech':
+          files.videoSpeech = new smallFile(fileList[0], target.name);
+          return files;
+        case 'testament':
+          files.testament = new smallFile(fileList[0], target.name);
+          return files;
+        default:
+          return files;
+      }
+    }
+    return files;
   }
 }
