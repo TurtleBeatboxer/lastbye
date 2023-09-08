@@ -231,6 +231,7 @@ public class ProfileService {
             profile.setIfFlowers(userDTO.getIfFlowers());
             profile.setObituary(userDTO.getObituary());
             profile.setSpotify(userDTO.getSpotify());
+            profile.setMusicType(userDTO.getMusicType());
             profile.setGuests(userDTO.getGuests());
             profile.setNotInvited(userDTO.getNotInvited());
             profile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());

@@ -48,6 +48,16 @@ public class ManagedUserVM extends AdminUserDTO {
     private String burialPlace;
     private String farewellReader;
 
+    private String musicType;
+
+    public String getMusicType() {
+        return musicType;
+    }
+
+    public void setMusicType(String musicType) {
+        this.musicType = musicType;
+    }
+
     public LifeStatus getLifeStatus() {
         return lifeStatus;
     }

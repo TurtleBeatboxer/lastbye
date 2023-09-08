@@ -6,21 +6,19 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="1" author="Michas">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="Profile" columnName="burial_place" />
-                <columnExists tableName="Profile" columnName="farewell_reader" />
+    <changeSet id="1312312313" author="Michas">
+<!--        <preConditions onFail="MARK_RAN">-->
+<!--            <not>-->
+<!--                <columnExists tableName="Profile" columnName="music_type" />-->
 
-            </not>
-        </preConditions>
+
+<!--            </not>-->
+<!--        </preConditions>-->
         <addColumn tableName="profile">
-            <column name="burial_place" type="varchar(256)">
+            <column name="music_type" type="varchar(256)">
                 <constraints nullable="true" unique="false"/>
             </column>
-            <column name="farewell_reader" type="varchar(256)">
-                <constraints nullable="true" unique="false"/>
-            </column>
+
 
         </addColumn>
     </changeSet>

@@ -134,6 +134,17 @@ public class Profile implements Serializable {
     @Column(name = "farewell_reader")
     private String farewellReader;
 
+    @Column(name = "music_type")
+    private String musicType;
+
+    public String getMusicType() {
+        return musicType;
+    }
+
+    public void setMusicType(String musicType) {
+        this.musicType = musicType;
+    }
+
     public String getBurialPlace() {
         return burialPlace;
     }
