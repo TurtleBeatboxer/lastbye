@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Relative } from '../profile-form.model';
 
 @Component({
@@ -8,7 +8,14 @@ import { Relative } from '../profile-form.model';
 })
 export class RelativeComponent implements OnInit {
   @Input() data: Relative;
+  @Input() index: number;
+  @Output() deleteItemEvent = new EventEmitter();
   constructor() {}
+
+  deleteRelative(): void {
+    this.deleteItemEvent.emit(this.index);
+    console.log('click');
+  }
 
   ngOnInit(): void {}
 }

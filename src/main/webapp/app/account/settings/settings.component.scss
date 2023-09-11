@@ -2,6 +2,10 @@
   margin-top: 10px;
 }
 
+.edit {
+  margin: 0px 12.5% 0px 12.5%;
+}
+
 .container {
   margin-top: 150px;
 }
@@ -37,8 +41,8 @@ input {
 .img {
   border: 1px solid #707070;
   border-radius: 50%;
-  width: 277px;
-  height: 277px;
+  width: 250px;
+  height: 250px;
 }
 
 .header-buttons {
@@ -71,8 +75,34 @@ input {
 .title-body {
   font-size: 55px;
   font-weight: bold;
+  text-align: center;
 }
 
 .text {
   font-size: 30px;
+}
+
+.name {
+  font-size: 55px;
+  font-weight: bold;
+}
+
+.separator {
+  height: 1px;
+  background-color: #707070;
+}
+
+.value {
+  font-size: 50px;
+  font-weight: 500;
+}
+
+.section {
+  position: relative;
+}
+
+.editbtn {
+  position: absolute;
+  right: 0px;
+  top: 10px;
 }

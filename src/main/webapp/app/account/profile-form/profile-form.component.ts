@@ -146,6 +146,13 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     const data = this.profileForm5.getRawValue();
     const relative = new Relative(data.email, data.name, data.phone);
     this.relatives.push(relative);
+    this.profileForm5.reset();
+  }
+
+  deleteRelative(index): void {
+    this.relatives.splice(index, 1);
+
+    console.log(this.relatives);
   }
 
   submitStep5(): void {}

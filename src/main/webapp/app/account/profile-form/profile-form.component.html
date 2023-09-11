@@ -536,7 +536,12 @@
             />
           </div>
           <div *ngIf="this.relatives.length > 0" class="relative-list">
-            <jhi-relative *ngFor="let relativ of relatives" [data]="relativ"></jhi-relative>
+            <jhi-relative
+              *ngFor="let relativ of relatives; let i = index"
+              (deleteItemEvent)="deleteRelative($event)"
+              [index]="i"
+              [data]="relativ"
+            ></jhi-relative>
           </div>
           <div class="relatives-button">
             <button type="button" (click)="submitStep5()" class="profileForm-button" data-cy="submit">Continue</button>

@@ -33,6 +33,7 @@ export class Account {
 
     public lastName: string | null,
 
-    public imageUrl: string | null
+    public imageUrl: string | null,
+    public farewellReader: string | null
   ) {}
 }

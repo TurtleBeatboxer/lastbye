@@ -20,6 +20,7 @@ export class SettingsComponent implements OnInit {
   languages = LANGUAGES;
   isTrueCoffin: boolean;
   editsError = false;
+  editMode = false;
   initialAccount: Account = {} as Account;
   edits: number;
   fileName = '';
@@ -152,6 +153,7 @@ export class SettingsComponent implements OnInit {
     levelOfForm: new FormControl(this.initialAccount.levelOfForm, { nonNullable: true }),
     activated: new FormControl(this.initialAccount.activated, { nonNullable: true }),
     editsLeft: new FormControl(this.initialAccount.editsLeft, { nonNullable: true }),
+    farewellReader: new FormControl(this.initialAccount.farewellReader),
   });
 
   constructor(
@@ -166,13 +168,14 @@ export class SettingsComponent implements OnInit {
       if (account) {
         this.edits = account.editsLeft;
         console.log(account.openCoffin);
-        this.settingsForm.patchValue(account);
 
+        this.initialAccount = account;
         console.log(this.isTrueCoffin);
-        console.log(this.initialAccount);
+        console.log(this.initialAccount.burialMethod);
       }
     });
   }
+
   onFileSelected(event) {
     const file: File = event.target.files[0];
 
@@ -212,6 +215,10 @@ export class SettingsComponent implements OnInit {
     });
   }
   onClick() {
-    console.log(this.initialAccount);
+    console.log(this.initialAccount.burialMethod);
+  }
+
+  edit() {
+    this.editMode = !this.editMode;
   }
 }
