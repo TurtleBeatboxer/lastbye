@@ -7,13 +7,13 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet id="1312312313" author="Michas">
-<!--        <preConditions onFail="MARK_RAN">-->
-<!--            <not>-->
-<!--                <columnExists tableName="Profile" columnName="music_type" />-->
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="Profile" columnName="music_type" />
 
 
-<!--            </not>-->
-<!--        </preConditions>-->
+            </not>
+        </preConditions>
         <addColumn tableName="profile">
             <column name="music_type" type="varchar(256)">
                 <constraints nullable="true" unique="false"/>
