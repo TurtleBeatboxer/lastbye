@@ -1,0 +1,183 @@
+<form name="form" class="profileForm-1" role="form" [formGroup]="profileForm2" (ngSubmit)="submit()">
+  <div class="radioInputs">
+    <div>
+      <label class="radio-label" for="burialType"> Coffin </label>
+      <input
+        class="radio"
+        type="radio"
+        name="burialType"
+        (click)="onCoffinClick()"
+        value="coffin"
+        [(ngModel)]="burialType"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div>
+      <label class="radio-label" for="burialType"> Cremation </label>
+      <input
+        class="radio"
+        type="radio"
+        name="burialType"
+        (click)="onCremationClick()"
+        value="cremation"
+        [(ngModel)]="burialType"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div>
+      <label class="radio-label" for="burialType" disabled> Other </label>
+      <input
+        class="radio"
+        type="radio"
+        name="burialType"
+        (click)="onOtherClicked()"
+        value="other"
+        [(ngModel)]="burialType"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+  </div>
+  <div class="mb-3 other-input1" *ngIf="burialType === 'other'">
+    <input
+      type="text"
+      class="profileForm-input burial-input"
+      id="burialMethod"
+      name="burialMethod"
+      placeholder="{{ 'Other burial method' }}"
+      data-cy="burialMethod"
+      formControlName="burialMethod"
+    />
+  </div>
+  <div *ngIf="burialType === 'cremation' || burialType === 'cremation-other'" class="cremation container">
+    <h1 class="cremation-text">If cremation choosen - what will happen with your ashes?</h1>
+    <div class="cremation-radio">
+      <div>
+        <label class="radio-label" for="burial"> Scatter them at sea </label>
+        <input (click)="otherCremationFalse()" class="radio" type="radio" name="burialMethod" formControlName="burialMethod" value="sea" />
+      </div>
+      <div>
+        <label class="radio-label" for="burial"> Make vinyl record </label>
+        <input
+          (click)="otherCremationFalse()"
+          class="radio"
+          type="radio"
+          name="burialMethod"
+          formControlName="burialMethod"
+          value="vinyl"
+        />
+      </div>
+      <div>
+        <label class="radio-label" for="burial"> Urn </label>
+        <input (click)="otherCremationFalse()" class="radio" type="radio" name="burialMethod" formControlName="burialMethod" value="urn" />
+      </div>
+      <div>
+        <label class="radio-label" for="burial"> Make jewellery </label>
+        <input
+          class="radio"
+          type="radio"
+          name="burialMethod"
+          formControlName="burialMethod"
+          (click)="otherCremationFalse()"
+          value="jewellery"
+        />
+      </div>
+      <div class="other-cremation">
+        <label class="radio-label" for="otherCremation"> Other </label>
+        <input
+          class="radio"
+          type="radio"
+          name="otherCremationInput"
+          (click)="onOtherCremationClick()"
+          value="cremation-other"
+          [(ngModel)]="otherCremationInput"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </div>
+    </div>
+    <div *ngIf="otherCremationInput === 'cremation-other'" class="other-input1 mt-5">
+      <input
+        type="text"
+        class="profileForm-input"
+        id="burialMethod"
+        name="burialMethod"
+        placeholder="{{ 'Other burial method' }}"
+        formControlName="burialMethod"
+        data-cy="burialMethod"
+      />
+    </div>
+  </div>
+
+  <div class="mb-3" *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
+    <h1 class="stepLabel">If coffin or urn chooses - enter burial place</h1>
+    <input
+      type="text"
+      class="profileForm-input"
+      id="burialPlace"
+      name="burialPlace"
+      placeholder="{{ 'Please enter your burial place' }}"
+      formControlName="burialPlace"
+      data-cy="burialPlace"
+    />
+  </div>
+
+  <div class="mb-3" *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
+    <h1 class="stepLabel">Inscription on the grave/urn</h1>
+    <div class="radioInputs">
+      <label class="radio-label" for="ifGraveInscription">Yes</label>
+      <input class="radio" type="radio" name="ifGraveInscription" formControlName="ifGraveInscription" [value]="true" />
+      <label class="radio-label" for="ifGraveInscription">No</label>
+      <input class="radio" type="radio" name="ifGraveInscription" formControlName="ifGraveInscription" [value]="false" />
+    </div>
+    <input
+      *ngIf="profileForm2.controls['ifGraveInscription'].value === true"
+      type="text"
+      class="profileForm-input"
+      id="graveInscription"
+      name="graveInscription"
+      placeholder="{{ 'graveInscription' }}"
+      formControlName="graveInscription"
+      data-cy="graveInscription"
+    />
+  </div>
+  <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
+    <h1 class="stepLabel">Photo on the grave/urn</h1>
+    <div class="radioInputs">
+      <label class="radio-label" for="photo">Yes</label>
+      <input class="radio" type="radio" name="photo" formControlName="photo" [value]="true" />
+      <label class="radio-label" for="photo">No</label>
+      <input class="radio" type="radio" name="photo" formControlName="photo" [value]="false" />
+    </div>
+  </div>
+  <!-- <div *ngIf="profileForm2.controls['photo'].value === true" class="profileForm-input fileDiv"
+    (click)="fileUpload.click()">
+    <p class="" *ngIf="!this.files.graveProfilePicture" style="margin-bottom: 0px">Insert your file</p>
+    <p *ngIf="this.files.graveProfilePicture" style="margin-bottom: 0px">
+      {{ this.files.graveProfilePicture.file.name }}
+    </p>
+  </div> -->
+  <!-- <input type="file" name="graveProfilePicture" class="file-input" #fileUpload (change)="onFileSelected($event)" /> -->
+  <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
+    <h1 class="stepLabel">Open casket?</h1>
+    <div class="radioInputs">
+      <label class="radio-label" for="openCoffin">Yes</label>
+      <input class="radio" type="radio" name="openCoffin" formControlName="openCoffin" [value]="true" />
+      <label class="radio-label" for="openCoffin">No</label>
+      <input class="radio" type="radio" name="openCoffin" formControlName="openCoffin" [value]="false" />
+    </div>
+  </div>
+
+  <div *ngIf="profileForm2.controls['openCoffin'].value === true" class="mb-3">
+    <h1 class="stepLabel">Clothing</h1>
+    <input
+      type="text"
+      class="profileForm-input"
+      id="clothes"
+      name="clothes"
+      placeholder="{{ 'Clothes' }}"
+      formControlName="clothes"
+      data-cy="clothes"
+    />
+  </div>
+
+  <button type="submit" class="profileForm-button mt-4" data-cy="submit">Next</button>
+</form>

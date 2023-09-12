@@ -13,6 +13,7 @@ export interface profileFormData1 extends Partial<requestData> {
 
 export interface profileFormData2 extends Partial<requestData> {
   burialMethod: string;
+  burialPlace: string;
   graveInscription: string;
   openCoffin: boolean | null;
   clothes: string;

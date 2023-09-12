@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -7,6 +7,8 @@ import { Account } from 'app/core/auth/account.model';
 import { LANGUAGES } from 'app/config/language.constants';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { Router } from '@angular/router';
+import { EditEventServiceService } from './edit-event-service.service';
 
 // const this.initialAccount: Account = {} as Account;
 
@@ -153,14 +155,17 @@ export class SettingsComponent implements OnInit {
     levelOfForm: new FormControl(this.initialAccount.levelOfForm, { nonNullable: true }),
     activated: new FormControl(this.initialAccount.activated, { nonNullable: true }),
     editsLeft: new FormControl(this.initialAccount.editsLeft, { nonNullable: true }),
-    farewellReader: new FormControl(this.initialAccount.farewellReader),
+    farewellReader: new FormControl(this.initialAccount.farewellReader, { nonNullable: true }),
+    burialPlace: new FormControl(this.initialAccount.burialPlace, { nonNullable: true }),
   });
 
   constructor(
     public accountService: AccountService,
     private translateService: TranslateService,
     private http: HttpClient,
-    private applicationConfigService: ApplicationConfigService
+    private applicationConfigService: ApplicationConfigService,
+    private router: Router,
+    private messageService: EditEventServiceService
   ) {}
 
   ngOnInit(): void {
@@ -220,5 +225,36 @@ export class SettingsComponent implements OnInit {
 
   edit() {
     this.editMode = !this.editMode;
+  }
+
+  editClick() {
+    const parentEmmitter = new EventEmitter();
+    parentEmmitter.emit();
+  }
+
+  editClickBasic() {
+    this.messageService.broadcast({
+      data: {
+        name: this.initialAccount.firstName,
+        surname: this.initialAccount.lastName,
+        prefix: this.initialAccount.prefix,
+        phone: this.initialAccount.phone,
+      },
+    });
+    this.router.navigate(['/user/basicInfoEdit'], { skipLocationChange: true });
+    console.log('emit');
+  }
+
+  editClickMessage() {
+    this.router.navigate(['/user/myLastMessage'], { skipLocationChange: true });
+  }
+  editClickFuneral() {
+    this.router.navigate(['/user/myFuneralEdit'], { skipLocationChange: true });
+  }
+  editClickBurial() {
+    this.router.navigate(['/user/myBurialEdit'], { skipLocationChange: true });
+  }
+  editClickSecurity() {
+    this.router.navigate(['/user/securityEdit'], { skipLocationChange: true });
   }
 }
