@@ -14,7 +14,7 @@
       <div class="img" (click)="fileUpload.click()"></div>
     </div>
     <div class="header-text">
-      <div class="mb-3">
+      <div class="mb-3" *ngIf="!this.editMode">
         <p class="name">{{ this.initialAccount.firstName + ' ' + this.initialAccount.lastName }}</p>
       </div>
     </div>
@@ -26,40 +26,42 @@
   </div>
 
   <div class="separator"></div>
-  <div class="section">
-    <h2 class="title-body">Basic Info</h2>
-    <div class="mb-3">
-      <p class="value">Name: {{ this.initialAccount }}</p>
+  <div *ngIf="this.editMode">
+    <div class="section" *ngIf="this.editMode">
+      <h2 class="title-body">Basic Info</h2>
+      <div class="mb-3">
+        <p class="value">Name: {{ this.initialAccount.firstName }}</p>
+      </div>
+      <div class="mb-3">
+        <p class="value">Surname: {{ this.initialAccount.lastName }}</p>
+      </div>
+      <div class="mb-3">
+        <p class="value">Username: {{ this.initialAccount }}</p>
+      </div>
+      <div class="mb-3">
+        <p class="value">Birth date: {{ this.initialAccount }}</p>
+      </div>
+      <button *ngIf="this.editMode" (click)="editClickBasic()" class="button-header editbtn">Edit</button>
     </div>
-    <div class="mb-3">
-      <p class="value">Surname: {{ this.initialAccount }}</p>
+    <div class="separator"></div>
+    <div class="section">
+      <h2 class="title-body">Security</h2>
+      <div class="mb-3">
+        <div class="value">Email:</div>
+      </div>
+      <div class="mb-3">
+        <div class="value">Phone number:</div>
+      </div>
+      <div class="mb-3">
+        <div class="value">Password:</div>
+      </div>
+      <div class="mb-3">
+        <div class="value">Ludzie z info:</div>
+      </div>
+      <button *ngIf="this.editMode" (click)="editClickSecurity()" class="button-header editbtn">Edit</button>
     </div>
-    <div class="mb-3">
-      <p class="value">Username: {{ this.initialAccount }}</p>
-    </div>
-    <div class="mb-3">
-      <p class="value">Birth date: {{ this.initialAccount }}</p>
-    </div>
-    <button *ngIf="this.editMode" (click)="editClickBasic()" class="button-header editbtn">Edit</button>
+    <div class="separator"></div>
   </div>
-  <div class="separator"></div>
-  <div class="section">
-    <h2 class="title-body">Security</h2>
-    <div class="mb-3">
-      <div class="value">Email:</div>
-    </div>
-    <div class="mb-3">
-      <div class="value">Phone number:</div>
-    </div>
-    <div class="mb-3">
-      <div class="value">Password:</div>
-    </div>
-    <div class="mb-3">
-      <div class="value">Ludzie z info:</div>
-    </div>
-    <button *ngIf="this.editMode" (click)="editClickSecurity()" class="button-header editbtn">Edit</button>
-  </div>
-  <div class="separator"></div>
   <div class="section">
     <h2 class="title-body">My burial</h2>
     <div class="mb-3">
@@ -98,15 +100,6 @@
       <div class="value">Those not invited: {{ this.initialAccount.notInvited }}</div>
     </div>
     <button *ngIf="this.editMode" (click)="editClickFuneral()" class="button-header editbtn">Edit</button>
-  </div>
-  <div class="separator"></div>
-  <div class="section" *ngIf="this.editMode">
-    <h2 class="title-body">Security</h2>
-    <div class="mb-3 value">Email:</div>
-    <div class="mb-3 value">Phone number:</div>
-    <div class="mb-3 value">Password:</div>
-    <div class="mb-3 value">Ludzie którzy dostają info:</div>
-    <button *ngIf="this.editMode" class="button-header editbtn">Edit</button>
   </div>
   <div class="separator"></div>
   <div class="section">

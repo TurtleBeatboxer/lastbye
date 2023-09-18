@@ -27,7 +27,12 @@ export class MyBurialEditComponent implements OnInit {
     private messageService: EditEventServiceService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.messageService.selectedData$.subscribe(value => {
+      this.profileForm2.patchValue(value);
+      console.log(value);
+    });
+  }
 
   submit() {
     this.http

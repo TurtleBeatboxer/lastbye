@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="1" author="Michas">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="Profile" columnName="burial_type" />
+                <columnExists tableName="Profile" columnName="if_grave_inscription" />
+                <columnExists tableName="Profile" columnName="if_guests" />
+                <columnExists tableName="Profile" columnName="if_other_4" />
+            </not>
+        </preConditions>
+        <addColumn tableName="profile">
+            <column name="burial_type" type="varchar(256)">
+                <constraints nullable="true" unique="false"/>
+            </column>
+            <column name="if_grave_inscription" type="boolean">
+                <constraints nullable="true" unique="false"/>
+            </column>
+            <column name="if_guests" type="boolean">
+                <constraints nullable="true" unique="false"/>
+            </column>
+            <column name="if_other_4" type="boolean">
+                <constraints nullable="true" unique="false"/>
+            </column>
+
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
