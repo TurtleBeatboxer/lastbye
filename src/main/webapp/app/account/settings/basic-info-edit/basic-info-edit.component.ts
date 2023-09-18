@@ -20,9 +20,8 @@ export class BasicInfoEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.messageService.myAppEvent$.subscribe(ev => {
-      console.log(ev.data);
-      this.profileForm1.patchValue(ev.data);
+    this.messageService.selectedData$.subscribe(value => {
+      this.profileForm1.patchValue(value);
     });
   }
 

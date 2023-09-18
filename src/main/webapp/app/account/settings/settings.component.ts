@@ -233,28 +233,24 @@ export class SettingsComponent implements OnInit {
   }
 
   editClickBasic() {
-    this.messageService.broadcast({
-      data: {
-        name: this.initialAccount.firstName,
-        surname: this.initialAccount.lastName,
-        prefix: this.initialAccount.prefix,
-        phone: this.initialAccount.phone,
-      },
-    });
     this.router.navigate(['/user/basicInfoEdit'], { skipLocationChange: true });
-    console.log('emit');
+    this.messageService.setData(this.initialAccount);
   }
 
   editClickMessage() {
     this.router.navigate(['/user/myLastMessage'], { skipLocationChange: true });
+    this.messageService.setData(this.initialAccount);
   }
   editClickFuneral() {
     this.router.navigate(['/user/myFuneralEdit'], { skipLocationChange: true });
+    this.messageService.setData(this.initialAccount);
   }
   editClickBurial() {
     this.router.navigate(['/user/myBurialEdit'], { skipLocationChange: true });
+    this.messageService.setData(this.initialAccount);
   }
   editClickSecurity() {
     this.router.navigate(['/user/securityEdit'], { skipLocationChange: true });
+    this.messageService.setData(this.initialAccount);
   }
 }

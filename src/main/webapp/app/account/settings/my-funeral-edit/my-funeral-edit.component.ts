@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileFormService } from 'app/account/profile-form/profile-form.service';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { EditEventServiceService } from '../edit-event-service.service';
 
 @Component({
   selector: 'jhi-my-funeral-edit',
@@ -15,10 +16,15 @@ export class MyFuneralEditComponent implements OnInit {
     private profileFormService: ProfileFormService,
     private router: Router,
     private http: HttpClient,
-    private applicationService: ApplicationConfigService
+    private applicationService: ApplicationConfigService,
+    private messageService: EditEventServiceService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.messageService.selectedData$.subscribe(value => {
+      this.profileForm3.patchValue(value);
+    });
+  }
 
   submit() {
     this.http
