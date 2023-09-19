@@ -39,6 +39,9 @@ entity Profile {
     editsLeft Integer
     finishedEditing Boolean
 
+
+
+}
 entity Personality {
     relativeEmail String
 }
