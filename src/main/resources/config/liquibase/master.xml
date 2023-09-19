@@ -24,7 +24,6 @@
     <include file="/config/liquibase/changelog/20230607191162_added_burial_place_Profile.xml" relativeToChangelogFile="false"/>
     <include file="/config/liquibase/changelog/20230607191162_added_level_of_form_Profile.xml" relativeToChangelogFile="false"/>
     <include file="/config/liquibase/changelog/20230607191163_added_level_life_status_Profile.xml" relativeToChangelogFile="false"/>
-
     <include file="/config/liquibase/changelog/20230607191162_added_burial_method_fields.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20230607191059_added_entity_constraints_Profile.xml" relativeToChangelogFile="false"/>
