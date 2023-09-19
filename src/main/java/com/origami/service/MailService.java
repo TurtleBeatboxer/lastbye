@@ -121,6 +121,7 @@ public class MailService {
 
     @Async
     public void sendRevivalMail(LifeStatusChangeDTO lifeStatusChangeDTO) {
+        //XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD trzeba to poprawić
         StringBuilder stringBuilder = new StringBuilder("Hello, are u still there?");
         stringBuilder
             .append("\n")
@@ -134,6 +135,7 @@ public class MailService {
 
     @Async
     public void sendAfterDeadTemporaryPassword(LifeStatusChangeDTO lifeStatusChangeDTO) {
+        //XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD trzeba to poprawić
         StringBuilder stringBuilder = new StringBuilder("We're sorry for your loss");
         stringBuilder
             .append("\n")

@@ -8,6 +8,8 @@ import { registerRoute } from './register/register.route';
 import { settingsRoute } from './settings/settings.route';
 import { profileFormRoute } from './profile-form/profile-form.route';
 import { publicProfileRoute } from './public-profile/public-profile.route';
+import { tellUsRoute } from './profile-form/tell-us/tell-us.route';
+import { profileFormPictureRoute } from './profile-form/profile-form-picture/profile-form-pircutre.router';
 
 const ACCOUNT_ROUTES = [
   activateRoute,
@@ -17,6 +19,8 @@ const ACCOUNT_ROUTES = [
   registerRoute,
   settingsRoute,
   profileFormRoute,
+  profileFormPictureRoute,
+  tellUsRoute,
 ];
 
 export const accountState: Routes = [

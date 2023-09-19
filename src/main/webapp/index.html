@@ -126,8 +126,24 @@
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>-->
     <style>
+      * {
+        scroll-behavior: smooth;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
       body {
         background-color: white;
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        height: 100%;
+      }
+
+      .container-fluid {
+        padding: 0px;
       }
     </style>
   </body>
