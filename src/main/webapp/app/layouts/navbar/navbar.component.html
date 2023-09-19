@@ -4,7 +4,7 @@
   <a href="#Pricing" class="barcontent" [routerLink]="['/idea']" id="bar3">Idea</a>
   <a href="#questions" class="barcontent" id="bar4" [routerLink]="['/aboutus']">About us</a>
   <a href="#contact" class="barcontent" id="bar5">Contact</a>
-  <a *ngIf="!logged" [routerLink]="['/login']" class="barcontent" id="bar6">Login</a>
-  <a *ngIf="logged" [routerLink]="['/user/profile']" class="barcontent" id="bar6">Edit Profile</a>
-  <a *ngIf="logged" (click)="logout()" class="barcontent" id="bar6">Logout</a>
+  <a *ngIf="!(accountService.isAuthenticatedObs | async)" [routerLink]="['/login']" class="barcontent" id="bar6">Login</a>
+  <a *ngIf="accountService.isAuthenticatedObs | async" [routerLink]="['/user/profile']" class="barcontent" id="bar6">Edit Profile</a>
+  <a *ngIf="accountService.isAuthenticatedObs | async" (click)="logout()" class="barcontent" id="bar6">Logout</a>
 </div>

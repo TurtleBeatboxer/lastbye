@@ -128,6 +128,94 @@ public class Profile implements Serializable {
     @Column(name = "question_answer")
     private String questionAnswer;
 
+    @Column(name = "burial_place")
+    private String burialPlace;
+
+    @Column(name = "farewell_reader")
+    private String farewellReader;
+
+    @Column(name = "music_type")
+    private String musicType;
+
+    @Column(name = "burial_type")
+    private String burialType;
+
+    @Column(name = "if_grave_inscription")
+    private Boolean ifGraveInscription;
+
+    @Column(name = "if_guests")
+    private Boolean ifGuests;
+
+    @Column(name = "if_other_4")
+    private Boolean ifOther4;
+
+    @Column(name = "if_photo_grave")
+    private Boolean ifPhotoGrave;
+
+    public Boolean getIfPhotoGrave() {
+        return ifPhotoGrave;
+    }
+
+    public void setIfPhotoGrave(Boolean ifPhotoGrave) {
+        this.ifPhotoGrave = ifPhotoGrave;
+    }
+
+    public String getBurialType() {
+        return burialType;
+    }
+
+    public void setBurialType(String burialType) {
+        this.burialType = burialType;
+    }
+
+    public Boolean getIfGraveInscription() {
+        return ifGraveInscription;
+    }
+
+    public void setIfGraveInscription(Boolean ifGraveInscription) {
+        this.ifGraveInscription = ifGraveInscription;
+    }
+
+    public Boolean getIfGuests() {
+        return ifGuests;
+    }
+
+    public void setIfGuests(Boolean ifGuests) {
+        this.ifGuests = ifGuests;
+    }
+
+    public Boolean getIfOther4() {
+        return ifOther4;
+    }
+
+    public void setIfOther4(Boolean ifOther4) {
+        this.ifOther4 = ifOther4;
+    }
+
+    public String getMusicType() {
+        return musicType;
+    }
+
+    public void setMusicType(String musicType) {
+        this.musicType = musicType;
+    }
+
+    public String getBurialPlace() {
+        return burialPlace;
+    }
+
+    public void setBurialPlace(String burialPlace) {
+        this.burialPlace = burialPlace;
+    }
+
+    public String getFarewellReader() {
+        return farewellReader;
+    }
+
+    public void setFarewellReader(String farewellReader) {
+        this.farewellReader = farewellReader;
+    }
+
     public Boolean getFinishedEditing() {
         return finishedEditing;
     }
