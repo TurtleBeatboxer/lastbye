@@ -69,13 +69,13 @@ export class ProfileFormService {
       burialPlace: new FormControl('', {
         nonNullable: true,
       }),
-      ifGraveInscription: new FormControl(null),
+      ifGraveInscription: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
       graveInscription: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
       }),
-      photo: new FormControl(null),
-      openCoffin: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
+      ifPhotoGrave: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
+      openCoffin: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
 
       clothes: new FormControl('', {
         nonNullable: true,
@@ -175,8 +175,8 @@ export class ProfileFormService {
     return { ...form, ...this.getUserId(), levelOfForm: 0 };
   }
 
-  dataProfile2(form: profileFormData2): profileFormData2 {
-    return { ...form, ...this.getUserId(), levelOfForm: 1 };
+  dataProfile2(form: profileFormData2, burialType: string) {
+    return { ...form, ...this.getUserId(), levelOfForm: 1, burialType };
   }
 
   dataProfile3(form: profileFormData3): profileFormData3 {

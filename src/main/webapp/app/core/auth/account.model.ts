@@ -34,6 +34,10 @@ export class Account {
     public lastName: string,
     public imageUrl: string,
     public farewellReader: string,
-    public burialPlace: string
+    public burialPlace: string,
+    public musicType: string,
+    public burialType: string,
+    public ifGraveInscription: boolean,
+    public ifPhotoGrave: boolean
   ) {}
 }

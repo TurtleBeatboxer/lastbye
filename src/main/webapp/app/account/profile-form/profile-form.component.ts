@@ -112,7 +112,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.http
       .post(
         this.applicationConfigService.getEndpointFor('/api/register/form'),
-        this.profileFormService.dataProfile2(this.profileForm2.getRawValue())
+        this.profileFormService.dataProfile2(this.profileForm2.getRawValue(), this.burialType)
       )
       .subscribe(() => console.warn(this.profileForm2.getRawValue()));
     this.profileFormService.savePhoto(this.files.graveProfilePicture);
