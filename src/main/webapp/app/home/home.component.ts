@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(public accountService: AccountService, private router: Router) {}
   formControl = new FormControl(new Date());
   ngModelDate = new Date();
   ngOnInit(): void {

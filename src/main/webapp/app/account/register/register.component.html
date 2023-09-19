@@ -161,18 +161,7 @@
           </div> -->
         </div>
 
-        <div class="mb-3">
-          <input
-            type="password"
-            class="register-input"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="{{ 'global.form.confirmpassword.placeholder' | translate }}"
-            formControlName="confirmPassword"
-            data-cy="secondPassword"
-          />
-
-          <!-- <div
+        <!-- <div
             *ngIf="
               registerForm.get('confirmPassword')!.invalid &&
               (registerForm.get('confirmPassword')!.dirty || registerForm.get('confirmPassword')!.touched)
@@ -202,8 +191,17 @@
               Your confirmation password cannot be longer than 50 characters.
             </small>
           </div> -->
-        </div>
 
+        <div class="news">
+          <input type="checkbox" name="news" class="checkbox" /><label for="news" class="news-label"
+            >I agree to receive news and updates via email</label
+          >
+        </div>
+        <div class="policy">
+          <input type="checkbox" name="policy" class="checkbox" /><label for="policy" class="policy-label"
+            >I agree to <a href="" class="policy-a">Terms and Conditions</a> and <a href="" class="policy-a">Privacy Notice</a></label
+          >
+        </div>
         <button
           type="submit"
           [disabled]="registerForm.invalid"
@@ -214,7 +212,9 @@
           Register
         </button>
       </form>
-      <p class="login">Already have an account? Log in</p>
+      <p class="login">
+        Already have an account? <a class="login-a" [routerLink]="['/login']"><u>Log in!</u></a>
+      </p>
     </div>
   </div>
 </div>
