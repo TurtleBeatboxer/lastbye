@@ -11,7 +11,7 @@ export class EditEventServiceService {
   selectedData$ = this.data$.asObservable();
   constructor() {}
 
-  setData(data: any) {
+  setData(data) {
     this.data$.next(data);
   }
 }

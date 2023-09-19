@@ -23,6 +23,7 @@ export class MyFuneralEditComponent implements OnInit {
   ngOnInit(): void {
     this.messageService.selectedData$.subscribe(value => {
       this.profileForm3.patchValue(value);
+      console.log(value);
     });
   }
 

@@ -68,13 +68,13 @@
       <p class="value">Method: {{ this.initialAccount.burialMethod }}</p>
     </div>
     <div class="mb-3">
-      <p class="value">Place: {{ this.initialAccount.placeOfCeremony }}</p>
+      <p class="value">Place: {{ this.initialAccount.burialPlace }}</p>
     </div>
     <div class="mb-3">
       <p class="value">Grave insription: {{ this.initialAccount.graveInscription }}</p>
     </div>
     <div class="mb-3">
-      <p class="value">Casket: {{ this.initialAccount.openCoffin }}</p>
+      <p class="value">Casket: {{ this.initialAccount.openCoffin ? 'yes' : 'no' }}</p>
     </div>
     <button *ngIf="this.editMode" (click)="editClickBurial()" class="button-header editbtn">Edit</button>
   </div>
@@ -83,7 +83,7 @@
     <h2 class="title-body">My funeral</h2>
 
     <div class="mb-3 nb-theme-default">
-      <div class="value">Flowers: {{ this.initialAccount.flowers }}</div>
+      <div class="value">Flowers: {{ this.initialAccount.flowers ? 'Yes' : 'No' }}</div>
     </div>
 
     <div class="mb-3">

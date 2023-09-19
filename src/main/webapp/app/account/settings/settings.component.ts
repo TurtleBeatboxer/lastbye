@@ -157,6 +157,10 @@ export class SettingsComponent implements OnInit {
     editsLeft: new FormControl(this.initialAccount.editsLeft, { nonNullable: true }),
     farewellReader: new FormControl(this.initialAccount.farewellReader, { nonNullable: true }),
     burialPlace: new FormControl(this.initialAccount.burialPlace, { nonNullable: true }),
+    burialType: new FormControl(this.initialAccount.burialType, { nonNullable: true }),
+    ifGraveInscription: new FormControl(this.initialAccount.ifGraveInscription, { nonNullable: true }),
+    musicType: new FormControl(this.initialAccount.musicType, { nonNullable: true }),
+    ifPhotoGrave: new FormControl(this.initialAccount.ifPhotoGrave, { nonNullable: true }),
   });
 
   constructor(
