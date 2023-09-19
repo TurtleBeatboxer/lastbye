@@ -10,7 +10,7 @@ import { UserService } from 'app/user/user.service';
 @Component({
   selector: 'jhi-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('username', { static: false })
@@ -43,11 +43,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     //   wait;
     // }
     this.successRegister();
-    this.accountService.identity().subscribe(() => {
-      if (this.accountService.isAuthenticated()) {
-        this.router.navigate(['']);
-      }
-    });
+    // this.accountService.identity().subscribe(() => {
+    //   if (this.accountService.isAuthenticated()) {
+    //     this.router.navigate(['']);
+    //   }
+    // });
   }
 
   ngAfterViewInit(): void {

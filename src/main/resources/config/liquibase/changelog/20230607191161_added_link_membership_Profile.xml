@@ -6,11 +6,11 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="8:ca79252d5e129ff17992bce0ab72401c" author="Michas">
+    <changeSet id="1" author="Michas">
         <preConditions onFail="MARK_RAN">
             <not>
-                <columnExists tableName="Profile" columnName="public_profile_link" />
                 <columnExists tableName="Profile" columnName="membership_level" />
+                <columnExists tableName="Profile" columnName="public_profile_link" />
                 <columnExists tableName="Profile" columnName="finished_editing" />
                 <columnExists tableName="Profile" columnName="edits_left" />
             </not>

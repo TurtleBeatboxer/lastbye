@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="8:4ec3f0634e59b34bb78cf28a00625966" author="Michas">
+    <changeSet id="8:efd5c887c9a23202b020070106cc84d3" author="Michas">
         <preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="Profile" columnName="level_of_form" />

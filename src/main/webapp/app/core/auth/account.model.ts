@@ -16,7 +16,7 @@ export class Account {
     public notInvited: string,
     public obituary: string,
     public editsLeft: number,
-    public flowers: string,
+    public flowers: boolean,
     public ifFlowers: string,
     public farewellLetter: string,
     public openCoffin: boolean,
@@ -29,10 +29,15 @@ export class Account {
     public userId: number,
     public authorities: string[],
     public email: string,
-    public firstName: string | null,
+    public firstName: string,
 
-    public lastName: string | null,
-
-    public imageUrl: string | null
+    public lastName: string,
+    public imageUrl: string,
+    public farewellReader: string,
+    public burialPlace: string,
+    public musicType: string,
+    public burialType: string,
+    public ifGraveInscription: boolean,
+    public ifPhotoGrave: boolean
   ) {}
 }

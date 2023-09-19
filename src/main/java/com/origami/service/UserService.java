@@ -283,51 +283,6 @@ public class UserService {
         } else return HttpStatus.FORBIDDEN;
     }
 
-    public ManagedUserVM getManagedUserVMFromUser(User user) {
-        ManagedUserVM managedUserVM = new ManagedUserVM();
-        managedUserVM.setUserId(user.getId());
-        managedUserVM.setFirstName(user.getFirstName());
-        managedUserVM.setLastName(user.getLastName());
-        managedUserVM.setLogin(user.getLogin());
-        managedUserVM.setActivated(user.isActivated());
-        managedUserVM.setAuthorities(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
-        managedUserVM.setCreatedBy(user.getCreatedBy());
-        managedUserVM.setCreatedDate(user.getCreatedDate());
-        managedUserVM.setEmail(user.getEmail());
-        managedUserVM.setImageUrl(user.getImageUrl());
-        managedUserVM.setLangKey(user.getLangKey());
-        managedUserVM.setPassword(user.getPassword());
-        managedUserVM.setLastModifiedBy(user.getLastModifiedBy());
-        managedUserVM.setLastModifiedDate(user.getLastModifiedDate());
-        Optional<Profile> profile = profileService.getProfileByUserID(user.getId());
-        if (profile.isPresent()) {
-            managedUserVM.setClothes(profile.get().getClothes());
-            managedUserVM.setAccessesForRelatives(profile.get().getAccessesForRelatives());
-            managedUserVM.setBurialMethod(profile.get().getBurialMethod());
-            managedUserVM.setFarewellLetter(profile.get().getFarewellLetter());
-            managedUserVM.setFlowers(profile.get().getFlowers());
-            managedUserVM.setIfFlowers(profile.get().getIfFlowers());
-            managedUserVM.setGraveInscription(profile.get().getGraveInscription());
-            managedUserVM.setGuests(profile.get().getGuests());
-            managedUserVM.setPurchasedPlace(profile.get().getPurchasedPlace());
-            managedUserVM.setIsPurchasedOther(profile.get().getIfPurchasedOther());
-            managedUserVM.setNotInvited(profile.get().getNotInvited());
-            managedUserVM.setObituary(profile.get().getObituary());
-            managedUserVM.setOther(profile.get().getOther());
-            managedUserVM.setPhone(profile.get().getPhone());
-            managedUserVM.setPrefix(profile.get().getPrefix());
-            managedUserVM.setPhoto(profile.get().getPhoto());
-            managedUserVM.setPlaceOfCeremony(profile.get().getPlaceOfCeremony());
-            managedUserVM.setSpeech(profile.get().getSpeech());
-            managedUserVM.setSpotify(profile.get().getSpotify());
-            managedUserVM.setTestament(profile.get().getTestament());
-            managedUserVM.setVideoSpeech(profile.get().getVideoSpeech());
-            managedUserVM.setLevelOfForm(profile.get().getLevelOfForm());
-            managedUserVM.setEditsLeft(profile.get().getEditsLeft());
-        }
-        return managedUserVM;
-    }
-
     @Transactional
     public void changePassword(String currentClearTextPassword, String newPassword) {
         SecurityUtils
@@ -395,5 +350,59 @@ public class UserService {
         if (user.getEmail() != null) {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
         }
+    }
+
+    public ManagedUserVM getManagedUserVMFromUser(User user) {
+        ManagedUserVM managedUserVM = new ManagedUserVM();
+        managedUserVM.setUserId(user.getId());
+        managedUserVM.setFirstName(user.getFirstName());
+        managedUserVM.setLastName(user.getLastName());
+        managedUserVM.setLogin(user.getLogin());
+        managedUserVM.setActivated(user.isActivated());
+        managedUserVM.setAuthorities(user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
+        managedUserVM.setCreatedBy(user.getCreatedBy());
+        managedUserVM.setCreatedDate(user.getCreatedDate());
+        managedUserVM.setEmail(user.getEmail());
+        managedUserVM.setImageUrl(user.getImageUrl());
+        managedUserVM.setLangKey(user.getLangKey());
+        managedUserVM.setPassword(user.getPassword());
+        managedUserVM.setLastModifiedBy(user.getLastModifiedBy());
+        managedUserVM.setLastModifiedDate(user.getLastModifiedDate());
+        Optional<Profile> profile = profileService.getProfileByUserID(user.getId());
+        if (profile.isPresent()) {
+            managedUserVM.setLifeStatus(profile.get().getLifeStatus());
+            managedUserVM.setClothes(profile.get().getClothes());
+            managedUserVM.setAccessesForRelatives(profile.get().getAccessesForRelatives());
+            managedUserVM.setBurialMethod(profile.get().getBurialMethod());
+            managedUserVM.setFarewellLetter(profile.get().getFarewellLetter());
+            managedUserVM.setFlowers(profile.get().getFlowers());
+            managedUserVM.setIfFlowers(profile.get().getIfFlowers());
+            managedUserVM.setGraveInscription(profile.get().getGraveInscription());
+            managedUserVM.setGuests(profile.get().getGuests());
+            managedUserVM.setPurchasedPlace(profile.get().getPurchasedPlace());
+            managedUserVM.setIsPurchasedOther(profile.get().getIfPurchasedOther());
+            managedUserVM.setNotInvited(profile.get().getNotInvited());
+            managedUserVM.setObituary(profile.get().getObituary());
+            managedUserVM.setOther(profile.get().getOther());
+            managedUserVM.setPhone(profile.get().getPhone());
+            managedUserVM.setOpenCoffin(profile.get().isOpenCoffin());
+            managedUserVM.setPrefix(profile.get().getPrefix());
+            managedUserVM.setPhoto(profile.get().getPhoto());
+            managedUserVM.setPlaceOfCeremony(profile.get().getPlaceOfCeremony());
+            managedUserVM.setSpeech(profile.get().getSpeech());
+            managedUserVM.setSpotify(profile.get().getSpotify());
+            managedUserVM.setTestament(profile.get().getTestament());
+            managedUserVM.setVideoSpeech(profile.get().getVideoSpeech());
+            managedUserVM.setLevelOfForm(profile.get().getLevelOfForm());
+            managedUserVM.setEditsLeft(profile.get().getEditsLeft());
+            managedUserVM.setIfGraveInscription(profile.get().getIfGraveInscription());
+            managedUserVM.setBurialPlace(profile.get().getBurialPlace());
+            managedUserVM.setBurialType(profile.get().getBurialType());
+            managedUserVM.setIfPhotoGrave(profile.get().getIfPhotoGrave());
+            managedUserVM.setMusicType(profile.get().getMusicType());
+            managedUserVM.setIfGuests(profile.get().getIfGuests());
+            managedUserVM.setIfOther4(profile.get().getIfOther4());
+        }
+        return managedUserVM;
     }
 }

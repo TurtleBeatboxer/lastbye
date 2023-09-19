@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="content/css/loading.css" />
     <!-- jhipster-needle-add-resources-to-root - JHipster will add new resources here -->
   </head>
+
   <body>
     <!--[if lt IE 9]>
       <p class="browserupgrade">
@@ -124,5 +125,26 @@
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>-->
+    <style>
+      * {
+        scroll-behavior: smooth;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      body {
+        background-color: white;
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        height: 100%;
+      }
+
+      .container-fluid {
+        padding: 0px;
+      }
+    </style>
   </body>
 </html>

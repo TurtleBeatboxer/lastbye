@@ -1,23 +1,197 @@
-/* ==========================================================================
-Main page styles
-========================================================================== */
-
-.hipster {
-  display: inline-block;
-  width: 347px;
-  height: 497px;
-  background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-  background-size: contain;
+.global {
+  color: black;
+}
+.firstpanel {
+  position: relative;
+  top: 33px;
+  background-image: url('/content/images/black.png');
+  width: 100%;
+  height: 1000px;
+  margin: 0px;
+  padding: 0px;
+}
+p.coolsentence {
+  position: relative;
+  text-align: center;
+  top: 300px;
+  color: #fff;
+  font: normal normal normal 100px/119px Helvetica;
+}
+.signup {
+  position: relative;
+  top: 500px;
+  left: 34%;
+  text-transform: uppercase;
+  color: black;
+  font-size: 40px;
+  width: 600px;
+  height: 120px;
+  border-radius: 60px;
+  background-color: white;
+}
+h2 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font: normal normal normal 60px/72px Helvetica;
+  font-size: 60px;
+}
+.howwork {
+  position: relative;
+  top: 100px;
+  text-align: center;
+}
+h4 {
+  font: normal normal normal 25px/30px Helvetica;
+  text-transform: uppercase;
+  color: #3d648c;
 }
 
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-    background-size: contain;
-  }
+.cont {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
 }
+.threeheaders {
+  position: relative;
+  top: 163px;
+  left: 18%;
+  width: 40%;
+  text-transform: uppercase;
+  font: normal normal 40px/48px Helvetica;
+}
+.threetexts {
+  position: relative;
+  top: 260px;
+  font: normal normal normal 30px/36px Helvetica;
+  word-wrap: break-word;
+  width: 33%;
+}
+#first_text {
+  position: relative;
+  right: 19.5%;
+}
+#second_text {
+  position: relative;
+  right: 19.5%;
+}
+#third_text {
+  position: relative;
+  right: 19.5%;
+}
+.left_image {
+  width: 27%;
+  height: 330px;
+  position: relative;
+  top: 125px;
+  right: 12%;
+}
+.number {
+  border: solid black 1px;
+  width: 119px;
+  height: 113px;
+  border-radius: 56.5px;
+  text-align: center;
+  position: relative;
+  top: 130px;
+  left: 15%;
+}
+
+#terrible_idea {
+  position: relative;
+}
+.idea_description {
+  position: relative;
+  top: 100px;
+  left: 15%;
+  text-align: center;
+  font: regular;
+  font-size: 35px;
+  word-wrap: break-word;
+  width: 70%;
+}
+#read_more {
+  color: #6a9fb4;
+  font: normal normal normal 40px/60px Helvetica;
+}
+#read_more2 {
+  color: #6a9fb4;
+  font: normal normal normal 40px/60px Helvetica;
+  position: relative;
+  left: 44%;
+}
+#one_n {
+  background-color: #8fc1d4;
+}
+#two_n {
+  background-color: #6a9fb4;
+}
+#three_n {
+  background-color: #4b7aa1;
+}
+.t_number {
+  position: relative;
+  top: 30%;
+  font: normal normal normal 40px/48px Helvetica;
+}
+// .offer {
+//   border: 1px solid #707070;
+//   width: 500px;
+//   height: 630px;
+//   border-radius: 70px;
+// }
+// #free {
+//   position: relative;
+//   top: 140px;
+//   left: 3%;
+// }
+// #firstlevel {
+//   position: relative;
+//   top: -485px;
+//   left: 36%;
+// }
+// #secondlevel {
+//   position: relative;
+//   top: -1110px;
+//   left: 69%;
+// }
+
+// .buttondiv {
+//   position: relative;
+//   top: 70%;
+//   left: 10%;
+//   width: 80%;
+//   height: 12%;
+//   text-align: center;
+//   cursor: pointer;
+//   background-color: rgb(255, 255, 255);
+//   color: gray;
+//   padding: 10px 20px;
+//   transition: background-color 0.3s;
+//   border: 1px solid gray;
+//   border-radius: 20px;
+//   font: normal normal normal 40px/48px Helvetica Neue;
+// }
+
+// .buttondiv:hover {
+//   background-color: rgb(0, 0, 0);
+//   color: #fff;
+// }
+// .aspects {
+//   text-align: center;
+//   font: normal normal normal 35px/43px Helvetica Neue;
+// }
+// .badiv {
+//   position: relative;
+//   top: 5%;
+//   left: 10%;
+//   width: 80%;
+//   height: 12%;
+//   text-align: center;
+//   background-color: rgb(255, 255, 255);
+//   color: gray;
+//   padding: 10px 20px;
+//   transition: background-color 0.3s;
+//   border: 1px solid gray;
+//   border-radius: 20px;
+//   font: normal normal normal 40px/48px Helvetica Neue;
+// }

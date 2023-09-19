@@ -113,6 +113,157 @@ public class Profile implements Serializable {
     @Column(name = "is_open_coffin")
     private Boolean isOpenCoffin;
 
+    @Column(name = "life_status")
+    private LifeStatus lifeStatus;
+
+    @Column(name = "life_link")
+    private String lifeLink;
+
+    @Column(name = "friends_email")
+    private String friendsEmail;
+
+    @Column(name = "question")
+    private String question;
+
+    @Column(name = "question_answer")
+    private String questionAnswer;
+
+    @Column(name = "burial_place")
+    private String burialPlace;
+
+    @Column(name = "farewell_reader")
+    private String farewellReader;
+
+    @Column(name = "music_type")
+    private String musicType;
+
+    @Column(name = "burial_type")
+    private String burialType;
+
+    @Column(name = "if_grave_inscription")
+    private Boolean ifGraveInscription;
+
+    @Column(name = "if_guests")
+    private Boolean ifGuests;
+
+    @Column(name = "if_other_4")
+    private Boolean ifOther4;
+
+    @Column(name = "if_photo_grave")
+    private Boolean ifPhotoGrave;
+
+    public Boolean getIfPhotoGrave() {
+        return ifPhotoGrave;
+    }
+
+    public void setIfPhotoGrave(Boolean ifPhotoGrave) {
+        this.ifPhotoGrave = ifPhotoGrave;
+    }
+
+    public String getBurialType() {
+        return burialType;
+    }
+
+    public void setBurialType(String burialType) {
+        this.burialType = burialType;
+    }
+
+    public Boolean getIfGraveInscription() {
+        return ifGraveInscription;
+    }
+
+    public void setIfGraveInscription(Boolean ifGraveInscription) {
+        this.ifGraveInscription = ifGraveInscription;
+    }
+
+    public Boolean getIfGuests() {
+        return ifGuests;
+    }
+
+    public void setIfGuests(Boolean ifGuests) {
+        this.ifGuests = ifGuests;
+    }
+
+    public Boolean getIfOther4() {
+        return ifOther4;
+    }
+
+    public void setIfOther4(Boolean ifOther4) {
+        this.ifOther4 = ifOther4;
+    }
+
+    public String getMusicType() {
+        return musicType;
+    }
+
+    public void setMusicType(String musicType) {
+        this.musicType = musicType;
+    }
+
+    public String getBurialPlace() {
+        return burialPlace;
+    }
+
+    public void setBurialPlace(String burialPlace) {
+        this.burialPlace = burialPlace;
+    }
+
+    public String getFarewellReader() {
+        return farewellReader;
+    }
+
+    public void setFarewellReader(String farewellReader) {
+        this.farewellReader = farewellReader;
+    }
+
+    public Boolean getFinishedEditing() {
+        return finishedEditing;
+    }
+
+    public Boolean getOpenCoffin() {
+        return isOpenCoffin;
+    }
+
+    public String getFriendsEmail() {
+        return friendsEmail;
+    }
+
+    public void setFriendsEmail(String friendsEmail) {
+        this.friendsEmail = friendsEmail;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getQuestionAnswer() {
+        return questionAnswer;
+    }
+
+    public void setQuestionAnswer(String questionAnswer) {
+        this.questionAnswer = questionAnswer;
+    }
+
+    public String getLifeLink() {
+        return lifeLink;
+    }
+
+    public void setLifeLink(String lifeLink) {
+        this.lifeLink = lifeLink;
+    }
+
+    public LifeStatus getLifeStatus() {
+        return lifeStatus;
+    }
+
+    public void setLifeStatus(LifeStatus lifeStatus) {
+        this.lifeStatus = lifeStatus;
+    }
+
     public Boolean isOpenCoffin() {
         return isOpenCoffin;
     }
@@ -120,9 +271,6 @@ public class Profile implements Serializable {
     public void setOpenCoffin(Boolean openCoffin) {
         isOpenCoffin = openCoffin;
     }
-
-    /*    @Column(name ="isAlive")
-    private boolean isAlive;*/
 
     public Long getLevelOfForm() {
         return levelOfForm;
@@ -147,11 +295,6 @@ public class Profile implements Serializable {
     public void setEditsLeft(Long editsLeft) {
         this.editsLeft = editsLeft;
     }
-
-    @OneToMany(mappedBy = "profile")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "profile" }, allowSetters = true)
-    private Set<Personality> personalities = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -489,37 +632,6 @@ public class Profile implements Serializable {
 
     public void setCodeQR(String codeQR) {
         this.codeQR = codeQR;
-    }
-
-    public Set<Personality> getPersonalities() {
-        return this.personalities;
-    }
-
-    public void setPersonalities(Set<Personality> personalities) {
-        if (this.personalities != null) {
-            this.personalities.forEach(i -> i.setProfile(null));
-        }
-        if (personalities != null) {
-            personalities.forEach(i -> i.setProfile(this));
-        }
-        this.personalities = personalities;
-    }
-
-    public Profile personalities(Set<Personality> personalities) {
-        this.setPersonalities(personalities);
-        return this;
-    }
-
-    public Profile addPersonality(Personality personality) {
-        this.personalities.add(personality);
-        personality.setProfile(this);
-        return this;
-    }
-
-    public Profile removePersonality(Personality personality) {
-        this.personalities.remove(personality);
-        personality.setProfile(null);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
