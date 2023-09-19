@@ -7,27 +7,27 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet id="1" author="Michas">
-<!--        <preConditions onFail="MARK_RAN">-->
-<!--            <not>-->
-<!--                <columnExists tableName="Profile" columnName="membership_level" />-->
-<!--                <columnExists tableName="Profile" columnName="public_profile_link" />-->
-<!--                <columnExists tableName="Profile" columnName="finished_editing" />-->
-<!--                <columnExists tableName="Profile" columnName="edits_left" />-->
-<!--            </not>-->
-<!--        </preConditions>-->
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="Profile" columnName="membership_level" />
+                <columnExists tableName="Profile" columnName="public_profile_link" />
+                <columnExists tableName="Profile" columnName="finished_editing" />
+                <columnExists tableName="Profile" columnName="edits_left" />
+            </not>
+        </preConditions>
         <addColumn tableName="profile">
             <column name="membership_level" type="number">
                 <constraints nullable="true" unique="false"/>
             </column>
-<!--            <column name="public_profile_link" type="varchar(256)">-->
-<!--                <constraints nullable="true" unique="true"/>-->
-<!--            </column>-->
-<!--            <column name="finished_editing" type="boolean">-->
-<!--                <constraints nullable="true" unique="false"/>-->
-<!--            </column>-->
-<!--            <column name="edits_left" type="number">-->
-<!--                <constraints nullable="true" unique="false"/>-->
-<!--            </column>-->
+            <column name="public_profile_link" type="varchar(256)">
+                <constraints nullable="true" unique="true"/>
+            </column>
+            <column name="finished_editing" type="boolean">
+                <constraints nullable="true" unique="false"/>
+            </column>
+            <column name="edits_left" type="number">
+                <constraints nullable="true" unique="false"/>
+            </column>
         </addColumn>
 
 
