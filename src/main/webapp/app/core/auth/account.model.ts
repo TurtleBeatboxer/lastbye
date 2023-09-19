@@ -29,10 +29,15 @@ export class Account {
     public userId: number,
     public authorities: string[],
     public email: string,
-    public firstName: string | null,
+    public firstName: string,
 
-    public lastName: string | null,
-
-    public imageUrl: string | null
+    public lastName: string,
+    public imageUrl: string,
+    public farewellReader: string,
+    public burialPlace: string,
+    public musicType: string,
+    public burialType: string,
+    public ifGraveInscription: boolean,
+    public ifPhotoGrave: boolean
   ) {}
 }

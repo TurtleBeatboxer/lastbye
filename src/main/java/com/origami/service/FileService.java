@@ -24,15 +24,16 @@ public class FileService {
     private ProfileRepository profileRepository;
 
     public String uploadImage(MultipartFile file, String type, String userId) throws IOException {
-        String filePath = FOLDER_PATH + file.getOriginalFilename();
         Files fileData = new Files();
-        fileData.setFilePath(filePath);
+
         fileData.setName(file.getOriginalFilename());
         fileData.setFormat(file.getContentType());
         fileData.setType(type);
         Profile profile = profileRepository.findOneByUserId((long) Integer.parseInt(userId)).get();
         fileData.setProfile(profile);
+        String filePath = FOLDER_PATH + profile.getUserId() + "/" + file.getOriginalFilename();
         filesRepository.save(fileData);
+        fileData.setFilePath(filePath);
         file.transferTo(new File(filePath));
         if (fileData != null) {
             return "file uploaded successfully : " + filePath;

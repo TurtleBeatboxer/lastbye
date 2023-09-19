@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -7,6 +7,8 @@ import { Account } from 'app/core/auth/account.model';
 import { LANGUAGES } from 'app/config/language.constants';
 import { HttpClient } from '@angular/common/http';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { Router } from '@angular/router';
+import { EditEventServiceService } from './edit-event-service.service';
 
 // const this.initialAccount: Account = {} as Account;
 
@@ -20,6 +22,7 @@ export class SettingsComponent implements OnInit {
   languages = LANGUAGES;
   isTrueCoffin: boolean;
   editsError = false;
+  editMode = false;
   initialAccount: Account = {} as Account;
   edits: number;
   fileName = '';
@@ -152,13 +155,21 @@ export class SettingsComponent implements OnInit {
     levelOfForm: new FormControl(this.initialAccount.levelOfForm, { nonNullable: true }),
     activated: new FormControl(this.initialAccount.activated, { nonNullable: true }),
     editsLeft: new FormControl(this.initialAccount.editsLeft, { nonNullable: true }),
+    farewellReader: new FormControl(this.initialAccount.farewellReader, { nonNullable: true }),
+    burialPlace: new FormControl(this.initialAccount.burialPlace, { nonNullable: true }),
+    burialType: new FormControl(this.initialAccount.burialType, { nonNullable: true }),
+    ifGraveInscription: new FormControl(this.initialAccount.ifGraveInscription, { nonNullable: true }),
+    musicType: new FormControl(this.initialAccount.musicType, { nonNullable: true }),
+    ifPhotoGrave: new FormControl(this.initialAccount.ifPhotoGrave, { nonNullable: true }),
   });
 
   constructor(
     public accountService: AccountService,
     private translateService: TranslateService,
     private http: HttpClient,
-    private applicationConfigService: ApplicationConfigService
+    private applicationConfigService: ApplicationConfigService,
+    private router: Router,
+    private messageService: EditEventServiceService
   ) {}
 
   ngOnInit(): void {
@@ -166,13 +177,14 @@ export class SettingsComponent implements OnInit {
       if (account) {
         this.edits = account.editsLeft;
         console.log(account.openCoffin);
-        this.settingsForm.patchValue(account);
 
+        this.initialAccount = account;
         console.log(this.isTrueCoffin);
-        console.log(this.initialAccount);
+        console.log(this.initialAccount.burialMethod);
       }
     });
   }
+
   onFileSelected(event) {
     const file: File = event.target.files[0];
 
@@ -212,6 +224,37 @@ export class SettingsComponent implements OnInit {
     });
   }
   onClick() {
-    console.log(this.initialAccount);
+    console.log(this.initialAccount.burialMethod);
+  }
+
+  edit() {
+    this.editMode = !this.editMode;
+  }
+
+  editClick() {
+    const parentEmmitter = new EventEmitter();
+    parentEmmitter.emit();
+  }
+
+  editClickBasic() {
+    this.router.navigate(['/user/basicInfoEdit'], { skipLocationChange: true });
+    this.messageService.setData(this.initialAccount);
+  }
+
+  editClickMessage() {
+    this.router.navigate(['/user/myLastMessage'], { skipLocationChange: true });
+    this.messageService.setData(this.initialAccount);
+  }
+  editClickFuneral() {
+    this.router.navigate(['/user/myFuneralEdit'], { skipLocationChange: true });
+    this.messageService.setData(this.initialAccount);
+  }
+  editClickBurial() {
+    this.router.navigate(['/user/myBurialEdit'], { skipLocationChange: true });
+    this.messageService.setData(this.initialAccount);
+  }
+  editClickSecurity() {
+    this.router.navigate(['/user/securityEdit'], { skipLocationChange: true });
+    this.messageService.setData(this.initialAccount);
   }
 }
