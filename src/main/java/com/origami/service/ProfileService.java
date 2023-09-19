@@ -272,25 +272,7 @@ public class ProfileService {
         PublicProfileDTO publicProfileDTO = new PublicProfileDTO();
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
-            publicProfileDTO.setFlowers(profile.getFlowers());
-            publicProfileDTO.setIfFlowers(profile.getIfFlowers());
-            publicProfileDTO.setPurchasedPlace(profile.getPurchasedPlace());
-            publicProfileDTO.setIsPurchasedOther(profile.getIfPurchasedOther());
-            publicProfileDTO.setClothes(profile.getClothes());
-            publicProfileDTO.setTestament(profile.getTestament());
-            publicProfileDTO.setVideoSpeech(profile.getVideoSpeech());
-            publicProfileDTO.setSpotify(profile.getSpotify());
-            publicProfileDTO.setPlaceOfCeremony(profile.getPlaceOfCeremony());
-            publicProfileDTO.setSpeech(profile.getSpeech());
-            publicProfileDTO.setPhoto(profile.getPhoto());
-            publicProfileDTO.setOther(profile.getOther());
-            publicProfileDTO.setObituary(profile.getObituary());
-            publicProfileDTO.setGuests(profile.getGuests());
-            publicProfileDTO.setNotInvited(profile.getNotInvited());
-            publicProfileDTO.setGraveInscription(profile.getGraveInscription());
-            publicProfileDTO.setFarewellLetter(profile.getFarewellLetter());
-            publicProfileDTO.setBurialMethod(profile.getBurialMethod());
-            publicProfileDTO.setOpenCoffin(profile.isOpenCoffin());
+            publicProfileDTO = new PublicProfileDTO(profile);
             Optional<User> userOptional = userRepository.findOneById(profile.getUserId());
             if (userOptional.isPresent()) {
                 publicProfileDTO.setFirstName(userOptional.get().getFirstName());

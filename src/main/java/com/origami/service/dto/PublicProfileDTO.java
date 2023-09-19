@@ -1,5 +1,7 @@
 package com.origami.service.dto;
 
+import com.origami.domain.Profile;
+
 public class PublicProfileDTO {
 
     private String firstName;
@@ -191,4 +193,28 @@ public class PublicProfileDTO {
     public void setOpenCoffin(Boolean openCoffin) {
         isOpenCoffin = openCoffin;
     }
+
+    public PublicProfileDTO(Profile profile) {
+        this.flowers = profile.getFlowers();
+        this.ifFlowers = profile.getIfFlowers();
+        this.purchasedPlace = profile.getPurchasedPlace();
+        this.isPurchasedOther = profile.getIfPurchasedOther();
+        this.clothes = profile.getClothes();
+        this.testament = profile.getTestament();
+        this.videoSpeech = profile.getVideoSpeech();
+        this.spotify = profile.getSpotify();
+        this.placeOfCeremony = profile.getPlaceOfCeremony();
+        this.speech = profile.getSpeech();
+        this.photo = profile.getPhoto();
+        this.other = profile.getOther();
+        this.obituary = profile.getObituary();
+        this.guests = profile.getGuests();
+        this.notInvited = profile.getNotInvited();
+        this.graveInscription = profile.getGraveInscription();
+        this.farewellLetter = profile.getFarewellLetter();
+        this.burialMethod = profile.getBurialMethod();
+        this.isOpenCoffin = profile.isOpenCoffin();
+    }
+
+    public PublicProfileDTO() {}
 }
