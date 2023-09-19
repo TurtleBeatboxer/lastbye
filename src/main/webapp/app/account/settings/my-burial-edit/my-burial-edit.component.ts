@@ -28,18 +28,20 @@ export class MyBurialEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.messageService.selectedData$.subscribe(value => {
+    this.messageService.selectedData$.subscribe((value: Account) => {
       this.profileForm2.patchValue(value);
+      this.burialType = value.burialType;
       console.log(value);
     });
   }
 
   submit() {
-    this.http
-      .post(this.applicationService.getEndpointFor('/api/account'), { ...this.profileForm2.getRawValue(), login: 1234 })
-      .subscribe(res => {
-        console.log(res);
-      });
+    // this.http
+    //   .post(this.applicationService.getEndpointFor('/api/account'), { ...this.profileForm2.getRawValue(), login: 1234 })
+    //   .subscribe(res => {
+    //     console.log(res);
+    //   });
+    console.log(this.burialType);
   }
 
   backToEdit() {

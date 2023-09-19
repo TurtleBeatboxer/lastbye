@@ -218,6 +218,7 @@ public class ProfileService {
             profile.setOpenCoffin(userDTO.isOpenCoffin());
             profile.setClothes(userDTO.getClothes());
             profile.setBurialPlace(userDTO.getBurialPlace());
+
             profile.setLevelOfForm(2L);
             profileRepository.save(profile);
         }
@@ -234,6 +235,8 @@ public class ProfileService {
             profile.setMusicType(userDTO.getMusicType());
             profile.setGuests(userDTO.getGuests());
             profile.setNotInvited(userDTO.getNotInvited());
+            profile.setBurialType(userDTO.getBurialType());
+            profile.setIfGraveInscription(userDTO.getIfGraveInscription());
             profile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
             profile.setLevelOfForm(3L);
             profileRepository.save(profile);

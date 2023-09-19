@@ -226,13 +226,13 @@
         <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
           <h1 class="stepLabel">Photo on the grave/urn</h1>
           <div class="radioInputs">
-            <label class="radio-label" for="photo">Yes</label>
-            <input class="radio" type="radio" name="photo" formControlName="photo" [value]="true" />
-            <label class="radio-label" for="photo">No</label>
-            <input class="radio" type="radio" name="photo" formControlName="photo" [value]="false" />
+            <label class="radio-label" for="ifPhotoGrave">Yes</label>
+            <input class="radio" type="radio" name="ifPhotoGrave" formControlName="ifPhotoGrave" [value]="true" />
+            <label class="radio-label" for="ifPhotoGrave">No</label>
+            <input class="radio" type="radio" name="ifPhotoGrave" formControlName="ifPhotoGrave" [value]="false" />
           </div>
         </div>
-        <div *ngIf="profileForm2.controls['photo'].value === true" class="profileForm-input fileDiv" (click)="fileUpload.click()">
+        <div *ngIf="profileForm2.controls['ifPhotoGrave'].value === true" class="profileForm-input fileDiv" (click)="fileUpload.click()">
           <p class="" *ngIf="!this.files.graveProfilePicture" style="margin-bottom: 0px">Insert your file</p>
           <p *ngIf="this.files.graveProfilePicture" style="margin-bottom: 0px">
             {{ this.files.graveProfilePicture.file.name }}
