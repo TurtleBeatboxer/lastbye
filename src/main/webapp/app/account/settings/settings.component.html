@@ -1,4 +1,4 @@
-<div class="container">
+<div class="edit">
   <h2>Here is your profile</h2>
   <h5>Here are your edits left: {{ edits }}</h5>
   <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
@@ -8,170 +8,116 @@
     <strong>No edits left</strong> checkout our premium plans. Your changes won't apply
   </div>
 
-  <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="settingsForm.value.login" novalidate>
-    <div class="header">
-      <div>
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload />
-        <div class="img" (click)="fileUpload.click()"></div>
-      </div>
-      <div class="header-text">
-        <div class="mb-3">
-          <label for="firstName" jhiTranslate="settings.form.firstname">First Name</label>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            placeholder="{{ 'settings.form.firstname.placeholder' | translate }}"
-            formControlName="firstName"
-            data-cy="firstname"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="lastName" jhiTranslate="settings.form.lastname">Last Name</label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            placeholder="{{ 'settings.form.lastname.placeholder' | translate }}"
-            formControlName="lastName"
-            data-cy="lastname"
-          />
-        </div>
-      </div>
-      <div class="header-buttons">
-        <button class="button-header" type="submit">Save</button>
-        <button class="button-header" [routerLink]="['/']">Go back</button>
+  <div class="header">
+    <div>
+      <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload />
+      <div class="img" (click)="fileUpload.click()"></div>
+    </div>
+    <div class="header-text">
+      <div class="mb-3" *ngIf="!this.editMode">
+        <p class="name">{{ this.initialAccount.firstName + ' ' + this.initialAccount.lastName }}</p>
       </div>
     </div>
+    <div class="header-buttons">
+      <button class="button-header" type="submit">Save</button>
+      <button class="button-header" (click)="edit()">{{ this.editMode ? 'Save' : 'Edit' }}</button>
+      <button class="button-header" [routerLink]="['/']">Go back</button>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+  <div *ngIf="this.editMode">
+    <div class="section" *ngIf="this.editMode">
+      <h2 class="title-body">Basic Info</h2>
+      <div class="mb-3">
+        <p class="value">Name: {{ this.initialAccount.firstName }}</p>
+      </div>
+      <div class="mb-3">
+        <p class="value">Surname: {{ this.initialAccount.lastName }}</p>
+      </div>
+      <div class="mb-3">
+        <p class="value">Username: {{ this.initialAccount }}</p>
+      </div>
+      <div class="mb-3">
+        <p class="value">Birth date: {{ this.initialAccount }}</p>
+      </div>
+      <button *ngIf="this.editMode" (click)="editClickBasic()" class="button-header editbtn">Edit</button>
+    </div>
+    <div class="separator"></div>
+    <div class="section">
+      <h2 class="title-body">Security</h2>
+      <div class="mb-3">
+        <div class="value">Email:</div>
+      </div>
+      <div class="mb-3">
+        <div class="value">Phone number:</div>
+      </div>
+      <div class="mb-3">
+        <div class="value">Password:</div>
+      </div>
+      <div class="mb-3">
+        <div class="value">Ludzie z info:</div>
+      </div>
+      <button *ngIf="this.editMode" (click)="editClickSecurity()" class="button-header editbtn">Edit</button>
+    </div>
+    <div class="separator"></div>
+  </div>
+  <div class="section">
     <h2 class="title-body">My burial</h2>
     <div class="mb-3">
-      <label for="burialMethod">Burial method</label>
-      <input
-        nbInput
-        type="text"
-        id="burialMethod"
-        name="burialMethod"
-        placeholder="{{ 'Burial Method' }}"
-        formControlName="burialMethod"
-        data-cy="burialMethod"
-      />
+      <p class="value">Method: {{ this.initialAccount.burialMethod }}</p>
     </div>
     <div class="mb-3">
-      <label for="placeOfCeremony">placeOfCeremony </label>
-      <input
-        nbInput
-        type="text"
-        id="placeOfCeremony"
-        name="placeOfCeremony"
-        placeholder="{{ 'placeOfCeremony ' }}"
-        formControlName="placeOfCeremony"
-        data-cy="placeOfCeremony"
-      />
+      <p class="value">Place: {{ this.initialAccount.burialPlace }}</p>
     </div>
     <div class="mb-3">
-      <label for="graveInscription">Grave inscription</label>
-      <input
-        nbInput
-        type="text"
-        id="graveInscription"
-        name="graveInscription"
-        placeholder="{{ 'Grave inscription' }}"
-        formControlName="graveInscription"
-        data-cy="graveInscription"
-      />
+      <p class="value">Grave insription: {{ this.initialAccount.graveInscription }}</p>
     </div>
-    <div class="mb-3 nb-theme-default">
-      <label for="openCoffin">
-        Do you want your coffin open?
-        <nb-radio-group formControlName="openCoffin" name="openCoffin">
-          <nb-radio [value]="true" id="openCoffin" name="openCoffin" [checked]="isTrueCoffin">Yes</nb-radio>
-          <nb-radio [value]="false" id="openCoffin" name="openCoffin">No</nb-radio>
-        </nb-radio-group>
-      </label>
-    </div>
-
     <div class="mb-3">
-      <label for="clothes">Clothes</label>
-      <input nbInput type="text" id="clothes" name="clothes" placeholder="{{ 'Clothes' }}" formControlName="clothes" data-cy="clothes" />
+      <p class="value">Casket: {{ this.initialAccount.openCoffin ? 'yes' : 'no' }}</p>
     </div>
+    <button *ngIf="this.editMode" (click)="editClickBurial()" class="button-header editbtn">Edit</button>
+  </div>
+  <div class="separator"></div>
+  <div class="section">
     <h2 class="title-body">My funeral</h2>
 
     <div class="mb-3 nb-theme-default">
-      <label for="flowers">
-        Do you want any flowers?
-        <nb-radio-group formControlName="flowers" name="flowers">
-          <nb-radio [value]="true" id="flowers" name="flowers">Yes</nb-radio>
-          <nb-radio [value]="false" id="flowers" name="flowers">No</nb-radio>
-        </nb-radio-group>
-      </label>
-    </div>
-    <div class="mb-3">
-      <label for="ifFlowers">What type of flowers do you want?</label>
-      <input
-        nbInput
-        type="text"
-        id="ifFlowers"
-        name="ifFlowers"
-        placeholder="{{ 'Type of flowers' }}"
-        formControlName="ifFlowers"
-        data-cy="ifFlowers"
-      />
-    </div>
-    <div class="mb-3">
-      <label for="obituary">Write your obituary</label>
-      <input
-        nbInput
-        type="text"
-        id="obituary"
-        name="obituary"
-        placeholder="{{ 'obituary' }}"
-        formControlName="obituary"
-        data-cy="obituary"
-      />
-    </div>
-    <div class="mb-3">
-      <label for="placeOfCeremony">placeOfCeremony </label>
-      <input
-        nbInput
-        type="text"
-        id="placeOfCeremony"
-        name="placeOfCeremony"
-        placeholder="{{ 'placeOfCeremony ' }}"
-        formControlName="placeOfCeremony"
-        data-cy="placeOfCeremony"
-      />
+      <div class="value">Flowers: {{ this.initialAccount.flowers ? 'Yes' : 'No' }}</div>
     </div>
 
     <div class="mb-3">
-      <label for="spotify">Do you want any music?</label>
-      <input
-        nbInput
-        type="text"
-        id="spotify"
-        name="spotify"
-        placeholder="{{ 'Link your spotify playlist' }}"
-        formControlName="spotify"
-        data-cy="spotify"
-      />
+      <div class="value">Place of ceremony: {{ this.initialAccount.placeOfCeremony }}</div>
+    </div>
+
+    <div class="mb-3">
+      <div class="value">Music: {{ this.initialAccount.spotify }}</div>
     </div>
     <div class="mb-3">
-      <label for="guests">guests</label>
-      <input nbInput type="text" id="guests" name="guests" placeholder="{{ 'guests' }}" formControlName="guests" data-cy="guests" />
+      <div class="value">Guests: {{ this.initialAccount.guests }}</div>
     </div>
     <div class="mb-3">
-      <label for="notInvited">notInvited</label>
-      <input
-        nbInput
-        type="text"
-        id="notInvited"
-        name="notInvited"
-        placeholder="{{ 'notInvited' }}"
-        formControlName="notInvited"
-        data-cy="notInvited"
-      />
+      <div class="value">Those not invited: {{ this.initialAccount.notInvited }}</div>
     </div>
-  </form>
+    <button *ngIf="this.editMode" (click)="editClickFuneral()" class="button-header editbtn">Edit</button>
+  </div>
+  <div class="separator"></div>
+  <div class="section">
+    <h2 class="title-body">My last message</h2>
+    <div class="mb-3">
+      <div class="value">Farewell letter: {{ this.initialAccount.farewellLetter }}</div>
+    </div>
+    <div class="mb-3">
+      <div class="value">Who will read it: {{ this.initialAccount }}</div>
+    </div>
+    <div class="mb-3">
+      <div class="value">Will: {{ this.initialAccount.testament }}</div>
+    </div>
+    <div class="mb-3">
+      <div class="value">Other: {{ this.initialAccount.other }}</div>
+    </div>
+    <button *ngIf="this.editMode" (click)="editClickMessage()" class="button-header editbtn">Edit</button>
+  </div>
+
+  <button (click)="onClick()">text</button>
 </div>
-
-<button (click)="onClick()"></button>

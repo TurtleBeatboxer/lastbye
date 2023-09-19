@@ -7,7 +7,7 @@ import { ProfileFormService } from './profile-form.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
-import { Relative, profileFormData1 } from './profile-form.model';
+import { Files, Relative, profileFormData1 } from './profile-form.model';
 
 @Component({
   selector: 'jhi-profile-form',
@@ -24,9 +24,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   otherCremationInput;
   urn;
   relatives: Relative[] = [];
-  photoName: any;
-  file: File;
-
+  files: Files = { graveProfilePicture: null, farewellLetter: null, videoSpeech: null, testament: null };
   profileForm1 = this.profileFormService.buildForm1();
   profileForm2 = this.profileFormService.buildForm2();
   profileForm3 = this.profileFormService.buildForm3();
@@ -41,18 +39,18 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     private accountService: AccountService,
     private cd: ChangeDetectorRef
   ) {}
+
   ngOnInit(): void {
     if (this.accountService.userIdentity) {
       this.user = this.accountService.userIdentity;
     }
   }
+
   ngAfterViewInit(): void {
     const results = this.nbSteps._results;
-
     if (this.accountService.userIdentity) {
       for (let i = 0; i <= this.accountService.userIdentity.levelOfForm; i++) {
         const currentStep = results[i];
-        console.log(results[i]);
         if (i === this.accountService.userIdentity.levelOfForm) {
           results[i].select();
         } else {
@@ -60,89 +58,43 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
         }
       }
     }
-
     this.cd.detectChanges();
-  }
-
-  onTest(): void {
-    console.log(this.photoName);
   }
 
   onSkip(): void {
     this.router.navigate(['/']);
   }
 
-  onCoffinClick() {
+  onCoffinClick(): void {
     this.profileForm2.patchValue({ burialMethod: 'coffin' });
     this.otherCremation = false;
     this.otherCremationInput = '';
     this.profileForm2.reset();
+    this.profileForm2.patchValue({ burialMethod: 'coffin' });
   }
 
-  onOtherClicked() {
+  onOtherClicked(): void {
     this.profileForm2.patchValue({ burialMethod: '' });
     this.otherCremation = false;
     this.otherCremationInput = '';
     this.profileForm2.reset();
   }
 
-  onCremationClick() {
+  onCremationClick(): void {
     this.otherCremation = false;
     this.otherCremationInput = '';
     this.profileForm2.reset();
+    this.profileForm2.patchValue({ burialMethod: 'cremation' });
   }
 
-  otherCremationFalse() {
+  otherCremationFalse(): void {
     this.otherCremation = false;
 
     this.otherCremationInput = '';
   }
 
-  onOtherCremationClick() {
+  onOtherCremationClick(): void {
     this.profileForm2.patchValue({ burialMethod: '' });
-  }
-
-  submit() {
-    console.log(this.profileForm2.getRawValue());
-  }
-
-  secondStep(): void {
-    this.http
-      .post(
-        this.applicationConfigService.getEndpointFor('/api/register/form'),
-        this.profileFormService.dataProfile2(this.profileForm2.getRawValue())
-      )
-      .subscribe(() => console.warn(this.profileForm2.getRawValue()));
-    this.nbStepper.next();
-  }
-
-  thirdStep(): void {
-    this.http
-      .post(
-        this.applicationConfigService.getEndpointFor('/api/register/form'),
-        this.profileFormService.dataProfile3(this.profileForm3.getRawValue())
-      )
-      .subscribe(() => console.warn(this.profileForm3.getRawValue()));
-    this.nbStepper.next();
-  }
-
-  fiveStep(): void {
-    console.log(this.relatives);
-    let data = this.profileForm5.getRawValue();
-    const relative = new Relative(data.email, data.name, data.phone);
-    this.relatives.push(relative);
-  }
-
-  submitStep5() {}
-
-  fourthStep(): void {
-    this.http
-      .post(
-        this.applicationConfigService.getEndpointFor('/api/register/form'),
-        this.profileFormService.dataProfile4(this.profileForm4.getRawValue())
-      )
-      .subscribe(() => console.warn(this.profileForm4.getRawValue()));
-    this.nbStepper.next();
   }
 
   firstStep(): void {
@@ -156,11 +108,58 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.router.navigate(['user/picture'], { skipLocationChange: true });
   }
 
-  onFileSelected(event) {
-    this.file = event.target.files[0];
-    console.log(this.file.name);
-    const reader = new FileReader();
-    this.photoName = this.file.name;
-    reader.readAsDataURL(event.target.files[0]);
+  secondStep(): void {
+    this.http
+      .post(
+        this.applicationConfigService.getEndpointFor('/api/register/form'),
+        this.profileFormService.dataProfile2(this.profileForm2.getRawValue(), this.burialType)
+      )
+      .subscribe(() => console.warn(this.profileForm2.getRawValue()));
+    this.profileFormService.savePhoto(this.files.graveProfilePicture);
+    this.nbStepper.next();
+  }
+
+  thirdStep(): void {
+    this.http
+      .post(
+        this.applicationConfigService.getEndpointFor('/api/register/form'),
+        this.profileFormService.dataProfile3(this.profileForm3.getRawValue())
+      )
+      .subscribe(() => console.warn(this.profileForm3.getRawValue()));
+    this.nbStepper.next();
+  }
+
+  fourthStep(): void {
+    this.http
+      .post(
+        this.applicationConfigService.getEndpointFor('/api/register/form'),
+        this.profileFormService.dataProfile4(this.profileForm4.getRawValue())
+      )
+      .subscribe(() => console.warn(this.profileForm4.getRawValue()));
+    this.profileFormService.savePhoto(this.files.farewellLetter);
+    this.profileFormService.savePhoto(this.files.testament);
+    this.profileFormService.savePhoto(this.files.videoSpeech);
+    this.nbStepper.next();
+  }
+
+  fiveStep(): void {
+    const data = this.profileForm5.getRawValue();
+    const relative = new Relative(data.email, data.name, data.phone);
+    this.relatives.push(relative);
+    this.profileForm5.reset();
+  }
+
+  deleteRelative(index): void {
+    this.relatives.splice(index, 1);
+
+    console.log(this.relatives);
+  }
+
+  submitStep5(): void {}
+
+  onFileSelected(event: Event): void {
+    console.log(this.files);
+    this.files = this.profileFormService.onFileSelected(event, this.files);
+    console.log(this.files);
   }
 }

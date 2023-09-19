@@ -43,7 +43,7 @@ import { tellUsRoute } from './account/profile-form/tell-us/tell-us.route';
         aboutUsRoute,
         ...errorRoute,
       ],
-      { enableTracing: DEBUG_INFO_ENABLED }
+      { enableTracing: DEBUG_INFO_ENABLED, scrollPositionRestoration: 'enabled' }
     ),
   ],
   exports: [RouterModule],
