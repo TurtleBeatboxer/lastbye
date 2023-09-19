@@ -6,30 +6,137 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { ProfileFormService } from './profile-form.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
-import { Account } from 'app/core/auth/account.model';
-import { Files, Relative, profileFormData1 } from './profile-form.model';
 
 @Component({
   selector: 'jhi-profile-form',
   templateUrl: './profile-form.component.html',
   styleUrls: ['./profile-form.component.scss'],
 })
-export class ProfileFormComponent implements AfterViewInit, OnInit {
+export class ProfileFormComponent implements AfterViewInit {
   success: any;
   @ViewChild(NbStepperComponent) nbStepper;
   @ViewChildren(NbStepComponent) nbSteps;
-  otherCremation = false;
-  user: Account | null = null;
-  burialType;
-  otherCremationInput;
-  urn;
-  relatives: Relative[] = [];
-  files: Files = { graveProfilePicture: null, farewellLetter: null, videoSpeech: null, testament: null };
-  profileForm1 = this.profileFormService.buildForm1();
-  profileForm2 = this.profileFormService.buildForm2();
-  profileForm3 = this.profileFormService.buildForm3();
-  profileForm4 = this.profileFormService.buildForm4();
-  profileForm5 = this.profileFormService.buildForm5();
+  burialMethod: any;
+
+  profileForm1 = new FormGroup({
+    firstName: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    lastName: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    prefix: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    phone: new FormControl<number>(null!, {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+    }),
+  });
+
+  profileForm2 = new FormGroup({
+    burialMethod: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+    }),
+
+    graveInscription: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+    }),
+    openCoffin: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
+
+    clothes: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
+    }),
+  });
+
+  profileForm3 = new FormGroup({
+    flowers: new FormControl(false, {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    ifFlowers: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    obituary: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    spotify: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    guests: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    notInvited: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    placeOfCeremony: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+  });
+
+  profileForm4 = new FormGroup({
+    farewellLetter: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    videoSpeech: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    testament: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+  });
 
   constructor(
     private http: HttpClient,
@@ -40,19 +147,13 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    if (this.accountService.userIdentity) {
-      this.user = this.accountService.userIdentity;
-    }
-  }
-
   ngAfterViewInit(): void {
     const results = this.nbSteps._results;
     if (this.accountService.userIdentity) {
       for (let i = 0; i <= this.accountService.userIdentity.levelOfForm; i++) {
         const currentStep = results[i];
         if (i === this.accountService.userIdentity.levelOfForm) {
-          results[i].select();
+          this.nbStepper.changeStep(currentStep);
         } else {
           currentStep._completed = true;
         }
@@ -61,61 +162,19 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.cd.detectChanges();
   }
 
+  onTest(): void {}
+
   onSkip(): void {
     this.router.navigate(['/']);
-  }
-
-  onCoffinClick(): void {
-    this.profileForm2.patchValue({ burialMethod: 'coffin' });
-    this.otherCremation = false;
-    this.otherCremationInput = '';
-    this.profileForm2.reset();
-    this.profileForm2.patchValue({ burialMethod: 'coffin' });
-  }
-
-  onOtherClicked(): void {
-    this.profileForm2.patchValue({ burialMethod: '' });
-    this.otherCremation = false;
-    this.otherCremationInput = '';
-    this.profileForm2.reset();
-  }
-
-  onCremationClick(): void {
-    this.otherCremation = false;
-    this.otherCremationInput = '';
-    this.profileForm2.reset();
-    this.profileForm2.patchValue({ burialMethod: 'cremation' });
-  }
-
-  otherCremationFalse(): void {
-    this.otherCremation = false;
-
-    this.otherCremationInput = '';
-  }
-
-  onOtherCremationClick(): void {
-    this.profileForm2.patchValue({ burialMethod: '' });
-  }
-
-  firstStep(): void {
-    this.http
-      .post(
-        this.applicationConfigService.getEndpointFor('/api/register/form'),
-        this.profileFormService.dataProfile1(this.profileForm1.getRawValue())
-      )
-      .subscribe(() => console.warn(this.profileForm1.getRawValue()));
-
-    this.router.navigate(['user/picture'], { skipLocationChange: true });
   }
 
   secondStep(): void {
     this.http
       .post(
         this.applicationConfigService.getEndpointFor('/api/register/form'),
-        this.profileFormService.dataProfile2(this.profileForm2.getRawValue(), this.burialType)
+        this.profileFormService.dataProfile2(this.profileForm2.getRawValue())
       )
       .subscribe(() => console.warn(this.profileForm2.getRawValue()));
-    this.profileFormService.savePhoto(this.files.graveProfilePicture);
     this.nbStepper.next();
   }
 
@@ -136,30 +195,17 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
         this.profileFormService.dataProfile4(this.profileForm4.getRawValue())
       )
       .subscribe(() => console.warn(this.profileForm4.getRawValue()));
-    this.profileFormService.savePhoto(this.files.farewellLetter);
-    this.profileFormService.savePhoto(this.files.testament);
-    this.profileFormService.savePhoto(this.files.videoSpeech);
     this.nbStepper.next();
+    this.router.navigate(['/']);
   }
 
-  fiveStep(): void {
-    const data = this.profileForm5.getRawValue();
-    const relative = new Relative(data.email, data.name, data.phone);
-    this.relatives.push(relative);
-    this.profileForm5.reset();
-  }
-
-  deleteRelative(index): void {
-    this.relatives.splice(index, 1);
-
-    console.log(this.relatives);
-  }
-
-  submitStep5(): void {}
-
-  onFileSelected(event: Event): void {
-    console.log(this.files);
-    this.files = this.profileFormService.onFileSelected(event, this.files);
-    console.log(this.files);
+  firstStep(): void {
+    this.http
+      .post(
+        this.applicationConfigService.getEndpointFor('/api/register/form'),
+        this.profileFormService.dataProfile1(this.profileForm1.getRawValue())
+      )
+      .subscribe(() => console.warn(this.profileForm1.getRawValue()));
+    this.nbStepper.next();
   }
 }

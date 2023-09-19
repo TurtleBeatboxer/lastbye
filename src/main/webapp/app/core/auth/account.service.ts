@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
-import { BehaviorSubject, Observable, ReplaySubject, of } from 'rxjs';
+import { Observable, ReplaySubject, of } from 'rxjs';
 import { shareReplay, tap, catchError } from 'rxjs/operators';
 
 import { StateStorageService } from 'app/core/auth/state-storage.service';
@@ -14,9 +14,6 @@ import { UserService } from 'app/user/user.service';
 @Injectable({ providedIn: 'root' })
 export class AccountService {
   userIdentity: Account | null = null;
-  public _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
   private authenticationState = new ReplaySubject<Account | null>(1);
   private accountCache$?: Observable<Account> | null;
 

@@ -13,18 +13,15 @@ export interface profileFormData1 extends Partial<requestData> {
 
 export interface profileFormData2 extends Partial<requestData> {
   burialMethod: string;
-  burialPlace: string;
-  ifGraveInscription: boolean | null;
-  ifPhotoGrave: boolean | null;
   graveInscription: string;
-  openCoffin: boolean | null;
+  openCoffin: boolean;
   clothes: string;
 }
 
 export interface profileFormData3 extends Partial<requestData> {
-  flowers: boolean | null;
+  flowers: boolean;
   ifFlowers: string;
-  // obituary: string;
+  obituary: string;
   spotify: string;
   guests: string;
   notInvited: string;
@@ -32,25 +29,8 @@ export interface profileFormData3 extends Partial<requestData> {
 }
 
 export interface profileFormData4 extends Partial<requestData> {
-  farewellLetter: boolean | null;
-  videoSpeech: boolean | null;
-  testament: boolean | null;
+  farewellLetter: string;
+  videoSpeech: string;
+  testament: string;
   other: string;
-}
-
-export class Relative {
-  constructor(public email: string, public name: string, public phone: string) {}
-}
-
-export class Files {
-  constructor(
-    public graveProfilePicture: smallFile | null,
-    public farewellLetter: smallFile | null,
-    public videoSpeech: smallFile | null,
-    public testament: smallFile | null
-  ) {}
-}
-
-export class smallFile {
-  constructor(public file: File, public name: string) {}
 }

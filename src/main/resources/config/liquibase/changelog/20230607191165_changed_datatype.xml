@@ -7,11 +7,11 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet id="increase-password-length" author="martin">
-        <preConditions onFail="MARK_RAN">
+        <!--<preConditions onFail="MARK_RAN">
             <not>
                 <columnExists tableName="Profile" columnName="life_link" />
             </not>
-        </preConditions>
+        </preConditions>-->
         <modifyDataType tableName="profile" columnName="life_link" newDataType="varchar(256)"/>
     </changeSet>
 </databaseChangeLog>

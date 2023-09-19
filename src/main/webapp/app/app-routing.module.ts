@@ -10,7 +10,6 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
 import { publicProfileRoute } from './account/public-profile/public-profile.route';
 import { aboutUsRoute } from './pages/about-us/about-us.route';
 import { ideaRoute } from './pages/idea/idea.route';
-import { tellUsRoute } from './account/profile-form/tell-us/tell-us.route';
 
 @NgModule({
   imports: [
@@ -39,11 +38,10 @@ import { tellUsRoute } from './account/profile-form/tell-us/tell-us.route';
         navbarRoute,
         publicProfileRoute,
         ideaRoute,
-
         aboutUsRoute,
         ...errorRoute,
       ],
-      { enableTracing: DEBUG_INFO_ENABLED, scrollPositionRestoration: 'enabled' }
+      { enableTracing: DEBUG_INFO_ENABLED }
     ),
   ],
   exports: [RouterModule],

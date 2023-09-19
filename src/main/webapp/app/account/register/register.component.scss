@@ -1,65 +1,22 @@
 .register-input {
-  width: 816.8px;
-  height: 76.8px;
+  width: 1021px;
+  height: 96px;
   border: 1px solid #000000;
   border-radius: 102px;
-  font-size: 25px;
+  font-size: 35px;
   text-indent: 20px;
-  background-color: #cae1ea;
-}
-
-.register-input::placeholder {
-  color: black;
 }
 
 .register-button {
-  width: 545.7px;
-  height: 73.1px;
-  font-size: 30px;
+  width: 714px;
+  height: 96px;
+  font-size: 35px;
   border-radius: 102px;
   border: 1px solid #707070;
-  background-color: #8fc1d4;
+  background-color: #ffffff;
   color: #000000;
 }
 
-.news,
-.policy {
-  display: flex;
-  flex-direction: row;
-  align-self: flex-start;
-  gap: 40px;
-  margin: 20px 0px 20px 22%;
-}
-
-.policy {
-  margin: 0px 0px 20px 22%;
-}
-
-.login-a {
-  color: #4b7aa1;
-}
-.news-label {
-  font-size: 20px;
-  margin-bottom: 5px;
-}
-
-.policy-label {
-  font-size: 20px;
-  margin-bottom: 5px;
-}
-.policy-a {
-  color: #4b7aa1;
-}
-
-.policy-label::after {
-  content: '*';
-  color: red;
-}
-
-.checkbox {
-  height: 25px;
-  width: 25px;
-}
 .register {
   margin-top: 150px;
 }

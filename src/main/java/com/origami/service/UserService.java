@@ -299,7 +299,6 @@ public class UserService {
         managedUserVM.setPassword(user.getPassword());
         managedUserVM.setLastModifiedBy(user.getLastModifiedBy());
         managedUserVM.setLastModifiedDate(user.getLastModifiedDate());
-
         Optional<Profile> profile = profileService.getProfileByUserID(user.getId());
         if (profile.isPresent()) {
             managedUserVM.setLifeStatus(profile.get().getLifeStatus());
@@ -327,13 +326,6 @@ public class UserService {
             managedUserVM.setVideoSpeech(profile.get().getVideoSpeech());
             managedUserVM.setLevelOfForm(profile.get().getLevelOfForm());
             managedUserVM.setEditsLeft(profile.get().getEditsLeft());
-            managedUserVM.setIfGraveInscription(profile.get().getIfGraveInscription());
-            managedUserVM.setBurialPlace(profile.get().getBurialPlace());
-            managedUserVM.setBurialType(profile.get().getBurialType());
-            managedUserVM.setIfPhotoGrave(profile.get().getIfPhotoGrave());
-            managedUserVM.setMusicType(profile.get().getMusicType());
-            managedUserVM.setIfGuests(profile.get().getIfGuests());
-            managedUserVM.setIfOther4(profile.get().getIfOther4());
         }
         return managedUserVM;
     }

@@ -43,11 +43,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     //   wait;
     // }
     this.successRegister();
-    // this.accountService.identity().subscribe(() => {
-    //   if (this.accountService.isAuthenticated()) {
-    //     this.router.navigate(['']);
-    //   }
-    // });
+    this.accountService.identity().subscribe(() => {
+      if (this.accountService.isAuthenticated()) {
+        this.router.navigate(['']);
+      }
+    });
   }
 
   ngAfterViewInit(): void {

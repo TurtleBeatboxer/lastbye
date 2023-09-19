@@ -10,7 +10,6 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'jhi-navbar',
@@ -25,12 +24,12 @@ export class NavbarComponent implements OnInit {
   version = '';
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
-
+  logged: boolean;
   constructor(
     private loginService: LoginService,
     private translateService: TranslateService,
     private sessionStorageService: SessionStorageService,
-    public accountService: AccountService,
+    private accountService: AccountService,
     private profileService: ProfileService,
     private router: Router
   ) {
@@ -50,9 +49,9 @@ export class NavbarComponent implements OnInit {
       this.account = account;
       if (account) {
         if (account.authorities[0] === 'ROLE_USER') {
-          this.accountService._isAuthenticatedSubject.next(true);
+          this.logged = true;
         } else {
-          this.accountService._isAuthenticatedSubject.next(false);
+          this.logged = false;
         }
       }
     });
@@ -72,7 +71,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.accountService._isAuthenticatedSubject.next(false);
+    this.logged = false;
     this.loginService.logout();
     this.router.navigate(['']);
   }

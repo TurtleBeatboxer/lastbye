@@ -13,7 +13,7 @@ export class RegisterService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService, private router: Router) {}
 
   save(register: Register): Observable<{}> {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/user/profile1']);
     return this.http.post(this.applicationConfigService.getEndpointFor('api/register'), register);
   }
 

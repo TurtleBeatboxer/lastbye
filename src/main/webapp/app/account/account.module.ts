@@ -23,15 +23,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
-import { CodeQrComponent } from './codeQR/code-qr/code-qr.component';
-import { TellUsComponent } from './profile-form/tell-us/tell-us.component';
-import { ProfileFormPictureComponent } from './profile-form/profile-form-picture/profile-form-picture.component';
-import { RelativeComponent } from './profile-form/relative/relative.component';
-import { BasicInfoEditComponent } from './settings/basic-info-edit/basic-info-edit.component';
-import { SecurityEditComponent } from './settings/security-edit/security-edit.component';
-import { MyBurialEditComponent } from './settings/my-burial-edit/my-burial-edit.component';
-import { MyFuneralEditComponent } from './settings/my-funeral-edit/my-funeral-edit.component';
-import { MyLastMessageEditComponent } from './settings/my-last-message-edit/my-last-message-edit.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -55,15 +46,6 @@ import { MyLastMessageEditComponent } from './settings/my-last-message-edit/my-l
     SettingsComponent,
     ProfileFormComponent,
     PublicProfileComponent,
-    CodeQrComponent,
-    TellUsComponent,
-    ProfileFormPictureComponent,
-    RelativeComponent,
-    BasicInfoEditComponent,
-    SecurityEditComponent,
-    MyBurialEditComponent,
-    MyFuneralEditComponent,
-    MyLastMessageEditComponent,
   ],
 })
 export class AccountModule {}

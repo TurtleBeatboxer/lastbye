@@ -38,8 +38,7 @@ describe('RegisterService Service', () => {
 
       const testRequest = httpMock.expectOne({
         method: 'POST',
-        url: 'http://localhost:8080/api/register',
-        // url: applicationConfigService.getEndpointFor('api/register'),
+        url: applicationConfigService.getEndpointFor('api/register'),
       });
 
       // THEN
