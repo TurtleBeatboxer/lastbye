@@ -218,8 +218,10 @@ public class ProfileService {
             profile.setOpenCoffin(userDTO.isOpenCoffin());
             profile.setClothes(userDTO.getClothes());
             profile.setBurialPlace(userDTO.getBurialPlace());
-
+            profile.setBurialType(userDTO.getBurialType());
             profile.setLevelOfForm(2L);
+            profile.setIfGraveInscription(userDTO.getIfGraveInscription());
+            profile.setIfPhotoGrave(userDTO.getIfPhotoGrave());
             profileRepository.save(profile);
         }
     }
@@ -238,6 +240,7 @@ public class ProfileService {
             profile.setBurialType(userDTO.getBurialType());
             profile.setIfGraveInscription(userDTO.getIfGraveInscription());
             profile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
+            profile.setIfGuests(userDTO.getIfGuests());
             profile.setLevelOfForm(3L);
             profileRepository.save(profile);
         }
@@ -251,6 +254,10 @@ public class ProfileService {
             profile.setVideoSpeech(userDTO.getVideoSpeech());
             profile.setTestament(userDTO.getTestament());
             profile.setOther(userDTO.getOther());
+            profile.setIfFarewellLetter(userDTO.getIfFarewellLetter());
+            profile.setIfTestament(userDTO.getIfTestament());
+            profile.setIfVideoSpeech(userDTO.getIfVideoSpeech());
+            profile.setIfOther4(userDTO.getIfOther4());
             profile.setFinishedEditing(true);
             String qrCode = qrService.getAlphaNumericString(10);
             while (!isQRValid(qrCode)) {

@@ -334,6 +334,9 @@ public class UserService {
             managedUserVM.setMusicType(profile.get().getMusicType());
             managedUserVM.setIfGuests(profile.get().getIfGuests());
             managedUserVM.setIfOther4(profile.get().getIfOther4());
+            managedUserVM.setIfTestament(profile.get().getIfTestament());
+            managedUserVM.setIfVideoSpeech(profile.get().getIfVideoSpeech());
+            managedUserVM.setIfFarewellLetter(profile.get().getIfFarewellLetter());
         }
         return managedUserVM;
     }

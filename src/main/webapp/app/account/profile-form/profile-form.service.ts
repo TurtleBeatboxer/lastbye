@@ -152,11 +152,14 @@ export class ProfileFormService {
 
   buildForm4() {
     return new FormGroup({
+      ifFarewellLetter: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
       farewellLetter: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
       farewellReader: new FormControl(''),
+      ifVideoSpeech: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
       videoSpeech: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
+      ifTestament: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
       testament: new FormControl(null, { nonNullable: true, validators: [Validators.required] }),
-      ifOther: new FormControl(null),
+      ifOther4: new FormControl(null),
       other: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     });
   }

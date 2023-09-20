@@ -38,6 +38,10 @@ export class Account {
     public musicType: string,
     public burialType: string,
     public ifGraveInscription: boolean,
-    public ifPhotoGrave: boolean
+    public ifPhotoGrave: boolean,
+    public ifTestament: boolean,
+    public ifVideoSpeech: boolean,
+    public ifFarewellLetter: boolean,
+    public ifOther4: boolean
   ) {}
 }

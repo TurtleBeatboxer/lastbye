@@ -1,9 +1,6 @@
 package com.origami.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -152,6 +149,47 @@ public class Profile implements Serializable {
     @Column(name = "if_photo_grave")
     private Boolean ifPhotoGrave;
 
+    @Column(name = "if_farewell_letter")
+    private Boolean ifFarewellLetter;
+
+    @Column(name = "if_video_speech")
+    private Boolean ifVideoSpeech;
+
+    @Column(name = "if_testament")
+    private Boolean ifTestament;
+
+    public Boolean getIfOther4() {
+        return ifOther4;
+    }
+
+    public void setIfOther4(Boolean ifOther4) {
+        this.ifOther4 = ifOther4;
+    }
+
+    public Boolean getIfFarewellLetter() {
+        return ifFarewellLetter;
+    }
+
+    public void setIfFarewellLetter(Boolean ifFarewellLetter) {
+        this.ifFarewellLetter = ifFarewellLetter;
+    }
+
+    public Boolean getIfVideoSpeech() {
+        return ifVideoSpeech;
+    }
+
+    public void setIfVideoSpeech(Boolean ifVideoSpeech) {
+        this.ifVideoSpeech = ifVideoSpeech;
+    }
+
+    public Boolean getIfTestament() {
+        return ifTestament;
+    }
+
+    public void setIfTestament(Boolean ifTestament) {
+        this.ifTestament = ifTestament;
+    }
+
     public Boolean getIfPhotoGrave() {
         return ifPhotoGrave;
     }
@@ -182,14 +220,6 @@ public class Profile implements Serializable {
 
     public void setIfGuests(Boolean ifGuests) {
         this.ifGuests = ifGuests;
-    }
-
-    public Boolean getIfOther4() {
-        return ifOther4;
-    }
-
-    public void setIfOther4(Boolean ifOther4) {
-        this.ifOther4 = ifOther4;
     }
 
     public String getMusicType() {

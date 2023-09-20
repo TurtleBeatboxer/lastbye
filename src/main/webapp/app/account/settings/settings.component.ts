@@ -161,6 +161,10 @@ export class SettingsComponent implements OnInit {
     ifGraveInscription: new FormControl(this.initialAccount.ifGraveInscription, { nonNullable: true }),
     musicType: new FormControl(this.initialAccount.musicType, { nonNullable: true }),
     ifPhotoGrave: new FormControl(this.initialAccount.ifPhotoGrave, { nonNullable: true }),
+    ifTestament: new FormControl(this.initialAccount.ifTestament, { nonNullable: true }),
+    ifFarewellLetter: new FormControl(this.initialAccount.ifFarewellLetter, { nonNullable: true }),
+    ifVideoSpeech: new FormControl(this.initialAccount.ifVideoSpeech, { nonNullable: true }),
+    ifOther4: new FormControl(this.initialAccount.ifOther4, { nonNullable: true }),
   });
 
   constructor(
