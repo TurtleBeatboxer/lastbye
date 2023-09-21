@@ -20,6 +20,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
+import org.h2.util.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -104,6 +105,11 @@ public class AccountResource {
         } else {
             return HttpStatus.FORBIDDEN;
         }
+    }
+
+    //Prepared business logic
+    public HttpStatus addListOfRelatives(JSONObject jsonObject) {
+        return HttpStatus.BAD_REQUEST;
     }
 
     @PostMapping("/profile/lifestatus/alive")
