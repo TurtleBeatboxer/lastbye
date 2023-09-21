@@ -2,6 +2,7 @@ package com.origami.service;
 
 import com.origami.domain.Files;
 import com.origami.domain.Profile;
+import com.origami.domain.enumeration.FileType;
 import com.origami.repository.FilesRepository;
 import com.origami.repository.ProfileRepository;
 import java.io.File;
@@ -28,7 +29,7 @@ public class FileService {
 
         fileData.setName(file.getOriginalFilename());
         fileData.setFormat(file.getContentType());
-        fileData.setType(type);
+        fileData.setFileType(stringToFileType(type));
         Profile profile = profileRepository.findOneByUserId((long) Integer.parseInt(userId)).get();
         fileData.setProfile(profile);
         String filePath = FOLDER_PATH + profile.getUserId() + "/" + file.getOriginalFilename();
@@ -37,6 +38,20 @@ public class FileService {
         file.transferTo(new File(filePath));
         if (fileData != null) {
             return "file uploaded successfully : " + filePath;
+        }
+        return null;
+    }
+
+    public FileType stringToFileType(String type) {
+        switch (type) {
+            case ("burialPicutre"):
+                return FileType.BURIAL_PICTURE;
+            case ("farewellLetter"):
+                return FileType.FAREWELL_LETTER;
+            case ("testament"):
+                return FileType.PUBLIC_PICTURE;
+            case ("videoSpeech"):
+                return FileType.VIDEO_SPEECH;
         }
         return null;
     }
