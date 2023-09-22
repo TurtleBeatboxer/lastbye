@@ -2,7 +2,9 @@ package com.origami.web.rest.vm;
 
 import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
+import com.origami.domain.RelativeDTO;
 import com.origami.service.dto.AdminUserDTO;
+import java.util.ArrayList;
 import javax.validation.constraints.Size;
 
 /**
@@ -45,6 +47,77 @@ public class ManagedUserVM extends AdminUserDTO {
     private Long userId;
     private Long editsLeft;
     private LifeStatus lifeStatus;
+    private String burialPlace;
+    private String farewellReader;
+
+    private String musicType;
+    private String burialType;
+    private Boolean ifGraveInscription;
+    private Boolean ifGuests;
+    private Boolean ifOther4;
+    private Boolean ifPhotoGrave;
+
+    private ArrayList<RelativeDTO> relativeDTOs;
+
+    public ArrayList<RelativeDTO> getRelativeDTOs() {
+        return relativeDTOs;
+    }
+
+    public void setRelativeDTOs(ArrayList<RelativeDTO> relativeDTOs) {
+        this.relativeDTOs = relativeDTOs;
+    }
+
+    public Boolean getIfPhotoGrave() {
+        return ifPhotoGrave;
+    }
+
+    public void setIfPhotoGrave(Boolean ifPhotoGrave) {
+        this.ifPhotoGrave = ifPhotoGrave;
+    }
+
+    public Boolean getOpenCoffin() {
+        return isOpenCoffin;
+    }
+
+    public String getBurialType() {
+        return burialType;
+    }
+
+    public void setBurialType(String burialType) {
+        this.burialType = burialType;
+    }
+
+    public Boolean getIfGraveInscription() {
+        return ifGraveInscription;
+    }
+
+    public void setIfGraveInscription(Boolean ifGraveInscription) {
+        this.ifGraveInscription = ifGraveInscription;
+    }
+
+    public Boolean getIfGuests() {
+        return ifGuests;
+    }
+
+    public void setIfGuests(Boolean ifGuests) {
+        this.ifGuests = ifGuests;
+    }
+
+    public Boolean getIfOther4() {
+        return ifOther4;
+    }
+
+    public void setIfOther4(Boolean ifOther4) {
+        this.ifOther4 = ifOther4;
+    }
+
+    public String getMusicType() {
+        return musicType;
+    }
+
+    public void setMusicType(String musicType) {
+        this.musicType = musicType;
+    }
 
     public LifeStatus getLifeStatus() {
         return lifeStatus;
@@ -56,6 +129,26 @@ public class ManagedUserVM extends AdminUserDTO {
 
     public ManagedUserVM() {
         // Empty constructor needed for Jackson.
+    }
+
+    public Boolean getPurchasedPlace() {
+        return purchasedPlace;
+    }
+
+    public String getBurialPlace() {
+        return burialPlace;
+    }
+
+    public void setBurialPlace(String burialPlace) {
+        this.burialPlace = burialPlace;
+    }
+
+    public String getFarewellReader() {
+        return farewellReader;
+    }
+
+    public void setFarewellReader(String farewellReader) {
+        this.farewellReader = farewellReader;
     }
 
     public Boolean isOpenCoffin() {

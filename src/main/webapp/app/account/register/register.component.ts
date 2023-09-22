@@ -39,10 +39,6 @@ export class RegisterComponent implements AfterViewInit {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(4), Validators.maxLength(50)],
     }),
-    confirmPassword: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(4), Validators.maxLength(50)],
-    }),
   });
 
   constructor(private translateService: TranslateService, private registerService: RegisterService) {}
@@ -59,15 +55,11 @@ export class RegisterComponent implements AfterViewInit {
     this.errorEmailExists = false;
     this.errorUserExists = false;
 
-    const { password, confirmPassword } = this.registerForm.getRawValue();
-    if (password !== confirmPassword) {
-      this.doNotMatch = true;
-    } else {
-      const { login, email } = this.registerForm.getRawValue();
-      this.registerService
-        .save({ login, email, password, langKey: this.translateService.currentLang })
-        .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
-    }
+    const { password } = this.registerForm.getRawValue();
+    const { login, email } = this.registerForm.getRawValue();
+    this.registerService
+      .save({ login, email, password, langKey: this.translateService.currentLang })
+      .subscribe({ next: () => (this.success = true), error: response => this.processError(response) });
   }
 
   private processError(response: HttpErrorResponse): void {

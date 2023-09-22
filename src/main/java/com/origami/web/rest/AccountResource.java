@@ -1,5 +1,6 @@
 package com.origami.web.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.origami.domain.LifeStatus;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
@@ -20,6 +21,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
+import org.h2.util.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -85,7 +87,7 @@ public class AccountResource {
     }
 
     @PostMapping("/register/form")
-    public HttpStatus registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) {
+    public HttpStatus registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) throws JsonProcessingException {
         setUserIdIfUserWithThatLoginExists(userDTO);
         if (!profileService.isEditingFinished(userDTO)) {
             if (userDTO.getLevelOfForm() == 0L) {
@@ -100,10 +102,18 @@ public class AccountResource {
             if (userDTO.getLevelOfForm() == 3L) {
                 profileService.registerThirdForm(userDTO);
             }
-            return HttpStatus.OK;
+            if (userDTO.getLevelOfForm() == 4L) {
+                profileService.registerFourthForm(userDTO);
+            }
+            return HttpStatus.ACCEPTED;
         } else {
             return HttpStatus.FORBIDDEN;
         }
+    }
+
+    //Prepared business logic
+    public HttpStatus addListOfRelatives(JSONObject jsonObject) {
+        return HttpStatus.BAD_REQUEST;
     }
 
     @PostMapping("/profile/lifestatus/alive")
