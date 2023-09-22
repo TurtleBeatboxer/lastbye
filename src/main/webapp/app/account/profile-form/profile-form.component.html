@@ -420,13 +420,13 @@
         <div class="mb-3">
           <h1 class="stepLabel">Do you want a farewell letter?</h1>
           <div class="radioInputs">
-            <label class="radio-label" for="farewellLetter">Yes</label>
-            <input class="radio" type="radio" name="farewellLetter" formControlName="farewellLetter" [value]="true" />
-            <label class="radio-label" for="farewellLetter">No</label>
-            <input class="radio" type="radio" name="farewellLetter" formControlName="farewellLetter" [value]="false" />
+            <label class="radio-label" for="ifFarewellLetter">Yes</label>
+            <input class="radio" type="radio" name="ifFarewellLetter" formControlName="ifFarewellLetter" [value]="true" />
+            <label class="radio-label" for="ifFarewellLetter">No</label>
+            <input class="radio" type="radio" name="ifFarewellLetter" formControlName="ifFarewellLetter" [value]="false" />
           </div>
         </div>
-        <div *ngIf="profileForm4.controls['farewellLetter'].value === true">
+        <div *ngIf="profileForm4.controls['ifFarewellLetter'].value === true">
           <div class="profileForm-input fileDiv" (click)="fareWellUpload.click()">
             <p class="" *ngIf="!this.files.farewellLetter" style="margin-bottom: 0px">Insert your file</p>
             <p *ngIf="this.files.farewellLetter" style="margin-bottom: 0px">{{ this.files.farewellLetter.file.name }}</p>
@@ -447,12 +447,12 @@
         <h1 class="stepLabel">Video speech</h1>
         <div class="mb-3">
           <div class="radioInputs">
-            <label class="radio-label" for="videoSpeech">Yes</label>
-            <input class="radio" type="radio" name="videoSpeech" formControlName="videoSpeech" [value]="true" />
-            <label class="radio-label" for="videoSpeech">No</label>
-            <input class="radio" type="radio" name="videoSpeech" formControlName="videoSpeech" [value]="false" />
+            <label class="radio-label" for="ifVideoSpeech">Yes</label>
+            <input class="radio" type="radio" name="ifVideoSpeech" formControlName="ifVideoSpeech" [value]="true" />
+            <label class="radio-label" for="ifVideoSpeech">No</label>
+            <input class="radio" type="radio" name="ifVideoSpeech" formControlName="ifVideoSpeech" [value]="false" />
           </div>
-          <div *ngIf="profileForm4.controls['videoSpeech'].value === true">
+          <div *ngIf="profileForm4.controls['ifVideoSpeech'].value === true">
             <div class="profileForm-input fileDiv" (click)="videoSpeechUpload.click()">
               <p class="" *ngIf="!this.files.videoSpeech" style="margin-bottom: 0px">Insert your file</p>
               <p *ngIf="this.files.videoSpeech" style="margin-bottom: 0px">{{ this.files.videoSpeech.file.name }}</p>
@@ -463,12 +463,12 @@
         <h1 class="stepLabel">Will</h1>
         <div class="mb-3">
           <div class="radioInputs">
-            <label class="radio-label" for="testament">Yes</label>
-            <input class="radio" type="radio" name="testament" formControlName="testament" [value]="true" />
-            <label class="radio-label" for="testament">No</label>
-            <input class="radio" type="radio" name="testament" formControlName="testament" [value]="false" />
+            <label class="radio-label" for="ifTestament">Yes</label>
+            <input class="radio" type="radio" name="ifTestament" formControlName="ifTestament" [value]="true" />
+            <label class="radio-label" for="ifTestament">No</label>
+            <input class="radio" type="radio" name="ifTestament" formControlName="ifTestament" [value]="false" />
           </div>
-          <div *ngIf="profileForm4.controls['testament'].value === true">
+          <div *ngIf="profileForm4.controls['ifTestament'].value === true">
             <div class="profileForm-input fileDiv" (click)="testamentUpload.click()">
               <p class="" *ngIf="!this.files.testament" style="margin-bottom: 0px">Insert your file</p>
               <p *ngIf="this.files.testament" style="margin-bottom: 0px">{{ this.files.testament.file.name }}</p>
@@ -479,14 +479,14 @@
         <div class="mb-3">
           <h1 class="stepLabel">Other</h1>
           <div class="radioInputs">
-            <label class="radio-label" for="ifOther">Yes</label>
-            <input class="radio" type="radio" name="ifOther" formControlName="ifOther" [value]="true" />
-            <label class="radio-label" for="ifOther">No</label>
-            <input class="radio" type="radio" name="ifOther" formControlName="ifOther" [value]="false" />
+            <label class="radio-label" for="ifOther4">Yes</label>
+            <input class="radio" type="radio" name="ifOther4" formControlName="ifOther4" [value]="true" />
+            <label class="radio-label" for="ifOther4">No</label>
+            <input class="radio" type="radio" name="ifOther4" formControlName="ifOther4" [value]="false" />
           </div>
           <input
             type="text"
-            *ngIf="profileForm4.controls['ifOther'].value == true"
+            *ngIf="profileForm4.controls['ifOther4'].value == true"
             class="profileForm-input"
             id="other"
             name="other"

@@ -283,6 +283,8 @@ public class UserService {
         } else return HttpStatus.FORBIDDEN;
     }
 
+
+
     @Transactional
     public void changePassword(String currentClearTextPassword, String newPassword) {
         SecurityUtils

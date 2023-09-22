@@ -1,9 +1,6 @@
 package com.origami.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -161,6 +158,7 @@ public class Profile implements Serializable {
 
     public void setClosestRelatives(String closestRelatives) {
         this.closestRelatives = closestRelatives;
+
     }
 
     public Boolean getIfPhotoGrave() {
@@ -193,14 +191,6 @@ public class Profile implements Serializable {
 
     public void setIfGuests(Boolean ifGuests) {
         this.ifGuests = ifGuests;
-    }
-
-    public Boolean getIfOther4() {
-        return ifOther4;
-    }
-
-    public void setIfOther4(Boolean ifOther4) {
-        this.ifOther4 = ifOther4;
     }
 
     public String getMusicType() {

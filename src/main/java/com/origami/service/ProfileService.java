@@ -221,8 +221,10 @@ public class ProfileService {
             profile.setOpenCoffin(userDTO.isOpenCoffin());
             profile.setClothes(userDTO.getClothes());
             profile.setBurialPlace(userDTO.getBurialPlace());
-
+            profile.setBurialType(userDTO.getBurialType());
             profile.setLevelOfForm(2L);
+            profile.setIfGraveInscription(userDTO.getIfGraveInscription());
+            profile.setIfPhotoGrave(userDTO.getIfPhotoGrave());
             profileRepository.save(profile);
         }
     }
@@ -241,6 +243,7 @@ public class ProfileService {
             profile.setBurialType(userDTO.getBurialType());
             profile.setIfGraveInscription(userDTO.getIfGraveInscription());
             profile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
+            profile.setIfGuests(userDTO.getIfGuests());
             profile.setLevelOfForm(3L);
             profileRepository.save(profile);
         }
@@ -255,6 +258,7 @@ public class ProfileService {
             profile.setTestament(userDTO.getTestament());
             profile.setOther(userDTO.getOther());
 
+
             profile.setLevelOfForm(4L);
             profileRepository.save(profile);
         }
@@ -268,6 +272,7 @@ public class ProfileService {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(userDTO.getRelativeDTOs());
             profile.setClosestRelatives(jsonString);
+
 
             String qrCode = qrService.getAlphaNumericString(10);
             while (!isQRValid(qrCode)) {
