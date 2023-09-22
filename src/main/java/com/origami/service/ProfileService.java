@@ -2,7 +2,6 @@ package com.origami.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;

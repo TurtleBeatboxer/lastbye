@@ -401,7 +401,6 @@ public class UserService {
             managedUserVM.setIfPhotoGrave(profile.get().getIfPhotoGrave());
             managedUserVM.setMusicType(profile.get().getMusicType());
             managedUserVM.setIfGuests(profile.get().getIfGuests());
-            managedUserVM.setIfOther4(profile.get().getIfOther4());
         }
         return managedUserVM;
     }
