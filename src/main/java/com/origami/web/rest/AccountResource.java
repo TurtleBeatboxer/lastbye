@@ -1,5 +1,6 @@
 package com.origami.web.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.origami.domain.LifeStatus;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
@@ -86,7 +87,7 @@ public class AccountResource {
     }
 
     @PostMapping("/register/form")
-    public HttpStatus registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) {
+    public HttpStatus registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) throws JsonProcessingException {
         setUserIdIfUserWithThatLoginExists(userDTO);
         if (!profileService.isEditingFinished(userDTO)) {
             if (userDTO.getLevelOfForm() == 0L) {
@@ -100,6 +101,9 @@ public class AccountResource {
             }
             if (userDTO.getLevelOfForm() == 3L) {
                 profileService.registerThirdForm(userDTO);
+            }
+            if (userDTO.getLevelOfForm() == 4L) {
+                profileService.registerFourthForm(userDTO);
             }
             return HttpStatus.ACCEPTED;
         } else {

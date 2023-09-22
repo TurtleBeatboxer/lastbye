@@ -2,7 +2,9 @@ package com.origami.web.rest.vm;
 
 import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
+import com.origami.domain.RelativeDTO;
 import com.origami.service.dto.AdminUserDTO;
+import java.util.ArrayList;
 import javax.validation.constraints.Size;
 
 /**
@@ -54,6 +56,16 @@ public class ManagedUserVM extends AdminUserDTO {
     private Boolean ifGuests;
     private Boolean ifOther4;
     private Boolean ifPhotoGrave;
+
+    private ArrayList<RelativeDTO> relativeDTOs;
+
+    public ArrayList<RelativeDTO> getRelativeDTOs() {
+        return relativeDTOs;
+    }
+
+    public void setRelativeDTOs(ArrayList<RelativeDTO> relativeDTOs) {
+        this.relativeDTOs = relativeDTOs;
+    }
 
     public Boolean getIfPhotoGrave() {
         return ifPhotoGrave;
