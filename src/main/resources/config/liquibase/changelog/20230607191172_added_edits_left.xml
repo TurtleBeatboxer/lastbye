@@ -6,12 +6,12 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="1" author="Michas">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <columnExists tableName="Profile" columnName="edits_left" />
-            </not>
-        </preConditions>
+    <changeSet id="" author="Michas">
+<!--        <preConditions onFail="MARK_RAN">-->
+<!--            <not>-->
+<!--                <columnExists tableName="Profile" columnName="edits_left" />-->
+<!--            </not>-->
+<!--        </preConditions>-->
         <addColumn tableName="profile">
             <column name="edits_left" type="number">
                 <constraints nullable="true" unique="false"/>

@@ -62,7 +62,7 @@ export class ProfileFormService {
 
   buildForm2() {
     return new FormGroup({
-      burialMethod: new FormControl('', {
+      burialType: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
       }),

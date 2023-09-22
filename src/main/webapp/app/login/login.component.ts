@@ -60,7 +60,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.authenticationError = false;
         if (!this.router.getCurrentNavigation()) {
           // There were no routing during login (eg from navigationToStoredUrl)
-          this.router.navigate(['/user/profile1']);
+          console.log(this.accountService.userIdentity?.levelOfForm);
+          this.accountService.userIdentity?.levelOfForm === 4 ? this.router.navigate(['/']) : this.router.navigate(['/user/profile1']);
           // this.userService.user = this.accountService.getUser();
         }
       },
