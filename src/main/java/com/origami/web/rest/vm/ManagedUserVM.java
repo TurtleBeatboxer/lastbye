@@ -2,8 +2,10 @@ package com.origami.web.rest.vm;
 
 import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
+import com.origami.domain.RelativeDTO;
 import com.origami.service.dto.AdminUserDTO;
-import javax.persistence.Column;
+
+import java.util.ArrayList;
 import javax.validation.constraints.Size;
 
 /**
@@ -56,34 +58,16 @@ public class ManagedUserVM extends AdminUserDTO {
     private Boolean ifOther4;
     private Boolean ifPhotoGrave;
 
-    private Boolean ifFarewellLetter;
 
-    private Boolean ifVideoSpeech;
+    private ArrayList<RelativeDTO> relativeDTOs;
 
-    private Boolean ifTestament;
-
-    public Boolean getIfFarewellLetter() {
-        return ifFarewellLetter;
+    public ArrayList<RelativeDTO> getRelativeDTOs() {
+        return relativeDTOs;
     }
 
-    public void setIfFarewellLetter(Boolean ifFarewellLetter) {
-        this.ifFarewellLetter = ifFarewellLetter;
-    }
+    public void setRelativeDTOs(ArrayList<RelativeDTO> relativeDTOs) {
+        this.relativeDTOs = relativeDTOs;
 
-    public Boolean getIfVideoSpeech() {
-        return ifVideoSpeech;
-    }
-
-    public void setIfVideoSpeech(Boolean ifVideoSpeech) {
-        this.ifVideoSpeech = ifVideoSpeech;
-    }
-
-    public Boolean getIfTestament() {
-        return ifTestament;
-    }
-
-    public void setIfTestament(Boolean ifTestament) {
-        this.ifTestament = ifTestament;
     }
 
     public Boolean getIfPhotoGrave() {

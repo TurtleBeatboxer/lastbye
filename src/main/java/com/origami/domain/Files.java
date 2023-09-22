@@ -1,6 +1,7 @@
 package com.origami.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.origami.domain.enumeration.FileType;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -26,7 +27,7 @@ public class Files implements Serializable {
     private String name;
 
     @Column(name = "type")
-    private String type;
+    private FileType fileType;
 
     @Column(name = "format")
     private String format;
@@ -66,17 +67,12 @@ public class Files implements Serializable {
         this.name = name;
     }
 
-    public String getType() {
-        return this.type;
+    public FileType getFileType() {
+        return fileType;
     }
 
-    public Files type(String type) {
-        this.setType(type);
-        return this;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setFileType(FileType fileType) {
+        this.fileType = fileType;
     }
 
     public String getFormat() {
@@ -143,7 +139,7 @@ public class Files implements Serializable {
         return "Files{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", type='" + getType() + "'" +
+            ", type='" + getFileType() + "'" +
             ", format='" + getFormat() + "'" +
             ", filePath='" + getFilePath() + "'" +
             "}";

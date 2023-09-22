@@ -149,45 +149,16 @@ public class Profile implements Serializable {
     @Column(name = "if_photo_grave")
     private Boolean ifPhotoGrave;
 
-    @Column(name = "if_farewell_letter")
-    private Boolean ifFarewellLetter;
+    @Column(name = "closest_relatives")
+    private String closestRelatives;
 
-    @Column(name = "if_video_speech")
-    private Boolean ifVideoSpeech;
-
-    @Column(name = "if_testament")
-    private Boolean ifTestament;
-
-    public Boolean getIfOther4() {
-        return ifOther4;
+    public String getClosestRelatives() {
+        return closestRelatives;
     }
 
-    public void setIfOther4(Boolean ifOther4) {
-        this.ifOther4 = ifOther4;
-    }
+    public void setClosestRelatives(String closestRelatives) {
+        this.closestRelatives = closestRelatives;
 
-    public Boolean getIfFarewellLetter() {
-        return ifFarewellLetter;
-    }
-
-    public void setIfFarewellLetter(Boolean ifFarewellLetter) {
-        this.ifFarewellLetter = ifFarewellLetter;
-    }
-
-    public Boolean getIfVideoSpeech() {
-        return ifVideoSpeech;
-    }
-
-    public void setIfVideoSpeech(Boolean ifVideoSpeech) {
-        this.ifVideoSpeech = ifVideoSpeech;
-    }
-
-    public Boolean getIfTestament() {
-        return ifTestament;
-    }
-
-    public void setIfTestament(Boolean ifTestament) {
-        this.ifTestament = ifTestament;
     }
 
     public Boolean getIfPhotoGrave() {

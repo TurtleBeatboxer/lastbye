@@ -5,7 +5,6 @@
 /target/classes/static/**
 /src/main/resources/config/application-dev.yml
 /src/test/javascript/coverage/
-
 ######################
 # Node
 ######################

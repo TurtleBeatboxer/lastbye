@@ -1,5 +1,8 @@
 package com.origami.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
@@ -254,11 +257,23 @@ public class ProfileService {
             profile.setVideoSpeech(userDTO.getVideoSpeech());
             profile.setTestament(userDTO.getTestament());
             profile.setOther(userDTO.getOther());
-            profile.setIfFarewellLetter(userDTO.getIfFarewellLetter());
-            profile.setIfTestament(userDTO.getIfTestament());
-            profile.setIfVideoSpeech(userDTO.getIfVideoSpeech());
-            profile.setIfOther4(userDTO.getIfOther4());
-            profile.setFinishedEditing(true);
+
+
+            profile.setLevelOfForm(4L);
+            profileRepository.save(profile);
+        }
+    }
+
+    public void registerFourthForm(ManagedUserVM userDTO) throws JsonProcessingException {
+        Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonString = mapper.writeValueAsString(userDTO.getRelativeDTOs());
+            profile.setClosestRelatives(jsonString);
+
+
             String qrCode = qrService.getAlphaNumericString(10);
             while (!isQRValid(qrCode)) {
                 qrCode = qrService.getAlphaNumericString(10);
@@ -270,6 +285,7 @@ public class ProfileService {
             }
             profile.setPublicProfileLink(publicLink);
             profileRepository.save(profile);
+            profile.setFinishedEditing(true);
         }
     }
 
@@ -279,25 +295,7 @@ public class ProfileService {
         PublicProfileDTO publicProfileDTO = new PublicProfileDTO();
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
-            publicProfileDTO.setFlowers(profile.getFlowers());
-            publicProfileDTO.setIfFlowers(profile.getIfFlowers());
-            publicProfileDTO.setPurchasedPlace(profile.getPurchasedPlace());
-            publicProfileDTO.setIsPurchasedOther(profile.getIfPurchasedOther());
-            publicProfileDTO.setClothes(profile.getClothes());
-            publicProfileDTO.setTestament(profile.getTestament());
-            publicProfileDTO.setVideoSpeech(profile.getVideoSpeech());
-            publicProfileDTO.setSpotify(profile.getSpotify());
-            publicProfileDTO.setPlaceOfCeremony(profile.getPlaceOfCeremony());
-            publicProfileDTO.setSpeech(profile.getSpeech());
-            publicProfileDTO.setPhoto(profile.getPhoto());
-            publicProfileDTO.setOther(profile.getOther());
-            publicProfileDTO.setObituary(profile.getObituary());
-            publicProfileDTO.setGuests(profile.getGuests());
-            publicProfileDTO.setNotInvited(profile.getNotInvited());
-            publicProfileDTO.setGraveInscription(profile.getGraveInscription());
-            publicProfileDTO.setFarewellLetter(profile.getFarewellLetter());
-            publicProfileDTO.setBurialMethod(profile.getBurialMethod());
-            publicProfileDTO.setOpenCoffin(profile.isOpenCoffin());
+            publicProfileDTO = new PublicProfileDTO(profile);
             Optional<User> userOptional = userRepository.findOneById(profile.getUserId());
             if (userOptional.isPresent()) {
                 publicProfileDTO.setFirstName(userOptional.get().getFirstName());

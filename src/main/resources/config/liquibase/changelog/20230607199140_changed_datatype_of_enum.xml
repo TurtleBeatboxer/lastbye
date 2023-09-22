@@ -6,19 +6,12 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="8:d1090780e1061f34fea60d4c49ecb743" author="Michas">
-        <preConditions onFail="MARK_RAN">
+    <changeSet id="changed" author="Michas">
+<!--        <preConditions onFail="MARK_RAN">
             <not>
-                <columnExists tableName="Profile" columnName="membership_level" />
+                <columnExists tableName="files" columnName="type" />
             </not>
-        </preConditions>
-        <addColumn tableName="profile">
-            <column name="membership_level" type="number">
-                <constraints nullable="true" unique="false"/>
-            </column>
-        </addColumn>
-
-
-
+        </preConditions>-->
+        <modifyDataType tableName="files" columnName="type" newDataType="number"/>
     </changeSet>
 </databaseChangeLog>

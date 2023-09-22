@@ -129,8 +129,8 @@ public class FilesResource {
                 if (files.getName() != null) {
                     existingFiles.setName(files.getName());
                 }
-                if (files.getType() != null) {
-                    existingFiles.setType(files.getType());
+                if (files.getFileType() != null) {
+                    existingFiles.setFileType(files.getFileType());
                 }
                 if (files.getFormat() != null) {
                     existingFiles.setFormat(files.getFormat());
