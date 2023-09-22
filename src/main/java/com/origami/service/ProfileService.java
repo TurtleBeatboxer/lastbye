@@ -245,7 +245,19 @@ public class ProfileService {
             profile.setVideoSpeech(userDTO.getVideoSpeech());
             profile.setTestament(userDTO.getTestament());
             profile.setOther(userDTO.getOther());
-            profile.setFinishedEditing(true);
+
+            profile.setLevelOfForm(4L);
+            profileRepository.save(profile);
+        }
+    }
+
+    public void registerFourthForm(ManagedUserVM userDTO) {
+        Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+
+            //relative z 3 fieldami kurwa to string?
+
             String qrCode = qrService.getAlphaNumericString(10);
             while (!isQRValid(qrCode)) {
                 qrCode = qrService.getAlphaNumericString(10);
@@ -257,6 +269,7 @@ public class ProfileService {
             }
             profile.setPublicProfileLink(publicLink);
             profileRepository.save(profile);
+            profile.setFinishedEditing(true);
         }
     }
 

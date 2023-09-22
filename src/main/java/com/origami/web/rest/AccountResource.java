@@ -100,6 +100,9 @@ public class AccountResource {
             if (userDTO.getLevelOfForm() == 3L) {
                 profileService.registerThirdForm(userDTO);
             }
+            if (userDTO.getLevelOfForm() == 4L) {
+                profileService.registerFourthForm(userDTO);
+            }
             return HttpStatus.ACCEPTED;
         } else {
             return HttpStatus.FORBIDDEN;

@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="8:ca79252d5e129ff17992bce0ab72401c" author="Michas">
+    <changeSet id="8:dabd0833846954369c8fb1b983aaa6ce" author="Michas">
 <!--        <preConditions onFail="MARK_RAN">-->
 <!--            <not>-->
 <!--                <columnExists tableName="Profile" columnName="public_profile_link" />-->

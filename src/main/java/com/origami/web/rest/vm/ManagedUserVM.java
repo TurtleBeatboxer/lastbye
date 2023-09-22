@@ -1,8 +1,9 @@
 package com.origami.web.rest.vm;
 
 import com.origami.domain.LifeStatus;
-import com.origami.domain.MembershipLevel;
+import com.origami.domain.RelativeDTO;
 import com.origami.service.dto.AdminUserDTO;
+import java.util.ArrayList;
 import javax.validation.constraints.Size;
 
 /**
@@ -45,6 +46,7 @@ public class ManagedUserVM extends AdminUserDTO {
     private Long userId;
     private Long editsLeft;
     private LifeStatus lifeStatus;
+    private ArrayList<RelativeDTO> relativeDTOs;
 
     public LifeStatus getLifeStatus() {
         return lifeStatus;
