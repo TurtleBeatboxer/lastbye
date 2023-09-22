@@ -152,6 +152,17 @@ public class Profile implements Serializable {
     @Column(name = "if_photo_grave")
     private Boolean ifPhotoGrave;
 
+    @Column(name = "closest_relatives")
+    private String closestRelatives;
+
+    public String getClosestRelatives() {
+        return closestRelatives;
+    }
+
+    public void setClosestRelatives(String closestRelatives) {
+        this.closestRelatives = closestRelatives;
+    }
+
     public Boolean getIfPhotoGrave() {
         return ifPhotoGrave;
     }

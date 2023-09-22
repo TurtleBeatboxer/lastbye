@@ -1,5 +1,8 @@
 package com.origami.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
@@ -251,7 +254,21 @@ public class ProfileService {
             profile.setVideoSpeech(userDTO.getVideoSpeech());
             profile.setTestament(userDTO.getTestament());
             profile.setOther(userDTO.getOther());
-            profile.setFinishedEditing(true);
+
+            profile.setLevelOfForm(4L);
+            profileRepository.save(profile);
+        }
+    }
+
+    public void registerFourthForm(ManagedUserVM userDTO) throws JsonProcessingException {
+        Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonString = mapper.writeValueAsString(userDTO.getRelativeDTOs());
+            profile.setClosestRelatives(jsonString);
+
             String qrCode = qrService.getAlphaNumericString(10);
             while (!isQRValid(qrCode)) {
                 qrCode = qrService.getAlphaNumericString(10);
@@ -263,6 +280,7 @@ public class ProfileService {
             }
             profile.setPublicProfileLink(publicLink);
             profileRepository.save(profile);
+            profile.setFinishedEditing(true);
         }
     }
 

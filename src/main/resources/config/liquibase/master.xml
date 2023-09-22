@@ -40,6 +40,7 @@
     <include file="config/liquibase/changelog/20230607191193_added_if_photo_grave.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191194_added_if_guests.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191195_added_farewell_reader.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230607191196_added_closest_relatives.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230820165139_added_entity_Files.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230820165139_added_entity_constraints_Files.xml" relativeToChangelogFile="false"/>
 
