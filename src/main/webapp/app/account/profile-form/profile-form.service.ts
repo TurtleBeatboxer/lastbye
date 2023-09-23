@@ -190,6 +190,10 @@ export class ProfileFormService {
     return { ...form, ...this.getUserId(), levelOfForm: 3 };
   }
 
+  dataProfile5(relativeDTOs: any) {
+    return { relativeDTOs, ...this.getUserId(), levelOfForm: 4 };
+  }
+
   savePhoto(file: smallFile | null): void {
     if (file) {
       const formData = new FormData();
