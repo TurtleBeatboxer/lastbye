@@ -120,6 +120,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   }
 
   thirdStep(): void {
+    console.log(this.profileFormService.dataProfile3(this.profileForm3.getRawValue()));
     this.http
       .post(
         this.applicationConfigService.getEndpointFor('/api/register/form'),
@@ -155,7 +156,14 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     console.log(this.relatives);
   }
 
-  submitStep5(): void {}
+  submitStep5(): void {
+    console.warn(this.profileFormService.dataProfile5(this.relatives));
+    this.http
+      .post(this.applicationConfigService.getEndpointFor('api/register/form'), this.profileFormService.dataProfile5(this.relatives))
+      .subscribe(() => {
+        console.warn(this.profileFormService.dataProfile5(this.relatives));
+      });
+  }
 
   onFileSelected(event: Event): void {
     console.log(this.files);
