@@ -50,6 +50,8 @@ public class FileService {
             case ("farewellLetter"):
                 return FileType.FAREWELL_LETTER;
             case ("testament"):
+                return FileType.TESTAMENT;
+            case ("publicPicture"):
                 return FileType.PUBLIC_PICTURE;
             case ("videoSpeech"):
                 return FileType.VIDEO_SPEECH;
