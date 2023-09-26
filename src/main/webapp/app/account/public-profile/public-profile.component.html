@@ -1,7 +1,7 @@
 <div class="container" *ngIf="profile">
   <div class="header">
     <div>
-      <div class="img"></div>
+      <div class="img"><img [src]="image" alt="" /></div>
     </div>
     <div class="header-text">
       <p class="header-paragraph">{{ profile.firstName || 'error' }}</p>
