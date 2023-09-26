@@ -195,7 +195,7 @@ public class FilesResource {
         return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImage(fileDTO));
     }
 
-    @GetMapping("/profile/publicImage")
+    @PostMapping("/profile/publicImage")
     public ResponseEntity<File> getPublicImage(@Valid @RequestBody String publicProfileId) throws NullPointerException {
         return ResponseEntity.status(HttpStatus.OK).body(fileService.downloadPublicProfileImage(publicProfileId));
     }
