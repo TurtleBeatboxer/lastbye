@@ -193,12 +193,8 @@ public class FilesResource {
 
     //Can't dodge using 3 params
     @PostMapping("/profile/pictures")
-    public ResponseEntity<?> uploadImageToFIleSystem(
-        @RequestParam("file") MultipartFile file,
-        @RequestParam("type") String type,
-        @RequestParam("user") Long userId
-    ) throws IOException {
-        return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImage(new FileDTO(file, type, userId)));
+    public ResponseEntity<?> uploadImageToFIleSystem(@ModelAttribute FileDTO fileDTO) throws IOException {
+        return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImage(fileDTO));
     }
 
     @PostMapping("/profile/publicImage")
