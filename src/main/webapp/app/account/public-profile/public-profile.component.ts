@@ -35,6 +35,9 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       );
+      this.http.post(this.applicationConfigService.getEndpointFor('/api/profile/publicImage'), this.id).subscribe(res => {
+        console.log(res);
+      });
       // In a real app: dispatch action to load the details here.
     });
   }

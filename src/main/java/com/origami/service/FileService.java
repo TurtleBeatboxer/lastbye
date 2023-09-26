@@ -61,7 +61,7 @@ public class FileService {
         Optional<Profile> optionalProfile = profileRepository.findProfileByPublicProfileLink(publicProfile);
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
-            return new File(FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture");
+            return new File(FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture.jpeg");
         }
         return null;
     }
