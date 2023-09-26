@@ -6,7 +6,15 @@ public class FileDTO {
 
     private MultipartFile file;
     private String type;
-    private Long userId;
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public MultipartFile getFile() {
         return file;
@@ -24,11 +32,11 @@ public class FileDTO {
         this.type = type;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
+    public FileDTO() {}
 
-    public void setUserId(Long userId) {
+    public FileDTO(MultipartFile multipartFile, String type, String userId) {
+        this.file = multipartFile;
+        this.type = type;
         this.userId = userId;
     }
 }

@@ -1,6 +1,8 @@
 package com.origami.repository;
 
 import com.origami.domain.Files;
+import com.origami.domain.Profile;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
