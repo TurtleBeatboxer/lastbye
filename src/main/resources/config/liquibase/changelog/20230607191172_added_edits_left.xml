@@ -7,11 +7,11 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet id="" author="Michas">
-<!--        <preConditions onFail="MARK_RAN">-->
-<!--            <not>-->
-<!--                <columnExists tableName="Profile" columnName="edits_left" />-->
-<!--            </not>-->
-<!--        </preConditions>-->
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="Profile" columnName="edits_left" />
+            </not>
+        </preConditions>
         <addColumn tableName="profile">
             <column name="edits_left" type="number">
                 <constraints nullable="true" unique="false"/>

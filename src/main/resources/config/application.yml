@@ -173,7 +173,8 @@ info:
 #
 # Full reference is available at: https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
+files:
+  path: '/Users/pkury/Desktop/lastgoodbuyImage/'
 jhipster:
   clientApp:
     name: 'lastbyeApp'
