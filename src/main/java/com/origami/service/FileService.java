@@ -38,7 +38,7 @@ public class FileService {
                 fileData.setFormat(fileDTO.getFile().getContentType());
                 fileData.setFileType(stringToFileType(fileDTO.getType()));
                 fileData.setProfile(profile);
-                String filePath = FOLDER_PATH + profile.getUserId() + SEPARATOR + fileDTO.getType();
+                String filePath = FOLDER_PATH + profile.getUserId() + SEPARATOR + fileDTO.getType() + fileDTO.getFile().getContentType();
                 filesRepository.save(fileData);
                 fileData.setFilePath(filePath);
                 fileDTO.getFile().transferTo(new File(filePath));
