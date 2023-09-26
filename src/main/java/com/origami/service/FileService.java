@@ -44,6 +44,7 @@ public class FileService {
                 fileData.setFormat(fileDTO.getFile().getContentType());
                 fileData.setFileType(stringToFileType(fileDTO.getType()));
                 fileData.setProfile(profile);
+                new File(FOLDER_PATH + profile.getUserId()).mkdirs();
                 String filePath =
                     FOLDER_PATH +
                     profile.getUserId() +
@@ -68,10 +69,10 @@ public class FileService {
             Profile profile = optionalProfile.get();
             Optional<Files> files = filesRepository.findOneByProfileId(profile.getId());
             if (files.isPresent()) {
-                File file = ResourceUtils.getFile("C:\\Users\\pkury\\Desktop\\lastgoodbuyImage\\3\\publicPicture.jpeg");
+                File file = ResourceUtils.getFile(
+                    FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture" + "." + getFileExtension(files.get().getFormat())
+                );
                 InputStream in = new FileInputStream(file);
-
-                System.out.println(in);
                 if (in != null) {
                     return IOUtils.toByteArray(in);
                 }
