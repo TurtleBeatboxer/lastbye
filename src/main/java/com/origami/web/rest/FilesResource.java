@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
@@ -190,9 +191,14 @@ public class FilesResource {
             .build();
     }
 
+    //Can't dodge using 3 params
     @PostMapping("/profile/pictures")
-    public ResponseEntity<?> uploadImageToFIleSystem(@Valid @RequestBody FileDTO fileDTO) throws IOException {
-        return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImage(fileDTO));
+    public ResponseEntity<?> uploadImageToFIleSystem(
+        @RequestParam("file") MultipartFile file,
+        @RequestParam("type") String type,
+        @RequestParam("user") Long userId
+    ) throws IOException {
+        return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImage(new FileDTO(file, type, userId)));
     }
 
     @PostMapping("/profile/publicImage")
