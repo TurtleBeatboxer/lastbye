@@ -30,7 +30,7 @@ export class ProfileFormPictureComponent implements OnInit {
       const formData = new FormData();
 
       formData.append('file', this.file);
-      formData.append('type', 'formProfilePicture');
+      formData.append('type', 'publicPicture');
       if (this.accountService.userIdentity) {
         formData.append('user', this.accountService.userIdentity.userId.toString());
       }
