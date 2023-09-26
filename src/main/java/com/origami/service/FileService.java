@@ -64,16 +64,13 @@ public class FileService {
         Optional<Profile> optionalProfile = profileRepository.findProfileByPublicProfileLink(publicProfile);
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
-            Optional<Files> files = filesRepository.findOneByProfile(profile);
-
+            Optional<Files> files = filesRepository.findOneByProfileId(profile.getId());
             if (files.isPresent()) {
-                System.out.println("1");
                 InputStream in = getClass()
                     .getResourceAsStream(
                         FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture" + "." + getFileExtension(files.get().getFormat())
                     );
                 if (in != null) {
-                    System.out.println("in");
                     return IOUtils.toByteArray(in);
                 }
             }
