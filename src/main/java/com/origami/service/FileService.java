@@ -64,7 +64,7 @@ public class FileService {
         Optional<Profile> optionalProfile = profileRepository.findProfileByPublicProfileLink(publicProfile);
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
-            Optional<Files> files = filesRepository.findOneByProfile(profile);
+            Optional<Files> files = filesRepository.findOneByProfileId(profile.getId());
             if (files.isPresent()) {
                 InputStream in = getClass()
                     .getResourceAsStream(
