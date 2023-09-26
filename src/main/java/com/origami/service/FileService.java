@@ -13,6 +13,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileService {
@@ -38,7 +39,8 @@ public class FileService {
                 fileData.setFormat(fileDTO.getFile().getContentType());
                 fileData.setFileType(stringToFileType(fileDTO.getType()));
                 fileData.setProfile(profile);
-                String filePath = FOLDER_PATH + profile.getUserId() + SEPARATOR + fileDTO.getType() + fileDTO.getFile().getContentType();
+                String filePath =
+                    FOLDER_PATH + profile.getUserId() + SEPARATOR + fileDTO.getType() + "." + getFileExtension(fileDTO.getFile());
                 filesRepository.save(fileData);
                 fileData.setFilePath(filePath);
                 fileDTO.getFile().transferTo(new File(filePath));
@@ -57,6 +59,15 @@ public class FileService {
             return new File(FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture");
         }
         return null;
+    }
+
+    private String getFileExtension(MultipartFile multipartFile) {
+        String name = multipartFile.getName();
+        if (name.contains("/")) {
+            int index = name.lastIndexOf('/');
+            return name.substring(index);
+        }
+        return name;
     }
 
     public FileType stringToFileType(String type) {
