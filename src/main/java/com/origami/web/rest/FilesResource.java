@@ -5,6 +5,7 @@ import com.origami.domain.dtos.FileDTO;
 import com.origami.repository.FilesRepository;
 import com.origami.service.FileService;
 import com.origami.web.rest.errors.BadRequestAlertException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -191,7 +192,11 @@ public class FilesResource {
 
     @PostMapping("/profile/pictures")
     public ResponseEntity<?> uploadImageToFIleSystem(@Valid @RequestBody FileDTO fileDTO) throws IOException {
-        String uploadImage = fileService.uploadImage(fileDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
+        return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImage(fileDTO));
+    }
+
+    @PostMapping("/profile/publicImage")
+    public ResponseEntity<File> getPublicImage(@Valid @RequestBody String publicProfileId) throws NullPointerException {
+        return ResponseEntity.status(HttpStatus.OK).body(fileService.downloadPublicProfileImage(publicProfileId));
     }
 }
