@@ -8,8 +8,10 @@ import com.origami.repository.FilesRepository;
 import com.origami.repository.ProfileRepository;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.util.Optional;
+import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -57,11 +59,12 @@ public class FileService {
         return null;
     }
 
-    public File downloadPublicProfileImage(String publicProfile) {
+    public byte[] downloadPublicProfileImage(String publicProfile) throws IOException {
         Optional<Profile> optionalProfile = profileRepository.findProfileByPublicProfileLink(publicProfile);
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
-            return new File(FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture");
+            InputStream in = getClass().getResourceAsStream(FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture");
+            return IOUtils.toByteArray(in);
         }
         return null;
     }
