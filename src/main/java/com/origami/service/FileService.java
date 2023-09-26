@@ -40,7 +40,12 @@ public class FileService {
                 fileData.setFileType(stringToFileType(fileDTO.getType()));
                 fileData.setProfile(profile);
                 String filePath =
-                    FOLDER_PATH + profile.getUserId() + SEPARATOR + fileDTO.getType() + "." + getFileExtension(fileDTO.getFile());
+                    FOLDER_PATH +
+                    profile.getUserId() +
+                    SEPARATOR +
+                    fileDTO.getType() +
+                    "." +
+                    getFileExtension(fileDTO.getFile().getContentType());
                 filesRepository.save(fileData);
                 fileData.setFilePath(filePath);
                 fileDTO.getFile().transferTo(new File(filePath));
@@ -61,13 +66,12 @@ public class FileService {
         return null;
     }
 
-    private String getFileExtension(MultipartFile multipartFile) {
-        String name = multipartFile.getName();
-        if (name.contains("/")) {
-            int index = name.lastIndexOf('/');
-            return name.substring(index);
+    private String getFileExtension(String nameOfFile) {
+        if (nameOfFile.contains("/")) {
+            int index = nameOfFile.lastIndexOf('/') + 1;
+            return nameOfFile.substring(index);
         }
-        return name;
+        return nameOfFile;
     }
 
     public FileType stringToFileType(String type) {
