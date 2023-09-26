@@ -31,4 +31,12 @@ public class FileDTO {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    public FileDTO() {}
+
+    public FileDTO(MultipartFile multipartFile, String type, Long userId) {
+        this.file = multipartFile;
+        this.type = type;
+        this.userId = userId;
+    }
 }
