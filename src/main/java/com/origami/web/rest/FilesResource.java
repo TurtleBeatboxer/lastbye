@@ -1,6 +1,7 @@
 package com.origami.web.rest;
 
 import com.origami.domain.Files;
+import com.origami.domain.dtos.FileDTO;
 import com.origami.repository.FilesRepository;
 import com.origami.service.FileService;
 import com.origami.web.rest.errors.BadRequestAlertException;
@@ -10,15 +11,14 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
@@ -190,12 +190,8 @@ public class FilesResource {
     }
 
     @PostMapping("/profile/pictures")
-    public ResponseEntity<?> uploadImageToFIleSystem(
-        @RequestParam("file") MultipartFile file,
-        @RequestParam("type") String type,
-        @RequestParam("user") String userId
-    ) throws IOException {
-        String uploadImage = fileService.uploadImage(file, type, userId);
+    public ResponseEntity<?> uploadImageToFIleSystem(@Valid @RequestBody FileDTO fileDTO) throws IOException {
+        String uploadImage = fileService.uploadImage(fileDTO);
         return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
     }
 }

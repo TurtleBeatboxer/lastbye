@@ -1,4 +1,4 @@
-package com.origami.domain;
+package com.origami.domain.dtos;
 
 public class RelativeDTO {
 
