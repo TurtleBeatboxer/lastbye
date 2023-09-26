@@ -37,6 +37,7 @@ public class Files implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "personalities", "files" }, allowSetters = true)
+    @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
