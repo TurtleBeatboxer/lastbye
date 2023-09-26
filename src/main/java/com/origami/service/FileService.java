@@ -68,7 +68,7 @@ public class FileService {
 
     private String getFileExtension(String nameOfFile) {
         if (nameOfFile.contains("/")) {
-            int index = nameOfFile.lastIndexOf('/');
+            int index = nameOfFile.lastIndexOf('/') + 1;
             return nameOfFile.substring(index);
         }
         return nameOfFile;
