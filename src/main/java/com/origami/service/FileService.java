@@ -45,7 +45,7 @@ public class FileService {
 
     public FileType stringToFileType(String type) {
         switch (type) {
-            case ("burialPicutre"):
+            case ("burialPicture"):
                 return FileType.BURIAL_PICTURE;
             case ("farewellLetter"):
                 return FileType.FAREWELL_LETTER;
