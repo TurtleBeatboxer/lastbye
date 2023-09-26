@@ -7,6 +7,7 @@ import com.origami.domain.enumeration.FileType;
 import com.origami.repository.FilesRepository;
 import com.origami.repository.ProfileRepository;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
@@ -16,6 +17,7 @@ import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -42,6 +44,7 @@ public class FileService {
                 fileData.setFormat(fileDTO.getFile().getContentType());
                 fileData.setFileType(stringToFileType(fileDTO.getType()));
                 fileData.setProfile(profile);
+                new File(FOLDER_PATH + profile.getUserId()).mkdirs();
                 String filePath =
                     FOLDER_PATH +
                     profile.getUserId() +
@@ -66,10 +69,10 @@ public class FileService {
             Profile profile = optionalProfile.get();
             Optional<Files> files = filesRepository.findOneByProfileId(profile.getId());
             if (files.isPresent()) {
-                InputStream in = getClass()
-                    .getResourceAsStream(
-                        FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture" + "." + getFileExtension(files.get().getFormat())
-                    );
+                File file = ResourceUtils.getFile(
+                    FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture" + "." + getFileExtension(files.get().getFormat())
+                );
+                InputStream in = new FileInputStream(file);
                 if (in != null) {
                     return IOUtils.toByteArray(in);
                 }
