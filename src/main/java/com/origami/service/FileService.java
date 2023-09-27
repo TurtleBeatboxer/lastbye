@@ -38,7 +38,7 @@ public class FileService {
         Optional<Profile> profileOptional = profileRepository.findOneByUserId(Long.parseLong(fileDTO.getUserId()));
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
-            if (!profile.isFinishedEditing()) {
+            if (!profile.isFinishedEditing() || profile.getEditsLeft() > 0) {
                 Files fileData = new Files();
                 fileData.setName(fileDTO.getFile().getOriginalFilename());
                 fileData.setFormat(fileDTO.getFile().getContentType());
