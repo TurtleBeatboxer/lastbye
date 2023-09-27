@@ -21,4 +21,18 @@
 
 
     </changeSet>
+    <changeSet id="8:92b997bd48f40786ae0060622b0da2b6" author="jhipster" context="faker">
+        <loadData
+            file="config/liquibase/fake-data/profile.csv"
+            separator=";"
+            tableName="profile"
+            usePreparedStatements="true">
+            <column name="user_id" type="numeric"/>
+            <column name="surname" type="string"/>
+            <column name="finished_editing" type="boolean"/>
+            <column name="level_of_form" type="numeric"/>
+            <column name="edits_left" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
 </databaseChangeLog>
