@@ -14,6 +14,7 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
   private id: string;
   // eslint-disable-next-line @typescript-eslint/member-ordering
   public profile: publicProfile;
+  image: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -35,6 +36,14 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       );
+      this.http
+        .post(this.applicationConfigService.getEndpointFor('/api/profile/publicImage'), this.id, { responseType: 'blob' })
+        .subscribe(res => {
+          console.log(res);
+          const reader = new FileReader();
+          reader.onload = e => (this.image = e.target?.result);
+          reader.readAsDataURL(new Blob([res]));
+        });
       // In a real app: dispatch action to load the details here.
     });
   }
