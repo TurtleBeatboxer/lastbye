@@ -1,7 +1,10 @@
 package com.origami.repository;
 
+import com.origami.domain.LifeStatus;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
+import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.security.core.parameters.P;
@@ -17,4 +20,5 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
     Optional<Profile> findOneByCodeQR(String codeQR);
     Optional<Profile> findProfileByPublicProfileLink(String publicProfileLink);
     Optional<Profile> findOneByLifeLink(String lifeLink);
+    List<Profile> findAllByLifeStatus(LifeStatus lifeStatus);
 }

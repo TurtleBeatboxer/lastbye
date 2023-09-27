@@ -46,6 +46,8 @@
     <include file="config/liquibase/changelog/20230607191172_added_edits_left.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191171_added_finished_editing.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230607191170_added_public_profile_link.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230607191197_added_hours_left.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230607191198_added_friend_mail.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

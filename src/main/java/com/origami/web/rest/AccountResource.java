@@ -118,7 +118,7 @@ public class AccountResource {
 
     @PostMapping("/profile/lifestatus/alive")
     public void makeUserAliveAgain(@Valid @RequestBody String link) {
-        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO(LifeStatus.ALIVE);
+        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
         lifeStatusChangeDTO.setLifeLink(link);
         profileService.updateUserStatusAlive(lifeStatusChangeDTO);
     }
@@ -141,7 +141,7 @@ public class AccountResource {
         if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) return HttpStatus.BAD_REQUEST;
         if (profile.getLifeStatus().equals(LifeStatus.DEAD)) return HttpStatus.BAD_REQUEST;
         if (profile.getQuestionAnswer().equals(qrStartProcessDTO.getAnswer())) {
-            LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO(LifeStatus.UNKNOWN);
+            LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
             lifeStatusChangeDTO.setCodeQR(qrStartProcessDTO.getCodeQR());
             lifeStatusChangeDTO.setFriendAddress(qrStartProcessDTO.getEmailAddress());
             profileService.startQRCountdown(lifeStatusChangeDTO);

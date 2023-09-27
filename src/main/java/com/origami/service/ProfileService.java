@@ -8,13 +8,15 @@ import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
+import com.origami.service.dto.DeathMailDTO;
 import com.origami.service.dto.LifeStatusChangeDTO;
 import com.origami.service.dto.PublicProfileDTO;
+import com.origami.service.dto.RevivalMailDTO;
 import com.origami.web.rest.vm.ManagedUserVM;
+import java.util.List;
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,83 +28,65 @@ public class ProfileService {
     private final ProfileRepository profileRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FileService fileService;
 
     public ProfileService(
         MailService mailService,
         QRService qrService,
         ProfileRepository profileRepository,
         UserRepository userRepository,
-        PasswordEncoder passwordEncoder
+        PasswordEncoder passwordEncoder,
+        FileService fileService
     ) {
         this.mailService = mailService;
         this.qrService = qrService;
         this.profileRepository = profileRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.fileService = fileService;
     }
 
-    /*    @PostConstruct*/
     public void startQRCountdown(LifeStatusChangeDTO lifeStatusChangeDTO) {
-        /*        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();*/
-
-        /*       Profile profile1 = profileRepository.findAll().get(10);
-        lifeStatusChangeDTO.setCodeQR(profile1.getCodeQR());
-        lifeStatusChangeDTO.setLifeStatus(LifeStatus.UNKNOWN);
-*/
         Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(lifeStatusChangeDTO.getCodeQR());
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
-            lifeStatusChangeDTO.setEmailAddress(prepareMailForDTO(profile.getUserId()));
-
             profile.setLifeStatus(LifeStatus.UNKNOWN);
             String lifeLink = qrService.getAlphaNumericString(15);
             while (!isLifeLinkValid(lifeLink)) {
                 lifeLink = qrService.getAlphaNumericString(15);
             }
-
+            profile.setFriendMail(lifeStatusChangeDTO.getFriendAddress());
+            profile.setHoursLeft(24);
             profile.setLifeLink(lifeLink);
+            //Can add first mail here for instant feedback
             profileRepository.save(profile);
-
-            qRCountdown(lifeStatusChangeDTO);
         }
     }
 
-    public void qRCountdown(LifeStatusChangeDTO lifeStatusChangeDTO) {
-        // Inner method must have this local variable declared as final, but then again we want to decrement it
-        final Integer[] i = { 11 };
-        Timer timer = new Timer();
-        int initialDelay = 0; //delay startu
-        int cooldown = 1000/*7200000*/; //2h w ms - period miedzy wywolaniami "run"
-
-        /*ManagedUserVM userVM = new ManagedUserVM();*/
-
-        timer.scheduleAtFixedRate(
-            new TimerTask() {
-                public void run() {
-                    Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(lifeStatusChangeDTO.getCodeQR());
-                    if (profileOptional.isPresent() && profileOptional.get().getLifeStatus().equals(LifeStatus.UNKNOWN)) {
-                        if (i[0] == 0) {
-                            System.out.println("final mail");
-                            Profile profile = profileOptional.get();
-                            lifeStatusChangeDTO.setTempPassword(updateUserPasswordTemp(profile.getUserId()));
-                            profile.setLifeStatus(LifeStatus.DEAD);
-                            profileRepository.save(profile);
-                            updateUserStatusDead(lifeStatusChangeDTO);
-                            timer.cancel();
-                            return;
-                        }
-                        mailService.sendRevivalMail(lifeStatusChangeDTO);
-                        System.out.println(i[0]);
-                        i[0]--;
-                    } else {
-                        timer.cancel();
-                        return;
-                    }
+    @Scheduled(cron = "*    *    */2    *    *    *")
+    public void qRCountdown() {
+        List<Profile> profiles = profileRepository.findAllByLifeStatus(LifeStatus.UNKNOWN);
+        for (Profile profile : profiles) {
+            outer:if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) {
+                inner:if (profile.getHoursLeft() == 0) {
+                    DeathMailDTO deathMailDTO = new DeathMailDTO();
+                    deathMailDTO.setUserEmail(prepareMailForDTO(profile.getUserId()));
+                    deathMailDTO.setTempPassword(updateUserPasswordTemp(profile.getUserId()));
+                    deathMailDTO.setFriendEmail(profile.getFriendMail());
+                    profile.setLifeStatus(LifeStatus.DEAD);
+                    profileRepository.save(profile);
+                    System.out.println("final mail");
+                    sendDeathMail(deathMailDTO);
+                    break outer;
                 }
-            },
-            initialDelay,
-            cooldown
-        );
+                RevivalMailDTO revivalMailDTO = new RevivalMailDTO();
+                revivalMailDTO.setLifeLink(profile.getLifeLink());
+                revivalMailDTO.setUserEmail(prepareMailForDTO(profile.getUserId()));
+                profile.setHoursLeft(profile.getHoursLeft() - 2);
+                profileRepository.save(profile);
+                mailService.sendRevivalMail(revivalMailDTO);
+            }
+        }
     }
 
     private String updateUserPasswordTemp(Long userId) {
@@ -115,8 +99,8 @@ public class ProfileService {
         return tempPassword;
     }
 
-    private void updateUserStatusDead(LifeStatusChangeDTO lifeStatusChangeDTO) {
-        mailService.sendAfterDeadTemporaryPassword(lifeStatusChangeDTO);
+    private void sendDeathMail(DeathMailDTO deathMailDTO) {
+        mailService.sendAfterDeadTemporaryPassword(deathMailDTO);
     }
 
     public HttpStatus updateUserStatusAlive(LifeStatusChangeDTO lifeStatusChangeDTO) {
@@ -128,6 +112,7 @@ public class ProfileService {
                 if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) {
                     profile.setLifeStatus(LifeStatus.ALIVE);
                     profile.setLifeLink(null);
+                    profile.setHoursLeft(null);
                     profileRepository.save(profile);
                     mailService.sendWereGladYoureBack(prepareMailForDTO(profile.getUserId()));
                     return HttpStatus.OK;

@@ -152,6 +152,36 @@ public class Profile implements Serializable {
     @Column(name = "closest_relatives")
     private String closestRelatives;
 
+    @Column(name = "hours_left")
+    private Integer hoursLeft;
+
+    @Column(name = "friend_mail")
+    private String friendMail;
+
+    public String getFriendMail() {
+        return friendMail;
+    }
+
+    public void setFriendMail(String friendMail) {
+        this.friendMail = friendMail;
+    }
+
+    public Boolean getIfOther4() {
+        return ifOther4;
+    }
+
+    public void setIfOther4(Boolean ifOther4) {
+        this.ifOther4 = ifOther4;
+    }
+
+    public Integer getHoursLeft() {
+        return hoursLeft;
+    }
+
+    public void setHoursLeft(Integer hoursLeft) {
+        this.hoursLeft = hoursLeft;
+    }
+
     public String getClosestRelatives() {
         return closestRelatives;
     }

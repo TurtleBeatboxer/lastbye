@@ -3,7 +3,9 @@ package com.origami.service;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
+import com.origami.service.dto.DeathMailDTO;
 import com.origami.service.dto.LifeStatusChangeDTO;
+import com.origami.service.dto.RevivalMailDTO;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -120,7 +122,7 @@ public class MailService {
     }
 
     @Async
-    public void sendRevivalMail(LifeStatusChangeDTO lifeStatusChangeDTO) {
+    public void sendRevivalMail(RevivalMailDTO revivalMailDTO) {
         StringBuilder stringBuilder = new StringBuilder("Hello, are u still there?");
         stringBuilder
             .append("\n")
@@ -128,12 +130,12 @@ public class MailService {
                 "If that is so, then copy link from below and paste it into your browser so you can notify your family that u aren't dead"
             )
             .append("\n")
-            .append(jHipsterProperties.getMail().getBaseUrl() + "/iamalive/recover/" + lifeStatusChangeDTO.getLifeLink());
-        sendEmail(lifeStatusChangeDTO.getEmailAddress(), "Important account notification", stringBuilder.toString(), false, false);
+            .append(jHipsterProperties.getMail().getBaseUrl() + "/iamalive/recover/" + revivalMailDTO.getLifeLink());
+        sendEmail(revivalMailDTO.getUserEmail(), "Important account notification", stringBuilder.toString(), false, false);
     }
 
     @Async
-    public void sendAfterDeadTemporaryPassword(LifeStatusChangeDTO lifeStatusChangeDTO) {
+    public void sendAfterDeadTemporaryPassword(DeathMailDTO deathMailDTO) {
         StringBuilder stringBuilder = new StringBuilder("We're sorry for your loss");
         stringBuilder
             .append("\n")
@@ -144,10 +146,10 @@ public class MailService {
             .append("\n")
             .append("So you can login and gain access to fields that he/she hidden from public profile")
             .append("\n")
-            .append("His/Her email" + lifeStatusChangeDTO.getEmailAddress())
+            .append("His/Her email" + deathMailDTO.getUserEmail())
             .append("\n")
-            .append("Temp password" + lifeStatusChangeDTO.getTempPassword());
-        sendEmail(lifeStatusChangeDTO.getFriendAddress(), "Important account notification", stringBuilder.toString(), false, false);
+            .append("Temp password" + deathMailDTO.getTempPassword());
+        sendEmail(deathMailDTO.getFriendEmail(), "Important account notification", stringBuilder.toString(), false, false);
     }
 
     @Async
