@@ -164,8 +164,6 @@ public class ProfileService {
         if (profileOptional.isPresent()) {
             if (profileOptional.get().getEditsLeft() > 0 && profileOptional.get().getLifeStatus().equals(LifeStatus.ALIVE)) {
                 Profile profile = profileOptional.get();
-                userDTO.setEditsLeft(profile.getEditsLeft() - 1);
-                profile.setEditsLeft(profile.getEditsLeft() - 1);
                 profile.setSpeech(userDTO.getSpeech());
                 profile.placeOfCeremony(userDTO.getPlaceOfCeremony());
                 profile.setFlowers(userDTO.isFlowers());
@@ -187,6 +185,8 @@ public class ProfileService {
                 profile.setClothes(userDTO.getClothes());
                 profile.setBurialMethod(userDTO.getBurialMethod());
                 profile.setFarewellLetter(userDTO.getFarewellLetter());
+                userDTO.setEditsLeft(profile.getEditsLeft() - 1);
+                profile.setEditsLeft(profile.getEditsLeft() - 1);
                 profileRepository.save(profile);
                 return true;
             } else {

@@ -95,6 +95,7 @@ public class SecurityConfiguration {
             .antMatchers("/api/profile/lifestatus/alive/**").permitAll()
             .antMatchers("/api/profile/qr/getQuestion/**").permitAll()
             .antMatchers("/api/profile/qr/qrDTO/**").permitAll()
+            .antMatchers("/api/profile/publicImage").permitAll()
             .and()
             .httpBasic()
         .and()
