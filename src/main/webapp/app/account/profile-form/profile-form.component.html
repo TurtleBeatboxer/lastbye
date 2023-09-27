@@ -111,11 +111,11 @@
           <input
             type="text"
             class="profileForm-input burial-input"
-            id="burialType"
-            name="burialType"
+            id="burialMethod"
+            name="burialMethod"
             placeholder="{{ 'Other burial method' }}"
-            data-cy="burialType"
-            formControlName="burialType"
+            data-cy="burialMethod"
+            formControlName="burialMethod"
           />
         </div>
         <div *ngIf="burialType === 'cremation' || burialType === 'cremation-other'" class="cremation container">
@@ -127,8 +127,8 @@
                 (click)="otherCremationFalse()"
                 class="radio"
                 type="radio"
-                name="burialType"
-                formControlName="burialType"
+                name="burialMethod"
+                formControlName="burialMethod"
                 value="sea"
               />
             </div>
@@ -138,8 +138,8 @@
                 (click)="otherCremationFalse()"
                 class="radio"
                 type="radio"
-                name="burialType"
-                formControlName="burialType"
+                name="burialMethod"
+                formControlName="burialMethod"
                 value="vinyl"
               />
             </div>
@@ -149,8 +149,8 @@
                 (click)="otherCremationFalse()"
                 class="radio"
                 type="radio"
-                name="burialType"
-                formControlName="burialType"
+                name="burialMethod"
+                formControlName="burialMethod"
                 value="urn"
               />
             </div>
@@ -159,8 +159,8 @@
               <input
                 class="radio"
                 type="radio"
-                name="burialType"
-                formControlName="burialType"
+                name="burialMethod"
+                formControlName="burialMethod"
                 (click)="otherCremationFalse()"
                 value="jewellery"
               />
@@ -182,11 +182,10 @@
             <input
               type="text"
               class="profileForm-input"
-              id="burialType"
-              name="burialType"
+              name="burialMethod"
               placeholder="{{ 'Other burial method' }}"
-              formControlName="burialType"
-              data-cy="burialType"
+              formControlName="burialMethod"
+              data-cy="burialMethod"
             />
           </div>
         </div>

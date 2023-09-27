@@ -66,6 +66,7 @@ export class ProfileFormService {
         nonNullable: true,
         validators: [Validators.required, Validators.minLength(1), Validators.maxLength(50)],
       }),
+      burialMethod: new FormControl('', { nonNullable: true }),
       burialPlace: new FormControl('', {
         nonNullable: true,
       }),
