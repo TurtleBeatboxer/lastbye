@@ -104,38 +104,14 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20230607191059-1-data" author="jhipster" context="faker">
+    <changeSet id="8:92b997bd48f40786ae0060622b0da2b6" author="jhipster" context="faker">
         <loadData
             file="config/liquibase/fake-data/profile.csv"
             separator=";"
             tableName="profile"
             usePreparedStatements="true">
-            <column name="id" type="numeric"/>
             <column name="user_id" type="numeric"/>
             <column name="surname" type="string"/>
-            <column name="phone" type="numeric"/>
-            <column name="prefix" type="string"/>
-            <column name="burial_method" type="string"/>
-            <column name="clothes" type="string"/>
-            <column name="place_of_ceremony" type="string"/>
-            <column name="photo" type="string"/>
-            <column name="grave_inscription" type="string"/>
-            <column name="spotify" type="string"/>
-            <column name="guests" type="string"/>
-            <column name="not_invited" type="string"/>
-            <column name="obituary" type="string"/>
-            <column name="purchased_place" type="boolean"/>
-            <column name="if_purchased_other" type="string"/>
-            <column name="flowers" type="boolean"/>
-            <column name="if_flowers" type="string"/>
-            <column name="farewell_letter" type="string"/>
-            <column name="speech" type="string"/>
-            <column name="video_speech" type="string"/>
-            <column name="testament" type="string"/>
-            <column name="accesses_for_relatives" type="string"/>
-            <column name="other" type="string"/>
-            <column name="code_qr" type="string"/>
-            <column name="public_profile_link" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
