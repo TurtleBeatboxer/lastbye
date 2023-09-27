@@ -55,7 +55,6 @@ public class ManagedUserVM extends AdminUserDTO {
     private Boolean ifGuests;
     private Boolean ifOther4;
     private Boolean ifPhotoGrave;
-
     private ArrayList<RelativeDTO> relativeDTOs;
 
     public ArrayList<RelativeDTO> getRelativeDTOs() {
