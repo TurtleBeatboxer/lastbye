@@ -1,6 +1,7 @@
 package com.origami.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
@@ -8,11 +9,9 @@ import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
-import com.origami.service.dto.DeathMailDTO;
-import com.origami.service.dto.LifeStatusChangeDTO;
-import com.origami.service.dto.PublicProfileDTO;
-import com.origami.service.dto.RevivalMailDTO;
+import com.origami.service.dto.*;
 import com.origami.web.rest.vm.ManagedUserVM;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
@@ -46,6 +45,26 @@ public class ProfileService {
         this.fileService = fileService;
     }
 
+    public HttpStatus prepareDataForQrCountdown(QRStartProcessDTO qrStartProcessDTO) throws JsonProcessingException {
+        Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(qrStartProcessDTO.getCodeQR());
+        if (profileOptional.isEmpty()) return HttpStatus.BAD_REQUEST;
+        Profile profile = profileOptional.get();
+        if (profile.getLifeStatus().equals(LifeStatus.ALIVE)) {
+            List<String> relativesEmails = getRelativesEmailsFromJsonString(profile.getClosestRelatives());
+            if (
+                profile.getQuestionAnswer().equals(qrStartProcessDTO.getAnswer()) &&
+                relativesEmails.contains(qrStartProcessDTO.getEmailAddress())
+            ) {
+                LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
+                lifeStatusChangeDTO.setCodeQR(qrStartProcessDTO.getCodeQR());
+                lifeStatusChangeDTO.setFriendAddress(qrStartProcessDTO.getEmailAddress());
+                startQRCountdown(lifeStatusChangeDTO);
+                return HttpStatus.ACCEPTED;
+            }
+        }
+        return HttpStatus.BAD_REQUEST;
+    }
+
     public void startQRCountdown(LifeStatusChangeDTO lifeStatusChangeDTO) {
         Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(lifeStatusChangeDTO.getCodeQR());
         if (profileOptional.isPresent()) {
@@ -63,7 +82,7 @@ public class ProfileService {
         }
     }
 
-    @Scheduled(cron = "*    *    */2    *    *    *")
+    @Scheduled(cron = "0 0 */2 * * *")
     public void qRCountdown() {
         List<Profile> profiles = profileRepository.findAllByLifeStatus(LifeStatus.UNKNOWN);
         for (Profile profile : profiles) {
@@ -119,7 +138,6 @@ public class ProfileService {
                 }
             }
         }
-
         return HttpStatus.BAD_REQUEST;
     }
 
@@ -333,5 +351,15 @@ public class ProfileService {
             size -= 1;
         }
         return true;
+    }
+
+    private List<String> getRelativesEmailsFromJsonString(String jsonString) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        List<RelativeDTO> listOfRelatives = mapper.readValue(jsonString, new TypeReference<List<RelativeDTO>>() {});
+        List<String> emails = new ArrayList<>();
+        for (RelativeDTO relativeDTO : listOfRelatives) {
+            emails.add(relativeDTO.getEmail());
+        }
+        return emails;
     }
 }
