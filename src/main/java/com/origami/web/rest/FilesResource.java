@@ -1,11 +1,10 @@
 package com.origami.web.rest;
 
 import com.origami.domain.Files;
-import com.origami.domain.dtos.FileDTO;
 import com.origami.repository.FilesRepository;
 import com.origami.service.FileService;
+import com.origami.service.dto.FileDTO;
 import com.origami.web.rest.errors.BadRequestAlertException;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
