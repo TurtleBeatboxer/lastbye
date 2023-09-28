@@ -12,7 +12,7 @@ let generateForms = (number: number) => {
 
 let forms: methods.form[] = generateForms(numberOfTest);
 
-describe('My First Test', () => {
+describe('Final tests', () => {
   beforeEach(() => {
     cy.viewport(1920, 1080);
   });

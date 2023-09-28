@@ -190,7 +190,7 @@
           </div>
         </div>
 
-        <div class="mb-3" *ngIf="burialType === 'coffin' || profileForm2.controls['burialType'].value === 'urn'">
+        <div class="mb-3" *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
           <h1 class="stepLabel">If coffin or urn chooses - enter burial place</h1>
           <input
             type="text"
@@ -203,7 +203,7 @@
           />
         </div>
 
-        <div class="mb-3" *ngIf="burialType === 'coffin' || profileForm2.controls['burialType'].value === 'urn'">
+        <div class="mb-3" *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
           <h1 class="stepLabel">Inscription on the grave/urn</h1>
           <div class="radioInputs">
             <label class="radio-label" for="ifGraveInscription">Yes</label>
@@ -222,7 +222,7 @@
             data-cy="graveInscription"
           />
         </div>
-        <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialType'].value === 'urn'">
+        <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
           <h1 class="stepLabel">Photo on the grave/urn</h1>
           <div class="radioInputs">
             <label class="radio-label" for="ifPhotoGrave">Yes</label>
@@ -238,7 +238,7 @@
           </p>
         </div>
         <input type="file" name="graveProfilePicture" class="file-input" #fileUpload (change)="onFileSelected($event)" />
-        <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialType'].value === 'urn'">
+        <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
           <h1 class="stepLabel">Open casket?</h1>
           <div class="radioInputs">
             <label class="radio-label" for="openCoffin">Yes</label>
@@ -246,21 +246,20 @@
             <label class="radio-label" for="openCoffin">No</label>
             <input class="radio" type="radio" name="openCoffin" formControlName="openCoffin" [value]="false" />
           </div>
-        </div>
 
-        <div *ngIf="profileForm2.controls['openCoffin'].value === true" class="mb-3">
-          <h1 class="stepLabel">Clothing</h1>
-          <input
-            type="text"
-            class="profileForm-input"
-            id="clothes"
-            name="clothes"
-            placeholder="{{ 'Clothes' }}"
-            formControlName="clothes"
-            data-cy="clothes"
-          />
+          <div *ngIf="profileForm2.controls['openCoffin'].value === true" class="mb-3">
+            <h1 class="stepLabel">Clothing</h1>
+            <input
+              type="text"
+              class="profileForm-input"
+              id="clothes"
+              name="clothes"
+              placeholder="{{ 'Clothes' }}"
+              formControlName="clothes"
+              data-cy="clothes"
+            />
+          </div>
         </div>
-
         <button type="submit" class="profileForm-button mt-4" data-cy="submit">Next</button>
       </form>
     </nb-step>
