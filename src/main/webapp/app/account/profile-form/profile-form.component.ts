@@ -117,6 +117,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
       .subscribe(() => console.warn(this.profileForm2.getRawValue()));
     this.profileFormService.savePhoto(this.files.graveProfilePicture);
     this.nbStepper.next();
+    window.scroll(0, 0);
   }
 
   thirdStep(): void {
@@ -128,6 +129,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
       )
       .subscribe(() => console.warn(this.profileForm3.getRawValue()));
     this.nbStepper.next();
+    window.scroll(0, 0);
   }
 
   fourthStep(): void {
@@ -141,6 +143,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.profileFormService.savePhoto(this.files.testament);
     this.profileFormService.savePhoto(this.files.videoSpeech);
     this.nbStepper.next();
+    window.scroll(0, 0);
   }
 
   fiveStep(): void {
@@ -148,6 +151,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     const relative = new Relative(data.email, data.name, data.phone);
     this.relatives.push(relative);
     this.profileForm5.reset();
+    window.scroll(0, 0);
   }
 
   deleteRelative(index): void {
@@ -163,6 +167,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
       .subscribe(() => {
         console.warn(this.profileFormService.dataProfile5(this.relatives));
       });
+    this.router.navigate(['./']);
   }
 
   onFileSelected(event: Event): void {
