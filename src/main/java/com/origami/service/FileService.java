@@ -2,10 +2,10 @@ package com.origami.service;
 
 import com.origami.domain.Files;
 import com.origami.domain.Profile;
-import com.origami.domain.dtos.FileDTO;
 import com.origami.domain.enumeration.FileType;
 import com.origami.repository.FilesRepository;
 import com.origami.repository.ProfileRepository;
+import com.origami.service.dto.FileDTO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileService {
@@ -38,7 +37,7 @@ public class FileService {
         Optional<Profile> profileOptional = profileRepository.findOneByUserId(Long.parseLong(fileDTO.getUserId()));
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
-            if (!profile.isFinishedEditing()) {
+            if (!profile.isFinishedEditing() || profile.getEditsLeft() > 0) {
                 Files fileData = new Files();
                 fileData.setName(fileDTO.getFile().getOriginalFilename());
                 fileData.setFormat(fileDTO.getFile().getContentType());

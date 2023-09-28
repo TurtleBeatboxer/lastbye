@@ -1,7 +1,6 @@
 package com.origami.web.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.origami.domain.LifeStatus;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
 import com.origami.repository.ProfileRepository;
@@ -118,7 +117,7 @@ public class AccountResource {
 
     @PostMapping("/profile/lifestatus/alive")
     public void makeUserAliveAgain(@Valid @RequestBody String link) {
-        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO(LifeStatus.ALIVE);
+        LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
         lifeStatusChangeDTO.setLifeLink(link);
         profileService.updateUserStatusAlive(lifeStatusChangeDTO);
     }
@@ -134,20 +133,8 @@ public class AccountResource {
     }
 
     @PostMapping("profile/qr/qrDTO")
-    public HttpStatus getProfileFromQRCode(@Valid @RequestBody QRStartProcessDTO qrStartProcessDTO) {
-        Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(qrStartProcessDTO.getCodeQR());
-        if (profileOptional.isEmpty()) return HttpStatus.BAD_REQUEST;
-        Profile profile = profileOptional.get();
-        if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) return HttpStatus.BAD_REQUEST;
-        if (profile.getLifeStatus().equals(LifeStatus.DEAD)) return HttpStatus.BAD_REQUEST;
-        if (profile.getQuestionAnswer().equals(qrStartProcessDTO.getAnswer())) {
-            LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO(LifeStatus.UNKNOWN);
-            lifeStatusChangeDTO.setCodeQR(qrStartProcessDTO.getCodeQR());
-            lifeStatusChangeDTO.setFriendAddress(qrStartProcessDTO.getEmailAddress());
-            profileService.startQRCountdown(lifeStatusChangeDTO);
-            return HttpStatus.ACCEPTED;
-        }
-        return HttpStatus.BAD_REQUEST;
+    public HttpStatus getProfileFromQRCode(@Valid @RequestBody QRStartProcessDTO qrStartProcessDTO) throws JsonProcessingException {
+        return profileService.prepareDataForQrCountdown(qrStartProcessDTO);
     }
 
     @PostMapping("/profile/get/data")

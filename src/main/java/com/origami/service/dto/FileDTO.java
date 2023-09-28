@@ -1,4 +1,4 @@
-package com.origami.domain.dtos;
+package com.origami.service.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
