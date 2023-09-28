@@ -21,6 +21,24 @@
 
 
     </changeSet>
+    <changeSet id="1" author="pawel" context="faker">
+        <loadData
+            file="config/liquibase/fake-data/e2eData.csv"
+            separator=";"
+            tableName="jhi_user"
+            usePreparedStatements="true">
+            <column name="login" type="string"/>
+            <column name="password_hash" type="string"/>
+            <column name="first_name" type="string"/>
+            <column name="last_name" type="string"/>
+            <column name="email" type="string"/>
+            <column name="activated" type="boolean"/>
+            <column name="email" type="string"/>
+            <column name="email" type="string"/>
+            <column name="created_date" type="timestamp"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
     <changeSet id="8:92b997bd48f40786ae0060622b0da2b6" author="jhipster" context="faker">
         <loadData
             file="config/liquibase/fake-data/profile.csv"
@@ -34,5 +52,7 @@
             <column name="edits_left" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
+
     </changeSet>
+
 </databaseChangeLog>

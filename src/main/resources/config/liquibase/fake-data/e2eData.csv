@@ -1,0 +1,11 @@
+id;login;password_hash;first_name;last_name;email;activated;lang_key;created_by;last_modified_by
+3;user1;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.c;true;en;pawel;pawel
+4;user2;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.coa;true;en;pawel;pawel
+5;user3;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.cos;true;en;pawel;pawel
+6;user4;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.cod;true;en;pawel;pawel
+7;user5;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.cof;true;en;pawel;pawel
+8;user6;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.cog;true;en;pawel;pawel
+9;user7;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.coh;true;en;pawel;pawel
+10;user8;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.coj;true;en;pawel;pawel
+11;user9;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.cok;true;en;pawel;pawel
+12;user10;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Pawel;Kurylowicz;p.kurylowicz@outlook.col;true;en;pawel;pawel
