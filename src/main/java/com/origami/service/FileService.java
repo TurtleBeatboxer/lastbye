@@ -33,11 +33,11 @@ public class FileService {
 
     private final String SEPARATOR = FileSystems.getDefault().getSeparator();
 
-    public String uploadImage(FileDTO fileDTO) throws IOException {
-        Optional<Profile> profileOptional = profileRepository.findOneByUserId(Long.parseLong(fileDTO.getUserId()));
+    public String uploadImagePDFFirstTime(FileDTO fileDTO) throws IOException {
+        Optional<Profile> profileOptional = profileRepository.findOneByUserId(fileDTO.getUserId());
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
-            if (!profile.isFinishedEditing() || profile.getEditsLeft() > 0) {
+            if (!profile.isFinishedEditing()) {
                 Files fileData = new Files();
                 fileData.setName(fileDTO.getFile().getOriginalFilename());
                 fileData.setFormat(fileDTO.getFile().getContentType());
