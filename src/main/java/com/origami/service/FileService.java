@@ -11,11 +11,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -40,17 +45,11 @@ public class FileService {
             if (!profile.isFinishedEditing()) {
                 Files fileData = new Files();
                 fileData.setName(fileDTO.getFile().getOriginalFilename());
-                fileData.setFormat(fileDTO.getFile().getContentType());
+                fileData.setFormat(getFileExtension(fileData.getFormat()));
                 fileData.setFileType(stringToFileType(fileDTO.getType()));
                 fileData.setProfile(profile);
                 new File(FOLDER_PATH + profile.getUserId()).mkdirs();
-                String filePath =
-                    FOLDER_PATH +
-                    profile.getUserId() +
-                    SEPARATOR +
-                    fileDTO.getType() +
-                    "." +
-                    getFileExtension(Objects.requireNonNull(fileDTO.getFile().getContentType()));
+                String filePath = makePath(fileData);
                 filesRepository.save(fileData);
                 fileData.setFilePath(filePath);
                 fileDTO.getFile().transferTo(new File(filePath));
@@ -62,15 +61,31 @@ public class FileService {
         return null;
     }
 
+    public ResponseEntity<?> getAllFilesFromUser(Long userId) throws IOException {
+        Optional<Profile> profileOptional = profileRepository.findOneByUserId(userId);
+        if (profileOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+            List<Files> filesRepositoryList = filesRepository.findAllByProfileId(profile.getId());
+            List<byte[]> listOfImagesAsByteStream = new ArrayList<>();
+            for (Files files : filesRepositoryList) {
+                File file = ResourceUtils.getFile(makePath(files));
+                InputStream in = new FileInputStream(file);
+                if (in != null) {
+                    listOfImagesAsByteStream.add(IOUtils.toByteArray(in));
+                }
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(listOfImagesAsByteStream);
+        }
+        return null;
+    }
+
     public byte[] downloadPublicProfileImage(String publicProfile) throws IOException {
         Optional<Profile> optionalProfile = profileRepository.findProfileByPublicProfileLink(publicProfile);
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
             Optional<Files> files = filesRepository.findOneByProfileId(profile.getId());
             if (files.isPresent()) {
-                File file = ResourceUtils.getFile(
-                    FOLDER_PATH + profile.getUserId() + SEPARATOR + "publicPicture" + "." + getFileExtension(files.get().getFormat())
-                );
+                File file = ResourceUtils.getFile(makePath(files.get()));
                 InputStream in = new FileInputStream(file);
                 if (in != null) {
                     return IOUtils.toByteArray(in);
@@ -86,6 +101,17 @@ public class FileService {
             return nameOfFile.substring(index);
         }
         return nameOfFile;
+    }
+
+    private String makePath(Files file) {
+        return (
+            FOLDER_PATH +
+            file.getProfile().getUserId() +
+            SEPARATOR +
+            fileTypeToFileName(file.getFileType()) +
+            "." +
+            getFileExtension(file.getFormat())
+        );
     }
 
     public FileType stringToFileType(String type) {

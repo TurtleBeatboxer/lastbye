@@ -3,6 +3,7 @@ package com.origami.web.rest;
 import com.origami.domain.Files;
 import com.origami.domain.User;
 import com.origami.repository.FilesRepository;
+import com.origami.security.SecurityUtils;
 import com.origami.service.FileService;
 import com.origami.service.UserService;
 import com.origami.service.dto.FileDTO;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.expression.ExpressionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -197,11 +199,21 @@ public class FilesResource {
     //Can't dodge using 2 params
     @PostMapping("/profile/pictures")
     public ResponseEntity<?> uploadFilesFirstTime(@RequestParam("file") MultipartFile file, @RequestParam("type") String type)
-        throws IOException {
+        throws Exception {
         Optional<User> userOptional = userService.getUserWithAuthorities();
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImagePDFFirstTime(new FileDTO(file, type, user.getId())));
+        }
+        return null;
+    }
+
+    @GetMapping("/user/pictures")
+    public ResponseEntity<?> downloadAllUserImages() throws Exception {
+        Optional<User> userOptional = userService.getUserWithAuthorities();
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return fileService.getAllFilesFromUser(user.getId());
         }
         return null;
     }
