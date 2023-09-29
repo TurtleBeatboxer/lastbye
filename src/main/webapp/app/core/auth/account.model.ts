@@ -34,6 +34,7 @@ export class Account {
     public lastName: string,
     public imageUrl: string,
     public farewellReader: string,
+    public ifGuests: boolean,
     public burialPlace: string,
     public musicType: string,
     public burialType: string,
