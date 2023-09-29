@@ -70,6 +70,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.otherCremation = false;
     this.otherCremationInput = '';
     this.profileForm2.reset();
+    this.profileForm2.patchValue({ burialType: 'coffin' });
     this.profileForm2.patchValue({ burialMethod: 'coffin' });
   }
 
@@ -78,6 +79,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.otherCremation = false;
     this.otherCremationInput = '';
     this.profileForm2.reset();
+    this.profileForm2.patchValue({ burialType: 'other' });
   }
 
   onCremationClick(): void {
@@ -85,6 +87,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
     this.otherCremationInput = '';
     this.profileForm2.reset();
     this.profileForm2.patchValue({ burialMethod: 'cremation' });
+    this.profileForm2.patchValue({ burialType: 'cremation' });
   }
 
   otherCremationFalse(): void {

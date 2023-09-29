@@ -32,6 +32,9 @@ import { SecurityEditComponent } from './settings/security-edit/security-edit.co
 import { MyBurialEditComponent } from './settings/my-burial-edit/my-burial-edit.component';
 import { MyFuneralEditComponent } from './settings/my-funeral-edit/my-funeral-edit.component';
 import { MyLastMessageEditComponent } from './settings/my-last-message-edit/my-last-message-edit.component';
+import { BurialDisplayComponent } from 'app/profileDisplay/burial-display/burial-display.component';
+import { FuneralDisplayComponent } from 'app/profileDisplay/funeral-display/funeral-display.component';
+import { LastMessageDisplayComponent } from 'app/profileDisplay/last-message-display/last-message-display.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -64,6 +67,9 @@ import { MyLastMessageEditComponent } from './settings/my-last-message-edit/my-l
     MyBurialEditComponent,
     MyFuneralEditComponent,
     MyLastMessageEditComponent,
+    BurialDisplayComponent,
+    FuneralDisplayComponent,
+    LastMessageDisplayComponent,
   ],
 })
 export class AccountModule {}

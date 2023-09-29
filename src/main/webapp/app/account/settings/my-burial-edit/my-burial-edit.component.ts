@@ -30,18 +30,26 @@ export class MyBurialEditComponent implements OnInit {
   ngOnInit(): void {
     this.messageService.selectedData$.subscribe((value: Account) => {
       this.profileForm2.patchValue(value);
+      if (
+        value.burialType === 'cremation' &&
+        value.burialMethod !== 'urn' &&
+        value.burialMethod !== 'jewellery' &&
+        value.burialMethod !== 'sea' &&
+        value.burialMethod !== 'vinyl'
+      ) {
+        this.onOtherCremationClickFirst();
+      }
       this.burialType = value.burialType;
       console.log(value);
     });
   }
 
   submit() {
-    // this.http
-    //   .post(this.applicationService.getEndpointFor('/api/account'), { ...this.profileForm2.getRawValue(), login: 1234 })
-    //   .subscribe(res => {
-    //     console.log(res);
-    //   });
-    console.log(this.burialType);
+    this.http
+      .post(this.applicationService.getEndpointFor('/api/account'), { ...this.profileForm2.getRawValue(), login: 1234 })
+      .subscribe(res => {
+        console.log({ ...this.profileForm2.getRawValue(), login: 1234 });
+      });
   }
 
   backToEdit() {
@@ -77,6 +85,10 @@ export class MyBurialEditComponent implements OnInit {
   }
 
   onOtherCremationClick(): void {
-    this.profileForm2.patchValue({ burialType: '' });
+    this.profileForm2.patchValue({ burialMethod: '' });
+  }
+
+  onOtherCremationClickFirst() {
+    this.otherCremationInput = 'cremation-other';
   }
 }

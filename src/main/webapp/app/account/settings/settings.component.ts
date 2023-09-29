@@ -165,6 +165,7 @@ export class SettingsComponent implements OnInit {
     ifFarewellLetter: new FormControl(this.initialAccount.ifFarewellLetter, { nonNullable: true }),
     ifVideoSpeech: new FormControl(this.initialAccount.ifVideoSpeech, { nonNullable: true }),
     ifOther4: new FormControl(this.initialAccount.ifOther4, { nonNullable: true }),
+    ifGuests: new FormControl(this.initialAccount.ifGuests, { nonNullable: true }),
   });
 
   constructor(

@@ -190,6 +190,10 @@ public class ProfileService {
                 profile.setFarewellLetter(userDTO.getFarewellLetter());
                 userDTO.setEditsLeft(profile.getEditsLeft() - 1);
                 profile.setEditsLeft(profile.getEditsLeft() - 1);
+                profile.setIfGraveInscription(userDTO.getIfGraveInscription());
+                profile.setOpenCoffin(userDTO.getOpenCoffin());
+                profile.setIfPhotoGrave(userDTO.getIfPhotoGrave());
+                profile.setBurialType(userDTO.getBurialType());
                 profileRepository.save(profile);
                 return true;
             } else {
