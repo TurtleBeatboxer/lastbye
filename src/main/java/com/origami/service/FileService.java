@@ -1,6 +1,7 @@
 package com.origami.service;
 
 import com.origami.domain.Files;
+import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
 import com.origami.domain.enumeration.FileType;
 import com.origami.repository.FilesRepository;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,14 +38,20 @@ public class FileService {
 
     private final String SEPARATOR = FileSystems.getDefault().getSeparator();
 
-    public String uploadImagePDFFirstTime(FileDTO fileDTO) throws IOException {
+    public String uploadImagePDF(FileDTO fileDTO) throws IOException {
+        //  Add limits to frequency, sizes and types of files requested
+
         Optional<Profile> profileOptional = profileRepository.findOneByUserId(fileDTO.getUserId());
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
-            if (!profile.isFinishedEditing()) {
+            if (
+                !profile.isFinishedEditing() ||
+                profile.getMembershipLevel().equals(MembershipLevel.PREMIUM) ||
+                profile.getMembershipLevel().equals(MembershipLevel.TOP)
+            ) {
                 Files fileData = new Files();
                 fileData.setName(fileDTO.getFile().getOriginalFilename());
-                fileData.setFormat(getFileExtension(fileData.getFormat()));
+                fileData.setFormat(getFileExtension(Objects.requireNonNull(fileDTO.getFile().getContentType())));
                 fileData.setFileType(stringToFileType(fileDTO.getType()));
                 fileData.setProfile(profile);
                 new File(FOLDER_PATH + profile.getUserId()).mkdirs();
