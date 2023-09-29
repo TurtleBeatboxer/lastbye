@@ -49,13 +49,7 @@ public class FileService {
                 fileData.setFileType(stringToFileType(fileDTO.getType()));
                 fileData.setProfile(profile);
                 new File(FOLDER_PATH + profile.getUserId()).mkdirs();
-                String filePath =
-                    FOLDER_PATH +
-                    profile.getUserId() +
-                    SEPARATOR +
-                    fileDTO.getType() +
-                    "." +
-                    getFileExtension(Objects.requireNonNull(fileData.getFormat()));
+                String filePath = makePath(fileData);
                 filesRepository.save(fileData);
                 fileData.setFilePath(filePath);
                 fileDTO.getFile().transferTo(new File(filePath));
