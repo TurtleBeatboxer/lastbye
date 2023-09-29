@@ -1,0 +1,29 @@
+<h2 class="title-body">My last message</h2>
+<div *ngIf="account.ifFarewellLetter; else elseFarewell">
+  <div class="value">Here's file with your farewell letter: File</div>
+  <div class="value">You want your farewell letter to be read by: {{ account.farewellReader }}</div>
+</div>
+<ng-template #elseFarewell>
+  <div class="value">You didn't attach your farewell letter, edit your profile to change it</div>
+</ng-template>
+
+<div *ngIf="account.ifTestament; else elseTestament">
+  <div class="value">Here's file with your will: File</div>
+</div>
+<ng-template #elseTestament>
+  <div class="value">You didn't attach your will, edit your profile to change it</div>
+</ng-template>
+
+<div *ngIf="account.ifVideoSpeech; else elseVideoSpeech">
+  <div class="value">Here's file with your viceo speech: File</div>
+</div>
+<ng-template #elseVideoSpeech>
+  <div class="value">You didn't attach your video speech, edit your profile to change it</div>
+</ng-template>
+
+<div class="mb-3" *ngIf="account.ifOther4; else elseOther4">
+  <div class="value">Here are your other requests {{ account.other }}</div>
+</div>
+<ng-template #elseOther4>
+  <div class="value">You don't have any other requests regarding your passing</div>
+</ng-template>
