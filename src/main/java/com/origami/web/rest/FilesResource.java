@@ -1,8 +1,10 @@
 package com.origami.web.rest;
 
 import com.origami.domain.Files;
+import com.origami.domain.User;
 import com.origami.repository.FilesRepository;
 import com.origami.service.FileService;
+import com.origami.service.UserService;
 import com.origami.service.dto.FileDTO;
 import com.origami.web.rest.errors.BadRequestAlertException;
 import java.io.IOException;
@@ -40,10 +42,12 @@ public class FilesResource {
 
     private final FilesRepository filesRepository;
     private final FileService fileService;
+    private final UserService userService;
 
-    public FilesResource(FilesRepository filesRepository, FileService fileService) {
+    public FilesResource(FilesRepository filesRepository, FileService fileService, UserService userService) {
         this.filesRepository = filesRepository;
         this.fileService = fileService;
+        this.userService = userService;
     }
 
     /**
@@ -190,14 +194,16 @@ public class FilesResource {
             .build();
     }
 
-    //Can't dodge using 3 params
+    //Can't dodge using 2 params
     @PostMapping("/profile/pictures")
-    public ResponseEntity<?> uploadImageToFIleSystem(
-        @RequestParam("file") MultipartFile file,
-        @RequestParam("type") String type,
-        @RequestParam("user") String userId
-    ) throws IOException {
-        return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImage(new FileDTO(file, type, userId)));
+    public ResponseEntity<?> uploadFilesFirstTime(@RequestParam("file") MultipartFile file, @RequestParam("type") String type)
+        throws IOException {
+        Optional<User> userOptional = userService.getUserWithAuthorities();
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImagePDFFirstTime(new FileDTO(file, type, user.getId())));
+        }
+        return null;
     }
 
     @PostMapping("/profile/publicImage")

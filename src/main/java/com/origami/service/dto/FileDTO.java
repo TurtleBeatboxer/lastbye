@@ -6,13 +6,13 @@ public class FileDTO {
 
     private MultipartFile file;
     private String type;
-    private String userId;
+    private Long userId;
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -34,7 +34,7 @@ public class FileDTO {
 
     public FileDTO() {}
 
-    public FileDTO(MultipartFile multipartFile, String type, String userId) {
+    public FileDTO(MultipartFile multipartFile, String type, Long userId) {
         this.file = multipartFile;
         this.type = type;
         this.userId = userId;
