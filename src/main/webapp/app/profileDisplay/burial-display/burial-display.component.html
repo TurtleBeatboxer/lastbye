@@ -1,0 +1,41 @@
+<div class="section">
+
+  <h2 class="title-body">My burial</h2>
+  <div *ngIf="account.burialMethod === 'coffin' || account.burialMethod === 'urn'">
+    <div class="mb-3">
+      <p class="value">Your desired burial method is {{ account.burialMethod }}</p>
+    </div>
+
+    <div class="mb-3">
+      <p class="value">You want your burial place to be {{ account.burialPlace }}</p>
+    </div>
+    <div class="mb-3">
+      <p class="value">Grave insription:
+        {{ account.ifGraveInscription ? 'You want to have grave inscription' : "You don'twant to have grave inscription"
+        }}</p>
+    </div>
+    <div class="mb-3" *ngIf="account.ifGraveInscription">
+      <div class="value">
+        You want your grave inscription to be: "{{account.graveInscription}}"
+      </div>
+    </div>
+    <div class="mb-3">
+      <p class="value">Is your casket going to be open: {{ account.openCoffin ? 'yes' : 'no' }}</p>
+    </div>
+    <div class="mb-3" *ngIf="account.openCoffin">
+      <p class="value">You want to be buried in {{ account.clothes }}</p>
+    </div>
+  </div>
+  <div *ngIf="account.burialType === 'other'">
+    <p class="value">Your vision of burial: {{ account.burialMethod }}</p>
+  </div>
+  <div
+    *ngIf="account.burialType === 'cremation' && account.burialMethod !== 'urn' &&  (account.burialMethod === 'jewellery' || account.burialMethod === 'sea' || account.burialMethod === 'vinyl')">
+    You want to be cremated and {{account.burialMethod}}
+  </div>
+  <div
+    *ngIf="account.burialType === 'cremation' && account.burialMethod !== 'urn' && account.burialMethod !== 'jewellery' && account.burialMethod !== 'sea' && account.burialMethod !== 'vinyl'">
+    You want to be cremated and you have your own idea {{account.burialMethod}}
+  </div>
+
+</div>
