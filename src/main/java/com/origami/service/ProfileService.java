@@ -146,7 +146,7 @@ public class ProfileService {
         newProfile.setLifeStatus(LifeStatus.ALIVE);
         newProfile.setUserId(userDTO.getUserId());
         newProfile.setMembershipLevel(MembershipLevel.STANDARD);
-        newProfile.setEditsLeft(2L);
+        newProfile.setEditsLeft(4L);
         newProfile.setLevelOfForm(0L);
         newProfile.setFinishedEditing(false);
         profileRepository.save(newProfile);
@@ -188,7 +188,6 @@ public class ProfileService {
                 profile.setClothes(userDTO.getClothes());
                 profile.setBurialMethod(userDTO.getBurialMethod());
                 profile.setFarewellLetter(userDTO.getFarewellLetter());
-                userDTO.setEditsLeft(profile.getEditsLeft() - 1);
                 profile.setEditsLeft(profile.getEditsLeft() - 1);
                 profileRepository.save(profile);
                 return true;
