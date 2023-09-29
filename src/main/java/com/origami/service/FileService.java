@@ -104,7 +104,14 @@ public class FileService {
     }
 
     private String makePath(Files file) {
-        return FOLDER_PATH + file.getProfile().getUserId() + SEPARATOR + file.getFileType() + "." + getFileExtension(file.getFormat());
+        return (
+            FOLDER_PATH +
+            file.getProfile().getUserId() +
+            SEPARATOR +
+            fileTypeToFileName(file.getFileType()) +
+            "." +
+            getFileExtension(file.getFormat())
+        );
     }
 
     public FileType stringToFileType(String type) {
