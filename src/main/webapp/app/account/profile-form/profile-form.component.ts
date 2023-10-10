@@ -106,7 +106,9 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
         this.applicationConfigService.getEndpointFor('/api/register/form'),
         this.profileFormService.dataProfile1(this.profileForm1.getRawValue())
       )
-      .subscribe(() => console.warn(this.profileForm1.getRawValue()));
+      .subscribe(() => {
+        console.warn(this.profileForm1.getRawValue());
+      });
 
     this.router.navigate(['user/picture'], { skipLocationChange: true });
   }
@@ -117,7 +119,9 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
         this.applicationConfigService.getEndpointFor('/api/register/form'),
         this.profileFormService.dataProfile2(this.profileForm2.getRawValue(), this.burialType)
       )
-      .subscribe(() => console.warn(this.profileForm2.getRawValue()));
+      .subscribe(() => {
+        console.error(this.profileForm2.getRawValue());
+      });
     this.profileFormService.savePhoto(this.files.graveProfilePicture);
     this.nbStepper.next();
     window.scroll(0, 0);
@@ -169,6 +173,11 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
       .post(this.applicationConfigService.getEndpointFor('api/register/form'), this.profileFormService.dataProfile5(this.relatives))
       .subscribe(() => {
         console.warn(this.profileFormService.dataProfile5(this.relatives));
+        this.http.get<Account>(this.applicationConfigService.getEndpointFor('api/account')).subscribe(res => {
+          this.accountService.setData(res);
+
+          console.log(res);
+        });
       });
     this.router.navigate(['./']);
   }

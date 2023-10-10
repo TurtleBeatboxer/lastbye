@@ -26,7 +26,7 @@ describe('Final tests', () => {
       methods.secondForm(forms[i].two);
       methods.thirdForm(forms[i].three);
       methods.fourthForm(forms[i].relative);
-      cy.get('#bar6').click({ scrollBehavior: false });
+      cy.get('.logout').click({ scrollBehavior: false });
     }
   });
 });

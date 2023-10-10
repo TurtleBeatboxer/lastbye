@@ -10,7 +10,7 @@ export class Account {
     public clothes: string,
     public placeOfCeremony: string,
 
-    public graveInscription: string,
+    public graveInscription: string | undefined,
     public spotify: string,
     public guests: string,
     public notInvited: string,

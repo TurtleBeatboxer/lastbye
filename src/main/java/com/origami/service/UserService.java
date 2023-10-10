@@ -4,6 +4,7 @@ import com.origami.config.Constants;
 import com.origami.domain.Authority;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
+import com.origami.domain.enumeration.IfType;
 import com.origami.repository.AuthorityRepository;
 import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
@@ -401,7 +402,15 @@ public class UserService {
             managedUserVM.setIfPhotoGrave(profile.get().getIfPhotoGrave());
             managedUserVM.setMusicType(profile.get().getMusicType());
             managedUserVM.setIfGuests(profile.get().getIfGuests());
+            managedUserVM.setIfFarewellLetter(convertIfToBoolean(profile.get().getIfFarewellLetter()));
+            managedUserVM.setIfVideoSpeech(convertIfToBoolean(profile.get().getIfVideoSpeech()));
+            managedUserVM.setIfTestament(convertIfToBoolean(profile.get().getIfTestament()));
+            managedUserVM.setIfOther4(convertIfToBoolean(profile.get().getIfOther4()));
         }
         return managedUserVM;
+    }
+
+    private boolean convertIfToBoolean(IfType ifType) {
+        return ifType == IfType.TRUE;
     }
 }

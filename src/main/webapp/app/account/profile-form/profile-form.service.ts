@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Files, profileFormData1, profileFormData2, profileFormData3, profileFormData4, smallFile } from './profile-form.model';
+import { Files, Relative, profileFormData1, profileFormData2, profileFormData3, profileFormData4, smallFile } from './profile-form.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

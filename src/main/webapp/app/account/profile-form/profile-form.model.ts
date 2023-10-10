@@ -14,6 +14,7 @@ export interface profileFormData1 extends Partial<requestData> {
 export interface profileFormData2 extends Partial<requestData> {
   burialType: string;
   burialPlace: string;
+  burialMethod: string;
   ifGraveInscription: boolean | null;
   ifPhotoGrave: boolean | null;
   graveInscription: string;

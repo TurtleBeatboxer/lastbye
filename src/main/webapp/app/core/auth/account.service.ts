@@ -19,7 +19,8 @@ export class AccountService {
   public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
   private authenticationState = new ReplaySubject<Account | null>(1);
   private accountCache$?: Observable<Account> | null;
-
+  private data$ = new BehaviorSubject<Account | null>(null);
+  public selectedData$ = this.data$.asObservable();
   constructor(
     private translateService: TranslateService,
     private sessionStorageService: SessionStorageService,
@@ -34,9 +35,20 @@ export class AccountService {
     return this.http.post(this.applicationConfigService.getEndpointFor('api/account'), account);
   }
 
+  setData(data) {
+    this.data$.next(data);
+    console.warn(data);
+  }
+
+  patchNewAccountValue(identity: Account) {
+    this.authenticationState.next(identity);
+  }
+
   authenticate(identity: Account | null): void {
     this.userIdentity = identity;
     this.authenticationState.next(this.userIdentity);
+    console.warn('authenticate');
+    this.setData(identity);
     if (!identity) {
       this.accountCache$ = null;
     }
@@ -56,9 +68,7 @@ export class AccountService {
     if (!this.accountCache$ || force) {
       this.accountCache$ = this.fetch().pipe(
         tap((account: Account) => {
-          console.log('test');
           this.authenticate(account);
-          console.log(account);
 
           // After retrieve the account info, the language will be changed to
           // the user's preferred language configured in the account setting

@@ -29,11 +29,11 @@
   <div *ngIf="account.burialType === 'other'">
     <p class="value">Your vision of burial: {{ account.burialMethod }}</p>
   </div>
-  <div
+  <div class="value"
     *ngIf="account.burialType === 'cremation' && account.burialMethod !== 'urn' &&  (account.burialMethod === 'jewellery' || account.burialMethod === 'sea' || account.burialMethod === 'vinyl')">
     You want to be cremated and {{account.burialMethod}}
   </div>
-  <div
+  <div class="value"
     *ngIf="account.burialType === 'cremation' && account.burialMethod !== 'urn' && account.burialMethod !== 'jewellery' && account.burialMethod !== 'sea' && account.burialMethod !== 'vinyl'">
     You want to be cremated and you have your own idea {{account.burialMethod}}
   </div>

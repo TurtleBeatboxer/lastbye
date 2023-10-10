@@ -21,9 +21,9 @@
   <div class="value">You didn't attach your video speech, edit your profile to change it</div>
 </ng-template>
 
-<div class="mb-3" *ngIf="account.ifOther4; else elseOther4">
+<div class="mb-3" *ngIf="account.other; else elseOther">
   <div class="value">Here are your other requests {{ account.other }}</div>
 </div>
-<ng-template #elseOther4>
+<ng-template #elseOther>
   <div class="value">You don't have any other requests regarding your passing</div>
 </ng-template>

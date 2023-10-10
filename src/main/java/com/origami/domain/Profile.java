@@ -1,5 +1,6 @@
 package com.origami.domain;
 
+import com.origami.domain.enumeration.IfType;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -144,7 +145,7 @@ public class Profile implements Serializable {
     private Boolean ifGuests;
 
     @Column(name = "if_other_4")
-    private Boolean ifOther4;
+    private IfType ifOther4;
 
     @Column(name = "if_photo_grave")
     private Boolean ifPhotoGrave;
@@ -158,6 +159,39 @@ public class Profile implements Serializable {
     @Column(name = "friend_mail")
     private String friendMail;
 
+    @Column(name = "if_farewell_letter")
+    private IfType ifFarewellLetter;
+
+    @Column(name = "if_video_speech")
+    private IfType ifVideoSpeech;
+
+    @Column(name = "if_testament")
+    private IfType ifTestament;
+
+    public IfType getIfFarewellLetter() {
+        return ifFarewellLetter;
+    }
+
+    public void setIfFarewellLetter(IfType ifFarewellLetter) {
+        this.ifFarewellLetter = ifFarewellLetter;
+    }
+
+    public IfType getIfVideoSpeech() {
+        return ifVideoSpeech;
+    }
+
+    public void setIfVideoSpeech(IfType ifVideoSpeech) {
+        this.ifVideoSpeech = ifVideoSpeech;
+    }
+
+    public IfType getIfTestament() {
+        return ifTestament;
+    }
+
+    public void setIfTestament(IfType ifTestament) {
+        this.ifTestament = ifTestament;
+    }
+
     public String getFriendMail() {
         return friendMail;
     }
@@ -166,11 +200,11 @@ public class Profile implements Serializable {
         this.friendMail = friendMail;
     }
 
-    public Boolean getIfOther4() {
+    public IfType getIfOther4() {
         return ifOther4;
     }
 
-    public void setIfOther4(Boolean ifOther4) {
+    public void setIfOther4(IfType ifOther4) {
         this.ifOther4 = ifOther4;
     }
 

@@ -1,6 +1,6 @@
 <div class="edit">
   <h2>Here is your profile</h2>
-  <h5>Here are your edits left: {{ edits }}</h5>
+  <h5>Here are your edits left: {{ this.initialAccount.editsLeft }}</h5>
   <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
     <strong>Settings saved!</strong>
   </div>
@@ -76,6 +76,4 @@
     <jhi-last-message-display [account]="this.initialAccount"></jhi-last-message-display>
     <button *ngIf="this.editMode" (click)="editClickMessage()" class="button-header editbtn">Edit</button>
   </div>
-
-  <button (click)="onClick()">text</button>
 </div>

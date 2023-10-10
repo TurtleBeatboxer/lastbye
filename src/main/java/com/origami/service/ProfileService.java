@@ -7,6 +7,8 @@ import com.origami.domain.LifeStatus;
 import com.origami.domain.MembershipLevel;
 import com.origami.domain.Profile;
 import com.origami.domain.User;
+import com.origami.domain.enumeration.FileType;
+import com.origami.domain.enumeration.IfType;
 import com.origami.repository.ProfileRepository;
 import com.origami.repository.UserRepository;
 import com.origami.service.dto.*;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -194,6 +197,10 @@ public class ProfileService {
                 profile.setOpenCoffin(userDTO.getOpenCoffin());
                 profile.setIfPhotoGrave(userDTO.getIfPhotoGrave());
                 profile.setBurialType(userDTO.getBurialType());
+                profile.setIfTestament(convertIfToEnum(userDTO.getIfTestament()));
+                profile.setFarewellReader(userDTO.getFarewellReader());
+                profile.setIfFarewellLetter(convertIfToEnum(userDTO.getIfFarewellLetter()));
+                profile.setIfVideoSpeech(convertIfToEnum(userDTO.getIfVideoSpeech()));
                 profileRepository.save(profile);
                 return true;
             } else {
@@ -221,12 +228,13 @@ public class ProfileService {
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
             profile.setBurialMethod(userDTO.getBurialMethod());
-            System.out.println(userDTO.getIsPurchasedOther());
+
             profile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
             profile.setGraveInscription(userDTO.getGraveInscription());
             profile.setOpenCoffin(userDTO.isOpenCoffin());
             profile.setClothes(userDTO.getClothes());
             profile.setBurialPlace(userDTO.getBurialPlace());
+            System.out.println(userDTO.getBurialType());
             profile.setBurialType(userDTO.getBurialType());
             profile.setLevelOfForm(2L);
             profile.setIfGraveInscription(userDTO.getIfGraveInscription());
@@ -246,8 +254,7 @@ public class ProfileService {
             profile.setMusicType(userDTO.getMusicType());
             profile.setGuests(userDTO.getGuests());
             profile.setNotInvited(userDTO.getNotInvited());
-            profile.setBurialType(userDTO.getBurialType());
-            profile.setIfGraveInscription(userDTO.getIfGraveInscription());
+
             profile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
             profile.setIfGuests(userDTO.getIfGuests());
             profile.setLevelOfForm(3L);
@@ -263,7 +270,12 @@ public class ProfileService {
             profile.setVideoSpeech(userDTO.getVideoSpeech());
             profile.setTestament(userDTO.getTestament());
             profile.setOther(userDTO.getOther());
-
+            profile.setFarewellReader(userDTO.getFarewellReader());
+            System.out.println(userDTO.getIfFarewellLetter());
+            profile.setIfTestament(convertIfToEnum(userDTO.getIfTestament()));
+            profile.setIfFarewellLetter(convertIfToEnum(userDTO.getIfFarewellLetter()));
+            profile.setIfVideoSpeech(convertIfToEnum(userDTO.getIfVideoSpeech()));
+            profile.setIfOther4(convertIfToEnum(userDTO.getIfOther4()));
             profile.setLevelOfForm(4L);
             profileRepository.save(profile);
         }
@@ -365,5 +377,13 @@ public class ProfileService {
             emails.add(relativeDTO.getEmail());
         }
         return emails;
+    }
+
+    private IfType convertIfToEnum(boolean value) {
+        if (value) {
+            return IfType.TRUE;
+        } else {
+            return IfType.FALSE;
+        }
     }
 }

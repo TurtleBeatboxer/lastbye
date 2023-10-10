@@ -178,15 +178,8 @@ export class SettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.accountService.identity().subscribe(account => {
-      if (account) {
-        this.edits = account.editsLeft;
-        console.log(account.openCoffin);
-
-        this.initialAccount = account;
-        console.log(this.isTrueCoffin);
-        console.log(this.initialAccount.burialMethod);
-      }
+    this.accountService.selectedData$.subscribe(v => {
+      v ? (this.initialAccount = v) : new Error('user not found');
     });
   }
 
@@ -227,9 +220,6 @@ export class SettingsComponent implements OnInit {
         this.translateService.use(account.langKey);
       }
     });
-  }
-  onClick() {
-    console.log(this.initialAccount.burialMethod);
   }
 
   edit() {
