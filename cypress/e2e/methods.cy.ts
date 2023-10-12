@@ -233,6 +233,10 @@ let getBurial = (number: number, one: One) => {
   }
 };
 
+let checkBurial = () => {
+  cy.get('');
+};
+
 let burialHappyPath = (one: One) => {
   cy.get('#burialPlace')
     .type(one.burialPlace, { scrollBehavior: 'center' })

@@ -28,5 +28,6 @@ describe('My First Test', () => {
     methods.secondForm(form.two);
     methods.thirdForm(form.three);
     methods.fourthForm(form.relative);
+    cy.get('#edit').click({ scrollBehavior: 'center' });
   });
 });
