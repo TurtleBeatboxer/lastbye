@@ -5,6 +5,7 @@ import { ProfileFormService } from 'app/account/profile-form/profile-form.servic
 import { Account } from 'app/core/auth/account.model';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { EditEventServiceService } from '../edit-event-service.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-my-burial-edit',
@@ -18,13 +19,14 @@ export class MyBurialEditComponent implements OnInit {
   urn;
   otherCremation = false;
   profileForm2 = this.profileFormService.buildForm2();
-
+  id;
   constructor(
     private profileFormService: ProfileFormService,
     private router: Router,
     private http: HttpClient,
     private applicationService: ApplicationConfigService,
-    private messageService: EditEventServiceService
+    private messageService: EditEventServiceService,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
@@ -42,12 +44,21 @@ export class MyBurialEditComponent implements OnInit {
       this.burialType = value.burialType;
       console.log(value);
     });
+    this.accountService.selectedData$.subscribe(value => {
+      this.id = value?.id;
+    });
   }
 
   submit() {
+    console.log(this.profileForm2.getRawValue());
     this.http
-      .post(this.applicationService.getEndpointFor('/api/account'), { ...this.profileForm2.getRawValue(), login: 1234 })
-      .subscribe(res => {
+      .patch(this.applicationService.getEndpointFor(`/api/profiles/${this.id}`), {
+        ...this.profileForm2.getRawValue(),
+        id: this.id,
+      })
+      .subscribe((res: Account) => {
+        this.backToEdit();
+        this.accountService.patchNewAccountValue(res);
         console.log({ ...this.profileForm2.getRawValue(), login: 1234 });
       });
   }
@@ -62,19 +73,23 @@ export class MyBurialEditComponent implements OnInit {
     this.otherCremationInput = '';
     this.profileForm2.reset();
     this.profileForm2.patchValue({ burialType: 'coffin' });
+    this.profileForm2.patchValue({ burialMethod: 'coffin' });
   }
 
   onOtherClicked(): void {
-    this.profileForm2.patchValue({ burialType: '' });
+    this.profileForm2.patchValue({ burialMethod: '' });
     this.otherCremation = false;
     this.otherCremationInput = '';
     this.profileForm2.reset();
+    this.profileForm2.patchValue({ burialType: 'other' });
   }
 
   onCremationClick(): void {
     this.otherCremation = false;
+    this.otherCremation = false;
     this.otherCremationInput = '';
     this.profileForm2.reset();
+    this.profileForm2.patchValue({ burialMethod: 'cremation' });
     this.profileForm2.patchValue({ burialType: 'cremation' });
   }
 

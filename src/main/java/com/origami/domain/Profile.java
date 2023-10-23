@@ -1,6 +1,5 @@
 package com.origami.domain;
 
-import com.origami.domain.enumeration.IfType;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -145,7 +144,7 @@ public class Profile implements Serializable {
     private Boolean ifGuests;
 
     @Column(name = "if_other_4")
-    private IfType ifOther4;
+    private Boolean ifOther4;
 
     @Column(name = "if_photo_grave")
     private Boolean ifPhotoGrave;
@@ -160,35 +159,35 @@ public class Profile implements Serializable {
     private String friendMail;
 
     @Column(name = "if_farewell_letter")
-    private IfType ifFarewellLetter;
+    private Boolean ifFarewellLetter;
 
     @Column(name = "if_video_speech")
-    private IfType ifVideoSpeech;
+    private Boolean ifVideoSpeech;
 
     @Column(name = "if_testament")
-    private IfType ifTestament;
+    private Boolean ifTestament;
 
-    public IfType getIfFarewellLetter() {
+    public Boolean getIfFarewellLetter() {
         return ifFarewellLetter;
     }
 
-    public void setIfFarewellLetter(IfType ifFarewellLetter) {
+    public void setIfFarewellLetter(Boolean ifFarewellLetter) {
         this.ifFarewellLetter = ifFarewellLetter;
     }
 
-    public IfType getIfVideoSpeech() {
+    public Boolean getIfVideoSpeech() {
         return ifVideoSpeech;
     }
 
-    public void setIfVideoSpeech(IfType ifVideoSpeech) {
+    public void setIfVideoSpeech(Boolean ifVideoSpeech) {
         this.ifVideoSpeech = ifVideoSpeech;
     }
 
-    public IfType getIfTestament() {
+    public Boolean getIfTestament() {
         return ifTestament;
     }
 
-    public void setIfTestament(IfType ifTestament) {
+    public void setIfTestament(Boolean ifTestament) {
         this.ifTestament = ifTestament;
     }
 
@@ -200,11 +199,11 @@ public class Profile implements Serializable {
         this.friendMail = friendMail;
     }
 
-    public IfType getIfOther4() {
+    public Boolean getIfOther4() {
         return ifOther4;
     }
 
-    public void setIfOther4(IfType ifOther4) {
+    public void setIfOther4(Boolean ifOther4) {
         this.ifOther4 = ifOther4;
     }
 

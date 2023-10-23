@@ -102,10 +102,8 @@ public class ProfileResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/profiles/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Profile> partialUpdateProfile(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Profile profile
-    ) throws URISyntaxException {
+    public Profile partialUpdateProfile(@PathVariable(value = "id", required = false) final Long id, @RequestBody Profile profile)
+        throws URISyntaxException {
         log.debug("REST request to partial update Profile partially : {}, {}", id, profile);
         if (profile.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -133,6 +131,9 @@ public class ProfileResource {
                 if (profile.getBurialMethod() != null) {
                     existingProfile.setBurialMethod(profile.getBurialMethod());
                 }
+                if (profile.getBurialPlace() != null) {
+                    existingProfile.setBurialPlace(profile.getBurialPlace());
+                }
                 if (profile.getClothes() != null) {
                     existingProfile.setClothes(profile.getClothes());
                 }
@@ -147,6 +148,15 @@ public class ProfileResource {
                 }
                 if (profile.getSpotify() != null) {
                     existingProfile.setSpotify(profile.getSpotify());
+                }
+                if (profile.getIfGuests() != null) {
+                    existingProfile.setIfGuests(profile.getIfGuests());
+                }
+                if (profile.getIfGraveInscription() != null) {
+                    existingProfile.setIfGraveInscription(profile.getIfGraveInscription());
+                }
+                if (profile.getOpenCoffin() != null) {
+                    existingProfile.setOpenCoffin(profile.getOpenCoffin());
                 }
                 if (profile.getGuests() != null) {
                     existingProfile.setGuests(profile.getGuests());
@@ -172,6 +182,9 @@ public class ProfileResource {
                 if (profile.getFarewellLetter() != null) {
                     existingProfile.setFarewellLetter(profile.getFarewellLetter());
                 }
+                if (profile.getFarewellReader() != null) {
+                    existingProfile.setFarewellReader(profile.getFarewellReader());
+                }
                 if (profile.getSpeech() != null) {
                     existingProfile.setSpeech(profile.getSpeech());
                 }
@@ -190,15 +203,38 @@ public class ProfileResource {
                 if (profile.getCodeQR() != null) {
                     existingProfile.setCodeQR(profile.getCodeQR());
                 }
+                if (profile.getIfOther4() != null) {
+                    existingProfile.setIfOther4(profile.getIfOther4());
+                }
+                if (profile.getIfTestament() != null) {
+                    existingProfile.setIfTestament(profile.getIfTestament());
+                }
+                if (profile.getIfVideoSpeech() != null) {
+                    existingProfile.setIfVideoSpeech(profile.getIfVideoSpeech());
+                }
+                if (profile.getIfFarewellLetter() != null) {
+                    existingProfile.setIfFarewellLetter(profile.getIfFarewellLetter());
+                }
+                if (profile.getMusicType() != null) {
+                    existingProfile.setMusicType(profile.getMusicType());
+                }
+                if (profile.getBurialType() != null) {
+                    existingProfile.setBurialType(profile.getBurialType());
+                }
+                if (profile.getFarewellReader() != null) {
+                    existingProfile.setFarewellReader(profile.getFarewellReader());
+                }
 
                 return existingProfile;
             })
             .map(profileRepository::save);
 
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, profile.getId().toString())
-        );
+        //        return ResponseUtil.wrapOrNotFound(
+        //
+        //            result.isPresent() ? result.get() : result;
+        //            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, profile.getId().toString())
+        //        );
+        return result.get();
     }
 
     /**

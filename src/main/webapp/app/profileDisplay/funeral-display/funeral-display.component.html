@@ -1,34 +1,37 @@
 <h2 class="title-body">My funeral</h2>
 
 <div class="mb-3 nb-theme-default">
-  <div class="value">
-    {{ account.flowers ? 'For your last day you want to have this type of flower ' + account.ifFlowers : "You dont wont't any flowrs" }}
+  <div class="value flowers">
+    {{ account.flowers ? 'For your last day you want to have this type of flower ' + account.ifFlowers : "You dont
+    wont't any flowrs" }}
   </div>
 </div>
 
 <div class="mb-3">
-  <div class="value">You want your farewell ceremony to take place in/at {{ account.placeOfCeremony }}</div>
+  <div class="value" id="placeOfCeremony">You want your farewell ceremony to take place in/at {{ account.placeOfCeremony }}</div>
 </div>
 <div class="mb-3" *ngIf="account.musicType === 'playlist'">
-  <div class="value">You want your favorite playlist to be played on your ceremony, here's link to your playlist {{ account.spotify }}</div>
+  <div class="value" id="playlist">
+    You want your favorite playlist to be played on your ceremony, here's link to your playlist {{ account.spotify }}
+  </div>
 </div>
 <div class="mb-3" *ngIf="account.musicType === 'live'">
-  <div class="value">You want your favorite band to be play on your ceremony, which is {{ account.spotify }}</div>
+  <div class="value" id="live">You want your favorite band to be play on your ceremony, which is {{ account.spotify }}</div>
 </div>
 <div class="mb-3" *ngIf="account.musicType === 'noMusic'">
-  <div class="value">You want your ceremony to be silent, therefore no music</div>
+  <div class="value" id="noMusic">You want your ceremony to be silent, therefore no music</div>
 </div>
 <div class="mb-3" *ngIf="account.musicType === 'other'">
-  <div class="value">You have your own idea for music here it is {{ account.spotify }}</div>
+  <div class="value" id="otherMusic">You have your own idea for music here it is {{ account.spotify }}</div>
 </div>
 <div class="mb-3">
-  <div class="value">{{ account.ifGuests ? 'This is your list of guests' : "You don't want any guests" }}</div>
+  <div class="value" id="guests">{{ account.ifGuests ? 'This is your list of guests' : "You don't want any guests" }}</div>
 </div>
 <div *ngIf="account.ifGuests">
   <div class="mb-3">
-    <div class="value">People you would like to invite {{ account.guests }}</div>
+    <div class="value" id="invitedGuests">People you would like to invite {{ account.guests }}</div>
   </div>
   <div class="mb-3">
-    <div class="value">Those who you don't want to invite {{ account.notInvited }}</div>
+    <div class="value" id="notInvited">Those who you don't want to invite {{ account.notInvited }}</div>
   </div>
 </div>

@@ -8,6 +8,18 @@
       <input class="radio" type="radio" name="ifFarewellLetter" formControlName="ifFarewellLetter" [value]="false" />
     </div>
   </div>
+  <div *ngIf="profileForm4.controls['ifFarewellLetter'].value === true">
+    <h1 class="stepLabel mt-5 mb-4">Who will read it?</h1>
+    <input
+      type="text"
+      placeholder="{{ 'Your best friend?' }}"
+      class="profileForm-input"
+      id="farewellReader"
+      name="farewellReader"
+      formControlName="farewellReader"
+      data-cy="farewellReader"
+    />
+  </div>
   <!-- <div *ngIf="profileForm4.controls['farewellLetter'].value === true">
     <div class="profileForm-input fileDiv" (click)="fareWellUpload.click()">
       <p class="" *ngIf="!this.files.farewellLetter" style="margin-bottom: 0px">Insert your file</p>

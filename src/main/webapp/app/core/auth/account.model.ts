@@ -22,7 +22,7 @@ export class Account {
     public openCoffin: boolean,
     public videoSpeech: string,
     public testament: string,
-
+    public id: number,
     public other: string,
 
     public activated: boolean,

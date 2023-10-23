@@ -13,7 +13,7 @@
             </not>
         </preConditions>
         <addColumn tableName="profile">
-            <column name="if_testament" type="number">
+            <column name="if_testament" type="boolean">
                 <constraints nullable="true" unique="false"/>
             </column>
         </addColumn>

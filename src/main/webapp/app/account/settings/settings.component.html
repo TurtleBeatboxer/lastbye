@@ -20,7 +20,7 @@
     </div>
     <div class="header-buttons">
       <button class="button-header" type="submit">Save</button>
-      <button class="button-header" (click)="edit()">{{ this.editMode ? 'Save' : 'Edit' }}</button>
+      <button class="button-header" id="editButton" (click)="edit()">{{ this.editMode ? 'Save' : 'Edit' }}</button>
       <button class="button-header" [routerLink]="['/']">Go back</button>
     </div>
   </div>
@@ -64,16 +64,16 @@
   </div>
   <div class="section">
     <jhi-burial-display [account]="this.initialAccount"></jhi-burial-display>
-    <button *ngIf="this.editMode" (click)="editClickBurial()" class="button-header editbtn">Edit</button>
+    <button *ngIf="this.editMode" id="burialEdit" (click)="editClickBurial()" class="button-header editbtn">Edit</button>
   </div>
   <div class="separator"></div>
   <div class="section">
     <jhi-funeral-display [account]="this.initialAccount"></jhi-funeral-display>
-    <button *ngIf="this.editMode" (click)="editClickFuneral()" class="button-header editbtn">Edit</button>
+    <button id="funeralEdit" *ngIf="this.editMode" (click)="editClickFuneral()" class="button-header editbtn">Edit</button>
   </div>
   <div class="separator"></div>
   <div class="section">
     <jhi-last-message-display [account]="this.initialAccount"></jhi-last-message-display>
-    <button *ngIf="this.editMode" (click)="editClickMessage()" class="button-header editbtn">Edit</button>
+    <button id="messageEdit" *ngIf="this.editMode" (click)="editClickMessage()" class="button-header editbtn">Edit</button>
   </div>
 </div>
