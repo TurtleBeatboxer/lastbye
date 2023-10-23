@@ -11,6 +11,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
   styleUrls: ['./tell-us.component.scss'],
 })
 export class TellUsComponent {
+  retrievedImage;
   constructor(
     private router: Router,
     private accountService: AccountService,
@@ -28,6 +29,17 @@ export class TellUsComponent {
   getPicture() {
     this.http.get(this.applicationConfigService.getEndpointFor('api/user/pictures')).subscribe(res => {
       console.log(res);
+      this.retrievedImage = 'data:image/jpeg;base64,' + res;
     });
+  }
+
+  buff(buffer) {
+    var binary = '';
+    var bytes = new Uint8Array(buffer);
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 }

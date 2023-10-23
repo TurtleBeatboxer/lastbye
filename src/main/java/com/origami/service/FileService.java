@@ -12,10 +12,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.nio.file.Paths;
+import java.util.*;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -85,17 +83,21 @@ public class FileService {
         return null;
     }
 
-    public byte[] downloadPublicProfileImage(String publicProfile) throws IOException {
+    public String downloadPublicProfileImage(String publicProfile) throws IOException {
         Optional<Profile> optionalProfile = profileRepository.findProfileByPublicProfileLink(publicProfile);
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
-            Optional<Files> files = filesRepository.findOneByProfileId(profile.getId());
+            Optional<Files> iles = filesRepository.findOneByProfileId(profile.getId());
+            iles.get().getFilePath();
+            byte[] bytes = java.nio.file.Files.readAllBytes(Paths.get(iles.get().getFilePath()));
 
-            if (files.isPresent()) {
-                File file = ResourceUtils.getFile(makePath(files.get()));
+            System.out.println(bytes);
+            if (iles.isPresent()) {
+                File file = ResourceUtils.getFile(makePath(iles.get()));
                 InputStream in = new FileInputStream(file);
+                System.out.println(Arrays.toString(IOUtils.toByteArray(in)));
                 if (in != null) {
-                    return IOUtils.toByteArray(in);
+                    return Base64.getEncoder().encodeToString(bytes);
                 }
             }
         }
