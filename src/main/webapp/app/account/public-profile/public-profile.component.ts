@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { publicProfile } from './public-profile.model';
+import { Account } from 'app/core/auth/account.model';
 
 @Component({
   selector: 'jhi-public-profile',
@@ -13,7 +14,7 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
   private sub: any;
   private id: string;
   // eslint-disable-next-line @typescript-eslint/member-ordering
-  public profile: publicProfile;
+  public profile: Account;
   image: any;
   constructor(
     private router: Router,
@@ -27,7 +28,7 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
       this.id = params['id']; // (+) converts string 'id' to a number
       console.log(this.id);
       this.http.post(this.applicationConfigService.getEndpointFor('/api/profile/get/data'), this.id).subscribe(
-        (res: publicProfile) => {
+        (res: Account) => {
           console.log(res);
           this.profile = res;
         },

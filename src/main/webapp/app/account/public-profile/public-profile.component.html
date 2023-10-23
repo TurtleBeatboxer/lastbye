@@ -1,31 +1,76 @@
-<div class="container" *ngIf="profile">
+<div class="edit">
+  <h2>Here is your profile</h2>
+  <h5>Here are your edits left: {{ this.profile.editsLeft }}</h5>
+  <div class="alert alert-success" jhiTranslate="settings.messages.success">
+    <strong>Settings saved!</strong>
+  </div>
+  <div class="alert alert-danger error"><strong>No edits left</strong> checkout our premium plans. Your changes won't apply</div>
+
   <div class="header">
     <div>
-      <div class="img"><img [src]="image" alt="" /></div>
+      <input type="file" class="file-input" #fileUpload />
+      <div class="img" (click)="fileUpload.click()"></div>
     </div>
     <div class="header-text">
-      <p class="header-paragraph">{{ profile.firstName || 'error' }}</p>
-      <p class="header-paragraph">{{ profile.lastName || 'error' }}</p>
+      <div class="mb-3">
+        <p class="name">{{ this.profile.firstName + ' ' + this.profile.lastName }}</p>
+      </div>
     </div>
     <div class="header-buttons">
-      <button class="button-header">Share</button>
-      <button class="button-header">Edit</button>
-      <button class="button-header pdf">Generate pdf</button>
+      <button class="button-header" type="submit">Save</button>
+
+      <button class="button-header" [routerLink]="['/']">Go back</button>
     </div>
   </div>
-  <br />
-  <h2 class="title-body">My burial</h2>
-  <p class="text">Method: {{ profile.burialMethod || 'error' }}</p>
-  <p class="text">Place: {{ profile.placeOfCeremony || 'error' }}</p>
-  <p class="text">Inscription: {{ profile.graveInscription || 'error' }}</p>
-  <p class="text">Casket: {{ profile.openCoffin || 'error' }}</p>
-  <p class="text">Clothes: {{ profile.clothes || 'error' }}</p>
-  <h2 class="title-body">My funeral</h2>
-  <p class="text">Flowers: {{ profile.flowers || 'error' }}</p>
-  <p class="text">Type of flowers{{ profile.ifFlowers || 'error' }}</p>
-  <p class="text">Obituray: {{ profile.obituary || 'error' }}</p>
-  <p class="text">Place: {{ profile.placeOfCeremony || 'error' }}</p>
-  <p class="text">Music: {{ profile.spotify || 'error' }}</p>
-  <p class="text">Guests: {{ profile.guests || 'error' }}</p>
-  <p class="text">Not invited: {{ profile.notInvited || 'error' }}</p>
+
+  <div class="separator"></div>
+  <div>
+    <div class="section">
+      <h2 class="title-body">Basic Info</h2>
+      <div class="mb-3">
+        <p class="value">Name: {{ this.profile.firstName }}</p>
+      </div>
+      <div class="mb-3">
+        <p class="value">Surname: {{ this.profile.lastName }}</p>
+      </div>
+      <div class="mb-3">
+        <p class="value">Username: {{ this.profile.login }}</p>
+      </div>
+      <div class="mb-3">
+        <p class="value">Birth date: tu będzie data kiedyś może</p>
+      </div>
+    </div>
+    <div class="separator"></div>
+    <div class="section">
+      <h2 class="title-body">Security</h2>
+      <div class="mb-3">
+        <div class="value">Email: {{ this.profile.email }}</div>
+      </div>
+      <div class="mb-3">
+        <div class="value">Phone number: {{ this.profile.prefix + this.profile.phone }}</div>
+      </div>
+      <div class="mb-3">
+        <div class="value">Password: Click here to change your password</div>
+      </div>
+      <div class="mb-3">
+        <div class="value">Ludzie z info: Click here to see your list of relatives</div>
+      </div>
+    </div>
+    <div class="separator"></div>
+  </div>
+  <div class="section">
+    <jhi-burial-display [account]="this.profile"></jhi-burial-display>
+    <button id="burialEdit" class="button-header editbtn">Edit</button>
+  </div>
+  <div class="separator"></div>
+  <div class="section">
+    <jhi-funeral-display [account]="this.profile"></jhi-funeral-display>
+    <button id="funeralEdit" class="button-header editbtn">Edit</button>
+  </div>
+  <div class="separator"></div>
+  <div class="section">
+    <jhi-last-message-display [account]="this.profile"></jhi-last-message-display>
+    <button id="messageEdit" class="button-header editbtn">Edit</button>
+  </div>
 </div>
+<img src="`${this.test}`" alt="dupa" />

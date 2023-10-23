@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { Router } from '@angular/router';
 import { EditEventServiceService } from './edit-event-service.service';
+import { get } from 'cypress/types/lodash';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // const this.initialAccount: Account = {} as Account;
 
@@ -26,6 +28,7 @@ export class SettingsComponent implements OnInit {
   initialAccount: Account = {} as Account;
   edits: number;
   fileName = '';
+  test;
   settingsForm = new FormGroup({
     firstName: new FormControl(this.initialAccount.firstName, {
       nonNullable: true,
@@ -175,13 +178,19 @@ export class SettingsComponent implements OnInit {
     private http: HttpClient,
     private applicationConfigService: ApplicationConfigService,
     private router: Router,
-    private messageService: EditEventServiceService
+    private messageService: EditEventServiceService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
     this.accountService.selectedData$.subscribe(v => {
       v ? (this.initialAccount = v) : new Error('user not found');
     });
+    this.getAllPictures();
+  }
+
+  getAllPictures() {
+    this.http.get(this.applicationConfigService.getEndpointFor('/api/user/pictures')).subscribe(res => {});
   }
 
   onFileSelected(event) {

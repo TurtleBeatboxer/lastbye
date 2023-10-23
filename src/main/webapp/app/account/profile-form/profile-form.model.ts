@@ -45,7 +45,7 @@ export class Relative {
 
 export class Files {
   constructor(
-    public graveProfilePicture: smallFile | null,
+    public burialPicture: smallFile | null,
     public farewellLetter: smallFile | null,
     public videoSpeech: smallFile | null,
     public testament: smallFile | null

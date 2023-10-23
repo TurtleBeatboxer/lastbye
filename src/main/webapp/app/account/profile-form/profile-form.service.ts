@@ -217,8 +217,8 @@ export class ProfileFormService {
     const fileList: FileList | null = target.files;
     if (fileList) {
       switch (target.name) {
-        case 'graveProfilePicture':
-          files.graveProfilePicture = new smallFile(fileList[0], target.name);
+        case 'burialPicture':
+          files.burialPicture = new smallFile(fileList[0], target.name);
           return files;
 
         case 'farewellLetter':

@@ -90,6 +90,7 @@ public class FileService {
         if (optionalProfile.isPresent()) {
             Profile profile = optionalProfile.get();
             Optional<Files> files = filesRepository.findOneByProfileId(profile.getId());
+
             if (files.isPresent()) {
                 File file = ResourceUtils.getFile(makePath(files.get()));
                 InputStream in = new FileInputStream(file);

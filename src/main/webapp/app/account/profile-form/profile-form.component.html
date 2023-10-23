@@ -232,12 +232,12 @@
           </div>
         </div>
         <div *ngIf="profileForm2.controls['ifPhotoGrave'].value === true" class="profileForm-input fileDiv" (click)="fileUpload.click()">
-          <p class="" *ngIf="!this.files.graveProfilePicture" style="margin-bottom: 0px">Insert your file</p>
-          <p *ngIf="this.files.graveProfilePicture" style="margin-bottom: 0px">
-            {{ this.files.graveProfilePicture.file.name }}
+          <p class="" *ngIf="!this.files.burialPicture" style="margin-bottom: 0px">Insert your file</p>
+          <p *ngIf="this.files.burialPicture" style="margin-bottom: 0px">
+            {{ this.files.burialPicture.file.name }}
           </p>
         </div>
-        <input type="file" name="graveProfilePicture" class="file-input" #fileUpload (change)="onFileSelected($event)" />
+        <input type="file" name="burialPicture" class="file-input" #fileUpload (change)="onFileSelected($event)" />
         <div *ngIf="burialType === 'coffin' || profileForm2.controls['burialMethod'].value === 'urn'">
           <h1 class="stepLabel">Open casket?</h1>
           <div class="radioInputs">

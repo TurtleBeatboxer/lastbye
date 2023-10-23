@@ -174,7 +174,7 @@ info:
 # Full reference is available at: https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 files:
-  path: 'C:\Users\mwma\Desktop\zdjecia'
+  path: 'C:\Users\pkury\lastgoodbuyImage'
 jhipster:
   clientApp:
     name: 'lastbyeApp'

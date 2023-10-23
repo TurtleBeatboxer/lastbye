@@ -24,7 +24,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
   otherCremationInput;
   urn;
   relatives: Relative[] = [];
-  files: Files = { graveProfilePicture: null, farewellLetter: null, videoSpeech: null, testament: null };
+  files: Files = { burialPicture: null, farewellLetter: null, videoSpeech: null, testament: null };
   profileForm1 = this.profileFormService.buildForm1();
   profileForm2 = this.profileFormService.buildForm2();
   profileForm3 = this.profileFormService.buildForm3();
@@ -122,7 +122,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
       .subscribe(() => {
         console.error(this.profileForm2.getRawValue());
       });
-    this.profileFormService.savePhoto(this.files.graveProfilePicture);
+    this.profileFormService.savePhoto(this.files.burialPicture);
     this.nbStepper.next();
     window.scroll(0, 0);
   }
