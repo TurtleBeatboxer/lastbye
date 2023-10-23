@@ -87,6 +87,8 @@ public class AccountResource {
 
     @PostMapping("/register/form")
     public HttpStatus registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) throws JsonProcessingException {
+        Optional<User> userOptional = userService.getUserWithAuthorities();
+        userDTO.setUserId(userOptional.get().getId());
         setUserIdIfUserWithThatLoginExists(userDTO);
         if (!profileService.isEditingFinished(userDTO)) {
             if (userDTO.getLevelOfForm() == 0L) {
@@ -108,11 +110,6 @@ public class AccountResource {
         } else {
             return HttpStatus.FORBIDDEN;
         }
-    }
-
-    //Prepared business logic
-    public HttpStatus addListOfRelatives(JSONObject jsonObject) {
-        return HttpStatus.BAD_REQUEST;
     }
 
     @PostMapping("/profile/lifestatus/alive")

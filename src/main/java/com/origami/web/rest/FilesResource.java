@@ -1,15 +1,16 @@
 package com.origami.web.rest;
 
 import com.origami.domain.Files;
+import com.origami.domain.User;
 import com.origami.repository.FilesRepository;
 import com.origami.service.FileService;
+import com.origami.service.UserService;
 import com.origami.service.dto.FileDTO;
 import com.origami.web.rest.errors.BadRequestAlertException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -40,10 +41,12 @@ public class FilesResource {
 
     private final FilesRepository filesRepository;
     private final FileService fileService;
+    private final UserService userService;
 
-    public FilesResource(FilesRepository filesRepository, FileService fileService) {
+    public FilesResource(FilesRepository filesRepository, FileService fileService, UserService userService) {
         this.filesRepository = filesRepository;
         this.fileService = fileService;
+        this.userService = userService;
     }
 
     /**
@@ -64,90 +67,6 @@ public class FilesResource {
             .created(new URI("/api/files/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
-    }
-
-    /**
-     * {@code PUT  /files/:id} : Updates an existing files.
-     *
-     * @param id the id of the files to save.
-     * @param files the files to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated files,
-     * or with status {@code 400 (Bad Request)} if the files is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the files couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PutMapping("/files/{id}")
-    public ResponseEntity<Files> updateFiles(@PathVariable(value = "id", required = false) final Long id, @RequestBody Files files)
-        throws URISyntaxException {
-        log.debug("REST request to update Files : {}, {}", id, files);
-        if (files.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, files.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!filesRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Files result = filesRepository.save(files);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, files.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * {@code PATCH  /files/:id} : Partial updates given fields of an existing files, field will ignore if it is null
-     *
-     * @param id the id of the files to save.
-     * @param files the files to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated files,
-     * or with status {@code 400 (Bad Request)} if the files is not valid,
-     * or with status {@code 404 (Not Found)} if the files is not found,
-     * or with status {@code 500 (Internal Server Error)} if the files couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PatchMapping(value = "/files/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Files> partialUpdateFiles(@PathVariable(value = "id", required = false) final Long id, @RequestBody Files files)
-        throws URISyntaxException {
-        log.debug("REST request to partial update Files partially : {}, {}", id, files);
-        if (files.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, files.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (!filesRepository.existsById(id)) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Optional<Files> result = filesRepository
-            .findById(files.getId())
-            .map(existingFiles -> {
-                if (files.getName() != null) {
-                    existingFiles.setName(files.getName());
-                }
-                if (files.getFileType() != null) {
-                    existingFiles.setFileType(files.getFileType());
-                }
-                if (files.getFormat() != null) {
-                    existingFiles.setFormat(files.getFormat());
-                }
-                if (files.getFilePath() != null) {
-                    existingFiles.setFilePath(files.getFilePath());
-                }
-
-                return existingFiles;
-            })
-            .map(filesRepository::save);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, files.getId().toString())
-        );
     }
 
     /**
@@ -174,30 +93,26 @@ public class FilesResource {
         return ResponseUtil.wrapOrNotFound(files);
     }
 
-    /**
-     * {@code DELETE  /files/:id} : delete the "id" files.
-     *
-     * @param id the id of the files to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
-    @DeleteMapping("/files/{id}")
-    public ResponseEntity<Void> deleteFiles(@PathVariable Long id) {
-        log.debug("REST request to delete Files : {}", id);
-        filesRepository.deleteById(id);
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
-            .build();
+    //Can't dodge using 2 params
+    @PostMapping("/profile/pictures")
+    public ResponseEntity<?> uploadFilesFirstTime(@RequestParam("file") MultipartFile file, @RequestParam("type") String type)
+        throws Exception {
+        Optional<User> userOptional = userService.getUserWithAuthorities();
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImagePDF(new FileDTO(file, type, user.getId())));
+        }
+        return null;
     }
 
-    //Can't dodge using 3 params
-    @PostMapping("/profile/pictures")
-    public ResponseEntity<?> uploadImageToFIleSystem(
-        @RequestParam("file") MultipartFile file,
-        @RequestParam("type") String type,
-        @RequestParam("user") String userId
-    ) throws IOException {
-        return ResponseEntity.status(HttpStatus.OK).body(fileService.uploadImage(new FileDTO(file, type, userId)));
+    @GetMapping("/user/pictures")
+    public ResponseEntity<?> downloadAllUserImages() throws Exception {
+        Optional<User> userOptional = userService.getUserWithAuthorities();
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return fileService.getAllFilesFromUser(user.getId());
+        }
+        return null;
     }
 
     @PostMapping("/profile/publicImage")
