@@ -16,6 +16,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
+import javax.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -385,7 +387,7 @@ public class UserService {
             managedUserVM.setObituary(profile.get().getObituary());
             managedUserVM.setOther(profile.get().getOther());
             managedUserVM.setPhone(profile.get().getPhone());
-            managedUserVM.setOpenCoffin(profile.get().isOpenCoffin());
+            managedUserVM.setOpenCoffin(profile.get().getIsOpenCoffin());
             managedUserVM.setPrefix(profile.get().getPrefix());
             managedUserVM.setPhoto(profile.get().getPhoto());
             managedUserVM.setPlaceOfCeremony(profile.get().getPlaceOfCeremony());

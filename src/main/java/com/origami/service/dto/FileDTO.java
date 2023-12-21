@@ -1,42 +1,16 @@
 package com.origami.service.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FileDTO {
 
     private MultipartFile file;
     private String type;
     private Long userId;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public FileDTO() {}
-
-    public FileDTO(MultipartFile multipartFile, String type, Long userId) {
-        this.file = multipartFile;
-        this.type = type;
-        this.userId = userId;
-    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.origami.domain.enumeration.FileType;
 import java.io.Serializable;
 import javax.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -13,6 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "files")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Data
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Files implements Serializable {
 
@@ -38,110 +40,6 @@ public class Files implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = { "personalities", "files" }, allowSetters = true)
     private Profile profile;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public Files id(Long id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Files name(String name) {
-        this.setName(name);
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public FileType getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(FileType fileType) {
-        this.fileType = fileType;
-    }
-
-    public String getFormat() {
-        return this.format;
-    }
-
-    public Files format(String format) {
-        this.setFormat(format);
-        return this;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
-    public String getFilePath() {
-        return this.filePath;
-    }
-
-    public Files filePath(String filePath) {
-        this.setFilePath(filePath);
-        return this;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public Profile getProfile() {
-        return this.profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
-
-    public Files profile(Profile profile) {
-        this.setProfile(profile);
-        return this;
-    }
-
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Files)) {
-            return false;
-        }
-        return id != null && id.equals(((Files) o).id);
-    }
-
-    @Override
-    public int hashCode() {
-        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
-        return getClass().hashCode();
-    }
-
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "Files{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", type='" + getFileType() + "'" +
-            ", format='" + getFormat() + "'" +
-            ", filePath='" + getFilePath() + "'" +
-            "}";
-    }
 }

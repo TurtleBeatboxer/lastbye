@@ -45,7 +45,7 @@ public class FileService {
         if (profileOptional.isPresent()) {
             Profile profile = profileOptional.get();
             if (
-                !profile.isFinishedEditing() ||
+                !profile.getFinishedEditing() ||
                 profile.getMembershipLevel().equals(MembershipLevel.PREMIUM) ||
                 profile.getMembershipLevel().equals(MembershipLevel.TOP)
             ) {
