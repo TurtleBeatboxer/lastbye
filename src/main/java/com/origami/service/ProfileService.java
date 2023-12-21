@@ -159,7 +159,7 @@ public class ProfileService {
     public Boolean isEditingFinished(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         Profile profile = profileOptional.get();
-        return profile.isFinishedEditing();
+        return profile.getFinishedEditing();
     }
 
     public Boolean updateProfile(ManagedUserVM userDTO) {
@@ -168,7 +168,7 @@ public class ProfileService {
             if (profileOptional.get().getEditsLeft() > 0 && profileOptional.get().getLifeStatus().equals(LifeStatus.ALIVE)) {
                 Profile profile = profileOptional.get();
                 profile.setSpeech(userDTO.getSpeech());
-                profile.placeOfCeremony(userDTO.getPlaceOfCeremony());
+                profile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
                 profile.setFlowers(userDTO.isFlowers());
                 profile.setIfFlowers(userDTO.getIfFlowers());
                 profile.setPurchasedPlace(userDTO.isPurchasedPlace());
@@ -219,7 +219,7 @@ public class ProfileService {
             System.out.println(userDTO.getIsPurchasedOther());
             profile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
             profile.setGraveInscription(userDTO.getGraveInscription());
-            profile.setOpenCoffin(userDTO.isOpenCoffin());
+            profile.setIsOpenCoffin((userDTO.isOpenCoffin()));
             profile.setClothes(userDTO.getClothes());
             profile.setBurialPlace(userDTO.getBurialPlace());
             profile.setBurialType(userDTO.getBurialType());

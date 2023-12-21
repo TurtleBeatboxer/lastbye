@@ -19,6 +19,7 @@ import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.StringUtils;
 import org.h2.util.json.JSONObject;
 import org.slf4j.Logger;
@@ -77,7 +78,7 @@ public class AccountResource {
      */
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+    public void registerAccount(@NotNull @Valid @RequestBody ManagedUserVM managedUserVM) {
         if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
         }
@@ -86,7 +87,7 @@ public class AccountResource {
     }
 
     @PostMapping("/register/form")
-    public HttpStatus registerAccountFormOne(@Valid @RequestBody ManagedUserVM userDTO) throws JsonProcessingException {
+    public HttpStatus registerAccountFormOne(@NotNull @Valid @RequestBody ManagedUserVM userDTO) throws JsonProcessingException {
         Optional<User> userOptional = userService.getUserWithAuthorities();
         userDTO.setUserId(userOptional.get().getId());
         setUserIdIfUserWithThatLoginExists(userDTO);
@@ -113,14 +114,14 @@ public class AccountResource {
     }
 
     @PostMapping("/profile/lifestatus/alive")
-    public void makeUserAliveAgain(@Valid @RequestBody String link) {
+    public void makeUserAliveAgain(@NotNull @Valid @RequestBody String link) {
         LifeStatusChangeDTO lifeStatusChangeDTO = new LifeStatusChangeDTO();
         lifeStatusChangeDTO.setLifeLink(link);
         profileService.updateUserStatusAlive(lifeStatusChangeDTO);
     }
 
     @PostMapping("profile/qr/getQuestion")
-    public ResponseEntity<String> getQuestionFromQRCode(@Valid @RequestBody String codeQR) {
+    public ResponseEntity<String> getQuestionFromQRCode(@NotNull @Valid @RequestBody String codeQR) {
         Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(codeQR);
         if (profileOptional.isPresent()) {
             String question = profileOptional.get().getQuestion();
@@ -130,13 +131,14 @@ public class AccountResource {
     }
 
     @PostMapping("profile/qr/qrDTO")
-    public HttpStatus getProfileFromQRCode(@Valid @RequestBody QRStartProcessDTO qrStartProcessDTO) throws JsonProcessingException {
+    public HttpStatus getProfileFromQRCode(@NotNull @Valid @RequestBody QRStartProcessDTO qrStartProcessDTO)
+        throws JsonProcessingException {
         return profileService.prepareDataForQrCountdown(qrStartProcessDTO);
     }
 
     @PostMapping("/profile/get/data")
     @ResponseStatus(HttpStatus.OK)
-    public PublicProfileDTO getUserData(@Valid @RequestBody String publicId) {
+    public PublicProfileDTO getUserData(@NotNull @Valid @RequestBody String publicId) {
         return profileService.getPublicDataByProfileLink(publicId);
     }
 
@@ -206,7 +208,7 @@ public class AccountResource {
      * @throws RuntimeException          {@code 500 (Internal Server Error)} if the user login wasn't found.
      */
     @PostMapping("/account")
-    public HttpStatus saveAccount(@Valid @RequestBody ManagedUserVM userDTO) {
+    public HttpStatus saveAccount(@NotNull @Valid @RequestBody ManagedUserVM userDTO) {
         String userLogin = SecurityUtils
             .getCurrentUserLogin()
             .orElseThrow(() -> new AccountResourceException("Current user login not found"));
@@ -228,7 +230,7 @@ public class AccountResource {
      * @throws InvalidPasswordException {@code 400 (Bad Request)} if the new password is incorrect.
      */
     @PostMapping(path = "/account/change-password")
-    public void changePassword(@RequestBody PasswordChangeDTO passwordChangeDto) {
+    public void changePassword(@NotNull @RequestBody PasswordChangeDTO passwordChangeDto) {
         if (isPasswordLengthInvalid(passwordChangeDto.getNewPassword())) {
             throw new InvalidPasswordException();
         }
@@ -241,7 +243,7 @@ public class AccountResource {
      * @param mail the mail of the user.
      */
     @PostMapping(path = "/account/reset-password/init")
-    public void requestPasswordReset(@RequestBody String mail) {
+    public void requestPasswordReset(@NotNull @RequestBody String mail) {
         Optional<User> user = userService.requestPasswordReset(mail);
         if (user.isPresent()) {
             mailService.sendPasswordResetMail(user.get());
@@ -260,7 +262,7 @@ public class AccountResource {
      * @throws RuntimeException         {@code 500 (Internal Server Error)} if the password could not be reset.
      */
     @PostMapping(path = "/account/reset-password/finish")
-    public void finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
+    public void finishPasswordReset(@NotNull @RequestBody KeyAndPasswordVM keyAndPassword) {
         if (isPasswordLengthInvalid(keyAndPassword.getNewPassword())) {
             throw new InvalidPasswordException();
         }
