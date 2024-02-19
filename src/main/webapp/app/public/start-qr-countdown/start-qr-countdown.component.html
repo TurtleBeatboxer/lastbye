@@ -1,0 +1,20 @@
+<h1>Recovery Question</h1>
+<p>Hi we are sorry for your loss</p>
+
+<form role="form" [formGroup]="startQr" (ngSubmit)="submit()">
+  <p>Firstly we need to know your email, to verify that ur ok</p>
+  <div class="mb-3">
+    <label for="answer">{{ question || 'Here we should have question' }}</label>
+    <input
+      type="text"
+      class="profileForm-input"
+      id="answer"
+      name="answer"
+      placeholder="Type in the answer for the question"
+      formControlName="answer"
+      data-cy="answer"
+    />
+    <input type="email" class="profileForm-input" id="email" name="email" placeholder="email" formControlName="email" data-cy="email" />
+  </div>
+  <button type="submit">Submit</button>
+</form>
