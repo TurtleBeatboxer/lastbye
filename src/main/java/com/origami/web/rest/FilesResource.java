@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +58,7 @@ public class FilesResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/files")
-    public ResponseEntity<Files> createFiles(@RequestBody Files files) throws URISyntaxException {
+    public ResponseEntity<Files> createFiles(@NotNull @Valid @RequestBody Files files) throws URISyntaxException {
         log.debug("REST request to save Files : {}", files);
         if (files.getId() != null) {
             throw new BadRequestAlertException("A new files cannot already have an ID", ENTITY_NAME, "idexists");
@@ -95,8 +96,10 @@ public class FilesResource {
 
     //Can't dodge using 2 params
     @PostMapping("/profile/pictures")
-    public ResponseEntity<?> uploadFilesFirstTime(@RequestParam("file") MultipartFile file, @RequestParam("type") String type)
-        throws Exception {
+    public ResponseEntity<?> uploadFilesFirstTime(
+        @RequestParam("file") @NotNull MultipartFile file,
+        @RequestParam("type") @NotNull String type
+    ) throws Exception {
         Optional<User> userOptional = userService.getUserWithAuthorities();
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -116,7 +119,7 @@ public class FilesResource {
     }
 
     @PostMapping("/profile/publicImage")
-    public @ResponseBody ResponseEntity<String> getPublicImage(@Valid @RequestBody String publicProfileId)
+    public @ResponseBody ResponseEntity<byte[]> getPublicImage(@NotNull @Valid @RequestBody String publicProfileId)
         throws NullPointerException, IOException {
         return ResponseEntity.status(HttpStatus.OK).body(fileService.downloadPublicProfileImage(publicProfileId));
     }

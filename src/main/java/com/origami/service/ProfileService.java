@@ -86,18 +86,17 @@ public class ProfileService {
     public void qRCountdown() {
         List<Profile> profiles = profileRepository.findAllByLifeStatus(LifeStatus.UNKNOWN);
         for (Profile profile : profiles) {
-            outer:if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) {
-                inner:if (profile.getHoursLeft() == 0) {
-                    DeathMailDTO deathMailDTO = new DeathMailDTO();
-                    deathMailDTO.setUserEmail(prepareMailForDTO(profile.getUserId()));
-                    deathMailDTO.setTempPassword(updateUserPasswordTemp(profile.getUserId()));
-                    deathMailDTO.setFriendEmail(profile.getFriendMail());
-                    profile.setLifeStatus(LifeStatus.DEAD);
-                    profileRepository.save(profile);
-                    System.out.println("final mail");
-                    sendDeathMail(deathMailDTO);
-                    break outer;
-                }
+            if (profile.getHoursLeft() == 0) {
+                DeathMailDTO deathMailDTO = new DeathMailDTO();
+                deathMailDTO.setUserEmail(prepareMailForDTO(profile.getUserId()));
+                deathMailDTO.setTempPassword(updateUserPasswordTemp(profile.getUserId()));
+                deathMailDTO.setFriendEmail(profile.getFriendMail());
+                profile.setLifeStatus(LifeStatus.DEAD);
+                profileRepository.save(profile);
+                System.out.println("final mail");
+                sendDeathMail(deathMailDTO);
+            }
+            if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) {
                 RevivalMailDTO revivalMailDTO = new RevivalMailDTO();
                 revivalMailDTO.setLifeLink(profile.getLifeLink());
                 revivalMailDTO.setUserEmail(prepareMailForDTO(profile.getUserId()));
@@ -122,9 +121,9 @@ public class ProfileService {
         mailService.sendAfterDeadTemporaryPassword(deathMailDTO);
     }
 
-    public HttpStatus updateUserStatusAlive(LifeStatusChangeDTO lifeStatusChangeDTO) {
+    public void updateUserStatusAlive(LifeStatusChangeDTO lifeStatusChangeDTO) {
         String lifeLink = lifeStatusChangeDTO.getLifeLink();
-        if (!lifeLink.isEmpty() && !lifeLink.isBlank() && !lifeLink.equals("")) {
+        if (!lifeLink.isEmpty() && !lifeLink.isBlank()) {
             Optional<Profile> profileOptional = profileRepository.findOneByLifeLink(lifeLink);
             if (profileOptional.isPresent()) {
                 Profile profile = profileOptional.get();
@@ -134,11 +133,9 @@ public class ProfileService {
                     profile.setHoursLeft(null);
                     profileRepository.save(profile);
                     mailService.sendWereGladYoureBack(prepareMailForDTO(profile.getUserId()));
-                    return HttpStatus.OK;
                 }
             }
         }
-        return HttpStatus.BAD_REQUEST;
     }
 
     public void createNewProfile(ManagedUserVM userDTO) {
@@ -159,7 +156,7 @@ public class ProfileService {
     public Boolean isEditingFinished(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         Profile profile = profileOptional.get();
-        return profile.isFinishedEditing();
+        return profile.getFinishedEditing();
     }
 
     public Boolean updateProfile(ManagedUserVM userDTO) {
@@ -168,7 +165,7 @@ public class ProfileService {
             if (profileOptional.get().getEditsLeft() > 0 && profileOptional.get().getLifeStatus().equals(LifeStatus.ALIVE)) {
                 Profile profile = profileOptional.get();
                 profile.setSpeech(userDTO.getSpeech());
-                profile.placeOfCeremony(userDTO.getPlaceOfCeremony());
+                profile.setPlaceOfCeremony(userDTO.getPlaceOfCeremony());
                 profile.setFlowers(userDTO.isFlowers());
                 profile.setIfFlowers(userDTO.getIfFlowers());
                 profile.setPurchasedPlace(userDTO.isPurchasedPlace());
@@ -228,7 +225,7 @@ public class ProfileService {
 
             profile.setIfPurchasedOther(userDTO.getIsPurchasedOther());
             profile.setGraveInscription(userDTO.getGraveInscription());
-            profile.setOpenCoffin(userDTO.isOpenCoffin());
+            profile.setIsOpenCoffin((userDTO.isOpenCoffin()));
             profile.setClothes(userDTO.getClothes());
             profile.setBurialPlace(userDTO.getBurialPlace());
             System.out.println(userDTO.getBurialType());
@@ -320,8 +317,7 @@ public class ProfileService {
 
     private String prepareMailForDTO(Long userID) {
         Optional<User> userOptional = userRepository.findOneById(userID);
-        if (userOptional.isPresent()) return userOptional.get().getEmail();
-        return null;
+        return userOptional.map(User::getEmail).orElse(null);
     }
 
     private boolean isQRValid(String qrCode) {
