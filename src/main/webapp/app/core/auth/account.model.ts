@@ -43,6 +43,7 @@ export class Account {
     public ifTestament: boolean,
     public ifVideoSpeech: boolean,
     public ifFarewellLetter: boolean,
-    public ifOther4: boolean
+    public ifOther4: boolean,
+    public codeQr: string
   ) {}
 }

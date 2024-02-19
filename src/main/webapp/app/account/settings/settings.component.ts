@@ -170,6 +170,7 @@ export class SettingsComponent implements OnInit {
     ifOther4: new FormControl(this.initialAccount.ifOther4, { nonNullable: true }),
     ifGuests: new FormControl(this.initialAccount.ifGuests, { nonNullable: true }),
     id: new FormControl(this.initialAccount.id, { nonNullable: true }),
+    codeQr: new FormControl(this.initialAccount.codeQr, { nonNullable: true }),
   });
 
   constructor(
@@ -190,7 +191,14 @@ export class SettingsComponent implements OnInit {
   }
 
   getAllPictures() {
-    this.http.get(this.applicationConfigService.getEndpointFor('/api/user/pictures')).subscribe(res => {});
+    this.http.get(this.applicationConfigService.getEndpointFor('/api/user/pictures')).subscribe(res => {
+      console.log(res);
+      // const reader = new FileReader();
+      // reader.onload = e => console.log(e);
+      // reader.readAsDataURL(new Blob([res[0]]));
+      let objectURL = 'data:image/jpeg;base64,' + res[0];
+      this.test = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    });
   }
 
   onFileSelected(event) {

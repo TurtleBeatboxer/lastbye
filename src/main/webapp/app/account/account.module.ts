@@ -35,6 +35,8 @@ import { MyLastMessageEditComponent } from './settings/my-last-message-edit/my-l
 import { BurialDisplayComponent } from 'app/profileDisplay/burial-display/burial-display.component';
 import { FuneralDisplayComponent } from 'app/profileDisplay/funeral-display/funeral-display.component';
 import { LastMessageDisplayComponent } from 'app/profileDisplay/last-message-display/last-message-display.component';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { RecoveryQuestionFormComponent } from './recovery-question-form/recovery-question-form.component';
 @NgModule({
   imports: [
     SharedModule,
@@ -47,6 +49,7 @@ import { LastMessageDisplayComponent } from 'app/profileDisplay/last-message-dis
     NbRadioModule,
     NbInputModule,
     NbDatepickerModule.forRoot(),
+    NgxQRCodeModule,
   ],
   declarations: [
     ActivateComponent,
@@ -70,6 +73,7 @@ import { LastMessageDisplayComponent } from 'app/profileDisplay/last-message-dis
     BurialDisplayComponent,
     FuneralDisplayComponent,
     LastMessageDisplayComponent,
+    RecoveryQuestionFormComponent,
   ],
 })
 export class AccountModule {}

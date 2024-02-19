@@ -12,6 +12,8 @@ import { tellUsRoute } from './profile-form/tell-us/tell-us.route';
 import { profileFormPictureRoute } from './profile-form/profile-form-picture/profile-form-pircutre.router';
 
 import { settingChildrenRoute } from './settings/settingChildren.routes';
+import { codeQrRoute } from './codeQR/code-qr/code-qr.route';
+import { recoveryQuestionRoute } from './recovery-question-form/recovery-question-form.route';
 
 const ACCOUNT_ROUTES = [
   activateRoute,
@@ -23,6 +25,8 @@ const ACCOUNT_ROUTES = [
   profileFormRoute,
   profileFormPictureRoute,
   tellUsRoute,
+  codeQrRoute,
+  recoveryQuestionRoute,
   ...settingChildrenRoute,
 ];
 

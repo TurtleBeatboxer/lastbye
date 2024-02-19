@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ApplicationConfig } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
-
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 @Component({
   selector: 'jhi-tell-us',
   templateUrl: './tell-us.component.html',
@@ -12,6 +11,9 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 })
 export class TellUsComponent {
   retrievedImage;
+  qr;
+  elementType = NgxQrcodeElementTypes.URL;
+  correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
   constructor(
     private router: Router,
     private accountService: AccountService,
@@ -26,12 +28,7 @@ export class TellUsComponent {
     }
   }
 
-  getPicture() {
-    this.http.get(this.applicationConfigService.getEndpointFor('api/user/pictures')).subscribe(res => {
-      console.log(res);
-      this.retrievedImage = 'data:image/jpeg;base64,' + res;
-    });
-  }
+  getPicture() {}
 
   buff(buffer) {
     var binary = '';

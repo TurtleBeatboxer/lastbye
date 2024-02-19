@@ -1,1 +1,8 @@
-<p>code-qr works!</p>
+<div>
+  <p>Here it is your codeQr</p>
+
+  <ngx-qrcode id="codeQr" [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="link"></ngx-qrcode>
+</div>
+
+<button (click)="downloadFile()">downloadFile</button>
+<button [routerLink]="['/user/profile']">View your profle</button>

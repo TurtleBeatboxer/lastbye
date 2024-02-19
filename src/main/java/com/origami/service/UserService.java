@@ -388,6 +388,8 @@ public class UserService {
             managedUserVM.setOpenCoffin(profile.get().isOpenCoffin());
             managedUserVM.setPrefix(profile.get().getPrefix());
             managedUserVM.setPhoto(profile.get().getPhoto());
+            managedUserVM.setQuestion(profile.get().getQuestion());
+            managedUserVM.setQuestionAnswer(profile.get().getQuestionAnswer());
             managedUserVM.setPlaceOfCeremony(profile.get().getPlaceOfCeremony());
             managedUserVM.setSpeech(profile.get().getSpeech());
             managedUserVM.setSpotify(profile.get().getSpotify());
@@ -395,6 +397,7 @@ public class UserService {
             managedUserVM.setVideoSpeech(profile.get().getVideoSpeech());
             managedUserVM.setLevelOfForm(profile.get().getLevelOfForm());
             managedUserVM.setEditsLeft(profile.get().getEditsLeft());
+            managedUserVM.setCodeQr(profile.get().getCodeQR());
             managedUserVM.setIfGraveInscription(profile.get().getIfGraveInscription());
             managedUserVM.setBurialPlace(profile.get().getBurialPlace());
             managedUserVM.setBurialType(profile.get().getBurialType());

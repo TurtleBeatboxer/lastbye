@@ -41,9 +41,8 @@ export class PublicProfileComponent implements OnInit, OnDestroy {
         .post(this.applicationConfigService.getEndpointFor('/api/profile/publicImage'), this.id, { responseType: 'blob' })
         .subscribe(res => {
           console.log(res);
-          const reader = new FileReader();
-          reader.onload = e => (this.image = e.target?.result);
-          reader.readAsDataURL(new Blob([res]));
+          let blob = new Blob([res[0]], { type: 'image/png' });
+          let url = window.URL.createObjectURL(blob);
         });
       // In a real app: dispatch action to load the details here.
     });

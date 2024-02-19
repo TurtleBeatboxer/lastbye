@@ -50,6 +50,10 @@ public class ManagedUserVM extends AdminUserDTO {
     private String burialPlace;
     private String farewellReader;
 
+    private String question;
+
+    private String questionAnswer;
+
     private String musicType;
     private String burialType;
     private Boolean ifGraveInscription;
@@ -63,6 +67,32 @@ public class ManagedUserVM extends AdminUserDTO {
     private Boolean ifVideoSpeech;
 
     private Boolean ifTestament;
+
+    private String codeQr;
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getQuestionAnswer() {
+        return questionAnswer;
+    }
+
+    public void setQuestionAnswer(String questionAnswer) {
+        this.questionAnswer = questionAnswer;
+    }
+
+    public String getCodeQr() {
+        return codeQr;
+    }
+
+    public void setCodeQr(String codeQr) {
+        this.codeQr = codeQr;
+    }
 
     public Boolean getIfFarewellLetter() {
         return ifFarewellLetter;

@@ -1,0 +1,26 @@
+<h1>Recovery Question</h1>
+<p>Hi now you need to pass a question which your friend will answer to recover your account</p>
+
+<form role="form" [formGroup]="questionForm" (ngSubmit)="submit()">
+  <div class="mb-3">
+    <input
+      type="text"
+      class="profileForm-input"
+      id="question"
+      name="question"
+      placeholder="Type in the question"
+      formControlName="question"
+      data-cy="question"
+    />
+    <input
+      type="text"
+      class="profileForm-input"
+      id="questionAnswer"
+      name="questionAnswer"
+      placeholder="Type an answer to your question"
+      formControlName="questionAnswer"
+      data-cy="questionAnswer"
+    />
+  </div>
+  <button type="submit">Submit</button>
+</form>

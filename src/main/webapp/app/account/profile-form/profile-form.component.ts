@@ -179,7 +179,7 @@ export class ProfileFormComponent implements AfterViewInit, OnInit {
           console.log(res);
         });
       });
-    this.router.navigate(['./']);
+    this.router.navigate(['./user/recovery'], { skipLocationChange: true });
   }
 
   onFileSelected(event: Event): void {
