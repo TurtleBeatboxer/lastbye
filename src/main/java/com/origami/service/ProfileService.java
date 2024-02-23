@@ -66,6 +66,7 @@ public class ProfileService {
         return HttpStatus.BAD_REQUEST;
     }
 
+    @Transactional
     public void startQRCountdown(LifeStatusChangeDTO lifeStatusChangeDTO) {
         Optional<Profile> profileOptional = profileRepository.findOneByCodeQR(lifeStatusChangeDTO.getCodeQR());
         if (profileOptional.isPresent()) {
