@@ -14,6 +14,7 @@ import com.origami.web.rest.vm.ManagedUserVM;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -87,24 +88,34 @@ public class ProfileService {
         List<Profile> profiles = profileRepository.findAllByLifeStatus(LifeStatus.UNKNOWN);
         for (Profile profile : profiles) {
             if (profile.getHoursLeft() == 0) {
-                DeathMailDTO deathMailDTO = new DeathMailDTO();
-                deathMailDTO.setUserEmail(prepareMailForDTO(profile.getUserId()));
-                deathMailDTO.setTempPassword(updateUserPasswordTemp(profile.getUserId()));
-                deathMailDTO.setFriendEmail(profile.getFriendMail());
-                profile.setLifeStatus(LifeStatus.DEAD);
-                profileRepository.save(profile);
-                System.out.println("final mail");
-                sendDeathMail(deathMailDTO);
+                makeUserDead(profile);
             }
             if (profile.getLifeStatus().equals(LifeStatus.UNKNOWN)) {
-                RevivalMailDTO revivalMailDTO = new RevivalMailDTO();
-                revivalMailDTO.setLifeLink(profile.getLifeLink());
-                revivalMailDTO.setUserEmail(prepareMailForDTO(profile.getUserId()));
-                profile.setHoursLeft(profile.getHoursLeft() - 2);
-                profileRepository.save(profile);
-                mailService.sendRevivalMail(revivalMailDTO);
+                tryToRevive(profile);
             }
         }
+    }
+
+    @Transactional
+    public void tryToRevive(Profile profile) {
+        RevivalMailDTO revivalMailDTO = new RevivalMailDTO();
+        revivalMailDTO.setLifeLink(profile.getLifeLink());
+        revivalMailDTO.setUserEmail(prepareMailForDTO(profile.getUserId()));
+        profile.setHoursLeft(profile.getHoursLeft() - 2);
+        profileRepository.save(profile);
+        mailService.sendRevivalMail(revivalMailDTO);
+    }
+
+    @Transactional
+    public void makeUserDead(Profile profile) {
+        DeathMailDTO deathMailDTO = new DeathMailDTO();
+        deathMailDTO.setUserEmail(prepareMailForDTO(profile.getUserId()));
+        deathMailDTO.setTempPassword(updateUserPasswordTemp(profile.getUserId()));
+        deathMailDTO.setFriendEmail(profile.getFriendMail());
+        profile.setLifeStatus(LifeStatus.DEAD);
+        profileRepository.save(profile);
+        System.out.println("final mail");
+        sendDeathMail(deathMailDTO);
     }
 
     private String updateUserPasswordTemp(Long userId) {
@@ -159,6 +170,7 @@ public class ProfileService {
         return profile.getFinishedEditing();
     }
 
+    @Transactional
     public Boolean updateProfile(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         if (profileOptional.isPresent()) {
@@ -196,6 +208,7 @@ public class ProfileService {
         }
     }
 
+    @Transactional
     public void registerZeroForm(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         if (profileOptional.isPresent()) {
@@ -208,6 +221,7 @@ public class ProfileService {
         }
     }
 
+    @Transactional
     public void registerFirstForm(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         if (profileOptional.isPresent()) {
@@ -227,6 +241,7 @@ public class ProfileService {
         }
     }
 
+    @Transactional
     public void registerSecondForm(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         if (profileOptional.isPresent()) {
@@ -247,6 +262,7 @@ public class ProfileService {
         }
     }
 
+    @Transactional
     public void registerThirdForm(ManagedUserVM userDTO) {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         if (profileOptional.isPresent()) {
@@ -261,6 +277,7 @@ public class ProfileService {
         }
     }
 
+    @Transactional
     public void registerFourthForm(ManagedUserVM userDTO) throws JsonProcessingException {
         Optional<Profile> profileOptional = getProfileByUserID(userDTO.getUserId());
         if (profileOptional.isPresent()) {
